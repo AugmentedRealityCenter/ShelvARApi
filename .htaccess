@@ -1,0 +1,23 @@
+#This htaccess file implements site-based
+# licensing for ShelvAR. Each supported site needs
+# a rule that sets their institution code.
+RewriteEngine On
+
+#Miami University of Ohio
+RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
+RewriteCond %{REMOTE_ADDR} ^172\.25\.5.\.(.*)$ [OR]
+RewriteCond %{REMOTE_ADDR} ^172\.25\.120.\.(.*)$ [OR]
+RewriteCond %{REMOTE_ADDR} ^172\.25\.27\.144$ [OR]
+RewriteCond %{REMOTE_ADDR} ^10\.(.*).\.(.*)\.(.*)$
+RewriteRule (.*) $1?institution=muohio [QSA,L]
+
+#TEST - Brinkman's house
+RewriteCond %{REMOTE_ADDR} ^74\.83\.118\.5.$ [OR]
+RewriteCond %{REMOTE_ADDR} ^74\.215\.173\.188$
+RewriteRule (.*) $1?institution=brinkman [QSA,L]
+
+#Non-licensed users that try to manually add an institution code
+RewriteCond %{QUERY_STRING} institution=(.+)
+RewriteRule ^(.*)$ sorry.php [L]
+
+RewriteRule ^(.*)$ sorry.php [L]

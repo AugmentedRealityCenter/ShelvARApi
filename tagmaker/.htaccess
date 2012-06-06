@@ -1,0 +1,11 @@
+Options +FollowSymlinks -MultiViews
+
+RewriteEngine On
+
+RewriteRule 5160.png 5160.php [PT]
+RewriteRule 5160.pdf 5160PDF.php [PT]
+
+RewriteRule ^([A-Za-z0-9-_]+).nonum.png$ tagmaker.php?tag=$1&type=0&nonum=1 [PT]
+RewriteRule ^([A-Za-z0-9-_]+).png$ tagmaker.php?tag=$1&type=0 [PT]
+RewriteRule ^([A-Za-z0-9-_]+).nonum.svg$ tagmaker.php?tag=$1&type=1&nonum=1 [L,PT]
+RewriteRule ^([A-Za-z0-9-_]+).svg$ tagmaker.php?tag=$1&type=1 [L,PT]

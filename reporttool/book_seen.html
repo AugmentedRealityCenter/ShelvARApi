@@ -1,0 +1,62 @@
+<script type="text/javascript">
+function makeHttpObject() {
+  try {return new XMLHttpRequest();}
+  catch (error) {}
+  try {return new ActiveXObject("Msxml2.XMLHTTP");}
+  catch (error) {}
+  try {return new ActiveXObject("Microsoft.XMLHTTP");}
+  catch (error) {}
+
+  throw new Error("Could not create HTTP request object.");
+}
+
+
+function getGraph(){
+	var call_no=document.getElementById('call_no');
+	var lcjson = '{ "lcNum" : "' + call_no.value + '" }';
+	$.post("lcparse/parse.php", 
+		{ callNumInput: lcjson }, 
+		function(retval) {
+			if(retval.warningFree == true){
+				call_no.style.color="#00cc00";
+			} else if(retval.allow == true){
+				call_no.style.color="#cccc00";
+			} else {
+				call_no.style.color="#cc0000";
+			}
+
+			var lcNum = retval.lcNum;
+
+			FillOutParseResult(doc('book_seen_presult'),retval);
+			doc('book_seen_error').innerHTML = "";
+			if(!retval.warningFree){
+				doc('book_seen_error').innerHTML += DisplayWarnings(retval.arrOfConflicts,retval.originalInput);
+			}
+	
+			if(retval.allow) { 
+				doc('call_no').style.color = good_color;
+		
+				//Set the tag to contain the book's tag, if the call number is valid
+				$.post("lc2bin/LC2B64.php", 
+					{ "LC": JSON.stringify(retval.lcNum) }, 
+					function(ret) {
+						var image=document.getElementById('graph');
+						image.src = "reporttool/book_seen_png.php?book_tag=" + ret.base64;
+					}, "json");
+			} else { 
+				doc('call_no').style.color = error_color;
+				var image=document.getElementById('graph');
+				image.src = "reporttool/book_seen_png.php?book_tag=";
+			}	
+		} , "json");
+}
+
+</script>
+
+<h1>Individual Book History</h1>
+
+<div><b>Step 1:</b> Enter book call number: <input type="text" size="50" onkeyup="getGraph()" onchange="getGraph()" id="call_no"/></div><br />
+<div><b>Step 2:</b> Check results, to make sure we interpreted the call number correctly. Correct any errors.
+<div><table id="book_seen_presult" class="parsed_call"></table><p id="book_seen_error"></p></div>
+</div><br />
+<div ><b>Step 3:</b> View results.<br /><img id="graph" src="reporttool/book_seen_png.php" /></div>
