@@ -30,7 +30,7 @@
    */
 
 function book_seen($book_tag,$start_date,$end_date){
-  include_once "../db_info.php";
+  include "../db_info.php";
   $con = mysql_connect($server,$user,$password);
   if (!$con){
     die('Could not connect: ' . mysql_error());
