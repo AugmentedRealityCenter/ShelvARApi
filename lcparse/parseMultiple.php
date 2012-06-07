@@ -49,7 +49,7 @@ function parseMultipleNums($arrOfNums)
 	global $returnArr;
 	for($i=0; $i < (count($arrOfNums)); $i++)
 	{
-		$returnArr[$i] = parseToJSON($arrOfNums[$i]);
+		$returnArr[$i] = parseToAssocArray($arrOfNums[$i]);
 	}
 	
 	return $returnArr;
