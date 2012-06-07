@@ -361,4 +361,36 @@ function GetTags(){
 			window.open("data:application/pdf," + escape(pdfString));
 		}, "json");
 	*/
+}function GetTags(){
+	var tag_array = new Array();
+	for(i=0; i < num_ids; i++){
+		var tag = doc('num'+i+'_tag');
+		if(tag != null && tag.innerHTML != ""){
+			tag_array[i] = tag.innerHTML;
+		}
+	}
+
+	var pdfString;
+	var pdfForm = document.createElement("form");
+	pdfForm.target = "5160";
+	pdfForm.method = "POST";
+	pdfForm.action = "tagmaker/5160.pdf";
+	
+	pdfInput = document.createElement("input");
+	pdfInput.type = "text";
+	pdfInput.name = "TagList";
+	pdfInput.value = tag_array;
+	pdfForm.appendChild(pdfInput);
+	
+	document.body.appendChild(pdfForm);
+	
+	pdf = window.open("", "5160", "status=0,title=0,height=600,width=800,scrollbars=1");
+	
+	if (pdf){
+		pdfForm.submit();
+	} else {
+		alert('You must allow popups for this pdf to work.');
+	}
+	
+
 }
