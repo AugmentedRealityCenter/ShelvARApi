@@ -75,7 +75,7 @@ for($i = 0; $i < $num_tags; $i++){
   }
 }
 
-$image_logo = imagecreatefrompng('../../ShelvARLogo_Big_Left.png');
+$image_logo = imagecreatefrompng('../ShelvARLogo_Big_Left.png');
 $logo_w = imagesx($image_logo);
 $logo_h = imagesy($image_logo);
 $logo_scale = $logo_w / (0.4*$bottom_margin);
