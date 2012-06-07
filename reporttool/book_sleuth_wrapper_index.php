@@ -3,6 +3,7 @@ include_once("book_seen.php");
 include_once("lc_utils.php");
 
 $JSONin = null;
+$events = array();
 
 if(isset($_POST["callNumInput"])){
 	$JSONin = stripslashes($_POST["callNumInput"]);

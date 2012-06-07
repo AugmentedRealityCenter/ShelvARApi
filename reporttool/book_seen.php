@@ -42,6 +42,8 @@ function book_seen($book_tag,$start_date,$end_date){
     $end_date = date("Y-m-d H:i:s",time());//Current datetime
   }
 
+  $seen_days = array();
+
   //First, build up a list of the neighbors of the book we are looking for
   //TODO: Increase performance, possibly by using COUNT and UNIQUE
   $resource = mysql_query("SELECT * FROM book_pings " . 
