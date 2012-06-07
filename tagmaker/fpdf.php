@@ -882,8 +882,7 @@ function Ln($h=null)
 function Image($file, $x=null, $y=null, $w=0, $h=0, $type='', $link='')
 {
 	// Put an image on the page
-	$fname = $file . mt_rand(1000000,9999999); //HACK TO GET AROUND MULTIPLE IMAGES FOR SHELVAR ONLY ~Mannix 2012/4/23
-	if(!isset($this->images[$fname]))
+	if(!isset($this->images[$file]))
 	{
 		// First use of this image, get info
 		if($type=='')
@@ -901,10 +900,10 @@ function Image($file, $x=null, $y=null, $w=0, $h=0, $type='', $link='')
 			$this->Error('Unsupported image type: '.$type);
 		$info = $this->$mtd($file);
 		$info['i'] = count($this->images)+1;
-		$this->images[$fname] = $info;
+		$this->images[$file] = $info;
 	}
 	else
-		$info = $this->images[$fname];
+		$info = $this->images[$file];
 
 	// Automatic width and height calculation if needed
 	if($w==0 && $h==0)
