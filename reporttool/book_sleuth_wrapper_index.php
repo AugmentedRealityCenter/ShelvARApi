@@ -13,7 +13,7 @@ if($JSONin == null)
     $JSONin = $_GET["book_tag"];
 $seenArr = book_seen($JSONin,0,0);
 
-include_once "../db_info.php";
+include "../db_info.php";
 $con = mysql_connect($server,$user,$password);
   if (!$con){
     die('Could not connect: ' . mysql_error());

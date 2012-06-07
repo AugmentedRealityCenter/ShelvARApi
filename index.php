@@ -187,7 +187,6 @@ $(document).ready(function()
   </li>
   <li><a href="#">Reporting tools</a>
   	<ul class="subnav">
-  		<li><a href="#bookseendiv">Individual Book History</a></li>
         <li><a href="#findbookdiv">Find Book</a></li>
         <li><a href="#booksleuthdiv">Book Sleuth</a></li>
     </ul>
@@ -204,12 +203,6 @@ $(document).ready(function()
     ?>
     </div>
     
-    <div class="view" id="bookseendiv">
-    <?php
-      include_once 'reporttool/book_seen.html';
-    ?>
-    </div>
-      
     <div class="view" id="findbookdiv">
     <?php
       include_once 'reporttool/find_book_user.html';

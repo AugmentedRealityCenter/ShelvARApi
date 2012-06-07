@@ -6,6 +6,7 @@
  *
  * A function set used to convert an LC call number to a binary string.
  * 
+ * Used by: librariantagger.js, book_sleuth
  */
 
 include_once "LC_Converter_lib.php";
