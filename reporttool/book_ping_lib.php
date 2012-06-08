@@ -43,7 +43,7 @@
    * See http://json.org
    */
 
-function do_book_ping($jsoninput){
+    function do_book_ping($jsoninput,$institution=""){
   //TODO should also take $institution as input, and add that to the record in the database
   $decoded = json_decode($jsoninput,true);
   $success = false; //Assume JSON decoding failed.
@@ -118,14 +118,15 @@ function do_book_ping($jsoninput){
     // No guarantee that
     // they are the correct format, though.
     if(!mysql_query("INSERT INTO book_pings (book_tag, book_call, neighbor1_tag, neighbor1_call," .
-		    " neighbor2_tag, neighbor2_call, ping_time) VALUES ('".
+		    " neighbor2_tag, neighbor2_call, ping_time, institution) VALUES ('".
 		    $book_ping_entry["book_tag"] . "', '" .
 		    $book_ping_entry["book_call"] . "', '" .
 		    $book_ping_entry["neighbor1_tag"] . "', '" .
 		    $book_ping_entry["neighbor1_call"] . "', '" .
 		    $book_ping_entry["neighbor2_tag"] . "', '" .
 		    $book_ping_entry["neighbor2_call"] . "', '" .
-		    $book_ping_entry["ping_time"] .
+		    $book_ping_entry["ping_time"] . "', '".
+		    $institution .
 		    "')")){
       Print '<pre>SQL Insert failed' . mysql_error();
       Print '<br />';
