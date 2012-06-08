@@ -16,7 +16,7 @@
 include_once "book_ping_lib.php";
 /** @cond */
 $ret; //!< return value from function call that does most of the work
-$ret = do_book_ping(stripslashes($_POST["jsoninput"]),$_GET["intitution"]);
+$ret = do_book_ping(stripslashes($_POST["jsoninput"]),$_GET["institution"]);
 Print $ret; 
 /** @endcond */  
 ?>
