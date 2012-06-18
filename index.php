@@ -174,7 +174,8 @@ $(document).ready(function()
         Your access to ShelvAR is provided by: <?php
           include_once "institutions.php";
           echo $instnames[$_GET['institution']]; 
-        ?><br/>
+        ?><br />
+        ShelvARWeb version: <?php include 'commitnumber.txt';?><br/>
     </div>
 
 </div>
