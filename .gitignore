@@ -3,3 +3,7 @@
 *~
 
 .DS_Store
+
+#Site specific files not in repo
+site-upload.sh
+commitnumber.txt
