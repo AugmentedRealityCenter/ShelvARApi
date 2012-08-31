@@ -3,6 +3,11 @@ http://dev.shelvar.com/api/book_pings/12345.json
 Use .htaccess to block non-json formats, and to make the 12345 the id to be looked up
 
 If the URL is
+http://dev.sehlvar.com/api/book_pings/count
+just return a count of pings. Optional parameters which limit the search: 
+start_date (default 0), end_date (default infinity), book_tag (default empty)
+
+If the URL is
 http://dev.shelvar.com/api/book_pings/by_tag/12345.json
 Look up all book pings that have the matching book_tag
 
