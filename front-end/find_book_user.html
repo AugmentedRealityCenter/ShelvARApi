@@ -1,5 +1,5 @@
 <?php
-include_once("find_book.php");
+include_once("../api/book_pings/find_book.php");
 ?>
 <script type="text/javascript">
 function makeHttpObject() {
@@ -31,7 +31,7 @@ function do_search()
 
 	compile_return_find_book.innerHTML = 'HttpObject made';
 
-	request.open("POST","reporttool/find_book_wrapper.php",false);
+	request.open("POST","api/book_pings/find_book_wrapper.php",false);
 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
         request.setRequestHeader("Content-Length",lcjson.length);
 	request.send(lcjson);

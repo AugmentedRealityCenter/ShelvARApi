@@ -48,13 +48,13 @@
                                 $.post("lc2bin/LC2B64.php", 
                                         { "LC": JSON.stringify(retval.lcNum) }, 
                                         function(retLC) {
-                                            $.post("reporttool/book_sleuth_wrapper_index.php", 
+                                            $.post("front-end/book_sleuth_wrapper_index.php", 
                                                         { "callNumInput": JSON.stringify(retLC.base64) }, 
                                                         function(retBS) {
 															start_time = retBS.events[0].start;
 															BSonLoad();
                                                         }, "json");
-                                            url = "reporttool/book_sleuth_wrapper_index.php?book_tag=" + retLC.base64;
+                                            url = "front-end/book_sleuth_wrapper_index.php?book_tag=" + retLC.base64;
                                             BSonLoad();
                                             }, "json");
                         }
@@ -108,7 +108,7 @@
                     bandInfos[1].highlight = true;
                     tl = Timeline.create(document.getElementById("timeline"), bandInfos);
                     if(url == null)
-                        Timeline.loadJSON("reporttool/test.json", function(json, url) { eventSource.loadJSON(json, url); });
+                        Timeline.loadJSON("front-end/test.json", function(json, url) { eventSource.loadJSON(json, url); });
                     else Timeline.loadJSON(url, function(json, url) { eventSource.loadJSON(json, url); });
             }
 
