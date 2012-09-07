@@ -1,5 +1,5 @@
 <?php
-include_once("book_seen.php");
+include_once("../api/book_pings/book_seen.php");
 include_once("lc_utils.php");
 
 $JSONin = null;
