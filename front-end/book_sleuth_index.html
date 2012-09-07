@@ -1,0 +1,142 @@
+<script type="text/javascript">
+    var seenArr;
+    var url;
+    var start_time;
+    function makeHttpObject() {
+        try {return new XMLHttpRequest();}
+        catch (error) {}
+        try {return new ActiveXObject("Msxml2.XMLHTTP");}
+        catch (error) {}
+        try {return new ActiveXObject("Microsoft.XMLHTTP");}
+        catch (error) {}
+
+        throw new Error("Could not create HTTP request object.");
+    }
+
+    function createTimeline(){
+        url = null;
+        start_time = null;
+        var call_no=document.getElementById('BScall_no');
+		if(document.getElementById('BScall_no').value.length > 0)
+			doc("call_number_entered").innerHTML = "Currently showing results for " + document.getElementById('BScall_no').value;
+			else doc("call_number_entered").innerHTML = "No call number entered.";
+        var lcjson = '{ "lcNum" : "' + call_no.value + '" }';
+
+        $.post("lcparse/parse.php", 
+                { callNumInput: lcjson }, 
+                function(retval) {
+                        if(retval.warningFree == true){
+                                call_no.style.color="#00cc00";
+                        } else if(retval.allow == true){
+                                call_no.style.color="#cccc00";
+                        } else {
+                                call_no.style.color="#cc0000";
+                                url = null;
+                                BSonLoad();
+                        }
+
+                        var lcNum = retval.lcNum;
+    
+                        FillOutParseResult(doc('book_sleuth_presult'),retval);
+                        doc('book_sleuth_error').innerHTML = "";
+                        if(!retval.warningFree){
+                                doc('book_sleuth_error').innerHTML += DisplayWarnings(retval.arrOfConflicts,retval.originalInput);
+                        }
+
+                        if(retval.allow) { 
+                                //doc('call_no').style.color = good_color;
+                                $.post("lc2bin/LC2B64.php", 
+                                        { "LC": JSON.stringify(retval.lcNum) }, 
+                                        function(retLC) {
+                                            $.post("reporttool/book_sleuth_wrapper_index.php", 
+                                                        { "callNumInput": JSON.stringify(retLC.base64) }, 
+                                                        function(retBS) {
+															start_time = retBS.events[0].start;
+															BSonLoad();
+                                                        }, "json");
+                                            url = "reporttool/book_sleuth_wrapper_index.php?book_tag=" + retLC.base64;
+                                            BSonLoad();
+                                            }, "json");
+                        }
+
+                } , "json");
+    }
+
+            var tl;
+            function BSonLoad() {
+            var eventSource = new Timeline.DefaultEventSource(0);
+            if(start_time == null)
+            {
+                    var bandInfos = [
+                            Timeline.createBandInfo({
+                                    eventSource:    eventSource,
+                                    date:           "Oct 11 2011 00:00:00 GMT",
+                                    width:          "70%", 
+                                    intervalUnit:   Timeline.DateTime.WEEK, 
+                                    intervalPixels: 100
+                            }),
+                            Timeline.createBandInfo({
+                                    overview:       true,
+                                    eventSource:    eventSource,
+                                    date:           "Oct 11 2011 00:00:00 GMT",
+                                    width:          "30%", 
+                                    intervalUnit:   Timeline.DateTime.MONTH, 
+                                    intervalPixels: 200
+                            })
+                    ];
+            }
+            else {
+                var bandInfos = [
+                            Timeline.createBandInfo({
+                                    eventSource:    eventSource,
+                                    date:           start_time,
+                                    width:          "70%", 
+                                    intervalUnit:   Timeline.DateTime.WEEK, 
+                                    intervalPixels: 100
+                            }),
+                            Timeline.createBandInfo({
+                                    overview:       true,
+                                    eventSource:    eventSource,
+                                    date:           start_time,
+                                    width:          "30%", 
+                                    intervalUnit:   Timeline.DateTime.MONTH, 
+                                    intervalPixels: 200
+                            })
+                    ];
+            }
+                    bandInfos[1].syncWith = 0;
+                    bandInfos[1].highlight = true;
+                    tl = Timeline.create(document.getElementById("timeline"), bandInfos);
+                    if(url == null)
+                        Timeline.loadJSON("reporttool/test.json", function(json, url) { eventSource.loadJSON(json, url); });
+                    else Timeline.loadJSON(url, function(json, url) { eventSource.loadJSON(json, url); });
+            }
+
+            var resizeTimerID = null;
+            function BSonResize() {
+                    if (resizeTimerID == null) {
+                            resizeTimerID = window.setTimeout(function() {
+                                    resizeTimerID = null;
+                                    tl.layout();
+                            }, 500);
+                    }
+            }
+			
+			//Timeline.OriginalEventPainter.prototype._showBubble = function(x, y, evt) {
+				//alert (evt.getDescription ());
+			//}
+</script>
+<h1>Book Sleuth</h1>
+
+<div><b>Step 1:</b> Enter book call number: <input type="text" size="50" onkeyup="createTimeline()" onchange="createTimeline()" id="BScall_no"/></div><br />
+<div><b>Step 2:</b> Check results, to make sure we interpreted the call number correctly. Correct any errors.
+        <div><table id="book_sleuth_presult" class="parsed_call"></table><p id="book_sleuth_error"></p></div>
+</div><br />
+<div ><b>Step 3:</b> View results.<br /></div>
+<div id="call_number_entered"></div>
+    <div id="timeline" style="height: 150px; border: 1px solid #aaa"></div>
+<noscript>
+        This page uses Javascript to show you a Timeline. Please enable Javascript in your browser to see the full page. Thank you.
+</noscript>
+</div>
+</div>
