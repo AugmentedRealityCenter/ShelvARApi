@@ -2,7 +2,6 @@
 
 *.php text
 *.html text
-*.htm text
 *.md text
 *.js text
 *.json text
