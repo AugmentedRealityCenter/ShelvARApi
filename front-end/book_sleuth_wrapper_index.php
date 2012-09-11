@@ -34,7 +34,7 @@ foreach ($seenArr as $key => $curItem) {
         $curcall = mysql_fetch_assoc($resource);
         $curcall = $curcall["book_call"];
         
-        $tempArr['icon'] = '../timeline/timeline_js/images/dull-green-circle.png';
+        $tempArr['icon'] = 'timeline/timeline_js/images/dull-green-circle.png';
         $resource = mysql_query("SELECT * FROM book_pings " . 
                             "WHERE book_tag = '" . $JSONin . "'" .
                             "AND ping_time <= date_add('" . $key . "', interval 1 day)" .
@@ -62,16 +62,16 @@ foreach ($seenArr as $key => $curItem) {
 			if(!lessthan($current_book_tag, $neighbor1_tag) &&
 				(lessthan($current_book_tag, $neighbor2_tag)) || strlen($neighbor2_tag) == 0)
 				{
-					$tempArr['icon'] = '../timeline/timeline_js/images/dull-green-circle.png';
+					$tempArr['icon'] = 'timeline/timeline_js/images/dull-green-circle.png';
 				}
             
-            else $tempArr['icon'] = '../timeline/timeline_js/images/gray-circle.png';
+            else $tempArr['icon'] = 'timeline/timeline_js/images/gray-circle.png';
 
             $tempArr['description'] = 'left = ' . $neighbor1_call . '<br><br> right = ' . $neighbor2_call;
         }
     }
     else {
-        $tempArr['icon'] = '../timeline/timeline_js/images/dull-red-circle.png';
+        $tempArr['icon'] = 'timeline/timeline_js/images/dull-red-circle.png';
         $tempArr['description'] = "The book was not found on the shelf today.";
     }
     $events[] = $tempArr;

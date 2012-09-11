@@ -159,7 +159,7 @@ $(document).ready(function()
 
 </script>
 
-<script src="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" type="text/javascript"></script>
+<script src="front-end/timeline/timeline_js/timeline-api.js?bundle=true" type="text/javascript"></script>
 <script>SimileAjax.History.enabled = false;</script>
 </head>
 <body onload="BSonLoad();" onresize="BSonResize();">
