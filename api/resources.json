@@ -1,0 +1,14 @@
+{
+	"apiVersion":"0.2",
+	"swaggerVersion":"1.1",
+	"basePath":"http://24.164.78.127/dev/ShelvARWeb/api",
+	"apis":[
+		{
+			"path":"/test.{format}",
+			"description":"Operations about pets"
+		},
+		{
+			"path":"/book_ping.{format}",
+			"description":"Operations on call numbers and database records of them"
+		}]
+}
