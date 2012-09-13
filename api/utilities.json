@@ -4,7 +4,7 @@
 	"basePath":"http://24.164.78.127/dev/ShelvARWeb/api",
 	"resourcePath":"/utilities",
 	"apis":[{
-				"path":"/utilities/parse",
+				"path":"/utilities.{format}/parse",
 				"description":"Parses LC Call Numvers",
 				"operations":
 				[{
