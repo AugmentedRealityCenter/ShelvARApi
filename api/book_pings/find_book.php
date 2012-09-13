@@ -20,7 +20,7 @@
 */
  function find_book($lcNum)
  {
-   include_once "../db_info.php";
+   include_once "../../db_info.php";
    $con = mysql_connect($server,$user,$password);
 	if (!$con){
 		Print "COULDNT CONNECT";

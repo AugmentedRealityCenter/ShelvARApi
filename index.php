@@ -159,7 +159,7 @@ $(document).ready(function()
 
 </script>
 
-<script src="http://static.simile.mit.edu/timeline/api-2.3.0/timeline-api.js?bundle=true" type="text/javascript"></script>
+<script src="front-end/timeline/timeline_js/timeline-api.js?bundle=true" type="text/javascript"></script>
 <script>SimileAjax.History.enabled = false;</script>
 </head>
 <body onload="BSonLoad();" onresize="BSonResize();">
@@ -206,13 +206,13 @@ $(document).ready(function()
     
     <div class="view" id="findbookdiv">
     <?php
-      include_once 'reporttool/find_book_user.html';
+      include_once 'front-end/find_book_user.html';
     ?>
     </div>
     
     <div class="view" id="booksleuthdiv">
     <?php
-      include_once 'reporttool/book_sleuth_index.html';
+      include_once 'front-end/book_sleuth_index.html';
     ?>
     </div>
     
