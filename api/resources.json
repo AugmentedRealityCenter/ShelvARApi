@@ -10,9 +10,5 @@
 		{
 			"path":"/book_ping.{format}",
 			"description":"Operations on call numbers and database records of them"
-		},
-		{
-			"path:"/test2.{format}",
-			"description":"Operations on call numbers that do not touch the database"
 		}]
 }
