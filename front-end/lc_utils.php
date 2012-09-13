@@ -13,7 +13,7 @@ include_once "../tagmaker/base64_lib.php";
 
 
  /**
- * Compiles composer into a single phar file
+ * compares multiple arrays and returns either true or false
  *
  * @throws \RuntimeException
  *
