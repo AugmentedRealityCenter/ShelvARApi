@@ -10,7 +10,11 @@
 				[{
 					"httpMethod":"GET",
 					"summary":"Parse LC Call Number",
-					"notes":"Parse an LC Call Number. If it is valid, the utility will return a base 64 represntation of the call nubmer. A full detailed list of all warnings and erorrs that will be thrown, can be found here. Full details on how a call number should be formatted can be found here.",
+					"notes":"Parse an LC Call Number. If it is valid, the utility will return a base 64 represntation of the call number. 
+					
+					A full detailed list of all warnings and erorrs that will be thrown, can be found here. 
+					
+					Full details on how a call number should be formatted can be found here.",
 					"responseClass":"void",
 					"nickname":"parseCallNumber",
 					"parameters":
