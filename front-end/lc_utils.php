@@ -1,7 +1,26 @@
 <?php
+/**
+ *@Swaggerresource(
+ *     basePath=".../api",
+ *     swaggerVersion="1.0",
+ *     apiVersion="1.0"
+ * )
+ *
+ */
+ 
 include_once "../lc2bin/LC_Converter_lib.php";
 include_once "../tagmaker/base64_lib.php";
 
+
+ /**
+ * Compiles composer into a single phar file
+ *
+ * @throws \RuntimeException
+ *
+ * @param  string, string
+ *
+ * @return boolean array size
+ */
 function lessthan($base641, $base642)
 {
 	$lc1 = array('LC'=>Bin2LC(base642bin($base641)));
