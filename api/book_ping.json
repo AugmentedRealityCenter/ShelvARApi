@@ -54,6 +54,14 @@
 					"required":true,
 					"allowMultiple":false,
 					"dataType":"string"
+				},
+				{
+					"name":"end_date",
+					"description":"CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.",
+					"paramType":"path",
+					"required":true,
+					"allowMultiple":false,
+					"dataType":"string"
 				}],
 				"errorResponses":[{
 					"code":400,
