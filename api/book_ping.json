@@ -30,7 +30,7 @@
 						"reason":"Pet not found"
 					}]
 				}]
-			}
+			},
 			{
 				"path":"/book_ping/search",
 				"description":"Operations on LC numbers",
