@@ -47,12 +47,12 @@
 					"allowMultiple":false,
 					"dataType":"string"},
 					{
-						"name":"book_tag2",
+						"name":"book_tag",
 						"description":"VARCHAR(40), base-64 representation of the binary tag",
 						"paramType":"path",
 						"required":true,
 						"allowMultiple":false,
-						"dataType":"string"},
+						"dataType":"string"
 					}],
 				"errorResponses":[{
 					"code":400,
