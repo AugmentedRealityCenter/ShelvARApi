@@ -31,7 +31,7 @@
 					}]
 				}]
 			},
-			{"path":"/book_ping.json/search",
+			{"path":"/book_ping.{format}/search",
 			"description":"Search for call numbers",
 			"operations":[
 				{"httpMethod":"GET",
