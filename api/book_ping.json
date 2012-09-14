@@ -45,7 +45,15 @@
 					"paramType":"path",
 					"required":true,
 					"allowMultiple":false,
-					"dataType":"string"}],
+					"dataType":"string"},
+					{
+						"name":"book_tag2",
+						"description":"VARCHAR(40), base-64 representation of the binary tag",
+						"paramType":"path",
+						"required":true,
+						"allowMultiple":false,
+						"dataType":"string"},
+					}],
 				"errorResponses":[{
 					"code":400,
 					"reason":"Invalid status value"}]}]},
