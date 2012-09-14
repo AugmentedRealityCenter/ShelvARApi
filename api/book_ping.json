@@ -31,32 +31,52 @@
 					}]
 				}]
 			},
-			{
-				"path":"/book_ping/search",
-				"description":"Operations on LC numbers",
-				"operations":
-				[{
-					"httpMethod":"GET",
-					"summary":"Find book by ID",
-					"notes":"Returns a time based on ID",
-					"responseClass":"void",
-					"nickname":"searchBook",
-					"parameters":
-					[{
-						"name":"lc_num",
-						"description":"This String is the call number of the book that is to be queried within the database. The format of this call number should be of a specific type noted below, to ensure a correct search. The value of a call_number can usually be found on the spine of a book within the library.",
-						"paramType":"path",
-						"required":true,
-						"allowMultiple":false,
-						"dataType":"string"
-					}],
-					"errorResponses":
-					[{
-						"code":400,
-						"reason":"Invalid ID supplied"}
-					}]
-				}]
-			}],
+			{"path":"/pet.{format}/findByStatus",
+			"description":"Operations about pets",
+			"operations":[
+				{"httpMethod":"GET",
+				"summary":"Finds Pets by status",
+				"notes":"Multiple status values can be provided with comma seperated strings",
+				"responseClass":"List[Pet]",
+				"nickname":"findPetsByStatus",
+				"parameters":[{
+					"name":"status",
+					"description":"Status values that need to be considered for filter",
+					"paramType":"query",
+					"defaultValue":"available",
+					"allowableValues":
+						{"valueType":"LIST",
+						"values":[
+							"available",
+							"pending",
+							"sold"],
+						"valueType":
+							"LIST"},
+					"required":true,
+					"allowMultiple":true,
+					"dataType":"string"}],
+				"errorResponses":[{
+					"code":400,
+					"reason":"Invalid status value"}]}]},
+			{"path":"/test.{format}/findByTags",
+			"description":"Operations about pets",
+			"operations":[{
+			"httpMethod":"GET",
+			"summary":"Finds Pets by tags",
+			"notes":"Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.",
+			"deprecated":true,
+			"responseClass":"List[Pet]",
+			"nickname":"findPetsByTags",
+			"parameters":[{
+				"name":"tags",
+				"description":"Tags to filter by",
+				"paramType":"query",
+				"required":true,
+				"allowMultiple":true,
+				"dataType":"string"}],
+			"errorResponses":[{
+				"code":400,
+				"reason":"Invalid tag value"}]}]}],
 	"models":
 	{
 		"Category":
