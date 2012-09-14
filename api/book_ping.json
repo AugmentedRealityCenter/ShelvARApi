@@ -50,7 +50,7 @@
 				{
 					"name":"start_date",
 					"description":"CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.",
-					"paramType":"path",
+					"paramType":"query",
 					"required":false,
 					"allowMultiple":false,
 					"dataType":"string"
@@ -58,7 +58,7 @@
 				{
 					"name":"end_date",
 					"description":"CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.",
-					"paramType":"path",
+					"paramType":"query",
 					"required":false,
 					"allowMultiple":false,
 					"dataType":"string"
