@@ -30,6 +30,32 @@
 						"reason":"Pet not found"
 					}]
 				}]
+			}
+			{
+				"path":"/book_ping/search",
+				"description":"Operations on LC numbers",
+				"operations":
+				[{
+					"httpMethod":"GET",
+					"summary":"Find book by ID",
+					"notes":"Returns a time based on ID",
+					"responseClass":"void",
+					"nickname":"findBookLastSeen",
+					"parameters":
+					[{
+						"name":"lc_num",
+						"description":"This String is the call number of the book that is to be queried within the database. The format of this call number should be of a specific type noted below, to ensure a correct search. The value of a call_number can usually be found on the spine of a book within the library.",
+						"paramType":"path",
+						"required":true,
+						"allowMultiple":false,
+						"dataType":"string"
+					}],
+					"errorResponses":
+					[{
+						"code":400,
+						"reason":"Invalid ID supplied"}
+					}]
+				}]
 			}],
 	"models":
 	{
