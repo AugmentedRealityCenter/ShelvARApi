@@ -37,23 +37,14 @@
 				{"httpMethod":"GET",
 				"summary":"Finds Pets by status",
 				"notes":"Retrieves a list of the dates when there was a shelf-read, and whether or not this particular book was seen on that day. Returns an associative array of integers keyed by date (no hours/minutes/seconds, year-month-day only) a 0 indicates that the book was not seen, but a neighbor was (indicating a shelf read on that day), while a 1 indicates that the book was seen.",
-				"responseClass":"List[Pet]",
-				"nickname":"findPetsByStatus",
+				"responseClass":"void",
+				"nickname":"search",
 				"parameters":[{
-					"name":"status",
-					"description":"Status values that need to be considered for filter",
-					"paramType":"query",
-					"defaultValue":"available",
-					"allowableValues":
-						{"valueType":"LIST",
-						"values":[
-							"available",
-							"pending",
-							"sold"],
-						"valueType":
-							"LIST"},
+					"name":"book_tag",
+					"description":"VARCHAR(40), base-64 representation of the binary tag",
+					"paramType":"path",
 					"required":true,
-					"allowMultiple":true,
+					"allowMultiple":false,
 					"dataType":"string"}],
 				"errorResponses":[{
 					"code":400,
