@@ -25,7 +25,9 @@
 					"errorResponses":
 					[{
 						"code":400,
-						"reason":"Invalid ID supplied"}
+						"reason":"Invalid ID supplied"},
+						{"code":404,
+						"reason":"Pet not found"
 					}]
 				}]
 			}],
