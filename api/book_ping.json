@@ -39,21 +39,22 @@
 				"notes":"Retrieves a list of the dates when there was a shelf-read, and whether or not this particular book was seen on that day. Returns an associative array of integers keyed by date (no hours/minutes/seconds, year-month-day only) a 0 indicates that the book was not seen, but a neighbor was (indicating a shelf read on that day), while a 1 indicates that the book was seen.",
 				"responseClass":"void",
 				"nickname":"search",
-				"parameters":[{
+				"parameters":[
+				{
 					"name":"book_tag",
 					"description":"VARCHAR(40), base-64 representation of the binary tag",
 					"paramType":"path",
 					"required":true,
 					"allowMultiple":false,
 					"dataType":"string"},
-					{
-						"name":"book_tag",
-						"description":"VARCHAR(40), base-64 representation of the binary tag",
-						"paramType":"path",
-						"required":true,
-						"allowMultiple":false,
-						"dataType":"string"
-					}],
+				{
+					"name":"start_date",
+					"description":"CHAR(21), "0000-00-00 00:00:00" format. If unset, returns all book pings that come on or before end_date.",
+					"paramType":"path",
+					"required":true,
+					"allowMultiple":false,
+					"dataType":"string"
+				}],
 				"errorResponses":[{
 					"code":400,
 					"reason":"Invalid status value"}]}]},
