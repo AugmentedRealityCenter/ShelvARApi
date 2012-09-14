@@ -31,15 +31,12 @@
 					}]
 				}]
 			},
-			{"path":"/book_ping.{format}/search",
-			"description":"Search for call numbers",
+			{"path":"/book_ping.{format}/findByStatus",
+			"description":"Operations about pets",
 			"operations":[
 				{"httpMethod":"GET",
-				"summary":"Search for books by call number",
-				"notes":"Retrieves a list of the dates when there was a shelf-read, and whether or not this particular book was
-seen on that day. Returns an associative array of integers keyed by date (no hours/minutes/seconds,
-year-month-day only) a 0 indicates that the book was not seen, but a neighbor was (indicating a shelf
-read on that day), while a 1 indicates that the book was seen.",
+				"summary":"Finds Pets by status",
+				"notes":"Multiple status values can be provided with comma seperated strings",
 				"responseClass":"List[Pet]",
 				"nickname":"findPetsByStatus",
 				"parameters":[{
