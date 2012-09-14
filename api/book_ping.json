@@ -40,7 +40,7 @@
 					"summary":"Find book by ID",
 					"notes":"Returns a time based on ID",
 					"responseClass":"void",
-					"nickname":"findBookLastSeen",
+					"nickname":"searchBook",
 					"parameters":
 					[{
 						"name":"lc_num",
