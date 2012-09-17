@@ -1,10 +1,10 @@
 {
 	"apiVersion":"0.2",
 	"swaggerVersion":"1.1",
-	"basePath":"http://24.164.78.127/dev/ShelvARWeb/doc/api",
+	"basePath":"http://24.164.78.127/dev/ShelvARWeb/api",
 	"resourcePath":"/book_pings",
 	"apis":[{
-				"path":"../book_pings/find_book",
+				"path":"/book_pings/find_book",
 				"description":"Operations on LC numbers",
 				"operations":
 				[{
@@ -31,7 +31,7 @@
 					}]
 				}]
 			},
-			{"path":"/../../api/book_pings/search",
+			{"path":"/book_pings/search",
 			"description":"Operations about pets",
 			"operations":[
 				{"httpMethod":"GET",
