@@ -48,12 +48,12 @@ function book_seen($book_tag,$start_date,$end_date){
 		$end_date_formatted = date("Y-m-d H:i:s",time());//Current datetime
 	}
 
-	if (($start_date_formatted === false){
+	if ($start_date_formatted === false){
 		Print "Bad start_date.";
 		$query_or_not = false;
 	}
-	elseif (($end_date_formatted === false) {
-		Print "Bad end_date."
+	elseif ($end_date_formatted === false) {
+		Print "Bad end_date.";
 		$query_or_not = false;
 	}
 	/* Create a prepared statement */
