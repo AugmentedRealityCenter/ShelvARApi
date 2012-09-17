@@ -4,19 +4,11 @@
 	"basePath":"http://24.164.78.127/dev/ShelvARWeb/doc/api",
 	"apis":[
 		{
-			"path":"/utilities.{format}",
-			"description":"Operations on call numbers and database records of them"
-		},
-		{
 			"path":"/book_tags.{format}",
 			"description":"Operations about pets"
 		},
 		{
 			"path":"/call_numbers.{format}",
-			"description":"Operations about pets"
-		},
-		{
-			"path":"/test.{format}",
 			"description":"Operations about pets"
 		},
 		{

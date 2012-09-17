@@ -2,9 +2,9 @@
 	"apiVersion":"0.2",
 	"swaggerVersion":"1.1",
 	"basePath":"http://24.164.78.127/dev/ShelvARWeb/api",
-	"resourcePath":"/call_numbers",
+	"resourcePath":"/book_tags",
 	"apis":[
-			{"path":"/call_numbers.{format}/{petId}",
+			{"path":"/book_tags.{format}/{petId}",
 			"description":"Operations about pets",
 			"operations":[{
 				"httpMethod":"GET",
@@ -51,7 +51,7 @@
 				"errorResponses":[{
 					"code":400,
 					"reason":"Invalid status value"}]}]},
-			{"path":"/call_numbers.{format}/findByTags",
+			{"path":"/book_tags.{format}/findByTags",
 			"description":"Operations about pets",
 			"operations":[{
 			"httpMethod":"GET",
