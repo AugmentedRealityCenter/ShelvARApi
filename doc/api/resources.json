@@ -12,7 +12,7 @@
 			"description":"Operations about pets"
 		},
 		{
-			"path":"/book_ping.{format}",
+			"path":"/book_pings.{format}",
 			"description":"Operations on call numbers and database records of them"
 		}]
 }
