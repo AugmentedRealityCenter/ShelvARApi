@@ -36,7 +36,7 @@ function get_ping_count_since($date){
 		Print "Connection Failed: " . mysqli_connect_errno();
 	}
 
-	if (($date_formatted === false){
+	if ($date_formatted === false){
 		Print "Bad start_date.";
 		$query_or_not = false;
 	}
