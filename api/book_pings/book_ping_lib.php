@@ -119,7 +119,7 @@ function do_book_ping($jsoninput,$institution=""){
 		// No guarantee that
 		// they are the correct format, though.
 		/* Create a prepared statement */
-		if($stmt = $mysqli -> prepare("INSERT INTO book_pings (book_tag, book_call, neighbor1_tag, neighbor1_call,
+		if($stmt = $con -> prepare("INSERT INTO book_pings (book_tag, book_call, neighbor1_tag, neighbor1_call,
 		neighbor2_tag, neighbor2_call, ping_time, institution) VALUES (?,?,?,?,?,?,?,?)")) {
 
 		/* Bind parameters
@@ -157,7 +157,7 @@ function do_book_ping($jsoninput,$institution=""){
   }
   
   /* Close connection */
-  $mysqli -> close();
+  $con -> close();
 }
 
 ?>

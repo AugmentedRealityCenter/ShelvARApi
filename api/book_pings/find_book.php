@@ -30,7 +30,7 @@ function find_book($lcNum)
 		exit();
 	}
 	/* Create a prepared statement */
-	if($stmt = $mysqli -> prepare("SELECT * FROM book_pings WHERE book_call =?")) {
+	if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_call =?")) {
 
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
@@ -66,7 +66,7 @@ function find_book($lcNum)
 		$return_arr["left_neighbor"] = $arr[count($arr)-1]["neighbor1_call"];
 		$return_arr["right_neighbor"] = $arr[count($arr)-1]["neighbor2_call"];
 		/* Close connection */
-		$mysqli -> close();
+		$con -> close();
 		return $return_arr;
 	}
 }
