@@ -14,7 +14,7 @@ RewriteRule (.*) $1?institution=muohio [QSA,L]
 #TEST - Brinkman's house
 RewriteCond %{REMOTE_ADDR} ^74\.83\.118\.5.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.215\.173\.188$ [OR]
-RewriteCode %{REMOTE_ADDR} ^74\.83\.66\.91$
+RewriteCond %{REMOTE_ADDR} ^74\.83\.66\.91$
 RewriteRule (.*) $1?institution=brinkman [QSA,L]
 
 #Non-licensed users that try to manually add an institution code
