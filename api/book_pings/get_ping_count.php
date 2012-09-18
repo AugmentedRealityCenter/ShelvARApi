@@ -41,7 +41,7 @@ function get_ping_count_since($date){
 		$query_or_not = false;
 	}
 	/* Create a prepared statement */
-	if($stmt = $mysqli -> prepare("SELECT COUNT(*) as TOTALFOUND FROM book_pings WHERE ping_time>=?")) {
+	if($stmt = $con -> prepare("SELECT COUNT(*) as TOTALFOUND FROM book_pings WHERE ping_time>=?")) {
 
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
@@ -64,14 +64,14 @@ function get_ping_count_since($date){
 		Print '<pre>SQL select failed' . mysqli_error();
 		Print '<br />';
 		/* Close connection */
-		$mysqli -> close();
+		$con -> close();
 	} else {
 		$row = 0;
 		$field = "TOTALFOUND";
 		$result->data_seek($row);
 		$datarow = $res->fetch_array();
     	/* Close connection */
-   		$mysqli -> close();
+   		$con -> close();
     	return $datarow[$field]; 
 	} 
 }
