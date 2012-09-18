@@ -59,7 +59,7 @@ function book_seen($book_tag,$start_date,$end_date){
 	/* Create a prepared statement */
 	//First, build up a list of the neighbors of the book we are looking for
 	//TODO: Increase performance, possibly by using COUNT and UNIQUE
-	if($stmt = $mysqli -> prepare("SELECT * FROM book_pings WHERE book_tag = ? AND ping_time >= ? AND ping_time <= ?") && query_or_not === true) {
+	if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag = ? AND ping_time >= ? AND ping_time <= ?") && query_or_not === true) {
 
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
@@ -101,7 +101,7 @@ function book_seen($book_tag,$start_date,$end_date){
 		 * based on the days when a neighbor was seen */
 		/* TODO Improve performance by selecting just unique dates */
 		foreach($neighbors as $key => $value){
-			if($stmt = $mysqli -> prepare("SELECT * FROM book_pings WHERE book_tag = ? AND ping_time >= ? AND ping_time <= ?") && (query_or_not === true)) {
+			if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag = ? AND ping_time >= ? AND ping_time <= ?") && (query_or_not === true)) {
 
 				/* Bind parameters
 				 s - string, b - blob, i - int, etc */
@@ -143,7 +143,7 @@ function book_seen($book_tag,$start_date,$end_date){
 	}
 
 	/* Close connection */
-	$mysqli -> close();
+	$con -> close();
 	return $seen_days;
 }
 //Very important to not have whitespace after the closing tag, since using
