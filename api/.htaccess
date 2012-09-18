@@ -5,7 +5,7 @@ RewriteEngine On
 # ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
 # /?$ = only allows a POSSIBLE '/'
 # Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/lc2bin/B642LC.php?B64=blah"
-RewriteRule ^api/B642LC/([^/\.]+)/?$ api/lc2bin/B642LC.php?B64=$1 [L]
+RewriteRule ^B642LC/([^/\.]+)/?$ lc2bin/B642LC.php?B64=$1 [L]
 
 # Same as above for LC2B64
-RewriteRule ^api/LC2B64/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [L]
+RewriteRule ^LC2B64/([^/\.]+)/?$ lc2bin/LC2B64.php?LC=$1 [L]
