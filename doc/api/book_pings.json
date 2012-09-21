@@ -88,8 +88,7 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Count book pings", 
-                    "notes": "Returns an integer representing the count of book_pings since a particular date in seconds since 1970, corresponding to the time()method of PHP.", 
-                    "deprecated": true, 
+                    "notes": "Returns an integer representing the count of book_pings since a particular date in seconds since 1970, corresponding to the time()method of PHP.",  
                     "responseClass": "string", 
                     "nickname": "countTags", 
                     "parameters": [
@@ -152,61 +151,20 @@
             ]
         },
 		{
-            "path": "/book_pings/count", 
-            "description": "Summation operations on pings", 
+            "path": "/book_pings/{book_ping}.json", 
+            "description": "Ping submission", 
             "operations": [
                 {
-                    "httpMethod": "GET", 
-                    "summary": "Count book pings", 
-                    "notes": "Returns an integer representing the count of book_pings since a particular date in seconds since 1970, corresponding to the time()method of PHP.", 
-                    "deprecated": true, 
+                    "httpMethod": "POST", 
+                    "summary": "Submit a book ping", 
+                    "notes": "Uploads book_pings to the database, data should be a JSON array of entries. On call, returns a string with the value “SUCCESS” on success and “ERRORS” otherwise. If the value is “ERRORS”, information about the error is printed in HTML format.",
                     "responseClass": "string", 
-                    "nickname": "countTags", 
+                    "nickname": "submitPing", 
                     "parameters": [
                         {
-                            "name": "book_tag", 
-                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
-						{
-                            "name": "lcNum", 
-                            "description": "VARCHAR(40), LC Call Number", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        },
-						{
-                            "name": "neighbor_tag", 
-                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
-                        {
-                            "name": "neighbor_call", 
-                            "description": "VARCHAR(40), LC Call Number", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
-                        {
-                            "name": "start_date", 
-                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
-                        {
-                            "name": "end_date", 
-                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
-                            "paramType": "query", 
+                            "name": "book_ping", 
+                            "description": "json formatted string of book pings consisting of book_tag, book_call, neighbor1_tag, neighbor1_call, neighbor2_tag, neighbor2_call, ping_time", 
+                            "paramType": "path", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
