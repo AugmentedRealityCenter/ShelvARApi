@@ -151,7 +151,7 @@
             ]
         },
 		{
-            "path": "/book_pings/{book_ping}.json", 
+            "path": "/book_pings/:book_ping.json", 
             "description": "Ping submission", 
             "operations": [
                 {
