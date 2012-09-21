@@ -150,6 +150,76 @@
                     ]
                 }
             ]
+        },
+		{
+            "path": "/book_pings/count", 
+            "description": "Summation operations on pings", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Count book pings", 
+                    "notes": "Returns an integer representing the count of book_pings since a particular date in seconds since 1970, corresponding to the time()method of PHP.", 
+                    "deprecated": true, 
+                    "responseClass": "string", 
+                    "nickname": "countTags", 
+                    "parameters": [
+                        {
+                            "name": "book_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+						{
+                            "name": "lcNum", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+						{
+                            "name": "neighbor_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "neighbor_call", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "start_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "end_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid tag value"
+                        }
+                    ]
+                }
+            ]
         }
     ], 
     "models": {
