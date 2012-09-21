@@ -30,6 +30,22 @@
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
+                        },
+						{
+                            "name": "neighbor_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "neighbor_call", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
                         }, 
                         {
                             "name": "start_date", 
@@ -66,16 +82,16 @@
             ]
         }, 
         {
-            "path": "/test.{format}/findByTags", 
-            "description": "Operations about pets", 
+            "path": "/book_pings/count", 
+            "description": "Summation operations on pings", 
             "operations": [
                 {
                     "httpMethod": "GET", 
-                    "summary": "Finds Pets by tags", 
-                    "notes": "Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.", 
+                    "summary": "Count book pings", 
+                    "notes": "Returns an integer representing the count of book_pings since a particular date in seconds since 1970, corresponding to the time()method of PHP.", 
                     "deprecated": true, 
-                    "responseClass": "List[Pet]", 
-                    "nickname": "findPetsByTags", 
+                    "responseClass": "string", 
+                    "nickname": "countTags", 
                     "parameters": [
                         {
                             "name": "tags", 
