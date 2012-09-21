@@ -157,7 +157,7 @@
                 {
                     "httpMethod": "POST", 
                     "summary": "Submit a book ping", 
-                    "notes": "Uploads book_pings to the database, data should be a JSON array of entries. On call, returns a string with the value \“SUCCESS\” on success and “ERRORS” otherwise. If the value is \“ERRORS\”, information about the error is printed in HTML format.",
+                    "notes": "Uploads book_pings to the database, data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and “ERRORS” otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
                     "responseClass": "string", 
                     "nickname": "submitPing", 
                     "parameters": [
