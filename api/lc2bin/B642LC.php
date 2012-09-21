@@ -12,7 +12,7 @@
 include_once "LC_Converter_lib.php";
 include_once "../../tagmaker/base64_lib.php";
 
-$JSONin = stripslashes($_POST["B64"]);
+$JSONin = stripslashes($_GET["B64"]);
 echo json_encode(array("LC"=>Bin2LC(base642bin($JSONin))));
 
  ?>
