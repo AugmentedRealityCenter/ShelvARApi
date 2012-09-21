@@ -4,7 +4,7 @@
 	"basePath":"http://24.164.78.127/dev/ShelvARWeb/api",
 	"resourcePath":"/book_tags",
 	"apis":[
-			{"path":"/book_tags",
+			{"path":"/book_tags/{book_tag}",
 			"description":"Operations on book_tags",
 			"operations":[{
 				"httpMethod":"GET",
