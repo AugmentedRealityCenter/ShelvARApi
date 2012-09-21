@@ -19,7 +19,15 @@
                             "name": "book_tag", 
                             "description": "VARCHAR(40), base-64 representation of the binary tag", 
                             "paramType": "query", 
-                            "required": true, 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+						{
+                            "name": "lcNum", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         }, 
@@ -38,7 +46,15 @@
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
-                        }
+                        },
+						{
+                            "name": "limit", 
+                            "description": "Number of items returned between 1 and 1000. Default is 20.", 
+                            "paramType": "query", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "int"
+                        } 
                     ], 
                     "errorResponses": [
                         {
