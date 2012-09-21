@@ -94,11 +94,51 @@
                     "nickname": "countTags", 
                     "parameters": [
                         {
-                            "name": "tags", 
-                            "description": "Tags to filter by", 
+                            "name": "book_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
                             "paramType": "query", 
-                            "required": true, 
-                            "allowMultiple": true, 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+						{
+                            "name": "lcNum", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+						{
+                            "name": "neighbor_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "neighbor_call", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "start_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "end_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
                             "dataType": "string"
                         }
                     ], 
