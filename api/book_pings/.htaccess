@@ -3,7 +3,13 @@ Options +FollowSymLinks
 RewriteEngine on
 
 
-#redirects http://dev.shelvar.com/api/book_pings(and or /) to
-#http://dev.shelvar.com/api/reporttool/book_ping_lib.php
+#redirects http://dev.shelvar.com/api/book_pings(and or '/') to
+#http://dev.shelvar.com/api/reporttool/book_ping.php
+#[NC,L] the NC indicates the URL is case insensitive
 
-RewriteRule ^http://dev.shelvar.com/api/book_pings/?$ http://dev.shelvar.com/api/reporttool/book_ping_lib.php? [NC,L]
+RewriteRule ^http://dev.shelvar.com/api/book_pings/?$ http://dev.shelvar.com/api/reporttool/book_ping.php? [NC,L]
+
+
+#redirects http://dev.shelvar.com/api/find_book(and or '/') to
+#http://dev.shelvar.com/api/reporttool/find_book.php
+RewriteRule ^http://dev.shelvar.com/api/find_book/?$ http://dev.shelvar.com/api/reporttool/find_book.php?lcNum=$1 [NC,L]
