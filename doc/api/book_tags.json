@@ -4,7 +4,7 @@
 	"basePath":"http://24.164.78.127/dev/ShelvARWeb/api",
 	"resourcePath":"/book_tags",
 	"apis":[
-			{"path":"/book_tags/{book_tag}",
+			{"path":"/book_tags/{book_tag}.json",
 			"description":"Operations on book_tags",
 			"operations":[{
 				"httpMethod":"GET",
@@ -15,7 +15,7 @@
 				"parameters":[{
 					"name":"book_tag",
 					"description":"Base 64 representation of the call number",
-					"paramType":"query",
+					"paramType":"path",
 					"required":true,
 					"allowMultiple":false,
 					"dataType":"string"}],
