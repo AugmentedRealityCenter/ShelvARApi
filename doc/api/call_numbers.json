@@ -36,44 +36,6 @@
                     ]
                 }
             ]
-        }, 
-        {
-            "path": "/pet.{format}/findByStatus", 
-            "description": "Operations about pets", 
-            "operations": [
-                {
-                    "httpMethod": "GET", 
-                    "summary": "Finds Pets by status", 
-                    "notes": "Multiple status values can be provided with comma seperated strings", 
-                    "responseClass": "List[Pet]", 
-                    "nickname": "findPetsByStatus", 
-                    "parameters": [
-                        {
-                            "name": "status", 
-                            "description": "Status values that need to be considered for filter", 
-                            "paramType": "query", 
-                            "defaultValue": "available", 
-                            "allowableValues": {
-                                "valueType": "LIST", 
-                                "values": [
-                                    "available", 
-                                    "pending", 
-                                    "sold"
-                                ]
-                            }, 
-                            "required": true, 
-                            "allowMultiple": true, 
-                            "dataType": "string"
-                        }
-                    ], 
-                    "errorResponses": [
-                        {
-                            "code": 400, 
-                            "reason": "Invalid status value"
-                        }
-                    ]
-                }
-            ]
         }
     ], 
     "models": {
