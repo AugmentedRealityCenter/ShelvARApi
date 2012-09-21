@@ -1,173 +1,145 @@
 {
-	"apiVersion":"0.2",
-	"swaggerVersion":"1.1",
-	"basePath":"http://24.164.78.127/dev/ShelvARWeb/api",
-	"resourcePath":"/book_pings",
-	"apis":[{
-				"path":"/book_pings/find_book",
-				"description":"Operations on LC numbers",
-				"operations":
-				[{
-					"httpMethod":"GET",
-					"summary":"Find book by ID",
-					"notes":"Returns a time based on ID",
-					"responseClass":"void",
-					"nickname":"findBookLastSeen",
-					"parameters":
-					[{
-						"name":"lc_num",
-						"description":"This String is the call number of the book that is to be queried within the database. The format of this call number should be of a specific type noted below, to ensure a correct search. The value of a call_number can usually be found on the spine of a book within the library.",
-						"paramType":"path",
-						"required":true,
-						"allowMultiple":false,
-						"dataType":"string"
-					}],
-					"errorResponses":
-					[{
-						"code":400,
-						"reason":"Invalid ID supplied"},
-						{"code":404,
-						"reason":"Pet not found"
-					}]
-				}]
-			},
-			{"path":"/book_pings/search",
-			"description":"Operations about pets",
-			"operations":[
-				{"httpMethod":"GET",
-				"summary":"Finds Pets by status",
-				"notes":"Retrieves a list of the dates when there was a shelf-read, and whether or not this particular book was seen on that day. Returns an associative array of integers keyed by date (no hours/minutes/seconds, year-month-day only) a 0 indicates that the book was not seen, but a neighbor was (indicating a shelf read on that day), while a 1 indicates that the book was seen.",
-				"responseClass":"void",
-				"nickname":"search",
-				"parameters":[
-				{
-					"name":"book_tag",
-					"description":"VARCHAR(40), base-64 representation of the binary tag",
-					"paramType":"path",
-					"required":true,
-					"allowMultiple":false,
-					"dataType":"string"},
-				{
-					"name":"start_date",
-					"description":"CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.",
-					"paramType":"query",
-					"required":false,
-					"allowMultiple":false,
-					"dataType":"string"
-				},
-				{
-					"name":"end_date",
-					"description":"CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.",
-					"paramType":"query",
-					"required":false,
-					"allowMultiple":false,
-					"dataType":"string"
-				}],
-				"errorResponses":[{
-					"code":400,
-					"reason":"Invalid status value"}]}]},
-			{"path":"/test.{format}/findByTags",
-			"description":"Operations about pets",
-			"operations":[{
-			"httpMethod":"GET",
-			"summary":"Finds Pets by tags",
-			"notes":"Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.",
-			"deprecated":true,
-			"responseClass":"List[Pet]",
-			"nickname":"findPetsByTags",
-			"parameters":[{
-				"name":"tags",
-				"description":"Tags to filter by",
-				"paramType":"query",
-				"required":true,
-				"allowMultiple":true,
-				"dataType":"string"}],
-			"errorResponses":[{
-				"code":400,
-				"reason":"Invalid tag value"}]}]}],
-	"models":
-	{
-		"Category":
-		{
-			"id":"Category",
-			"properties":
-			{
-				"id":
-				{
-					"type":"long"
-				},
-				"name":
-				{
-					"type":"string"
-				}
-			}
-		},
-		"Pet":
-		{
-			"id":"Pet",
-			"properties":
-			{
-				"tags":
-				{
-					"items":
-					{
-						"$ref":"Tag"
-					},
-					"type":"Array"
-				},
-				"id":
-				{
-					"type":"long"
-				},
-				"category":
-				{
-					"type":"Category"
-				},
-				"status":
-				{
-					"allowableValues":
-					{
-						"valueType":"LIST",
-						"values":
-						[
-							"available",
-							"pending",
-							"sold"
-						],
-						"valueType":"LIST"
-					},
-					"description":"pet status in the store",
-					"type":"string"
-				},
-				"name":
-				{
-					"type":"string"
-				},
-				"photoUrls":
-				{
-					"items":
-					{
-						"type":"string"
-					},
-					"type":"Array"
-				}
-			}
-		},
-		"Tag":
-		{
-			"id":"Tag",
-			"properties":
-			{
-				"id":
-				{
-					"type":"long"
-				},
-				"name":
-				{
-					"type":"string"
-				}
-			}
-		}
-	}
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "basePath": "http://24.164.78.127/dev/ShelvARWeb/api", 
+    "resourcePath": "/book_pings", 
+    "apis": [
+        {
+            "path": "/book_pings/search", 
+            "description": "Search for a book", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Finds books by call numbers or book tags", 
+                    "notes": "Retrieves a list of the dates when there was a shelf-read, and whether or not this particular book was seen on that day. Returns an associative array of integers keyed by date (no hours/minutes/seconds, year-month-day only) a 0 indicates that the book was not seen, but a neighbor was (indicating a shelf read on that day), while a 1 indicates that the book was seen.", 
+                    "responseClass": "void", 
+                    "nickname": "search", 
+                    "parameters": [
+                        {
+                            "name": "book_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
+                            "paramType": "query", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "start_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "end_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid status value"
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            "path": "/test.{format}/findByTags", 
+            "description": "Operations about pets", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Finds Pets by tags", 
+                    "notes": "Muliple tags can be provided with comma seperated strings. Use tag1, tag2, tag3 for testing.", 
+                    "deprecated": true, 
+                    "responseClass": "List[Pet]", 
+                    "nickname": "findPetsByTags", 
+                    "parameters": [
+                        {
+                            "name": "tags", 
+                            "description": "Tags to filter by", 
+                            "paramType": "query", 
+                            "required": true, 
+                            "allowMultiple": true, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid tag value"
+                        }
+                    ]
+                }
+            ]
+        }
+    ], 
+    "models": {
+        "Category": {
+            "id": "Category", 
+            "properties": {
+                "id": {
+                    "type": "long"
+                }, 
+                "name": {
+                    "type": "string"
+                }
+            }
+        }, 
+        "Pet": {
+            "id": "Pet", 
+            "properties": {
+                "tags": {
+                    "items": {
+                        "$ref": "Tag"
+                    }, 
+                    "type": "Array"
+                }, 
+                "id": {
+                    "type": "long"
+                }, 
+                "category": {
+                    "type": "Category"
+                }, 
+                "status": {
+                    "allowableValues": {
+                        "valueType": "LIST", 
+                        "values": [
+                            "available", 
+                            "pending", 
+                            "sold"
+                        ]
+                    }, 
+                    "description": "pet status in the store", 
+                    "type": "string"
+                }, 
+                "name": {
+                    "type": "string"
+                }, 
+                "photoUrls": {
+                    "items": {
+                        "type": "string"
+                    }, 
+                    "type": "Array"
+                }
+            }
+        }, 
+        "Tag": {
+            "id": "Tag", 
+            "properties": {
+                "id": {
+                    "type": "long"
+                }, 
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
 }
-										
