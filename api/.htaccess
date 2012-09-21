@@ -1,0 +1,11 @@
+# Handles access to B642LC and LC2B64
+RewriteEngine On
+
+# ^api/B642LC/ = does the page start with "api/B642LC"
+# ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
+# /?$ = only allows a POSSIBLE '/'
+# Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/lc2bin/B642LC.php?B64=blah"
+RewriteRule ^B642LC/([^/\.]+)/?$ lc2bin/B642LC.php?B64=$1 [L]
+
+# Same as above for LC2B64
+RewriteRule ^LC2B64/([^/\.]+)/?$ lc2bin/LC2B64.php?LC=$1 [L]
