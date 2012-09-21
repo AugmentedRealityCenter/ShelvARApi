@@ -51,7 +51,7 @@
                             "name": "limit", 
                             "description": "Number of items returned between 1 and 1000. Default is 20.", 
                             "paramType": "query", 
-                            "required": true, 
+                            "required": false, 
                             "allowMultiple": false, 
                             "dataType": "int"
                         } 
