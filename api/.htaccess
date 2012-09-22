@@ -9,4 +9,4 @@ RewriteRule ^B642LC/([^/\.]+)/?$ lc2bin/B642LC.php?B64=$1 [L]
 
 # Same as above for LC2B64
 RewriteRule ^LC2B64/([^/\.]+)/?$ lc2bin/LC2B64.php?LC=$1 [L]
-RewriteRule    ^api/book_pings/?$    http//www.google.com    [NC,L]    # Process parrots
+RewriteRule    ^book_pings/?$    http//www.google.com    [NC,L]    # Process parrots
