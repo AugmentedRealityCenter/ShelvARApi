@@ -1,4 +1,5 @@
 # Handles access to B642LC and LC2B64
+Options +FollowSymLinks
 RewriteEngine On
 
 # ^api/B642LC/ = does the page start with "api/B642LC"
