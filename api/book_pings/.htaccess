@@ -7,4 +7,4 @@ RewriteEngine on
 #http://dev.shelvar.com/api/reporttool/book_ping_lib.php
 
 #RewriteRule ^book_pings http://24.164.78.127/dev/ShelvARWeb/api/reporttool/book_ping_lib.php? [NC,L]
-RewriteRule    ^parrots/?$    ../index.html    [NC,L]    # Process parrots
+RewriteRule    ^parrots/?$    http://www.google.com    [NC,L]    # Process parrots
