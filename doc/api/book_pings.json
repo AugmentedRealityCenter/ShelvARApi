@@ -164,7 +164,7 @@
                         {
                             "name": "book_ping", 
                             "description": "json formatted string of book pings consisting of book_tag, book_call, neighbor1_tag, neighbor1_call, neighbor2_tag, neighbor2_call, ping_time", 
-                            "paramType": "path", 
+                            "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
@@ -173,7 +173,36 @@
                     "errorResponses": [
                         {
                             "code": 400, 
-                            "reason": "Invalid tag value"
+                            "reason": "Invalid ping"
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "path": "/book_pings/{book_ping}.json", 
+            "description": "Ping retrieval from database", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Retrieve a book ping", 
+                    "notes": "Returns the book ping with the database id that is entered.",
+                    "responseClass": "string", 
+                    "nickname": "getPingByID", 
+                    "parameters": [
+                        {
+                            "name": "book_ping", 
+                            "description": "database id of the book ping", 
+                            "paramType": "path", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "int"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ping"
                         }
                     ]
                 }
