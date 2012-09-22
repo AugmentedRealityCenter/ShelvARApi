@@ -6,4 +6,5 @@ RewriteEngine on
 #redirects http://dev.shelvar.com/api/book_pings(and or /) to
 #http://dev.shelvar.com/api/reporttool/book_ping_lib.php
 
-RewriteRule ^book_pings http://24.164.78.127/dev/ShelvARWeb/api/reporttool/book_ping_lib.php? [NC,L]
+#RewriteRule ^book_pings http://24.164.78.127/dev/ShelvARWeb/api/reporttool/book_ping_lib.php? [NC,L]
+RewriteRule    ^book_pings/([A-Za-z0-9-]+)/?$    get_product_by_name.php?product_name=$1    [NC,L]    # Process parrots
