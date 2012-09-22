@@ -4,6 +4,35 @@
     "basePath": "http://24.164.78.127/dev/ShelvARWeb/api", 
     "resourcePath": "/book_pings", 
     "apis": [
+		{
+            "path": "/book_pings/", 
+            "description": "Ping submission", 
+            "operations": [
+                {
+                    "httpMethod": "POST", 
+                    "summary": "Submit a book ping", 
+                    "notes": "Uploads book_pings to the database, data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and 'ERRORS' otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
+                    "responseClass": "string", 
+                    "nickname": "submitPing", 
+                    "parameters": [
+                        {
+                            "name": "book_ping", 
+                            "description": "json formatted string of book pings consisting of book_tag, book_call, neighbor1_tag, neighbor1_call, neighbor2_tag, neighbor2_call, ping_time", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ping"
+                        }
+                    ]
+                }
+            ]
+        },
         {
             "path": "/book_pings/", 
             "description": "Search for a book", 
@@ -145,35 +174,6 @@
                         {
                             "code": 400, 
                             "reason": "Invalid tag value"
-                        }
-                    ]
-                }
-            ]
-        },
-		{
-            "path": "/book_pings/", 
-            "description": "Ping submission", 
-            "operations": [
-                {
-                    "httpMethod": "POST", 
-                    "summary": "Submit a book ping", 
-                    "notes": "Uploads book_pings to the database, data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and 'ERRORS' otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
-                    "responseClass": "string", 
-                    "nickname": "submitPing", 
-                    "parameters": [
-                        {
-                            "name": "book_ping", 
-                            "description": "json formatted string of book pings consisting of book_tag, book_call, neighbor1_tag, neighbor1_call, neighbor2_tag, neighbor2_call, ping_time", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }
-                    ], 
-                    "errorResponses": [
-                        {
-                            "code": 400, 
-                            "reason": "Invalid ping"
                         }
                     ]
                 }
