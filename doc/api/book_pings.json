@@ -5,7 +5,7 @@
     "resourcePath": "/book_pings", 
     "apis": [
         {
-            "path": "/book_pings/search", 
+            "path": "/book_pings/", 
             "description": "Search for a book", 
             "operations": [
                 {
