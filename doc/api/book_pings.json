@@ -18,7 +18,7 @@
                         {
                             "name": "book_ping", 
                             "description": "json formatted string of book pings consisting of book_tag, book_call, neighbor1_tag, neighbor1_call, neighbor2_tag, neighbor2_call, ping_time", 
-                            "paramType": "query", 
+                            "paramType": "body", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
