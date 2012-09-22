@@ -13,4 +13,4 @@ RewriteEngine On
 
 #eliots additions for book_pings
 #RewriteRule    ^book_pings/?$    get_product_by_name.php?product_name=    [NC]    # Process parrots
-RewriteRule    	.*(book)(_)(pings)/?$    	  index.html    						   [NC,L]  # Process parrots
+RewriteRule    	^book\_pings/?$    	  index.html    						   [NC,L]  # Process parrots
