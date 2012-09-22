@@ -6,4 +6,4 @@ RewriteEngine on
 #redirects http://dev.shelvar.com/api/book_pings(and or /) to
 #http://dev.shelvar.com/api/reporttool/book_ping_lib.php
 
-RewriteRule ^http://24.164.78.127/dev/ShelvARWeb/api/book_pings/?$ http://24.164.78.127/dev/ShelvARWeb/api/reporttool/book_ping_lib.php? [NC,L]
+RewriteRule ^book_pings/?$ reporttool/book_ping_lib.php? [NC]
