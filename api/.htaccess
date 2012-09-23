@@ -14,4 +14,4 @@ RewriteEngine On
 #eliots additions for book_pings
 #RewriteRule    ^book_pings/?$    ../reporttool/book_ping_lib.php?    [NC]    # Process pings
 #RewriteRule    ^book\_pings/?$   ../reporttool/book_ping_lib.php?	 [NC]    # Process pings
-RewriteRule     ^book_pings/?$ 	  book_pings/book_ping_lib.php [L]
+RewriteRule     ^book_pings/?$ 	  index.html [L]
