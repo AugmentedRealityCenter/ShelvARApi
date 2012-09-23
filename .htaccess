@@ -18,7 +18,6 @@ RewriteCond %{REMOTE_ADDR} ^74\.83\.66\.91$
 RewriteRule (.*) $1?institution=brinkman [QSA,L]
 
 #Eliot's Pad
-RewriteCond %{REMOTE_ADDR} ^24\.164\.78\.127$ [OR]
 RewriteCond %{REMOTE_ADDR} ^24\.123\.196\.98.$
 RewriteRule (.*) $1?institution=eliot [QSA,L]
 
