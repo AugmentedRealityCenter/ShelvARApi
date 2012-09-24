@@ -18,31 +18,31 @@ if(isset($call_number)) {
 	}
 	else $where = "book_call = " . $call_number;
 }
-
-	/* Create a new mysqli object with database connection parameters */
+/*
+	// Create a new mysqli object with database connection parameters
 	$con = new mysqli($server, $user, $password, $database);
 
 	if(mysqli_connect_errno()) {
 		echo "Connection Failed: " . mysqli_connect_errno();
 		exit();
 	}
-	/* Create a prepared statement */
+	// Create a prepared statement
 	if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE " . $where . "?")) {
 
-		/* Bind parameters
-		 s - string, b - blob, i - int, etc */
+		// Bind parameters
+		 //s - string, b - blob, i - int, etc
 		$stmt -> bind_param("s", $lcNum);
 
-		/* Execute it */
+		//Execute it
 		$stmt -> execute();
 
-		/* Bind results */
+		// Bind results
 		$stmt -> bind_result($result);
 
-		/* Fetch the value */
+		// Fetch the value
 		$stmt -> fetch();
 
-		/* Close statement */
+		// Close statement
 		$stmt -> close();
 	}
 
@@ -59,8 +59,8 @@ if(isset($call_number)) {
 			$arr[] = $row;
 		}
 		$count = count($arr);
-		/* Close connection */
-		$con -> close();
+		// Close connection
+		$con -> close();*/
 		return $count;
 	}
 ?>
