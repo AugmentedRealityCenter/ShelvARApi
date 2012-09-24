@@ -1,15 +1,15 @@
 #Incude these lines
 Options +FollowSymLinks
-RewriteEngine on
+RewriteEngine ON
 
 
 #redirects http://dev.shelvar.com/api/book_pings(and or '/') to
 #http://dev.shelvar.com/api/reporttool/book_ping.php
 #[NC,L] the NC indicates the URL is case insensitive
 
-RewriteRule ^book_pings/?$ reporttool/book_ping.php? [NC,L]
+RewriteRule ^book_pings/? reporttool/book_ping.php? [NC,L]
 
 
 #redirects http://dev.shelvar.com/api/find_book(and or '/') to
 #http://dev.shelvar.com/api/reporttool/find_book.php
-RewriteRule ^find_book/?$ reporttool/find_book.php?lcNum=$1 [NC,L]
+RewriteRule ^find_book/? reporttool/find_book.php?lcNum=$1 [NC,L]
