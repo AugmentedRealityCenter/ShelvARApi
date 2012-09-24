@@ -1,7 +1,7 @@
 <?php
 include_once "../../db_info.php";
-//if(isset($_GET("book_tag")
-	//$book_tag = $_GET("book_tag");
+if(isset($_GET("book_tag")))
+	$book_tag = $_GET("book_tag");
 /*$call_number = $_GET('call_number');
 $neighbor_tag = $_GET('neighbor_tag');
 $neighbor_call = $_GET('neighbor_call');
