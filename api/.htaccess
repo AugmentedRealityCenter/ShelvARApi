@@ -1,6 +1,6 @@
 #Incude these lines
 Options +FollowSymLinks
-RewriteEngine ON
+RewriteEngine On
 
 
 #redirects http://dev.shelvar.com/api/book_pings(and or '/') to
