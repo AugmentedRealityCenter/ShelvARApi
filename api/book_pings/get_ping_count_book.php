@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
 include_once ("../../db_info.php");
 //if(isset($_GET("book_tag")))
 $book_tag = $_GET['book_tag'];
