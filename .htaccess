@@ -1,7 +1,7 @@
 #This htaccess file implements site-based
 # licensing for ShelvAR. Each supported site needs
 # a rule that sets their institution code.
-RewriteEngine On
+RewriteEngine Off
 
 #Miami University of Ohio
 RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
