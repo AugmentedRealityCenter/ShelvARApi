@@ -63,5 +63,5 @@ if(isset($call_number)) {
 		// Close connection
 		$con -> close();*/
 		//return $count;
-	}
+	//}
 ?>
