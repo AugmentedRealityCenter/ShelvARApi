@@ -18,7 +18,7 @@ if(isset($call_number)) {
 	}
 	else $where = "book_call = " . $call_number;
 }
-echo $where;
+
 	// Create a new mysqli object with database connection parameters
 	$con = new mysqli($server, $user, $password, $database);
 
