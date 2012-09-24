@@ -1,5 +1,7 @@
-# Handles access to B642LC and LC2B64
 Options +FollowSymLinks
 RewriteEngine On
 
-RewriteRule     ^book_pings/ 	  index.html [L] #process pings
+RewriteRule ^book_pings/ index.html [L] #process pings
+RewriteRule ^book_pings index.html [L] #process pings
+
+RewriteRule . index.html [L]
