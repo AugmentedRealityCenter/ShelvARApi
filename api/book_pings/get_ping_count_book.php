@@ -19,7 +19,7 @@ if(isset($call_number)) {
 	}
 	else $where = "book_call = " . $call_number;
 }
-/*
+
 	// Create a new mysqli object with database connection parameters
 	$con = new mysqli($server, $user, $password, $database);
 
@@ -28,26 +28,47 @@ if(isset($call_number)) {
 		exit();
 	}
 	// Create a prepared statement
-	if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE " . $where . "?")) {
+	if($where != "") {
+		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE " . $where . "?")) {
 
-		// Bind parameters
-		 //s - string, b - blob, i - int, etc
-		$stmt -> bind_param("s", $lcNum);
+			// Bind parameters
+			 //s - string, b - blob, i - int, etc
+			$stmt -> bind_param("s", $lcNum);
 
-		//Execute it
-		$stmt -> execute();
+			//Execute it
+			$stmt -> execute();
 
-		// Bind results
-		$stmt -> bind_result($result);
+			// Bind results
+			$stmt -> bind_result($result);
 
-		// Fetch the value
-		$stmt -> fetch();
+			// Fetch the value
+			$stmt -> fetch();
 
-		// Close statement
-		$stmt -> close();
+			// Close statement
+			$stmt -> close();
+		}
+	} else {
+		if($stmt = $con -> prepare("SELECT * FROM book_pings LIMIT 20") {
+
+			// Bind parameters
+			 //s - string, b - blob, i - int, etc
+			$stmt -> bind_param("s", $lcNum);
+
+			//Execute it
+			$stmt -> execute();
+
+			// Bind results
+			$stmt -> bind_result($result);
+
+			// Fetch the value
+			$stmt -> fetch();
+
+			// Close statement
+			$stmt -> close();
+		}
 	}
 
-
+/*
 	if($result == FALSE){
 		Print "FAILED 1";
 		//Print 'SQL Select failed' . mysqli_error();
