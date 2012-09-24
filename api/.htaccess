@@ -2,18 +2,4 @@
 Options +FollowSymLinks
 RewriteEngine On
 
-# ^api/B642LC/ = does the page start with "api/B642LC"
-# ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
-# /?$ = only allows a POSSIBLE '/'
-# Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/lc2bin/B642LC.php?B64=blah"
-#RewriteRule ^B642LC/([^/\.]+)/?$ lc2bin/B642LC.php?B64=$1 [NC]
-
-# Same as above for LC2B64
-#RewriteRule ^LC2B64/([^/\.]+)/?$ lc2bin/LC2B64.php?LC=$1 [NC]
-
-#eliots additions for book_pings
-#RewriteRule    ^parrots/?$    parrots/test.html    [NC,L]    # Process parrots
-#RewriteRule    ^book_pings/    ../reporttool/book_ping_lib.php?    [NC]    # Process pings
-#RewriteRule    ^book\_pings/?$   ../reporttool/book_ping_lib.php?	 [NC]    # Process pings
-
-RewriteRule     ^book_pings/ 	  index.html [NC,L] #process pings
+RewriteRule     ^book_pings/ 	  index.html [L] #process pings
