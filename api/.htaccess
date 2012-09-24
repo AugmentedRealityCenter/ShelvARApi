@@ -4,4 +4,4 @@ RewriteEngine on
 RewriteRule ^book_pings/ index.html [L] #process pings
 RewriteRule ^book_pings index.html [L] #process pings
 
-#RewriteRule ^(.*)$ index.html [L]
+RewriteRule ^(.*)$ index.html [L]
