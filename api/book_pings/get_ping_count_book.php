@@ -1,6 +1,6 @@
 <?php
 include_once "../../db_info.php";
-/*$book_tag = $_GET('book_tag');
+$book_tag = $_GET('book_tag');
 $call_number = $_GET('call_number');
 $neighbor_tag = $_GET('neighbor_tag');
 $neighbor_call = $_GET('neighbor_call');
@@ -8,7 +8,7 @@ $start_date = $_GET('start_date');
 $end_date = $_GET('end_date');
 $count = -1;
 $where = "";
-if(isset($book_tag)) {
+/*if(isset($book_tag)) {
 	$where = "book_tag = " . $book_tag;
 }
 if(isset($call_number)) {
