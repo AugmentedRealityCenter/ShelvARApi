@@ -1,5 +1,5 @@
 <?php
-include_once "../../db_info.php";
+include_once ("../../db_info.php");
 if(isset($_GET("book_tag")))
 	$book_tag = $_GET("book_tag");
 /*$call_number = $_GET('call_number');
