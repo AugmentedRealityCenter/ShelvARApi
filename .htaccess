@@ -18,8 +18,8 @@ RewriteCond %{REMOTE_ADDR} ^74\.83\.66\.91$
 RewriteRule (.*) $1?institution=brinkman [QSA,L]
 
 #Eliot's Pad
-#RewriteCond %{REMOTE_ADDR} ^24\.(.*)\.(.*)\.(.*)$
-RewriteRule (.*) ?institution=eliot [L]
+RewriteCond %{REMOTE_ADDR} ^24\.164\.78\.127$
+RewriteRule (.*) $1?institution=eliot [L]
 
 #Non-licensed users that try to manually add an institution code
 #RewriteCond %{QUERY_STRING} institution=(.+)
