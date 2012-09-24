@@ -15,4 +15,4 @@ RewriteEngine On
 #RewriteRule    ^parrots/?$    parrots/test.html    [NC,L]    # Process parrots
 #RewriteRule    ^book_pings/?$    ../reporttool/book_ping_lib.php?    [NC]    # Process pings
 #RewriteRule    ^book\_pings/?$   ../reporttool/book_ping_lib.php?	 [NC]    # Process pings
-RewriteRule     ^bookpings/?$ 	  /dev/ShelvARWeb/api/bookpings/parrots/test.html [NC,L] #process pings
+RewriteRule     ^bookpings/?$ 	  / [NC,L] #process pings
