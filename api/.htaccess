@@ -16,4 +16,4 @@ RewriteEngine On
 #RewriteRule    ^book_pings/    ../reporttool/book_ping_lib.php?    [NC]    # Process pings
 #RewriteRule    ^book\_pings/?$   ../reporttool/book_ping_lib.php?	 [NC]    # Process pings
 
-RewriteRule     ^bookpings/ 	  index.html [NC,L] #process pings
+RewriteRule     ^book_pings/ 	  index.html [NC,L] #process pings
