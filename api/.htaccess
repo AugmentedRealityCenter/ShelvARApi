@@ -12,6 +12,7 @@ RewriteEngine On
 #RewriteRule ^LC2B64/([^/\.]+)/?$ lc2bin/LC2B64.php?LC=$1 [NC]
 
 #eliots additions for book_pings
+#RewriteRule    ^parrots/?$    parrots/test.html    [NC,L]    # Process parrots
 #RewriteRule    ^book_pings/?$    ../reporttool/book_ping_lib.php?    [NC]    # Process pings
 #RewriteRule    ^book\_pings/?$   ../reporttool/book_ping_lib.php?	 [NC]    # Process pings
-RewriteRule     ^bookpings/?$ 	  bookpings/index2.php [NC,L]
+RewriteRule     ^bookpings/?$ 	  bookpings/index2.php [NC,L] #process pings
