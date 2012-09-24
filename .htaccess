@@ -8,7 +8,6 @@ RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.5.\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.120.\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.27\.144$ [OR]
-RewriteCond %{REMOTE_ADDR} ^24\.123\.196\.98.?$ [OR]
 RewriteCond %{REMOTE_ADDR} ^10\.(.*).\.(.*)\.(.*)$
 RewriteRule (.*) $1?institution=muohio [QSA,L]
 
@@ -23,7 +22,7 @@ RewriteRule (.*) $1?institution=brinkman [QSA,L]
 #RewriteRule (.*) $1?institution=eliot [L]
 
 #Non-licensed users that try to manually add an institution code
-RewriteCond %{QUERY_STRING} institution=(.+)
-RewriteRule ^(.*)$ sorry.php [L]
+#RewriteCond %{QUERY_STRING} institution=(.+)
+#RewriteRule ^(.*)$ sorry.php [L]
 
-RewriteRule ^(.*)$ sorry.php [L]
+#RewriteRule ^(.*)$ sorry.php [L]
