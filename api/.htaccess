@@ -1,5 +1,5 @@
 Options +FollowSymLinks
-RewriteEngine on
+RewriteEngine On
 
 RewriteRule ^book_pings/ index.html [L] #process pings
 RewriteRule ^book_pings index.html [L] #process pings
