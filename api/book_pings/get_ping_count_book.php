@@ -1,7 +1,7 @@
 <?php
 echo "hi";
-/*include_once "../../db_info.php";
-
+include_once "../../db_info.php";
+//comment
 $book_tag = $_GET('book_tag');
 $call_number = $_GET('call_number');
 $neighbor_tag = $_GET('neighbor_tag');
