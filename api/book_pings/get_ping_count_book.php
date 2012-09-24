@@ -47,7 +47,7 @@ if(isset($call_number)) {
 			// Close statement
 			$stmt -> close();
 		}
-	} else {
+	} /*else {
 		if($stmt = $con -> prepare("SELECT * FROM book_pings LIMIT 20") {
 
 			// Bind parameters
@@ -66,7 +66,7 @@ if(isset($call_number)) {
 			// Close statement
 			$stmt -> close();
 		}
-	}
+	}*/
 
 /*
 	if($result == FALSE){
