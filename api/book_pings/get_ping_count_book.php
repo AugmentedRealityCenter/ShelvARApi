@@ -27,7 +27,7 @@ if(isset($call_number)) {
 		exit();
 	}
 	// Create a prepared statement
-	if($where != "") {
+	/*if($where != "") {
 		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE " . $where . "?")) {
 
 			// Bind parameters
