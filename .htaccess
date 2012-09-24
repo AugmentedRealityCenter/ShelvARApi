@@ -8,7 +8,7 @@ RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.5.\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.120.\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.27\.144$ [OR]
-RewriteCond %{REMOTE_ADDR} ^24\.123\.196\.98$ [OR]
+RewriteCond %{REMOTE_ADDR} ^24\.123\.196\.98.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^10\.(.*).\.(.*)\.(.*)$
 RewriteRule (.*) $1?institution=muohio [QSA,L]
 
