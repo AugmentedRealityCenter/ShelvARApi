@@ -62,6 +62,6 @@ if(isset($call_number)) {
 		$count = count($arr);
 		// Close connection
 		$con -> close();*/
-		return $count;
+		//return $count;
 	}
 ?>
