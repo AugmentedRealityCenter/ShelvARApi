@@ -9,7 +9,7 @@ $start_date = $_GET('start_date');
 $end_date = $_GET('end_date');
 $count = -1;
 $where = "";
-if(isset($book_tag)) {
+/*if(isset($book_tag)) {
 	$where = "book_tag = " . $book_tag;
 }
 if(isset($call_number)) {
