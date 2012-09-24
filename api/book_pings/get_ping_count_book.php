@@ -1,5 +1,4 @@
 <?php
-echo "hi";
 include_once "../../db_info.php";
 //comment
 $book_tag = $_GET('book_tag');
@@ -19,7 +18,7 @@ if(isset($call_number)) {
 	}
 	else $where = "book_call = " . $call_number;
 }
-
+echo $where;
 	// Create a new mysqli object with database connection parameters
 	$con = new mysqli($server, $user, $password, $database);
 
