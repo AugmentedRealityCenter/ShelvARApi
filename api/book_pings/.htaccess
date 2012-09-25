@@ -1,0 +1,17 @@
+# Handles access to do_book_ping, book_seen, find_book and get_ping_count_since
+RewriteEngine On
+
+# ^api/book_ping/ = does the url start with "api/book_ping"
+# ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
+# /?$ = only allows a POSSIBLE '/'
+# Therefore: accessing ".../api/book_ping/blah" will actually call ".../api/book_pings/book_ping.php?=blah"
+#HAS MULTIPLE INPUT VARS (jsoninput and institution); what to do?
+
+# Same as above for book_seen
+#THIS HAS 3 VARS book_seen($book_tag,$start_date,$end_date)
+
+# Rewrite for find_book($lcNum)
+RewriteRule ^api/book_pings/find_book/([^/\.]+)/?$ api/book_pings/find_book.php?lcNum=$1 [L]
+
+# Rewrite for get_ping_count_since($date)
+RewriteRule ^api/book_pings/get_ping_count_since/([^/\.]+)/?$ api/book_pings/get_ping_count_since.php?date=$1 [L]
