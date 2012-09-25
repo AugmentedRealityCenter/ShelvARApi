@@ -38,3 +38,18 @@ RewriteRule ^api/book_tags/([^/\.]+)/?$ api/lc2bin/B642LC.php?B64=$1 [QSA, L]
 
 # Same as above for LC2B64
 RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA, L]
+
+
+
+
+# POST book_pings/
+# Redirects to the code; code = book_ping.php
+RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
+
+
+
+
+
+
+
+
