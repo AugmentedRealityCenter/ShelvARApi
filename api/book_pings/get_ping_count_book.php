@@ -36,7 +36,7 @@ $where = "";
 		exit();
 	}
 	// Create a prepared statement
-		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag = 1 AND book_call = 2 AND neighbor_tag = 3 AND neighbor_call = 4 AND start_date = 5 AND end_date = 6")) {
+		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag = ? AND book_call = ? AND neighbor_tag = ? AND neighbor_call = ? AND start_date = ? AND end_date = ?")) {
 
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
