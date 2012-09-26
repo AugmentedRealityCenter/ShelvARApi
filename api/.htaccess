@@ -1,7 +1,0 @@
-Options +FollowSymLinks
-RewriteEngine On
-
-#RewriteRule ^book_pings/ index.html [L] #process pings
-#RewriteRule ^book_pings index.html [L] #process pings
-
-RewriteRule ^book_pings/count/? book_pings/get_ping_count_book.php\? [L]

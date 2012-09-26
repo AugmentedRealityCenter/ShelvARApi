@@ -25,4 +25,39 @@ RewriteRule (.*) $1?institution=eliot [L]
 #RewriteCond %{QUERY_STRING} institution=(.+)
 #RewriteRule ^(.*)$ sorry.php [L]
 
+<<<<<<< HEAD
 #RewriteRule ^(.*)$ sorry.php [L]
+=======
+RewriteRule ^(.*)$ sorry.php [L]
+
+###########
+### API ###
+###########
+
+# Handles access to B642LC and LC2B64
+RewriteEngine On
+
+# ^api/B642LC/ = does the page start with "api/B642LC"
+# ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
+# /?$ = only allows a POSSIBLE '/'
+# Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/book_tags/B642LC.php?B64=blah"
+RewriteRule ^api/book_tags/([^/\.]+)/?$ api/lc2bin/B642LC.php?B64=$1 [QSA, L]
+
+# Same as above for LC2B64
+RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA, L]
+
+
+
+
+# POST book_pings/
+# Redirects to the code; code = book_ping.php
+RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
+
+
+
+
+
+
+
+
+>>>>>>> 538a66feffc16f9df0c887b6ec07c0889a5b5500
