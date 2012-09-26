@@ -35,6 +35,7 @@ $where = "";
 		echo "Connection Failed: " . mysqli_connect_errno();
 		exit();
 	}
+	echo "book_tag is " . $book_tag . " and book call is " . $book_call;
 	// Create a prepared statement
 		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag=? AND book_call=?")) {
 			// Bind parameters
