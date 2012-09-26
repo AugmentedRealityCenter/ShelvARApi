@@ -40,12 +40,7 @@ $where = "";
 
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
-			$stmt -> bind_param(1, $book_tag);
-			$stmt -> bind_param(2, $book_call);
-			$stmt -> bind_param(3, $neighbor_tag);
-			$stmt -> bind_param(4, $neighbor_call);
-			$stmt -> bind_param(5, $start_date);
-			$stmt -> bind_param(6, $end_date);
+			$stmt -> bind_param("ssssss", 6, $book_tag, $book_call, $neighbor_tag, $neighbor_call, $start_date, $end_date);
 
 			//Execute it
 			echo $stmt;
