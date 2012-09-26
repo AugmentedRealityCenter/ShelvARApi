@@ -10,14 +10,14 @@
                   "operations": [
                         {
                               "httpMethod": "GET", 
-                              "summary": "Find book by book_tag", 
-                              "notes": "Returns the LC Call Number of the specified book. If errors exist, it displays which errors.", 
+                              "summary": "Get call_number corresponding to a book_tag", 
+                              "notes": "Returns human readable call number in call_number, parsed version in parsed_call_number, and result. result will be SUCCESS if everything worked. If not, it will be ERROR, followed by an explanatory message.", 
                               "responseClass": "string", 
                               "nickname": "base64toLC", 
                               "parameters": [
                                     {
                                           "name": "book_tag", 
-                                          "description": "Base 64 representation of the call number", 
+                                          "description": "Base 64 representation of the call number. Example: 0cOZA09fhM0cM_gw000000a0", 
                                           "paramType": "path", 
                                           "required": true, 
                                           "allowMultiple": false, 
