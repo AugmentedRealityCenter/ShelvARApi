@@ -35,12 +35,12 @@ $where = "";
 		echo "Connection Failed: " . mysqli_connect_errno();
 		exit();
 	}
-	echo "book_tag is " . $book_tag . " and book call is " . $book_call;
+	echo "book_tag is " . $book_tag . " and book call is " . $call_number;
 	// Create a prepared statement
 		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag=? AND book_call=?")) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
-			$stmt -> bind_param('ss', $book_tag, $book_call);
+			$stmt -> bind_param('ss', $book_tag, $call_number);
 
 			//Execute it
 			$stmt -> execute();
