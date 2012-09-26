@@ -31,9 +31,6 @@ RewriteRule ^(.*)$ sorry.php [L]
 ### API ###
 ###########
 
-# Handles access to B642LC and LC2B64
-RewriteEngine On
-
 # ^api/B642LC/ = does the page start with "api/B642LC"
 # ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
 # /?$ = only allows a POSSIBLE '/'
