@@ -36,10 +36,10 @@ $where = "";
 		exit();
 	}
 	// Create a prepared statement
-		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag=? AND book_call=? AND start_date=? AND end_date=?")) {
+		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag=? AND book_call=?")) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
-			$stmt -> bind_param('ssss', $book_tag, $book_call, $start_date, $end_date);
+			$stmt -> bind_param('ss', $book_tag, $book_call);
 
 			//Execute it
 			echo $stmt;
