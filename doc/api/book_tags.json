@@ -1,0 +1,99 @@
+{
+      "apiVersion": "0.2", 
+      "swaggerVersion": "1.1", 
+      "basePath": "http://24.164.78.127/dev/ShelvARWeb/api", 
+      "resourcePath": "/book_tags", 
+      "apis": [
+            {
+                  "path": "/book_tags/{book_tag}.json", 
+                  "description": "Operations on book_tags", 
+                  "operations": [
+                        {
+                              "httpMethod": "GET", 
+                              "summary": "Find book by book_tag", 
+                              "notes": "Returns the LC Call Number of the specified book. If errors exist, it displays which errors.", 
+                              "responseClass": "string", 
+                              "nickname": "base64toLC", 
+                              "parameters": [
+                                    {
+                                          "name": "book_tag", 
+                                          "description": "Base 64 representation of the call number", 
+                                          "paramType": "path", 
+                                          "required": true, 
+                                          "allowMultiple": false, 
+                                          "dataType": "string"
+                                    }
+                              ], 
+                              "errorResponses": [
+                                    {
+                                          "code": 400, 
+                                          "reason": "Invalid ID supplied"
+                                    }
+                              ]
+                        }
+                  ]
+            }
+      ], 
+      "models": {
+            "Category": {
+                  "id": "Category", 
+                  "properties": {
+                        "id": {
+                              "type": "long"
+                        }, 
+                        "name": {
+                              "type": "string"
+                        }
+                  }
+            }, 
+            "Pet": {
+                  "id": "Pet", 
+                  "properties": {
+                        "tags": {
+                              "items": {
+                                    "$ref": "Tag"
+                              }, 
+                              "type": "Array"
+                        }, 
+                        "id": {
+                              "type": "long"
+                        }, 
+                        "category": {
+                              "type": "Category"
+                        }, 
+                        "status": {
+                              "allowableValues": {
+                                    "valueType": "LIST", 
+                                    "values": [
+                                          "available", 
+                                          "pending", 
+                                          "sold"
+                                    ]
+                              }, 
+                              "description": "pet status in the store", 
+                              "type": "string"
+                        }, 
+                        "name": {
+                              "type": "string"
+                        }, 
+                        "photoUrls": {
+                              "items": {
+                                    "type": "string"
+                              }, 
+                              "type": "Array"
+                        }
+                  }
+            }, 
+            "Tag": {
+                  "id": "Tag", 
+                  "properties": {
+                        "id": {
+                              "type": "long"
+                        }, 
+                        "name": {
+                              "type": "string"
+                        }
+                  }
+            }
+      }
+}

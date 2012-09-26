@@ -1,0 +1,274 @@
+{
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "basePath": "http://24.164.78.127/dev/ShelvARWeb/api", 
+    "resourcePath": "/book_pings", 
+    "apis": [
+		{
+            "path": "/book_pings/", 
+            "description": "Ping submission", 
+            "operations": [
+                {
+                    "httpMethod": "POST", 
+                    "summary": "Submit a book ping", 
+                    "notes": "Uploads book_pings to the database, data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and 'ERRORS' otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
+                    "responseClass": "string", 
+                    "nickname": "submitPing", 
+                    "parameters": [
+                        {
+                            "name": "book_ping", 
+                            "description": "json formatted string of book pings consisting of book_tag, book_call, neighbor1_tag, neighbor1_call, neighbor2_tag, neighbor2_call, ping_time", 
+                            "paramType": "body", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ping"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/book_pings/", 
+            "description": "Search for a book", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Finds books by call numbers or book tags", 
+                    "notes": "Retrieves a list of the dates when there was a shelf-read, and whether or not this particular book was seen on that day. Returns an associative array of integers keyed by date (no hours/minutes/seconds, year-month-day only) a 0 indicates that the book was not seen, but a neighbor was (indicating a shelf read on that day), while a 1 indicates that the book was seen.", 
+                    "responseClass": "void", 
+                    "nickname": "search", 
+                    "parameters": [
+                        {
+                            "name": "book_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+						{
+                            "name": "lcNum", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+						{
+                            "name": "neighbor_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "neighbor_call", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "start_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "end_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+						{
+                            "name": "limit", 
+                            "description": "Number of items returned between 1 and 1000. Default is 20.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "int"
+                        } 
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid status value"
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            "path": "/book_pings/count", 
+            "description": "Summation operations on pings", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Count book pings", 
+                    "notes": "Returns an integer representing the count of book_pings since a particular date in seconds since 1970, corresponding to the time()method of PHP.",  
+                    "responseClass": "string", 
+                    "nickname": "countTags", 
+                    "parameters": [
+                        {
+                            "name": "book_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+						{
+                            "name": "lcNum", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+						{
+                            "name": "neighbor_tag", 
+                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "neighbor_call", 
+                            "description": "VARCHAR(40), LC Call Number", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "start_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "end_date", 
+                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid tag value"
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "path": "/book_pings/{book_ping}.json", 
+            "description": "Ping retrieval from database", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Retrieve a book ping", 
+                    "notes": "Returns the book ping with the database id that is entered.",
+                    "responseClass": "string", 
+                    "nickname": "getPingByID", 
+                    "parameters": [
+                        {
+                            "name": "book_ping", 
+                            "description": "database id of the book ping", 
+                            "paramType": "path", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "int"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ping"
+                        }
+                    ]
+                }
+            ]
+        }
+    ], 
+    "models": {
+        "Category": {
+            "id": "Category", 
+            "properties": {
+                "id": {
+                    "type": "long"
+                }, 
+                "name": {
+                    "type": "string"
+                }
+            }
+        }, 
+        "Pet": {
+            "id": "Pet", 
+            "properties": {
+                "tags": {
+                    "items": {
+                        "$ref": "Tag"
+                    }, 
+                    "type": "Array"
+                }, 
+                "id": {
+                    "type": "long"
+                }, 
+                "category": {
+                    "type": "Category"
+                }, 
+                "status": {
+                    "allowableValues": {
+                        "valueType": "LIST", 
+                        "values": [
+                            "available", 
+                            "pending", 
+                            "sold"
+                        ]
+                    }, 
+                    "description": "pet status in the store", 
+                    "type": "string"
+                }, 
+                "name": {
+                    "type": "string"
+                }, 
+                "photoUrls": {
+                    "items": {
+                        "type": "string"
+                    }, 
+                    "type": "Array"
+                }
+            }
+        }, 
+        "Tag": {
+            "id": "Tag", 
+            "properties": {
+                "id": {
+                    "type": "long"
+                }, 
+                "name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
