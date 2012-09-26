@@ -3,27 +3,27 @@ include_once ("../../db_info.php");
 
 if(isset($_GET["book_tag"]))
 	$book_tag = $_GET['book_tag'];
-else $book_tag = "*";
+else $book_tag = "like %";
 
 if(isset($_GET["call_number"]))
 	$call_number = $_GET['call_number'];
-else $call_number = "*";
+else $call_number = "like %";
 
 if(isset($_GET["neighbor_tag"]))
 	$neighbor_tag = $_GET['neighbor_tag'];
-else $neighbor_tag = "*";
+else $neighbor_tag = "like %";
 
 if(isset($_GET["neighbor_call"]))
 	$neighbor_call = $_GET['neighbor_call'];
-else $neighbor_call = "*";
+else $neighbor_call = "like %";
 
 if(isset($_GET["start_date"]))
 	$start_date = $_GET['start_date'];
-else $start_date = "*";
+else $start_date = "like %";
 
 if(isset($_GET["end_date"]))
 	$end_date = $_GET['end_date'];
-else $end_date = "*";
+else $end_date = "like %";
 
 $count = -1;
 $where = "";
