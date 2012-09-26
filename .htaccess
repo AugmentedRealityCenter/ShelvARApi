@@ -3,6 +3,8 @@
 # a rule that sets their institution code.
 RewriteEngine On
 
+RewriteRule ^api/book_pings/count/? api/book_pings/get_ping_count_book.php\? [QSA,L]
+
 #Miami University of Ohio
 RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.5.\.(.*)$ [OR]
@@ -44,4 +46,3 @@ RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
 # Redirects to the code; code = book_ping.php
 RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
 
-RewriteRule ^api/book_pings/count/? api/book_pings/get_ping_count_book.php\? [QSA,L]
