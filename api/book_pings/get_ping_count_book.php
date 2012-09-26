@@ -76,5 +76,5 @@ $where = "";
 		// Close connection
 		$con -> close();*/
 		return $count;
-	//}d
+	}
 ?>
