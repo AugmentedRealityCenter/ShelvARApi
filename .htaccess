@@ -33,10 +33,11 @@ RewriteRule (.*) $1?institution=eliot [QSA]
 # ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
 # /?$ = only allows a POSSIBLE '/'
 # Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/book_tags/B642LC.php?B64=blah"
-RewriteRule ^api/book_tags/([^/\.]+)/?$ api/lc2bin/B642LC.php?B64=$1 [QSA,L]
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^api/book\_tags/(.+).json$ api/lc2bin/B642LC.php?B64=$1 [QSA,L]
 
 # Same as above for LC2B64
-RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
+#RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
 
 # POST book_pings/
 # Redirects to the code; code = book_ping.php
