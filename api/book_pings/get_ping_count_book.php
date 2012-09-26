@@ -55,7 +55,7 @@ $where = "";
 			$stmt -> close();
 		}
 
-
+/*
 	if($result == FALSE){
 		Print "FAILED 1";
 		//Print 'SQL Select failed' . mysqli_error();
@@ -63,14 +63,14 @@ $where = "";
 		Print "NO ROWS";
 		//Print 'No rows seleted';
 	} else {
-		/*//Print $resource;
+		//Print $resource;
 		while ($row = mysqli_fetch_assoc($result)) {
 			$arr[] = $row;
 		}
 		$count = count($arr);
 		// Close connection
 		$con -> close();
-		return $count;*/
+		return $count;
 	}
 	/*
 ?>
