@@ -27,7 +27,7 @@ if(isset($call_number)) {
 		exit();
 	}
 	// Create a prepared statement
-	/*if($where != "") {
+	if($where != "") {
 		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE " . $where . "?")) {
 
 			// Bind parameters
@@ -46,7 +46,7 @@ if(isset($call_number)) {
 			// Close statement
 			$stmt -> close();
 		}
-	} /*else {
+	} else {
 		if($stmt = $con -> prepare("SELECT * FROM book_pings LIMIT 20") {
 
 			// Bind parameters
@@ -65,9 +65,9 @@ if(isset($call_number)) {
 			// Close statement
 			$stmt -> close();
 		}
-	}*/
+	}
 
-/*
+
 	if($result == FALSE){
 		Print "FAILED 1";
 		//Print 'SQL Select failed' . mysqli_error();
@@ -82,6 +82,6 @@ if(isset($call_number)) {
 		$count = count($arr);
 		// Close connection
 		$con -> close();*/
-		//return $count;ds
-	//}d
+		return $count;
+	}
 ?>
