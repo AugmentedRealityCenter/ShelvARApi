@@ -42,7 +42,6 @@ $where = "";
 			$stmt -> bind_param('ss', $book_tag, $book_call);
 
 			//Execute it
-			
 			$stmt -> execute();
 
 			// Bind results
@@ -55,7 +54,7 @@ $where = "";
 			$stmt -> close();
 		}
 
-/*
+
 	if($result == FALSE){
 		Print "FAILED 1";
 		//Print 'SQL Select failed' . mysqli_error();
@@ -72,5 +71,5 @@ $where = "";
 		$con -> close();
 		return $count;
 	}
-	/*
+	
 ?>
