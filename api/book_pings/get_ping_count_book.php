@@ -42,7 +42,7 @@ $where = "";
 			$stmt -> bind_param('ss', $book_tag, $book_call);
 
 			//Execute it
-			echo $stmt;
+			
 			$stmt -> execute();
 
 			// Bind results
