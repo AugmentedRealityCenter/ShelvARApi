@@ -48,6 +48,7 @@ $where = "";
 			$stmt -> bind_param(6, $end_date);
 
 			//Execute it
+			echo $stmt;
 			$stmt -> execute();
 
 			// Bind results
