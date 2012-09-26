@@ -3,27 +3,27 @@ include_once ("../../db_info.php");
 
 if(isset($_GET["book_tag"]))
 	$book_tag = $_GET['book_tag'];
-else $book_tag = "like %";
+else $book_tag = " OR 1==1";
 
 if(isset($_GET["call_number"]))
 	$call_number = $_GET['call_number'];
-else $call_number = "like %";
+else $call_number = " OR 1==1";
 
 if(isset($_GET["neighbor_tag"]))
 	$neighbor_tag = $_GET['neighbor_tag'];
-else $neighbor_tag = "like %";
+else $neighbor_tag = " OR 1==1";
 
 if(isset($_GET["neighbor_call"]))
 	$neighbor_call = $_GET['neighbor_call'];
-else $neighbor_call = "like %";
+else $neighbor_call = " OR 1==1";
 
 if(isset($_GET["start_date"]))
 	$start_date = $_GET['start_date'];
-else $start_date = "like %";
+else $start_date = " OR 1==1";
 
 if(isset($_GET["end_date"]))
 	$end_date = $_GET['end_date'];
-else $end_date = "like %";
+else $end_date = " OR 1==1";
 
 $count = -1;
 $where = "";
@@ -37,7 +37,7 @@ $where = "";
 	}
 	echo "book_tag is " . $book_tag . " and book call is " . $call_number;
 	// Create a prepared statement
-		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag=? AND book_call=?")) {
+		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE (book_tag=?) AND (book_call=?)")) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
 			$stmt -> bind_param('ss', $book_tag, $call_number);
