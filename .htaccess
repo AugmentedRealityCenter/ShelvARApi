@@ -1,7 +1,7 @@
 #This htaccess file implements site-based
 # licensing for ShelvAR. Each supported site needs
 # a rule that sets their institution code.
-RewriteEngine Off
+RewriteEngine On
 
 #Miami University of Ohio
 RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
@@ -25,9 +25,6 @@ RewriteRule (.*) $1?institution=eliot [L]
 #RewriteCond %{QUERY_STRING} institution=(.+)
 #RewriteRule ^(.*)$ sorry.php [L]
 
-<<<<<<< HEAD
-#RewriteRule ^(.*)$ sorry.php [L]
-=======
 RewriteRule ^(.*)$ sorry.php [L]
 
 ###########
@@ -46,18 +43,6 @@ RewriteRule ^api/book_tags/([^/\.]+)/?$ api/lc2bin/B642LC.php?B64=$1 [QSA, L]
 # Same as above for LC2B64
 RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA, L]
 
-
-
-
 # POST book_pings/
 # Redirects to the code; code = book_ping.php
 RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
-
-
-
-
-
-
-
-
->>>>>>> 538a66feffc16f9df0c887b6ec07c0889a5b5500
