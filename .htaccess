@@ -43,3 +43,5 @@ RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
 # POST book_pings/
 # Redirects to the code; code = book_ping.php
 RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
+
+RewriteRule ^api/book_pings/count/? api/book_pings/get_ping_count_book.php\? [QSA,L]
