@@ -60,7 +60,7 @@ $where = "";
 			$stmt -> close();
 		}
 
-
+/*
 	if($result == FALSE){
 		Print "FAILED 1";
 		//Print 'SQL Select failed' . mysqli_error();
@@ -74,7 +74,8 @@ $where = "";
 		}
 		$count = count($arr);
 		// Close connection
-		$con -> close();*/
+		$con -> close();
 		return $count;
 	}
+	/*
 ?>
