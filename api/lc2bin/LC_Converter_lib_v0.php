@@ -360,8 +360,12 @@ $GLOBALS['LC2Bin_version'] = '0000000'; //Binary representation of the version n
 		}
 		
 		$arr = array($bits0, $fld1, $fld2, $fld3, $fld4,$fld5,$fld6,$fld7);
-		$json = array('version' => $in_version, 'fieldflags' => $arr[0], 'alphabetic' => $arr[1], 'wholeClass' => $arr[2], 'decClass' => $arr[3], 'date1' => $arr[4], 'cutter1' => $arr[5], 'date2' => $arr[6], 'cutter2' => $arr[7], 'element8' => $fld8, 'element8meaning' => $fld8meaning);
-		return $json;
+
+		
+		$parsed_call = array('version' => $in_version, 'fieldflags' => $arr[0], 'alphabetic' => $arr[1], 'wholeClass' => $arr[2], 'decClass' => $arr[3], 'date1' => $arr[4], 'cutter1' => $arr[5], 'date2' => $arr[6], 'cutter2' => $arr[7], 'element8' => $fld8, 'element8meaning' => $fld8meaning);
+
+		$full_result = array('call_number' => 'TODO', 'parsed_call_number' => $parsed_call, 'result' => 'SUCCESS');
+		return $full_result;
 	}
 	
 	/**
