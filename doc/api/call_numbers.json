@@ -13,7 +13,7 @@
                     "summary": "Get book_tag for a particular call_number", 
                     "notes": "Returns four items: base 64 representation of the call_number in book_tag, a parsed version of the call number in parsed_call_number, information about the parsing process in parser_feedback, and result. result will be SUCCESS if everyting worked. If not, it will be ERROR, followed by an explanatory message.", 
                     "responseClass": "string", 
-                    "nickname": "parse", 
+                    "nickname": "call_number", 
                     "parameters": [
                         {
                             "name": "call_number", 
