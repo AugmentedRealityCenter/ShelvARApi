@@ -27,6 +27,7 @@ else $end_date = " OR 1==1";
 
 $count = -1;
 $where = "";
+$result;
 
 	// Create a new mysqli object with database connection parameters
 	$con = new mysqli($server, $user, $password, $database);
