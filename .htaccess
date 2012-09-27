@@ -44,6 +44,8 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^api/book\_tags/([^/\.]+)\.json api/lc2bin/B642LC.php?B64=$1 [QSA,L]
 
 # Same as above for LC2B64
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^api/call_numbers/([^/\.\json]+)\.json api/lc2bin/call_number.php?call_number=$1 [QSA,L]
 #RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
 
 # POST book_pings/

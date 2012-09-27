@@ -363,8 +363,19 @@ $GLOBALS['LC2Bin_version'] = '0000000'; //Binary representation of the version n
 
 		
 		$parsed_call = array('version' => $in_version, 'fieldflags' => $arr[0], 'alphabetic' => $arr[1], 'wholeClass' => $arr[2], 'decClass' => $arr[3], 'date1' => $arr[4], 'cutter1' => $arr[5], 'date2' => $arr[6], 'cutter2' => $arr[7], 'element8' => $fld8, 'element8meaning' => $fld8meaning);
-
-		$full_result = array('call_number' => 'TODO', 'parsed_call_number' => $parsed_call, 'result' => 'SUCCESS');
+		
+		#Should make $c_num_arr = "AAA123.456 B78 2012 C90 1992 FLD8"
+		$c_num_arr = array( ($arr[1].$arr[2]) );
+		if(isset($arr[3]) array_push($c_num_arr, $arr[3]);
+		if(isset($arr[5]) array_push($c_num_arr, (" ".$arr[5]) );
+		if(isset($arr[4]) array_push($c_num_arr, (" ".$arr[4]) );
+		if(isset($arr[7]) array_push($c_num_arr, (" ".$arr[7]) );
+		if(isset($arr[6]) array_push($c_num_arr, (" ".$arr[6]) );
+		if(isset($fld8) array_push($c_num_arr, (" ".$fld8) );
+		
+		$call_number = implode($c_num_arr);
+		
+		$full_result = array('call_number' => $call_number, 'parsed_call_number' => $parsed_call, 'result' => 'SUCCESS');
 		return $full_result;
 	}
 	
