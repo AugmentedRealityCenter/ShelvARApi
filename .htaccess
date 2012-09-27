@@ -3,6 +3,9 @@
 # a rule that sets their institution code.
 RewriteEngine On
 
+#If the user is access the doc directory, do nothing
+RewriteRule ^doc - [L]
+
 #First, delete any institution the user put in
 RewriteCond %{QUERY_STRING} ^(([^&]*&)*)institution=([^/\.]+)(&.*)$
 RewriteRule (.*) $1?%1%4
