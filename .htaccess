@@ -41,7 +41,7 @@ RewriteRule (.*) sorry.php
 # /?$ = only allows a POSSIBLE '/'
 # Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/book_tags/B642LC.php?B64=blah"
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/book\_tags/([^/\.]+).json api/lc2bin/B642LC.php?B64=$1 [QSA,L]
+RewriteRule ^api/book\_tags/([^/\.]+)\.json api/lc2bin/B642LC.php?B64=$1 [QSA,L]
 
 # Same as above for LC2B64
 #RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
