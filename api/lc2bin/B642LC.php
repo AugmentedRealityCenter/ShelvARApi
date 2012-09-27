@@ -12,7 +12,12 @@
 include_once "LC_Converter_lib.php";
 include_once "../../tagmaker/base64_lib.php";
 
-$JSONin = stripslashes($_POST["B64"]);
-echo json_encode(array("LC"=>Bin2LC(base642bin($JSONin))));
+$JSONin = stripslashes($_GET["B64"]);
+if(strlen($JSONin) != 24){
+  $result = array('call_number' => "", 'parsed_call_number' => "", 'result' => "ERROR Tag was wrong length. Got ".strlen($JSONin)." characters of data, expected 24. ".$JSONin);
+  echo json_encode($result);
+ } else {
+  echo json_encode(Bin2LC(base642bin($JSONin)));
+ }
 
  ?>

@@ -3,7 +3,9 @@
 # a rule that sets their institution code.
 RewriteEngine On
 
-RewriteRule ^api/book_pings/count/? api/book_pings/get_ping_count_book.php\? [QSA,L]
+#First, delete any institution the user put in
+RewriteCond %{QUERY_STRING} ^(([^&]*&)*)institution=([^/\.]+)(&.*)$
+RewriteRule (.*) $1?%1%4
 
 #Miami University of Ohio
 RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
@@ -11,23 +13,21 @@ RewriteCond %{REMOTE_ADDR} ^172\.25\.5.\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.120.\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^172\.25\.27\.144$ [OR]
 RewriteCond %{REMOTE_ADDR} ^10\.(.*).\.(.*)\.(.*)$
-RewriteRule (.*) $1?institution=muohio [QSA,L]
+RewriteRule (.*) $1?institution=muohio [QSA]
 
 #TEST - Brinkman's house
 RewriteCond %{REMOTE_ADDR} ^74\.83\.118\.5.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.215\.173\.188$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.66\.91$
-RewriteRule (.*) $1?institution=brinkman [QSA,L]
+RewriteRule (.*) $1?institution=brinkman [QSA]
 
 #Eliot's Pad
 RewriteCond %{REMOTE_ADDR} ^24\.164\.78\.127$
-RewriteRule (.*) $1?institution=eliot [L]
+RewriteRule (.*) $1?institution=eliot [QSA]
 
-#Non-licensed users that try to manually add an institution code
-#RewriteCond %{QUERY_STRING} institution=(.+)
-#RewriteRule ^(.*)$ sorry.php [L]
-
-RewriteRule ^(.*)$ sorry.php [L]
+#If no institution, redirect to sorry page
+RewriteCond %{QUERY_STRING} !institution
+RewriteRule (.*) sorry.php
 
 ###########
 ### API ###
@@ -37,12 +37,12 @@ RewriteRule ^(.*)$ sorry.php [L]
 # ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
 # /?$ = only allows a POSSIBLE '/'
 # Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/book_tags/B642LC.php?B64=blah"
-RewriteRule ^api/book_tags/([^/\.]+)/?$ api/lc2bin/B642LC.php?B64=$1 [QSA,L]
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^api/book\_tags/([^/\.]+).json api/lc2bin/B642LC.php?B64=$1 [QSA,L]
 
 # Same as above for LC2B64
-RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
+#RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
 
 # POST book_pings/
 # Redirects to the code; code = book_ping.php
-RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
-
+# RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
