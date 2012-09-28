@@ -6,7 +6,7 @@
     "apis": [
 		{
             "path": "/book_pings/", 
-            "description": "Ping submission", 
+            "description": "List of book pings", 
             "operations": [
                 {
                     "httpMethod": "POST", 
@@ -30,55 +30,33 @@
                             "reason": "Invalid ping"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "path": "/book_pings/", 
-            "description": "Search for a book", 
-            "operations": [
+                },
                 {
                     "httpMethod": "GET", 
-                    "summary": "Finds books by call numbers or book tags", 
-                    "notes": "Retrieves a list of the dates when there was a shelf-read, and whether or not this particular book was seen on that day. Returns an associative array of integers keyed by date (no hours/minutes/seconds, year-month-day only) a 0 indicates that the book was not seen, but a neighbor was (indicating a shelf read on that day), while a 1 indicates that the book was seen.", 
+                    "summary": "Get recent book pings", 
+                    "notes": "Retrieves a list of the most recent book_pings. By default, returns the 20 most recent. Search can be limited using the optional parameters: Will return the 20 most recent pings that match all parameters.", 
                     "responseClass": "void", 
-                    "nickname": "search", 
+                    "nickname": "book_pings", 
                     "parameters": [
                         {
                             "name": "book_tag", 
-                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
+                            "description": "base-64 representation of the binary tag", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         }, 
 						{
-                            "name": "lcNum", 
-                            "description": "VARCHAR(40), LC Call Number", 
+                            "name": "call_number", 
+                            "description": "Call number, in human-readable format", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         },
-						{
-                            "name": "neighbor_tag", 
-                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
-                        {
-                            "name": "neighbor_call", 
-                            "description": "VARCHAR(40), LC Call Number", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
                         {
                             "name": "start_date", 
-                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
+                            "description": "Return only pings that come on or after this date. \"0000-00-00 00:00:00\" format.",
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -86,15 +64,15 @@
                         }, 
                         {
                             "name": "end_date", 
-                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
+                            "description": "Return only pings that come before this date. \"0000-00-00 00:00:00\" format.",
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         },
 						{
-                            "name": "limit", 
-                            "description": "Number of items returned between 1 and 1000. Default is 20.", 
+                            "name": "num_limit", 
+                            "description": "Number of items to return, between 1 and 1000. Default is 20.", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
