@@ -5,19 +5,19 @@
     "resourcePath": "/call_numbers", 
     "apis": [
         {
-            "path": "/call_numbers/{lcNum}.json", 
+            "path": "/call_numbers/{call_number}.json", 
             "description": "LC Number information", 
             "operations": [
                 {
                     "httpMethod": "GET", 
-                    "summary": "Get LC Number information", 
-                    "notes": "Get the lc number split by fields and the base 64 representation of the call number.", 
+                    "summary": "Get book_tag for a particular call_number", 
+                    "notes": "Returns four items: base 64 representation of the call_number in book_tag, a parsed version of the call number in parsed_call_number, information about the parsing process in parser_feedback, and result. result will be SUCCESS if everyting worked. If not, it will be ERROR, followed by an explanatory message.", 
                     "responseClass": "string", 
-                    "nickname": "parseAndGetB64", 
+                    "nickname": "call_number", 
                     "parameters": [
                         {
-                            "name": "lcNum", 
-                            "description": "LC Call Number", 
+                            "name": "call_number", 
+                            "description": "LC Call Number. Must be URL-encoded. Example: NX543%20.c38%202000", 
                             "paramType": "path", 
                             "required": true, 
                             "allowMultiple": false, 

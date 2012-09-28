@@ -3,9 +3,12 @@
 # a rule that sets their institution code.
 RewriteEngine On
 
+#If the user is access the doc directory, do nothing
+RewriteRule ^doc - [L]
+
 #First, delete any institution the user put in
-RewriteCond %{QUERY_STRING} ^(([^&]*&)*)institution=([^/\.]+)(&.*)$
-RewriteRule (.*) $1?%1%4
+RewriteCond %{QUERY_STRING} ^(([^&]*&)*)institution=[^&]*((&[^&]*)*)$
+RewriteRule (.*) $1?%1%3
 
 #Miami University of Ohio
 RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
@@ -27,7 +30,7 @@ RewriteRule (.*) $1?institution=eliot [QSA]
 
 #If no institution, redirect to sorry page
 RewriteCond %{QUERY_STRING} !institution
-RewriteRule (.*) sorry.php
+RewriteRule (.*) sorry.php [L]
 
 ###########
 ### API ###
@@ -38,11 +41,31 @@ RewriteRule (.*) sorry.php
 # /?$ = only allows a POSSIBLE '/'
 # Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/book_tags/B642LC.php?B64=blah"
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/book\_tags/([^/\.]+).json api/lc2bin/B642LC.php?B64=$1 [QSA,L]
+RewriteRule ^api/book_tags/([^/]+)(?=.json) api/lc2bin/B642LC.php?B64=$1 [L,QSA]
 
 # Same as above for LC2B64
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^api/call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
 #RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
 
-# POST book_pings/
-# Redirects to the code; code = book_ping.php
-# RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
+# Handles POST access to book_pings_lib 
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^api/book_pings/?$ test.php [L]
+#api/book_pings/book_ping.php [L,NS]
+
+#TODO update which php script this calls
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^api/book_pings/?$ test.php [L]
+
+#TODO update which php script this calls
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^api/book_pings/count/?$ test.php [L]
+
+#Catch-all error message when someone tries to use non-existing API
+#Note that there are TWO ways to get here!
+#If you don't use L, then we will get here.
+#Also, if you do any substitution, then it will get here
+# via a re-direct...
+RewriteCond %{ENV:REDIRECT_STATUS} !=200
+RewriteRule ^api/(.*) sorry-api.php?api_info=/api/$1 [NS,QSA]
+

@@ -13,7 +13,7 @@
                               "summary": "Get call_number corresponding to a book_tag", 
                               "notes": "Returns human readable call number in call_number, parsed version in parsed_call_number, and result. result will be SUCCESS if everything worked. If not, it will be ERROR, followed by an explanatory message.", 
                               "responseClass": "string", 
-                              "nickname": "base64toLC", 
+                              "nickname": "book_tag", 
                               "parameters": [
                                     {
                                           "name": "book_tag", 
