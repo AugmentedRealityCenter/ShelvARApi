@@ -12,8 +12,6 @@ include_once "LC_Converter_lib.php";
 include_once "../../tagmaker/base64_lib.php";
 
 $JSONin = urldecode($_GET["call_number"]);
-$JSONin = stripslashes($JSONin);
-$JSONin = json_decode($JSONin,true);
 
 $binret = LC2Bin($JSONin);
 
