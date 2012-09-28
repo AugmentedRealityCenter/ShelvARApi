@@ -10,16 +10,16 @@
             "operations": [
                 {
                     "httpMethod": "POST", 
-                    "summary": "Submit a book ping", 
-                    "notes": "Uploads book_pings to the database, data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and 'ERRORS' otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
+                    "summary": "Insert book pings in database", 
+                    "notes": "Uploads book_pings to the database. Data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and 'ERRORS' otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
                     "responseClass": "string", 
-                    "nickname": "submitPing", 
+                    "nickname": "book_pings", 
                     "parameters": [
                         {
-                            "name": "book_ping", 
-                            "description": "json formatted string of book pings consisting of book_tag, book_call, neighbor1_tag, neighbor1_call, neighbor2_tag, neighbor2_call, ping_time", 
+                            "name": "book_pings", 
+                            "description": "json formatted array of book_ping entries. Each book_ping consists of a book_tag (base 64), call_number (human readable), neighbor1_tag (base 64), neighbor1_call (human readable), neighbor2_tag (base 64), neighbor2_call (human readable), and ping_time (0000-00-00 00:00:00 format). neighbor1 should be the book to the left of the current book, if any. neighbor2 should be the book to the right of the current book, if any. Example: [{\"book_tag\":\"0cOZA09fhM0cM_gw000000a0\",\"call_number\":\"NX543 .c38 2000\",\"neighbor1_tag\":\"\",\"neighbor1_call\":\"\",\"neighbor2_tag\":\"\",\"neighbor2_call\":\"\",\"ping_time\",\"2012-10-10 10:10:10\"},{\"book_tag\":\"0cOZA09fhM0cM_gw000000a0\",\"call_number\":\"NX543 .c38 2000\",\"neighbor1_tag\":\"\",\"neighbor1_call\":\"\",\"neighbor2_tag\":\"\",\"neighbor2_call\":\"\",\"ping_time\",\"2012-11-11 11:11:11\"}]", 
                             "paramType": "body", 
-                            "required": false, 
+                            "required": true, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         }
