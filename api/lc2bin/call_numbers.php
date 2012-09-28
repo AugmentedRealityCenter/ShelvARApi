@@ -17,6 +17,6 @@ $JSONin = json_decode($JSONin,true);
 
 $binret = LC2Bin($JSONin);
 
-echo json_encode(array("base64"=>bin2base64($binret['Bin'])));
+echo json_encode(array("book_tag"=>bin2base64($binret['Bin'])));
 
  ?>

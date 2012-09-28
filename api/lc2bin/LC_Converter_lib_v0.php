@@ -366,11 +366,11 @@ $GLOBALS['LC2Bin_version'] = '0000000'; //Binary representation of the version n
 		
 		#Should make $c_num_arr = "AAA123.456 B78 2012 C90 1992 FLD8"
 		$c_num_arr = array( ($arr[1].$arr[2]) );
-		if(isset($arr[3]) array_push($c_num_arr, $arr[3]);
-		if(isset($arr[5]) array_push($c_num_arr, (" ".$arr[5]) );
+		if(isset($arr[3]) array_push($c_num_arr, ("."$arr[3]));
 		if(isset($arr[4]) array_push($c_num_arr, (" ".$arr[4]) );
-		if(isset($arr[7]) array_push($c_num_arr, (" ".$arr[7]) );
+		if(isset($arr[5]) array_push($c_num_arr, (" .".$arr[5]) );
 		if(isset($arr[6]) array_push($c_num_arr, (" ".$arr[6]) );
+		if(isset($arr[7]) array_push($c_num_arr, (" ".$arr[7]) );
 		if(isset($fld8) array_push($c_num_arr, (" ".$fld8) );
 		
 		$call_number = implode($c_num_arr);
