@@ -45,9 +45,14 @@ RewriteRule ^api/book\_tags/([^/\.]+)\.json api/lc2bin/B642LC.php?B64=$1 [QSA,L]
 
 # Same as above for LC2B64
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/call_numbers/([^/\.\json]+)\.json api/lc2bin/call_number.php?call_number=$1 [QSA,L]
+RewriteRule ^api/call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [QSA,L]
 #RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
 
 # POST book_pings/
 # Redirects to the code; code = book_ping.php
 # RewriteRule ^api/book_pings/([^/\.]+)/$ api/book_pings/book_ping.php?jsoninput=$1&institution= [QSA,L]
+
+# FROM JACOB REGO
+# Handles POST access to book_pings_lib 
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^api/book_pings/([^/\.]+)/?$ api/book_pings/book_ping_lib.php? [QSA, L]
