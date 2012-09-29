@@ -22,7 +22,7 @@
 			else doc("call_number_entered").innerHTML = "No call number entered.";
         var lcjson = '{ "lcNum" : "' + call_no.value + '" }';
 
-        $.post("lcparse/parse.php", 
+        $.post("api/lcparse/parse.php", 
                 { callNumInput: lcjson }, 
                 function(retval) {
                         if(retval.warningFree == true){
@@ -45,7 +45,7 @@
 
                         if(retval.allow) { 
                                 //doc('call_no').style.color = good_color;
-                                $.post("lc2bin/LC2B64.php", 
+                                $.post("api/lc2bin/LC2B64.php", 
                                         { "LC": JSON.stringify(retval.lcNum) }, 
                                         function(retLC) {
                                             $.post("front-end/book_sleuth_wrapper_index.php", 
