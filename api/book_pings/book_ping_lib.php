@@ -150,7 +150,7 @@ function do_book_ping($jsoninput,$institution=""){
 	}
   
   if($success){
-    return 'SUCCESS';
+    return 'SUCCESS Added '.count($decoded).' book_pings';
   } 
   else {
     return 'ERRORS';
