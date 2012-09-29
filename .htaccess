@@ -50,8 +50,7 @@ RewriteRule ^api/call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_
 
 # Handles POST access to book_pings_lib 
 RewriteCond %{THE_REQUEST} POST
-RewriteRule ^api/book_pings/?$ test.php [L]
-#api/book_pings/book_ping.php [L,NS]
+RewriteRule ^api/book_pings/?$ api/book_pings/book_ping.php [L]
 
 #TODO update which php script this calls
 RewriteCond %{THE_REQUEST} GET
