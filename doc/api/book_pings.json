@@ -142,7 +142,7 @@
             ]
         },
 		{
-            "path": "/book_pings/{book_ping}.json", 
+            "path": "/book_pings/{book_ping_id}.json", 
             "description": "Ping retrieval from database", 
             "operations": [
                 {
@@ -150,11 +150,11 @@
                     "summary": "Retrieve a book ping", 
                     "notes": "Returns the book ping with the database id that is entered.",
                     "responseClass": "string", 
-                    "nickname": "getPingByID", 
+                    "nickname": "book_ping_by_id", 
                     "parameters": [
                         {
-                            "name": "book_ping", 
-                            "description": "database id of the book ping", 
+                            "name": "book_ping_id", 
+                            "description": "an integer, which is the database id of the book ping", 
                             "paramType": "path", 
                             "required": false, 
                             "allowMultiple": false, 
