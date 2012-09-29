@@ -1,5 +1,5 @@
 var timers = new Array();
-timers['LCnum'] = 0;
+timers['call_number'] = 0;
 var fields = new Array();
 var num_ids = 0;
 
@@ -42,9 +42,9 @@ function CheckNum(id)
 {	
 	id = doc(id);
 	
-	var lcjson = '{ "lcNum" : "' + id.value + '" }';
+	var lcjson = '{ "call_number" : "' + id.value + '" }';
 	
-	$.post("api/lcparse/parse.php", 
+	$.post("api/call_numbers", 
 		{ callNumInput: lcjson }, 
 		function(ret) {
 			CheckNumResponse(ret, id);
@@ -53,55 +53,55 @@ function CheckNum(id)
 
 function FillOutParseResult(parse_result,ret){
 	var header = '<tr><th>Class</th>';
-	if(ret.lcNum.date1 != ""){
+	if(ret.call_number.date1 != ""){
 		header += '<th>1st dt</th>'
 	}
-	if(ret.lcNum.cutter1 != ""){
+	if(ret.call_number.cutter1 != ""){
 		header += '<th>1st cut</th>';
 	}
-	if(ret.lcNum.date2 != ""){
+	if(ret.call_number.date2 != ""){
 		header += '<th>2nd dt</th>';
 	}
-	if(ret.lcNum.cutter2 != ""){
+	if(ret.call_number.cutter2 != ""){
 		header += '<th>2nd cut</th>';
 	}
-	if(ret.lcNum.element8meaning == 'year'){
+	if(ret.call_number.element8meaning == 'year'){
 		header += '<th>3rd dt</th>';
 	}
-	if((ret.lcNum.element8 != "" && ret.lcNum.element8meaning != 'year') ||
-	   ret.lcNum.element9 != "" || ret.lcNum.element10 != ""){
+	if((ret.call_number.element8 != "" && ret.call_number.element8meaning != 'year') ||
+	   ret.call_number.element9 != "" || ret.call_number.element10 != ""){
 		header += '<th>Unused</th>';
 	}
 	header += '</tr>';
 	parse_result.innerHTML = header;
 
 	var iH = '<tr>'
-	+ '<td>' + ret.lcNum.alphabetic + ret.lcNum.wholeClass ;
-	if(ret.lcNum.decClass != ""){
- 		iH = iH + '.' + ret.lcNum.decClass ;
+	+ '<td>' + ret.call_number.alphabetic + ret.call_number.wholeClass ;
+	if(ret.call_number.decClass != ""){
+ 		iH = iH + '.' + ret.call_number.decClass ;
 	}
-	if(ret.lcNum.date1 != ""){
-		iH += '<td>' + ret.lcNum.date1 + '</td>'
+	if(ret.call_number.date1 != ""){
+		iH += '<td>' + ret.call_number.date1 + '</td>'
 	}
-	if(ret.lcNum.cutter1 != ""){
-		iH += "<td>" + ret.lcNum.cutter1 + "</td>";
+	if(ret.call_number.cutter1 != ""){
+		iH += "<td>" + ret.call_number.cutter1 + "</td>";
 	}
-	if(ret.lcNum.date2 != ""){
-		iH += "<td>" + ret.lcNum.date2 + "</td>";
+	if(ret.call_number.date2 != ""){
+		iH += "<td>" + ret.call_number.date2 + "</td>";
 	}
-	if(ret.lcNum.cutter2 != ""){
-		iH += "<td>" + ret.lcNum.cutter2 + "</td>";
+	if(ret.call_number.cutter2 != ""){
+		iH += "<td>" + ret.call_number.cutter2 + "</td>";
 	}
-	if(ret.lcNum.element8meaning == 'year'){
-		iH += "<td>" + ret.lcNum.element8 + "</td>";
+	if(ret.call_number.element8meaning == 'year'){
+		iH += "<td>" + ret.call_number.element8 + "</td>";
 	}
-	if((ret.lcNum.element8 != "" && ret.lcNum.element8meaning != 'year') ||
-	   ret.lcNum.element9 != "" || ret.lcNum.element10 != ""){
+	if((ret.call_number.element8 != "" && ret.call_number.element8meaning != 'year') ||
+	   ret.call_number.element9 != "" || ret.call_number.element10 != ""){
 		iH += "<td>";
-		if(ret.lcNum.element8meaning != 'year'){
-			iH += ret.lcNum.element8;
+		if(ret.call_number.element8meaning != 'year'){
+			iH += ret.call_number.element8;
 		}
-		iH += (ret.lcNum.element9 + ret.lcNum.element10 + "</td>" + "</tr>");
+		iH += (ret.call_number.element9 + ret.call_number.element10 + "</td>" + "</tr>");
 	}
 	parse_result.innerHTML += iH;
 }
@@ -119,7 +119,7 @@ function CheckNumResponse(ret, id)
 		//Set the tag to contain the book's tag, if the call number is valid
 		
 		$.post("api/lc2bin/LC2B64.php", 
-			{ "LC": JSON.stringify(ret.lcNum) }, 
+			{ "LC": JSON.stringify(ret.call_number) }, 
 			function(ret) {
 				tag.innerHTML += ret.base64;
 				EnableGetTagsButton();
@@ -223,7 +223,7 @@ function GenerateLCField(ret, id)
 		
 		//Set the tag to contain the book's tag, if the call number is valid
 		$.post("api/lc2bin/LC2B64.php", 
-			{ "LC": JSON.stringify(ret.lcNum) }, 
+			{ "LC": JSON.stringify(ret.call_number) }, 
 			function(ret) {
 				tag.innerHTML += ret.base64;
 				EnableGetTagsButton();

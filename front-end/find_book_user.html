@@ -22,7 +22,7 @@ function do_search()
 	var call_no = document.getElementById('call_no_find_book');
 	document.getElementById('callnum').innerHTML = call_no.value;
 	
-	var lcjson = 'callNumInput={ "lcNum" : "' + call_no_find_book.value + '" }';
+	var lcjson = 'callNumInput={ "call_number" : "' + call_no_find_book.value + '" }';
 
 	var compile_return_find_book = document.getElementById('compile_return_find_book');
 	compile_return_find_book.innerHTML = 'About to makeHttpObject';
@@ -31,9 +31,9 @@ function do_search()
 
 	compile_return_find_book.innerHTML = 'HttpObject made';
 
-	request.open("POST","api/book_pings/find_book_wrapper.php",false);
+	request.open("GET","api/book_pings/",false);
 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-        request.setRequestHeader("Content-Length",lcjson.length);
+    request.setRequestHeader("Content-Length",lcjson.length);
 	request.send(lcjson);
 
 	//compile_return_find_book.innerHTML = lcjson;
