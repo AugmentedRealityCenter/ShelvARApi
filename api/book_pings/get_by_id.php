@@ -68,11 +68,10 @@
 		if($query_result == FALSE) {
 			Print 'SQL Select failed' . mysqli_error();
 		} else {
-			while ($row = mysqli_fetch_array($res2[$res_type = MYSQL_ASSOC ])) {
-				// Because mysqli_fetch_array returns a string
-				$book_info_string = $row;
+			while ($row = mysqli_fetch_assoc($res2[$res_type = MYSQL_ASSOC ])) {
+			
 				
-				/* If returned as array, should fill book_info array
+				/* If returned as array, should fill book_info array */
 				$book_info[0] = $book_ping;
 				$book_info[1] = $row["book_tag"];
 				$book_info[2] = $row["book_call"];
@@ -82,7 +81,7 @@
 				$book_info[6] = $row["neighbor2_call"];
 				$book_info[7] = $row["ping_time"];
 				$book_info[8] = $row["institution"];			
-				*/
+				
 			}
 			mysqli_free_result($res2);
 		}
@@ -90,7 +89,9 @@
 		/* Close connection */
 		$con -> close();
 		
-	 return $book_info_string;
+	$book_info = json_encode(array('item' => $book_info_string), JSON_FORCE_OBJECT);	
+	
+	return $book_info;
 } 
  
  
@@ -123,6 +124,7 @@
 		// closes connection
 		$con -> close();
 		
+		$sql_output = json_encode($sql_output);
 		return $sql_output;		
  }
  
