@@ -46,7 +46,6 @@ RewriteRule ^api/book_tags/([^/]+)(?=.json) api/lc2bin/B642LC.php?B64=$1 [L,QSA]
 # Same as above for LC2B64
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^api/call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
-#RewriteRule ^api/call_numbers/([^/\.]+)/?$ api/lc2bin/LC2B64.php?LC=$1 [QSA,L]
 
 # Handles POST access to book_pings_lib 
 RewriteCond %{THE_REQUEST} POST
@@ -59,6 +58,9 @@ RewriteRule ^api/book_pings/?$ test.php [L]
 #TODO update which php script this calls
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^api/book_pings/count/?$ test.php [L]
+
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^api/book_pings/([0-9]+)(?=.json) api/book_pings/get_by_id.php?book_ping_id=$1 [L,QSA]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
