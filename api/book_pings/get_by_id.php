@@ -2,8 +2,8 @@
 
 /**
  * @file get_by_id.php
- * 
- * Copyright 2011 by ShelvAR Team.
+ * @author Jake Rego
+ * Copyright 2012 by ShelvAR Team.
  * @version September 29, 2012
  * Retrieves a book_ping with the database id that is entered
  * The id entered, according to the db format, should be an 11 character integer
@@ -14,7 +14,14 @@
  // getting the entered ID and limiting by institution
  $ret = get_by_id(stripslashes($_GET["book_ping"],$_GET["institution"]); 
  
- function get_by_id($book_ping) {
+ // alternate query format
+ $ret_two = get_by_id_1(stripslashes($_GET["book_ping"],$_GET["institution"]);
+ 
+
+ 
+ // Queries the database for requested book_ping by id
+ function get_by_id($book_ping, $institution="") {
+ 
 	 if(isset($_GET["book_ping"]))
 		$book_ping = $_GET['book_ping'];
 	 
@@ -86,6 +93,37 @@
 		
 	 return $book_info_string;
 } 
+ 
+ 
+ // Queries the database in a different format, not sure how to check institution here
+ function get_by_id_1($book_ping, $institution="") {
+	
+	if(isset($_GET["book_ping"]))
+		$book_ping = $_GET['book_ping'];
+	 
+	 // Create a new mysqli object with database connection parameters
+		$server = "localhost";
+		$user ="mysql_username";
+		$password = "mysql_pword";
+		$database = "mysql_db";
+		$con = new mysqli($server, $user, $password, $database);
+		
+		if(mysqli_connect_errno()) {
+			echo "Connection Failed: " . mysqli_connect_errno();
+			exit();
+		}
+		
+		// creating query statement and executing
+		$query = "SELECT * FROM book_pings WHERE id =" + $book_ping;
+		if( $con ->mysqli_fetch_array($query) ) {
+			$sql_output = mysqli_fetch_array($query); //should be a string of the row		
+		}
+		
+		$con -> close();
+		return $sql_output;		
+ }
+ 
+ 
 
-return $ret;
+return $ret; // or $ret_two
  ?>
