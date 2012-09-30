@@ -86,4 +86,6 @@
 		
 	 return $book_info_string;
 } 
+
+return $ret;
  ?>
