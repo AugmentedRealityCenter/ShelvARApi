@@ -57,19 +57,24 @@
 			$stmt -> close();		
 		}
 
-		if($res2 == FALSE) {
-					//Print 'SQL Select failed' . mysqli_error();
+		if($query_result == FALSE) {
+			Print 'SQL Select failed' . mysqli_error();
 		} else {
 			while ($row = mysqli_fetch_array($res2[$res_type = MYSQL_ASSOC ])) {
-				$book_info[] = $row["book_tag"];
-				$book_info[] = $row["book_call"];
-				$book_info[] = $row["neighbor1_tag"];
-				$book_info[] = $row["neighbor1_call"];
-				$book_info[] = $row["neighbor2_tag"];
-				$book_info[] = $row["neighbor2_call"];
-				$book_info[] = $row["ping_time"];
-				$book_info[] = $row["institution"];			
+				// Because mysqli_fetch_array returns a string
+				$book_info_string = $row;
 				
+				/* If returned as array, should fill book_info array
+				$book_info[0] = $book_ping;
+				$book_info[1] = $row["book_tag"];
+				$book_info[2] = $row["book_call"];
+				$book_info[3] = $row["neighbor1_tag"];
+				$book_info[4] = $row["neighbor1_call"];
+				$book_info[5] = $row["neighbor2_tag"];
+				$book_info[6] = $row["neighbor2_call"];
+				$book_info[7] = $row["ping_time"];
+				$book_info[8] = $row["institution"];			
+				*/
 			}
 			mysqli_free_result($res2);
 		}
@@ -79,6 +84,6 @@
 		/* Close connection */
 		$con -> close();
 		
-	 return $book_info;
+	 return $book_info_string;
 } 
  ?>
