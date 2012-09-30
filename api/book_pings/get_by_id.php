@@ -14,9 +14,9 @@
  // getting the entered ID and limiting by institution
  $ret = get_by_id(stripslashes($_GET["book_ping"],$_GET["institution"]); 
  
- // alternate query format
+ /** alternate query format
  $ret_two = get_by_id_1(stripslashes($_GET["book_ping"],$_GET["institution"]);
- 
+ */
  
  /** 
  * Queries the database for requested book_ping by id
