@@ -60,7 +60,7 @@
 		if($res2 == FALSE) {
 					//Print 'SQL Select failed' . mysqli_error();
 		} else {
-			while ($row = mysqli_fetch_assoc($res2)) {
+			while ($row = mysqli_fetch_array($res2[$res_type = MYSQL_ASSOC ])) {
 				$book_info[] = $row["book_tag"];
 				$book_info[] = $row["book_call"];
 				$book_info[] = $row["neighbor1_tag"];
