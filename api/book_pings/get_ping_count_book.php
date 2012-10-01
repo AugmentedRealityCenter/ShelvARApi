@@ -1,33 +1,58 @@
 <?php
 include_once ("../../db_info.php");
 
+class BindParam{ 
+    private $values = array(), $types = ''; 
+    
+    public function add( $type, &$value ){ 
+        $this->values[] = $value; 
+        $this->types .= $type; 
+    } 
+    
+    public function get(){ 
+        return array_merge(array($this->types), $this->values); 
+    } 
+}
+
+$bindParam = new BindParam(); 
+$qArray = array();
+$count = -1;
+$sql = "SELECT * FROM book_pings WHERE";
+$result;
+
 if(isset($_GET["book_tag"]))
 	$book_tag = $_GET['book_tag'];
-else $book_tag = " OR 1==1";
 
 if(isset($_GET["call_number"]))
 	$call_number = $_GET['call_number'];
-else $call_number = " OR 1==1";
-
-if(isset($_GET["neighbor_tag"]))
-	$neighbor_tag = $_GET['neighbor_tag'];
-else $neighbor_tag = " OR 1==1";
-
-if(isset($_GET["neighbor_call"]))
-	$neighbor_call = $_GET['neighbor_call'];
-else $neighbor_call = " OR 1==1";
 
 if(isset($_GET["start_date"]))
 	$start_date = $_GET['start_date'];
-else $start_date = " OR 1==1";
 
 if(isset($_GET["end_date"]))
 	$end_date = $_GET['end_date'];
-else $end_date = " OR 1==1";
 
-$count = -1;
-$where = "";
-$result;
+if(isset($_GET["book_tag"])){ 
+	$qArray[] = 'book_tag = ?'; 
+	$bindParam->add('s', $_GET["book_tag"]); 
+} 
+if(isset($_GET["call_number"])){ 
+    $qArray[] = 'call_number = ?'; 
+    $bindParam->add('s', $_GET["call_number"]); 
+} 
+if(isset($_GET["start_date"])){ 
+	$qArray[] = 'start_date = ?'; 
+	$bindParam->add('s', $_GET["start_date"]); 
+} 
+if(isset($_GET["end_date"])){ 
+    $qArray[] = 'end_date = ?'; 
+    $bindParam->add('s', $_GET["end_date"]); 
+} 
+
+$query .= implode(' AND ', $qArray); 
+
+echo $query . '<br/>'; 
+var_dump($bindParam->get()); /*
 
 	// Create a new mysqli object with database connection parameters
 	$con = new mysqli($server, $user, $password, $database);
@@ -38,7 +63,7 @@ $result;
 	}
 	echo "book_tag is " . $book_tag . " and book call is " . $call_number;
 	// Create a prepared statement
-		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE (book_tag=?) AND (book_call=?)")) {
+		if($stmt = $con -> prepare($sql)) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
 			$stmt -> bind_param('ss', $book_tag, $call_number);
@@ -73,5 +98,5 @@ $result;
 		$con -> close();
 		return $count;
 	}
-	
+	*/
 ?>
