@@ -95,4 +95,6 @@ function find_book($book_ping_id, $institution="")
 		return $return_arr;
 	}
 }
+
+return $ret;
 ?>
