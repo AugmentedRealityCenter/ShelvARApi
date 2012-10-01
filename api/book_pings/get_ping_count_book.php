@@ -73,18 +73,14 @@ function refValues($arr){
 		if($stmt = $mysqli -> prepare($sql)) {/*
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
-<<<<<<< HEAD
-			 echo $sql . '<br/>';
-=======
 			 //echo $sql . '<br/>'; 
->>>>>>> parent of 6371e3b... get_ping_count_book
 			//var_dump($bindParam->get());
 			 //$refs = refValues($bindParam->get());
 			 //echo "refs = " . $refs;
 			//call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
 			//call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
 			$stmt -> bind_param('s', $book_tag);
-			var_dump($stmt);
+			//var_dump($stmt);
 
 			//Execute it
 			$stmt -> execute();
