@@ -29,21 +29,20 @@ function find_book($book_ping_id, $institution="")
 	if(isset($_GET["book_ping_id"]))
 		$book_ping_id = $_GET['book_ping_id'];
 	
-	if(isset($_GET["book_tag"]))
-		$book_tag = $_GET['book_tag'];
-		
-	if(isset($_GET["call_number"]))
-		$call_number = $_GET['call_number'];
-	
-	if(isset($_GET["start_date"]))
-		$start_date = $_GET['start_date'];
-		
-	if(isset($_GET["end_date"]))
-		$end_date = $_GET['end_date'];
-		
-	if(isset($_GET["num_limit"]))
-		$num_limit = $_GET['num_limit'];
-	
+/**	if(isset($_GET["book_tag"]))
+*		
+*	if(isset($_GET["call_number"]))
+*		$call_number = $_GET['call_number'];
+*	
+*	if(isset($_GET["start_date"]))
+*		$start_date = $_GET['start_date'];
+*		
+*	if(isset($_GET["end_date"]))
+*		$end_date = $_GET['end_date'];
+*		
+*	if(isset($_GET["num_limit"]))
+*		$num_limit = $_GET['num_limit'];
+*/	
 	
 	
 	 
