@@ -28,7 +28,7 @@ function find_book($book_ping_id, $institution="")
 	
 	if(isset($_GET["book_ping_id"]))
 		$book_ping_id = $_GET['book_ping_id'];
-	
+//NOTE
 /**	if(isset($_GET["book_tag"]))
 *		
 *	if(isset($_GET["call_number"]))
@@ -58,6 +58,7 @@ function find_book($book_ping_id, $institution="")
 
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
+		 //NOTE
 		$stmt -> bind_param("ssssssss",
 			$book_info["book_tag"],
 			$book_info["book_call"],
