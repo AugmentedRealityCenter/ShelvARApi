@@ -81,6 +81,7 @@ function refValues($arr){
 			 call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
 			//call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
 			//$stmt -> bind_param('ss', $book_tag, $call_number);
+			echo $stmt;
 
 			//Execute it
 			$stmt -> execute();
