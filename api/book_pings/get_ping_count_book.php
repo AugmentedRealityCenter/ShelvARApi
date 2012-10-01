@@ -90,6 +90,7 @@ function refValues($arr){
 			//$stmt -> fetch();
 			
 			$result = $stmt->get_result();
+			echo "result is" . $result;
 			while ($myrow = $result->fetch_assoc()) {
 				$count++;
 				echo $count;
