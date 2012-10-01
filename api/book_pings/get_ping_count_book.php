@@ -91,6 +91,7 @@ var_dump($bindParam->get());
 		//Print 'No rows seleted';
 	} else {
 		//Print $resource;
+		echo "hi";
 		while ($row = mysqli_fetch_assoc($result)) {
 			$arr[] = $row;
 		}
