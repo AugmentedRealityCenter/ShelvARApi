@@ -65,7 +65,8 @@ var_dump($bindParam->get());
 		if($stmt = $con -> prepare($sql)) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
-			call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
+			 call_user_func_array(array($this->stmt, "bind_param"),$bindParam->get()); 
+			//call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
 			//$stmt -> bind_param('ss', $book_tag, $call_number);
 
 			//Execute it
