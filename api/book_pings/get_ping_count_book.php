@@ -54,6 +54,18 @@ $sql .= implode(' AND ', $qArray);
 echo $sql . '<br/>'; 
 var_dump($bindParam->get());
 
+function refValues($arr){ 
+    if (strnatcmp(phpversion(),'5.3') >= 0) //Reference is required for PHP 5.3+ 
+    { 
+        $refs = array(); 
+        foreach($arr as $key => $value) 
+            $refs[$key] = &$arr[$key]; 
+        return $refs; 
+    } 
+    return $arr; 
+} 
+
+
 	// Create a new mysqli object with database connection parameters
 	$con = new mysqli($server, $user, $password, $database);
 
@@ -66,7 +78,7 @@ var_dump($bindParam->get());
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
 			 
-			 call_user_func_array(array($stmt, "bind_param"),$bindParam->get()); 
+			 call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
 			//call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
 			//$stmt -> bind_param('ss', $book_tag, $call_number);
 
