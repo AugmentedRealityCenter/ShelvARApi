@@ -18,19 +18,27 @@
  *
  * @return An associative array with three values: last_time_seen, left_neighbor, right_neighbor.
  */
-function find_book($lcNum)
+function find_book($lcNum, $institution="")
 {
 	include_once "../../db_info.php";
 	
-	if(isset($_GET["book_tag"])){
+	if(isset($_GET["book_tag"]))
 		$book_tag = $_GET['book_tag'];
-	}
-	$call_number = $_GET['call_number'];
-	$neighbor_tag = $_GET['neighbor_tag'];
-	$neighbor_call = $_GET['neighbor_call'];
-	$start_date = $_GET['start_date'];
-	$end_date = $_GET['end_date'];
-	$num_limit = $_GET['num_limit'];
+		
+	if(isset($_GET["call_number"]))
+		$call_number = $_GET['call_number'];
+	
+	if(isset($_GET["start_date"]))
+		$start_date = $_GET['start_date'];
+		
+	if(isset($_GET["end_date"]))
+		$end_date = $_GET['end_date'];
+		
+	if(isset($_GET["num_limit"]))
+		$num_limit = $_GET['num_limit'];
+	
+	
+	
 	 
 	/* Create a new mysqli object with database connection parameters */
 	$con = new mysqli($server, $user, $password, $database);
