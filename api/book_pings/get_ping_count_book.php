@@ -37,7 +37,7 @@ if(isset($_GET["book_tag"])){
 	$bindParam->add('s', $_GET["book_tag"]); 
 } 
 if(isset($_GET["call_number"])){ 
-    $qArray[] = 'call_number = ?'; 
+    $qArray[] = 'book_call = ?'; 
     $bindParam->add('s', $_GET["call_number"]); 
 } 
 if(isset($_GET["start_date"])){ 
