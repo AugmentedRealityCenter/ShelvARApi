@@ -13,7 +13,7 @@ class BindParam{
         return array_merge(array($this->types), $this->values); 
     } 
 }
-
+mysqli_report(MYSQLI_REPORT_ALL);
 $bindParam = new BindParam(); 
 $qArray = array();
 $count = 0;
