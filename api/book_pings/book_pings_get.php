@@ -12,15 +12,22 @@
 
 //find_book("QA76.7 .A25 1991");
 /**
- * Takes a string as input and (if connecting to the database is successful) queries the database
- * for all instances where that call number was seen. All of the tuples returned are stored in an
- * array. The last row in the array (the most recent ping) is returned as an associative array.
+ * Retrieves a list of the most recent book_pings. By default, returns the 20 most recent. 
+ * Search can be limited using the optional parameters: Will return the 20 most recent pings 
+ * that match all parameters.
  *
  * @return An associative array with three values: last_time_seen, left_neighbor, right_neighbor.
  */
-function find_book($lcNum, $institution="")
+ 
+ $ret = find_book(stripslashes($_GET["book_ping_id"],$_GET["institution"]); 
+  
+  
+function find_book($book_ping_id, $institution="")
 {
 	include_once "../../db_info.php";
+	
+	if(isset($_GET["book_ping_id"]))
+		$book_ping_id = $_GET['book_ping_id'];
 	
 	if(isset($_GET["book_tag"]))
 		$book_tag = $_GET['book_tag'];
