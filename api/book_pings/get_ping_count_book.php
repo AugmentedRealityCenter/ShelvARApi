@@ -16,7 +16,7 @@ class BindParam{
 
 $bindParam = new BindParam(); 
 $qArray = array();
-$count = -1;
+$count = 0;
 $sql = "SELECT * FROM book_pings WHERE ";
 $result;
 
@@ -84,10 +84,15 @@ function refValues($arr){
 			//Execute it
 			$stmt -> execute();
 			// Bind results
-			$stmt -> bind_result($result);
+			//$stmt -> bind_result($result);
 
 			// Fetch the value
-			$stmt -> fetch();
+			//$stmt -> fetch();
+			
+			$result = $stmt->get_result();
+			while ($myrow = $result->fetch_assoc()) {
+				$count++;
+			}
 
 			// Close statement
 			$stmt -> close();
@@ -95,7 +100,7 @@ function refValues($arr){
 
 		echo $con->error;
 
-	if($result == FALSE){
+	if($count == 0){
 		Print "FAILED 1";
 		//Print 'SQL Select failed' . mysqli_error();
 	} else if(mysqli_num_rows($result) == 0) {
