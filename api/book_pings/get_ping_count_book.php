@@ -37,7 +37,7 @@ if(isset($_GET["book_tag"])){
 	$bindParam->add('s', $_GET["book_tag"]); 
 } 
 if(isset($_GET["call_number"])){ 
-    $qArray[] = 'call_number = ?'; 
+    $qArray[] = 'book_call = ?'; 
     $bindParam->add('s', $_GET["call_number"]); 
 } 
 if(isset($_GET["start_date"])){ 
@@ -62,17 +62,22 @@ function refValues($arr){
 
 
 	// Create a new mysqli object with database connection parameters
-	$con = new mysqli($server, $user, $password, $database);
+	mysqli_report(MYSQLI_REPORT_ALL);
+	$mysqli = new mysqli($server, $user, $password, $database);
 
 	if(mysqli_connect_errno()) {
 		echo "Connection Failed: " . mysqli_connect_errno();
 		exit();
 	}
 	// Create a prepared statement
-		if($stmt = $con -> prepare($sql)) {
+		if($stmt = $mysqli -> prepare($sql)) {/*
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
+<<<<<<< HEAD
+			 echo $sql . '<br/>';
+=======
 			 //echo $sql . '<br/>'; 
+>>>>>>> parent of 6371e3b... get_ping_count_book
 			//var_dump($bindParam->get());
 			 //$refs = refValues($bindParam->get());
 			 //echo "refs = " . $refs;
@@ -98,9 +103,9 @@ function refValues($arr){
 
 			// Close statement
 			$stmt -> close();
-		}
+		*/}/*
 
-		echo $con->error;
+		echo $mysqli->error;
 
 	if($count == 0){
 		Print "FAILED 1";
@@ -118,5 +123,5 @@ function refValues($arr){
 		// Close connection
 		$con -> close();
 		return $count;
-	}
+	}*/
 ?>
