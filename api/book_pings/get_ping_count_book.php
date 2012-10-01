@@ -59,7 +59,7 @@ function refValues($arr){
             $refs[$key] = &$arr[$key]; 
         return $refs; 
 } 
-
+/*
 
 	// Create a new mysqli object with database connection parameters
 	mysqli_report(MYSQLI_REPORT_ALL);
@@ -119,5 +119,5 @@ function refValues($arr){
 		// Close connection
 		$con -> close();
 		return $count;
-	}
+	}*/
 ?>
