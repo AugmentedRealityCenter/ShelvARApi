@@ -70,7 +70,7 @@ function refValues($arr){
 		exit();
 	}
 	// Create a prepared statement
-		if($stmt = $mysqli -> prepare($sql)) {
+		if($stmt = $mysqli -> prepare($sql)) {/*
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
 			 echo $sql . '<br/>';
@@ -99,7 +99,7 @@ function refValues($arr){
 
 			// Close statement
 			$stmt -> close();
-		}/*
+		*/}/*
 
 		echo $mysqli->error;
 
