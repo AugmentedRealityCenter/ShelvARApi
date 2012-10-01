@@ -49,7 +49,7 @@ if(isset($_GET["end_date"])){
     $bindParam->add('s', $_GET["end_date"]); 
 } 
 
-$query .= implode(' AND ', $qArray); 
+$sql .= implode(' AND ', $qArray); 
 
 echo $query . '<br/>'; 
 var_dump($bindParam->get()); /*
