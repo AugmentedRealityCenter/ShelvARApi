@@ -10,10 +10,13 @@
 
 include_once "LC_Converter_lib.php";
 include_once "../../tagmaker/base64_lib.php";
+include_once "../lcparse/parseLibrary.php";
 
 $JSONin = urldecode($_GET["call_number"]);
 
-$binret = LC2Bin($JSONin);
+$JSONin = parseToAssocArray($JSONin);
+
+$binret = LC2Bin($JSONin["lcNum"]);
 
 echo json_encode(array("book_tag"=>bin2base64($binret['Bin'])));
 
