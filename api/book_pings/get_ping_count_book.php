@@ -59,7 +59,7 @@ function refValues($arr){
             $refs[$key] = &$arr[$key]; 
         return $refs; 
 } 
-/*
+
 
 	// Create a new mysqli object with database connection parameters
 	mysqli_report(MYSQLI_REPORT_ALL);
@@ -73,7 +73,7 @@ function refValues($arr){
 		if($stmt = $mysqli -> prepare($sql)) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
-			 echo $sql . '<br/>'; 
+			 echo $sql . '<br/>'; /*
 			//var_dump($bindParam->get());
 			 //$refs = refValues($bindParam->get());
 			 //echo "refs = " . $refs;
