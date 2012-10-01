@@ -78,7 +78,7 @@ function refValues($arr){
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
 			 
-			call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
+			call_user_func_array(array($this->stmt, "bind_param"),$this->refValues($bindParam->get())); 
 			//call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
 			//$stmt -> bind_param('ss', $book_tag, $call_number);
 			var_dump($stmt);
