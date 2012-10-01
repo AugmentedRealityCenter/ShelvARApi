@@ -16,7 +16,7 @@
  * Search can be limited using the optional parameters: Will return the 20 most recent pings 
  * that match all parameters.
  *
- * @return An associative array with three values: last_time_seen, left_neighbor, right_neighbor.
+ * @return
  */
  
  $ret = find_book(stripslashes($_GET["book_ping_id"],$_GET["institution"]); 
