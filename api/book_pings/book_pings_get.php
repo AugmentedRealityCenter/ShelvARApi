@@ -55,7 +55,7 @@ function find_book($book_ping_id, $institution="")
 		exit();
 	}
 	/* Create a prepared statement */
-	if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_call =?")) {
+	if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE id =" + $book_ping_id)) {
 
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
