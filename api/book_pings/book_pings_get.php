@@ -6,8 +6,8 @@
  *
  * Copyright 2011 by ShelvAR Team.
  *
- * @version September 17, 2012
- * @author Eliot Fowler and Raavian Rehman
+ * @version September 30, 2012
+ * @author Drew Ritcher
  */
 
 //find_book("QA76.7 .A25 1991");
