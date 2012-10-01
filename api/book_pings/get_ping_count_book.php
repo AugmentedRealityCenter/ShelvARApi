@@ -73,7 +73,7 @@ function refValues($arr){
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
 			 echo $sql . '<br/>'; 
-var_dump($bindParam->get());
+			var_dump($bindParam->get());
 			 $refs = refValues($bindParam->get());
 			 echo "refs = " . $refs;
 			call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
