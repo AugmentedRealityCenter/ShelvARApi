@@ -59,7 +59,15 @@ function find_book($book_ping_id, $institution="")
 
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
-		$stmt -> bind_param("s", $lcNum);
+		$stmt -> bind_param("ssssssss",
+			$book_info["book_tag"],
+			$book_info["book_call"],
+			$book_info["neighbor1_tag"],
+			$book_info["neighbor1_call"],
+			$book_info["neighbor2_tag"],
+			$book_info["neighbor2_call"],
+			$book_info["ping_time"],
+			$institution);
 
 		/* Execute it */
 		$stmt -> execute();
