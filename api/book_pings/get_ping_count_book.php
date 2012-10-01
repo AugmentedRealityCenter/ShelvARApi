@@ -51,8 +51,7 @@ if(isset($_GET["end_date"])){
 
 $sql .= implode(' AND ', $qArray); 
 
-echo $sql . '<br/>'; 
-var_dump($bindParam->get());
+
 
 function refValues($arr){ 
         $refs = array(); 
@@ -73,6 +72,8 @@ function refValues($arr){
 		if($stmt = $con -> prepare($sql)) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
+			 echo $sql . '<br/>'; 
+var_dump($bindParam->get());
 			 $refs = refValues($bindParam->get());
 			 echo "refs = " . $refs;
 			call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
