@@ -93,6 +93,7 @@ function refValues($arr){
 			$stmt -> close();
 		}
 
+		var_dump($result);
 
 	if($result == FALSE){
 		Print "FAILED 1";
