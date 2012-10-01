@@ -21,6 +21,16 @@
 function find_book($lcNum)
 {
 	include_once "../../db_info.php";
+	
+	if(isset($_GET["book_tag"])){
+		$book_tag = $_GET['book_tag'];
+	}
+	$call_number = $_GET['call_number'];
+	$neighbor_tag = $_GET['neighbor_tag'];
+	$neighbor_call = $_GET['neighbor_call'];
+	$start_date = $_GET['start_date'];
+	$end_date = $_GET['end_date'];
+	$num_limit = $_GET['num_limit'];
 	 
 	/* Create a new mysqli object with database connection parameters */
 	$con = new mysqli($server, $user, $password, $database);
