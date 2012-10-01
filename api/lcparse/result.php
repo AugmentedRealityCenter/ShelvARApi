@@ -33,7 +33,7 @@ class result {
 	public $arrOfConflicts;
 	
 	function __construct() {
-		$arrOfConflicts = array($newConflict);
+		$arrOfConflicts = array();
 		$allow = true;
 		$warningFree = true;
 		$endResult["allow"] = $allow;
