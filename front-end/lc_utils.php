@@ -8,7 +8,7 @@
  *
  */
  
-include_once "../lc2bin/LC_Converter_lib.php";
+include_once "../api/lc2bin/LC_Converter_lib.php";
 include_once "../tagmaker/base64_lib.php";
 
 

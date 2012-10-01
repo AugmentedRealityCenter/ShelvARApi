@@ -12,7 +12,7 @@ error_reporting(E_ALL | E_STRICT);
  */
 
 include_once 'base64_lib.php'; //Base64 encoding and decoding
-include_once '../lc2bin/LC_Converter_lib.php'; //The Binary to LC encoder.
+include_once '../api/lc2bin/LC_Converter_lib.php'; //The Binary to LC encoder.
 
 //Global Variables.
 $blocksize = 7; //!< Block size in pixels (Should not change)

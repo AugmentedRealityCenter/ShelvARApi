@@ -44,7 +44,7 @@ function CheckNum(id)
 	
 	var lcjson = '{ "lcNum" : "' + id.value + '" }';
 	
-	$.post("lcparse/parse.php", 
+	$.post("api/lcparse/parse.php", 
 		{ callNumInput: lcjson }, 
 		function(ret) {
 			CheckNumResponse(ret, id);
@@ -118,7 +118,7 @@ function CheckNumResponse(ret, id)
 		id.style.color = good_color;
 		//Set the tag to contain the book's tag, if the call number is valid
 		
-		$.post("lc2bin/LC2B64.php", 
+		$.post("api/lc2bin/LC2B64.php", 
 			{ "LC": JSON.stringify(ret.lcNum) }, 
 			function(ret) {
 				tag.innerHTML += ret.base64;
@@ -145,7 +145,7 @@ function CheckNums()
 {
 	var nums = doc('LCnums').value;
 	nums = nums.split('\n');
-	$.post("lcparse/parseMultiple.php", 
+	$.post("api/lcparse/parseMultiple.php", 
 		{ callNumInput: JSON.stringify(nums) },
 		function(ret) {		
 			CheckNumsResponse(ret, nums);
@@ -222,7 +222,7 @@ function GenerateLCField(ret, id)
 		input.style.color = good_color;
 		
 		//Set the tag to contain the book's tag, if the call number is valid
-		$.post("lc2bin/LC2B64.php", 
+		$.post("api/lc2bin/LC2B64.php", 
 			{ "LC": JSON.stringify(ret.lcNum) }, 
 			function(ret) {
 				tag.innerHTML += ret.base64;
@@ -254,7 +254,7 @@ function DisplayImage(num)
 {	
 	var tag;
 
-	$.post("lc2bin/LC2B64.php", 
+	$.post("api/lc2bin/LC2B64.php", 
 		{ "LC": JSON.stringify(num) }, 
 		function(ret) {
 			tag = ret.base64;
@@ -361,7 +361,8 @@ function GetTags(){
 			window.open("data:application/pdf," + escape(pdfString));
 		}, "json");
 	*/
-}function GetTags(){
+}
+function GetTags(){
 	var tag_array = new Array();
 	for(i=0; i < num_ids; i++){
 		var tag = doc('num'+i+'_tag');

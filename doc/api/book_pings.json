@@ -6,20 +6,20 @@
     "apis": [
 		{
             "path": "/book_pings/", 
-            "description": "Ping submission", 
+            "description": "List of book pings", 
             "operations": [
                 {
                     "httpMethod": "POST", 
-                    "summary": "Submit a book ping", 
-                    "notes": "Uploads book_pings to the database, data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and 'ERRORS' otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
+                    "summary": "Insert book pings in database", 
+                    "notes": "Uploads book_pings to the database. Data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and 'ERRORS' otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
                     "responseClass": "string", 
-                    "nickname": "submitPing", 
+                    "nickname": "book_pings", 
                     "parameters": [
                         {
-                            "name": "book_ping", 
-                            "description": "json formatted string of book pings consisting of book_tag, book_call, neighbor1_tag, neighbor1_call, neighbor2_tag, neighbor2_call, ping_time", 
+                            "name": "book_pings", 
+                            "description": "json formatted array of book_ping entries. Each book_ping consists of a book_tag (base 64), call_number (human readable), neighbor1_tag (base 64), neighbor1_call (human readable), neighbor2_tag (base 64), neighbor2_call (human readable), and ping_time (0000-00-00 00:00:00 format). neighbor1 should be the book to the left of the current book, if any. neighbor2 should be the book to the right of the current book, if any. Example: [{\"book_tag\":\"0cOZA09fhM0cM_gw000000a0\",\"call_number\":\"NX543 .c38 2000\",\"neighbor1_tag\":\"\",\"neighbor1_call\":\"\",\"neighbor2_tag\":\"\",\"neighbor2_call\":\"\",\"ping_time\",\"2012-10-10 10:10:10\"},{\"book_tag\":\"0cOZA09fhM0cM_gw000000a0\",\"call_number\":\"NX543 .c38 2000\",\"neighbor1_tag\":\"\",\"neighbor1_call\":\"\",\"neighbor2_tag\":\"\",\"neighbor2_call\":\"\",\"ping_time\",\"2012-11-11 11:11:11\"}]", 
                             "paramType": "body", 
-                            "required": false, 
+                            "required": true, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         }
@@ -30,55 +30,33 @@
                             "reason": "Invalid ping"
                         }
                     ]
-                }
-            ]
-        },
-        {
-            "path": "/book_pings/", 
-            "description": "Search for a book", 
-            "operations": [
+                },
                 {
                     "httpMethod": "GET", 
-                    "summary": "Finds books by call numbers or book tags", 
-                    "notes": "Retrieves a list of the dates when there was a shelf-read, and whether or not this particular book was seen on that day. Returns an associative array of integers keyed by date (no hours/minutes/seconds, year-month-day only) a 0 indicates that the book was not seen, but a neighbor was (indicating a shelf read on that day), while a 1 indicates that the book was seen.", 
+                    "summary": "Get recent book pings", 
+                    "notes": "Retrieves a list of the most recent book_pings. By default, returns the 20 most recent. Search can be limited using the optional parameters: Will return the 20 most recent pings that match all parameters.", 
                     "responseClass": "void", 
-                    "nickname": "search", 
+                    "nickname": "book_pings", 
                     "parameters": [
                         {
                             "name": "book_tag", 
-                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
+                            "description": "base-64 representation of the binary tag", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         }, 
 						{
-                            "name": "lcNum", 
-                            "description": "VARCHAR(40), LC Call Number", 
+                            "name": "call_number", 
+                            "description": "Call number, in human-readable format", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         },
-						{
-                            "name": "neighbor_tag", 
-                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
-                        {
-                            "name": "neighbor_call", 
-                            "description": "VARCHAR(40), LC Call Number", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
                         {
                             "name": "start_date", 
-                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
+                            "description": "Return only pings that come on or after this date. \"0000-00-00 00:00:00\" format.",
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -86,15 +64,15 @@
                         }, 
                         {
                             "name": "end_date", 
-                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
+                            "description": "Return only pings that come before this date. \"0000-00-00 00:00:00\" format.",
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         },
 						{
-                            "name": "limit", 
-                            "description": "Number of items returned between 1 and 1000. Default is 20.", 
+                            "name": "num_limit", 
+                            "description": "Number of items to return, between 1 and 1000. Default is 20.", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -112,50 +90,34 @@
         }, 
         {
             "path": "/book_pings/count", 
-            "description": "Summation operations on pings", 
+            "description": "Count the number of book pings", 
             "operations": [
                 {
                     "httpMethod": "GET", 
-                    "summary": "Count book pings", 
-                    "notes": "Returns an integer representing the count of book_pings since a particular date in seconds since 1970, corresponding to the time()method of PHP.",  
+                    "summary": "Count the number of book pings in the database", 
+                    "notes": "Returns an integer, book_ping_count, representing the number of book_pings in the database. This count may be limited using the optional parameters.",  
                     "responseClass": "string", 
-                    "nickname": "countTags", 
+                    "nickname": "count", 
                     "parameters": [
                         {
                             "name": "book_tag", 
-                            "description": "VARCHAR(40), base-64 representation of the binary tag", 
+                            "description": "base-64 representation of a book_tag. Limit the count to only count pings with this book_tag. Example: 0cOZA09fhM0cM_gw000000a0", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         }, 
 						{
-                            "name": "lcNum", 
-                            "description": "VARCHAR(40), LC Call Number", 
+                            "name": "call_number", 
+                            "description": "human-readable call number. Must be URL-encoded. Limit the count to only count pings with this call_number. Example: NX543%20.c38%202000", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
                             "dataType": "string"
                         },
-						{
-                            "name": "neighbor_tag", 
-                            "description": "VARCHAR(40), base-64 representation of the neighbor's binary tag", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
-                        {
-                            "name": "neighbor_call", 
-                            "description": "VARCHAR(40), LC Call Number", 
-                            "paramType": "query", 
-                            "required": false, 
-                            "allowMultiple": false, 
-                            "dataType": "string"
-                        }, 
                         {
                             "name": "start_date", 
-                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, returns all book pings that come on or before end_date.", 
+                            "description": "Human-readable date, in \"0000-00-00 00:00:00\" format. Must be URL-encoded. Limit count to only book_pings that occur on or after this date. Example: 2010-01-01%2010%3A15%3A00",
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -163,7 +125,7 @@
                         }, 
                         {
                             "name": "end_date", 
-                            "description": "CHAR(21), \"0000-00-00 00:00:00\" format. If unset, defaults to current date and time.", 
+                            "description": "Human-readable date, in \"0000-00-00 00:00:00\" format. Must be URL-encoded. Limit count to only book_pings that occur before this date. Example: 2012-12-30%2014%3A15%3A10", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -180,7 +142,7 @@
             ]
         },
 		{
-            "path": "/book_pings/{book_ping}.json", 
+            "path": "/book_pings/{book_ping_id}.json", 
             "description": "Ping retrieval from database", 
             "operations": [
                 {
@@ -188,11 +150,11 @@
                     "summary": "Retrieve a book ping", 
                     "notes": "Returns the book ping with the database id that is entered.",
                     "responseClass": "string", 
-                    "nickname": "getPingByID", 
+                    "nickname": "book_ping_by_id", 
                     "parameters": [
                         {
-                            "name": "book_ping", 
-                            "description": "database id of the book ping", 
+                            "name": "book_ping_id", 
+                            "description": "an integer, which is the database id of the book ping", 
                             "paramType": "path", 
                             "required": false, 
                             "allowMultiple": false, 
