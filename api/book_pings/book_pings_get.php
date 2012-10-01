@@ -94,12 +94,12 @@ function find_book($book_ping_id, $institution="")
 			$arr[] = $row;
 		}
 
-		$return_arr["last_time_seen"] = $arr[count($arr)-1]["ping_time"];
-		$return_arr["left_neighbor"] = $arr[count($arr)-1]["neighbor1_call"];
-		$return_arr["right_neighbor"] = $arr[count($arr)-1]["neighbor2_call"];
+	//	$return_arr["last_time_seen"] = $arr[count($arr)-1]["ping_time"];
+	//	$return_arr["left_neighbor"] = $arr[count($arr)-1]["neighbor1_call"];
+	//	$return_arr["right_neighbor"] = $arr[count($arr)-1]["neighbor2_call"];
 		/* Close connection */
-		$con -> close();
-		return $return_arr;
+	//	$con -> close();
+	//	return $return_arr;
 	}
 }
 
