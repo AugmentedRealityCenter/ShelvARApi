@@ -51,7 +51,7 @@ if(isset($_GET["end_date"])){
 
 $sql .= implode(' AND ', $qArray); 
 
-echo $query . '<br/>'; 
+echo $sql . '<br/>'; 
 var_dump($bindParam->get()); /*
 
 	// Create a new mysqli object with database connection parameters
