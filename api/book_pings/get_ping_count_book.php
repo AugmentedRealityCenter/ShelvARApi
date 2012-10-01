@@ -93,7 +93,7 @@ function refValues($arr){
 			$stmt -> close();
 		}
 
-		echo $mysqli->error;
+		echo $con->error;
 
 	if($result == FALSE){
 		Print "FAILED 1";
