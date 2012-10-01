@@ -12,19 +12,19 @@
  include ("../../db_info.php");
  
  // getting the entered ID and limiting by institution
- $ret = get_by_id(stripslashes($_GET["book_ping"],$_GET["institution"]); 
+ $ret = get_by_id(stripslashes($_GET["book_ping_id"],$_GET["institution"]); 
  
  /** alternate query format
- $ret_two = get_by_id_1(stripslashes($_GET["book_ping"],$_GET["institution"]);
+ $ret_two = get_by_id_1(stripslashes($_GET["book_ping_id"],$_GET["institution"]);
  */
  
  /** 
- * Queries the database for requested book_ping by id
+ * Queries the database for the requested book_ping_id 
  */
- function get_by_id($book_ping, $institution="") {
+ function get_by_id($book_ping_id, $institution="") {
  
-	 if(isset($_GET["book_ping"]))
-		$book_ping = $_GET['book_ping'];
+	 if(isset($_GET["book_ping_id"]))
+		$book_ping_id = $_GET['book_ping_id'];
 	 
 	 // Create a new mysqli object with database connection parameters
 		$server = "localhost";
@@ -39,7 +39,7 @@
 		}
 		
 		/* create a prepared statement */
-		if($stmt - $con -> prepare("SELECT * from book_pings WHERE id = " + $book_ping) { //&& query_or_not ==true) {
+		if($stmt - $con -> prepare("SELECT * from book_pings WHERE id = " + $book_ping_id) { //&& query_or_not ==true) {
 		
 			// Bind parameters
 			$stmt -> bind_param("ssssssss",
@@ -72,7 +72,7 @@
 			
 				
 				/* If returned as array, should fill book_info array */
-				$book_info[0] = $book_ping;
+				$book_info[0] = $book_ping_id;
 				$book_info[1] = $row["book_tag"];
 				$book_info[2] = $row["book_call"];
 				$book_info[3] = $row["neighbor1_tag"];
@@ -98,10 +98,10 @@
  /** 
  * Queries the database in a different format, not sure how to check institution here
  */
- function get_by_id_1($book_ping, $institution="") {
+ function get_by_id_1($book_ping_id, $institution="") {
 	
-	if(isset($_GET["book_ping"]))
-		$book_ping = $_GET['book_ping'];
+	if(isset($_GET["book_ping_id"]))
+		$book_ping_id = $_GET['book_ping_id'];
 	 
 	 // Create a new mysqli object with database connection parameters
 		$server = "localhost";
@@ -116,7 +116,7 @@
 		}
 		
 		// creating query statement and executing
-		$query = "SELECT * FROM book_pings WHERE id =" + $book_ping;
+		$query = "SELECT * FROM book_pings WHERE id =" + $book_ping_id;
 		if( $con -> mysqli_fetch_array($query) ) {
 			$sql_output = mysqli_fetch_array($query); //should be a string of the row		
 		}
