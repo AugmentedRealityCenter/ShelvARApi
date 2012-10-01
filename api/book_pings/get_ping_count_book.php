@@ -55,14 +55,10 @@ echo $sql . '<br/>';
 var_dump($bindParam->get());
 
 function refValues($arr){ 
-    if (strnatcmp(phpversion(),'5.3') >= 0) //Reference is required for PHP 5.3+ 
-    { 
         $refs = array(); 
         foreach($arr as $key => $value) 
             $refs[$key] = &$arr[$key]; 
         return $refs; 
-    } 
-    return $arr; 
 } 
 
 
@@ -77,8 +73,9 @@ function refValues($arr){
 		if($stmt = $con -> prepare($sql)) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
-			 
-			call_user_func_array(array($this->stmt, "bind_param"),$this->refValues($bindParam->get())); 
+			 $refs = refValues($bindParam->get();
+			 echo "refs = " . $refs;
+			call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
 			//call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
 			//$stmt -> bind_param('ss', $book_tag, $call_number);
 			var_dump($stmt);
