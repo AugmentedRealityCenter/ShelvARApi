@@ -17,7 +17,7 @@ class BindParam{
 $bindParam = new BindParam(); 
 $qArray = array();
 $count = -1;
-$sql = "SELECT * FROM book_pings WHERE";
+$sql = "SELECT * FROM book_pings WHERE ";
 $result;
 
 if(isset($_GET["book_tag"]))
@@ -52,7 +52,7 @@ if(isset($_GET["end_date"])){
 $sql .= implode(' AND ', $qArray); 
 
 echo $sql . '<br/>'; 
-var_dump($bindParam->get()); /*
+var_dump($bindParam->get());
 
 	// Create a new mysqli object with database connection parameters
 	$con = new mysqli($server, $user, $password, $database);
@@ -61,12 +61,12 @@ var_dump($bindParam->get()); /*
 		echo "Connection Failed: " . mysqli_connect_errno();
 		exit();
 	}
-	echo "book_tag is " . $book_tag . " and book call is " . $call_number;
 	// Create a prepared statement
 		if($stmt = $con -> prepare($sql)) {
 			// Bind parameters
 			 //s - string, b - blob, i - int, etc
-			$stmt -> bind_param('ss', $book_tag, $call_number);
+			call_user_func_array('bind_param', $bindParam->get());
+			//$stmt -> bind_param('ss', $book_tag, $call_number);
 
 			//Execute it
 			$stmt -> execute();
@@ -98,5 +98,4 @@ var_dump($bindParam->get()); /*
 		$con -> close();
 		return $count;
 	}
-	*/
 ?>
