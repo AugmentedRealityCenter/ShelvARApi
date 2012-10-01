@@ -18,7 +18,9 @@ $JSONparsedArr = parseToAssocArray($JSONparsed);
 
 $binret = LC2Bin($JSONparsedArr["lcNum"]);
 
+$result = ($JSONparsedArr["allow"]=="true") ? "SUCCESS" : "FAILURE";
+
 echo json_encode(array("book_tag"=>bin2base64($binret['Bin']), "parsed_call_number"=>$JSONparsed,
-						"parser_feedback"=>$JSONparsedArr["arrOfConflicts"], "result"=>"Also TODO"));
+						"parser_feedback"=>$JSONparsedArr["arrOfConflicts"], "result"=>$result));
 
  ?>
