@@ -76,9 +76,9 @@ function refValues($arr){
 			var_dump($bindParam->get());
 			 $refs = refValues($bindParam->get());
 			 echo "refs = " . $refs;
-			call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
+			//call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
 			//call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
-			//$stmt -> bind_param('ss', $book_tag, $call_number);
+			$stmt -> bind_param('s', $book_tag);
 			var_dump($stmt);
 
 			//Execute it
