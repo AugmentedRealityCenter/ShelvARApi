@@ -1,4 +1,8 @@
 <?php
+// Copyright (C) 2012 by Mike Smit
+// License: Creative Commons BY-SA Version 3.0 
+// This code is from a StackOverflow answer by Mike Smit
+// See: http://stackoverflow.com/questions/994041/how-can-i-put-the-results-of-a-mysqli-prepared-statement-into-an-associative-arr
 
 class database {
         private $stmt;
