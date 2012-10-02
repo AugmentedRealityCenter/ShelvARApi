@@ -19,15 +19,15 @@
  * @return An associative array with three values: last_time_seen, left_neighbor, right_neighbor.
  */
  
-function find_book($lcNum)
+function find_book($lcNum,$institution)
 {
 	include_once "../../database.php";
 	/* Create a prepared statement */
 	$array = array();
     $db = new database();
-    $db->query = "SELECT * FROM book_pings WHERE book_call =?";
-    $db->params = array($lcNum);
-    $db->type = 's';
+    $db->query = "SELECT * FROM book_pings WHERE book_call =? AND institution=?";
+    $db->params = array($lcNum,$institution);
+    $db->type = 'ss';
     $r = $db->fetch();
 	 
 		

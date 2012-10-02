@@ -22,7 +22,7 @@
  $ret = find_book(stripslashes($_GET["book_ping_id"],$_GET["institution"]); 
   
   
-function find_book($book_ping_id, $institution="")
+function find_book($book_ping_id, $institution)
 {
 	include_once "../../db_info.php";
 	

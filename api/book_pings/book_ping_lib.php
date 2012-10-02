@@ -43,7 +43,7 @@
  * See http://json.org
  */
 
-function do_book_ping($jsoninput,$institution=""){
+function do_book_ping($jsoninput,$institution){
 	//TODO should also take $institution as input, and add that to the record in the database
 	$decoded = json_decode($jsoninput,true);
 	$success = false; //Assume JSON decoding failed.
