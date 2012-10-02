@@ -17,11 +17,15 @@ if(isset($_GET["call_number"])){
 	$cond = true;
 } 
 if(isset($_GET["start_date"])){ 
-	$qArray[] = "start_date = '" . urldecode($_GET["start_date"]) . "'"; 
+	$qArray[] = "ping_time >= '" . urldecode($_GET["start_date"]) . "'"; 
 	$cond = true;
 } 
 if(isset($_GET["end_date"])){ 
-    $qArray[] = "end_date = '" . urldecode($_GET["end_date"]) . "'"; 
+    $qArray[] = "ping_time < '" . urldecode($_GET["end_date"]) . "'"; 
+	$cond = true;
+} 
+if(isset($_GET["institution"])){ 
+    $qArray[] = "institution = '" . urldecode($_GET["institution"]) . "'"; 
 	$cond = true;
 } 
 
@@ -45,6 +49,6 @@ while($row = mysql_fetch_array($result))
 	$count++;
 }
 
-echo $count;
+print(json_encode(array('book_ping_count'=>$count)));
 	
 ?>
