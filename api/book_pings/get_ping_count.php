@@ -23,56 +23,28 @@
  */
 $ret; //!< return value from function call that does most of the work
 $ret = get_ping_count_since(stripslashes($_GET["date"]));
-Print $ret;
+echo $ret;
 
 function get_ping_count_since($date){
-	include_once "../../db_info.php";
-	$query_or_not = true;
-	$date_formatted = strtotime("Y-m-d H:i:s",$date);
+	include_once "../../database.php";
 	/* Create a new mysqli object with database connection parameters */
-	$con = new mysqli($server, $user, $password, $database);
-
-	if(mysqli_connect_errno()) {
-		Print "Connection Failed: " . mysqli_connect_errno();
-	}
-
-	if ($date_formatted === false){
-		Print "Bad start_date.";
-		$query_or_not = false;
-	}
+	date_default_timezone_set("UTC");
+	$s_date = new DateTime($date);
+	$start_date_formatted = $s_date->format('Y-m-d H:i:s');
 	/* Create a prepared statement */
-	if($stmt = $con -> prepare("SELECT COUNT(*) as TOTALFOUND FROM book_pings WHERE ping_time>=?")) {
-
-		/* Bind parameters
-		 s - string, b - blob, i - int, etc */
-		$stmt -> bind_param("s", $date_formatted);
-
-		/* Execute it */
-		$stmt -> execute();
-
-		/* Bind results */
-		$stmt -> bind_result($result);
-
-		/* Fetch the value */
-		$stmt -> fetch();
-
-		/* Close statement */
-		$stmt -> close();
-	}
-	
-	if($result == FALSE){
+	$array = array();
+    $db = new database();
+    $db->query = "SELECT COUNT(*) as TOTALFOUND FROM book_pings WHERE ping_time>=?";
+    $db->params = array($start_date_formatted);
+    $db->type = 's';
+    $r = $db->fetch();
+		
+	if($r === FALSE){
 		Print '<pre>SQL select failed' . mysqli_error();
 		Print '<br />';
 		/* Close connection */
-		$con -> close();
 	} else {
-		$row = 0;
-		$field = "TOTALFOUND";
-		$result->data_seek($row);
-		$datarow = $res->fetch_array();
-    	/* Close connection */
-   		$con -> close();
-    	return $datarow[$field]; 
+		return $r[0]['TOTALFOUND'];
 	} 
 }
 ?>
