@@ -40,13 +40,11 @@ function SetTimer(id)
  */
 function CheckNum(id)
 {	
-	id = doc(id);
+	id_elem = doc(id);
 	
-	var lcjson = '{ "call_number" : "' + id.value + '" }';
-	
-	$.get("api/call_numbers/"+escape(id.value)+".json", 
+	$.get("api/call_numbers/"+escape(id_elem.value)+".json", 
 		function(ret) {
-			CheckNumResponse(ret, id);
+			CheckNumResponse(ret, id_elem);
 		}, "json");
 }
 
@@ -116,14 +114,15 @@ function CheckNumResponse(ret, id)
 	if(ret.result.search("SUCCESS") != -1) {
 		id.style.color = good_color;
 		tag.innerHTML += ret.book_tag;
-		EnableGetTagsButton();
 	} else {
 		id.style.color = error_color; 
 	}
+	//Want this to run no matter what, so it disables if needed
+	EnableGetTagsButton();
 	
 	if(ret.parser_feedback.length != 0) {
 	  if(ret.result.search("SUCCESS") != -1){id.style.color = warn_color;}
-		doc(id.id + '_error').innerHTML = DisplayWarnings(ret.arrOfConflicts,ret.originalInput);
+		doc(id.id + '_error').innerHTML = DisplayWarnings(ret.parser_feedback,ret.call_number);
 	}
 }
 
@@ -138,11 +137,6 @@ function CheckNums()
 	var nums = doc('LCnums').value;
 	nums = nums.split('\n');
         CheckNumsResponse(nums);
-	//$.post("api/lcparse/parseMultiple.php", 
-	//	{ callNumInput: JSON.stringify(nums) },
-	//	function(ret) {		
-	//		CheckNumsResponse(ret, nums);
-	//	}, "json");
 }
 
 function CheckNumsResponse(nums)
@@ -156,11 +150,7 @@ function CheckNumsResponse(nums)
 	for(i = 0; i < nums.length; i++)
 	{
 	  var url_to_get = "api/call_numbers/"+escape(nums[i])+".json";
-	  $.get(url_to_get, 
-		function(ret) {		
-			GenerateLCField(ret, i);
-		 }, "json");
-		
+	  FetchLCField(url_to_get, i);
 	}
 
     $("#BackButton").show();
@@ -169,6 +159,13 @@ function CheckNumsResponse(nums)
 function RemoveLCField(id){
 	doc('multi').removeChild(doc(id+'_div'));
 	EnableGetTagsButton();
+}
+
+function FetchLCField(url_to_get, id){
+  $.get(url_to_get, 
+	function(ret) {		
+	  GenerateLCField(ret, id);
+	}, "json");
 }
 
 function GenerateLCField(ret, id)
@@ -212,13 +209,12 @@ function GenerateLCField(ret, id)
 	tag.innerHTML = "";
 
 	if(ret.parser_feedback.length != 0){
-		errors.innerHTML += DisplayWarnings(ret.arrOfConflicts,ret.originalInput);
+		errors.innerHTML += DisplayWarnings(ret.parser_feedback,ret.call_number);
 	}
 	
 	if(ret.result.search("SUCCESS") != -1) { 
 		input.style.color = good_color;
 		tag.innerHTML += ret.book_tag;
-		EnableGetTagsButton();
 	} else { 
 		input.style.color = error_color; 
 	}
@@ -229,8 +225,13 @@ function GenerateLCField(ret, id)
 	div.appendChild(document.createElement('br'));
 	div.appendChild(errors);
 	div.appendChild(tag);
-	
+
 	doc('multi').appendChild(div);
+
+	//Want this to run no matter what, in case we need to disable
+	//Must check AFTER the tag has been added!
+	EnableGetTagsButton();
+
 }
 
 /**
@@ -313,11 +314,11 @@ function EnableGetTagsButton(){
 		doc('get_tags_button').setAttribute('disabled','disabled');
 	}
 	doc('num_tags_counter').innerHTML = counter;
-	if(counter > 30){
+	/*if(counter > 30){
 		doc('num_tags_counter').style.color = error_color;
 	} else {
 		doc('num_tags_counter').style.color = "#000";
-	}
+		}*/
 	//doc('gtb_debug').innerHTML = alldone;
 }
 
@@ -365,6 +366,7 @@ function GetTags(){
 	pdfForm.target = "5160";
 	pdfForm.method = "POST";
 	pdfForm.action = "tagmaker/5160.pdf";
+	pdfForm.style.display = "none";
 	
 	pdfInput = document.createElement("input");
 	pdfInput.type = "text";
