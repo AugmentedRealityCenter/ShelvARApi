@@ -18,55 +18,32 @@
  *
  * @return An associative array with three values: last_time_seen, left_neighbor, right_neighbor.
  */
+ 
 function find_book($lcNum)
 {
-	include_once "../../db_info.php";
-	 
-	/* Create a new mysqli object with database connection parameters */
-	$con = new mysqli($server, $user, $password, $database);
-
-	if(mysqli_connect_errno()) {
-		echo "Connection Failed: " . mysqli_connect_errno();
-		exit();
-	}
+	include_once "../../database.php";
 	/* Create a prepared statement */
-	if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_call =?")) {
-
-		/* Bind parameters
-		 s - string, b - blob, i - int, etc */
-		$stmt -> bind_param("s", $lcNum);
-
-		/* Execute it */
-		$stmt -> execute();
-
-		/* Bind results */
-		$stmt -> bind_result($result);
-
-		/* Fetch the value */
-		$stmt -> fetch();
-
-		/* Close statement */
-		$stmt -> close();
-	}
+	$array = array();
+    $db = new database();
+    $db->query = "SELECT * FROM book_pings WHERE book_call =?";
+    $db->params = array($lcNum);
+    $db->type = 's';
+    $r = $db->fetch();
 	 
 		
-	if($result == FALSE){
+	if($r === FALSE){
 		Print "FAILED 1";
 		//Print 'SQL Select failed' . mysqli_error();
-	} else if(mysqli_num_rows($result) == 0) {
-		Print "NO ROWS";
-		//Print 'No rows seleted';
 	} else {
+		$arr = array();
 		//Print $resource;
-		while ($row = mysqli_fetch_assoc($result)) {
+		foreach($r as $row) {
 			$arr[] = $row;
 		}
-
+		$return_arr = array();
 		$return_arr["last_time_seen"] = $arr[count($arr)-1]["ping_time"];
 		$return_arr["left_neighbor"] = $arr[count($arr)-1]["neighbor1_call"];
 		$return_arr["right_neighbor"] = $arr[count($arr)-1]["neighbor2_call"];
-		/* Close connection */
-		$con -> close();
 		return $return_arr;
 	}
 }
