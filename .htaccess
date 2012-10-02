@@ -2,7 +2,7 @@
 # licensing for ShelvAR. Each supported site needs
 # a rule that sets their institution code.
 RewriteEngine On
-Access-Control-Allow-Origin *
+Access-Control-Allow-Origin All
 
 #If the user is access the doc directory, do nothing
 RewriteRule ^doc - [L]
