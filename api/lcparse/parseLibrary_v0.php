@@ -853,7 +853,7 @@ function addConflictDate1HasAlpha()
 	$problem = new conflict();
 	$problem->msg = "Alphabetic characters not currently supported in date 1. Date must be a 4-digit year.";
 	$problem->isWarning = false;
-	$problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + 4 + $arrOfSpaces['spacesBeforeWhole'] + $arrOfSpaces['spacesBeforeDec'] + $arrOfSpaces['$spacesBeforeDate1'];
+	$problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + 4 + $arrOfSpaces['spacesBeforeWhole'] + $arrOfSpaces['spacesBeforeDec'] + $arrOfSpaces['spacesBeforeDate1'];
 	$problem->conflictEnd = $problem->conflictStart + ($arrOfSizes['date1Size']- 4);
 	
 	$arrOfConflicts[] = $problem;
@@ -1033,7 +1033,7 @@ function addConflictDate2HasAlpha()
 	$problem->msg = "Alphabetic characters not currently supported in date 2. Date must be a 4-digit year.";
 	$problem->isWarning = false;
 	$problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ (4) 
-							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $spacesBeofreDate1 + $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2'];
+							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeofreDate1'] + $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2'];
 	$problem->conflictEnd = $problem->conflictStart + ($arrOfSizes['date2Size']- 4);
 	
 	$arrOfConflicts[] = $problem;
@@ -1052,7 +1052,7 @@ function addConflictDate2TooLong()
 	$problem->isWarning = false;
 	$problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']
 							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']
-							+ $arrOfSpaces['$spacesBeforeDate2'] + 1;
+							+ $arrOfSpaces['spacesBeforeDate2'] + 1;
 	$problem->conflictEnd = $problem->conflictStart + $arrOfSizes['date2Size'] - 1;
 	
 	$arrOfConflicts[] = $problem;
@@ -1204,7 +1204,7 @@ function addConflictDate3TooBig()
 	$problem->isWarning = false;
 	$problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size'] + $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size']
 							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec'] + $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']
-							+ $arrOfSpaces['$spacesBeforeDate2'] + $arrOfSpaces['spacesBeforeCut2'] + $arrOfSpaces['$spacesBeforeEle8'] + 1;
+							+ $arrOfSpaces['spacesBeforeDate2'] + $arrOfSpaces['spacesBeforeCut2'] + $arrOfSpaces['spacesBeforeEle8'] + 1;
 	$problem->conflictEnd = $problem->conflictStart + $arrOfSizes['element8size'] - 1;
 	
 	$arrOfConflicts[] = $problem;
@@ -1221,7 +1221,7 @@ function addConflictDate3isEbook()
     $problem = new conflict();
     $problem->msg = "This appears to be an e-book, based on the \"eb\" after the year in field 8. ShelvAR recommends not printing a label for this volume.";
     $problem->isWarning = false;
-    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + ($arrOfSizes['element8Size'] - 2) + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2']+ $arrOfSpaces['spacesBeforeCut2']+ $spacesBeforeEle8;
+    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + ($arrOfSizes['element8Size'] - 2) + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2']+ $arrOfSpaces['spacesBeforeCut2']+ $arrOfSpaces['spacesBeforeEle8'];
     $problem->conflictEnd = $problem->conflictStart + 1;
 
     $arrOfConflicts[] = $problem;
@@ -1289,7 +1289,7 @@ function addConflictElement8NotDate3()
     $problem = new conflict();
     $problem->msg = "Field 8 is currently unused, unless it contains a year, between 0 and 4095.";
     $problem->isWarning = true;
-    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2']+ $arrOfSpaces['spacesBeforeCut2']+ $spacesBeforeEle8;
+    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2']+ $arrOfSpaces['spacesBeforeCut2']+ $arrOfSpaces['spacesBeforeEle8'];
     $problem->conflictEnd = $problem->conflictStart + $arrOfSizes['element8Size'] - 1;
 
     $arrOfConflicts[] = $problem;
@@ -1305,7 +1305,7 @@ function addConflictElements9and10NotEmpty()
     $problem = new conflict();
     $problem->msg = "ShelvAR does not currently support LC Call Numbers that make use of the 9th and 10th fields of the call number standards and has not included them in the parsing.";
     $problem->isWarning = true;
-    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + $arrOfSizes['element8Size'] + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $spacesBeofreDate2 + $arrOfSpaces['spacesBeforeCut2']+ $spacesBeofreEle8 + $spacesBeforeEle9;
+    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + $arrOfSizes['element8Size'] + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeofreDate2'] + $arrOfSpaces['spacesBeforeCut2']+ $arrOfSpaces['spacesBeforeEle8'] + $arrOfSpaces['spacesBeforeEle9'];
     $problem->conflictEnd = $problem->conflictStart + $arrOfSizes['element9Size']+ $arrOfSizes['element10Size']+ $arrOfSpaces['spacesBeforeEle10'] - 1;
 
     $arrOfConflicts[] = $problem;
