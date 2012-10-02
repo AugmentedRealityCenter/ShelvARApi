@@ -4,21 +4,29 @@ include_once ("../../db_info.php");
 $qArray = array();
 $count = 0;
 
-$sql = "SELECT * FROM book_pings WHERE ";
+$sql = "SELECT * FROM book_pings";
 $result;
+bool $cond = false;
 
 if(isset($_GET["book_tag"])){ 
 	$qArray[] = 'book_tag = ' . $_GET["book_tag"]; 
+	$cond = true;
 } 
 if(isset($_GET["call_number"])){ 
     $qArray[] = 'book_call = ' . $_GET["call_number"]; 
+	$cond = true;
 } 
 if(isset($_GET["start_date"])){ 
 	$qArray[] = 'start_date = ' . $_GET["start_date"]; 
+	$cond = true;
 } 
 if(isset($_GET["end_date"])){ 
     $qArray[] = 'end_date = ' . $_GET["end_date"]; 
+	$cond = true;
 } 
+
+if($cond)
+	$sql .= " WHERE ";
 
 $sql .= implode(' AND ', $qArray); 
 echo $sql;
