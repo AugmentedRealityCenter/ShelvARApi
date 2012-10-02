@@ -44,8 +44,7 @@ function CheckNum(id)
 	
 	var lcjson = '{ "call_number" : "' + id.value + '" }';
 	
-	$.post("api/call_numbers/", 
-		{ callNumInput: lcjson }, 
+	$.get("api/call_numbers/"+escape(id.value)+".json", 
 		function(ret) {
 			CheckNumResponse(ret, id);
 		}, "json");
@@ -53,55 +52,55 @@ function CheckNum(id)
 
 function FillOutParseResult(parse_result,ret){
 	var header = '<tr><th>Class</th>';
-	if(ret.call_number.date1 != ""){
+	if(ret.parsed_call_number.date1 != ""){
 		header += '<th>1st dt</th>'
 	}
-	if(ret.call_number.cutter1 != ""){
+	if(ret.parsed_call_number.cutter1 != ""){
 		header += '<th>1st cut</th>';
 	}
-	if(ret.call_number.date2 != ""){
+	if(ret.parsed_call_number.date2 != ""){
 		header += '<th>2nd dt</th>';
 	}
-	if(ret.call_number.cutter2 != ""){
+	if(ret.parsed_call_number.cutter2 != ""){
 		header += '<th>2nd cut</th>';
 	}
-	if(ret.call_number.element8meaning == 'year'){
+	if(ret.parsed_call_number.element8meaning == 'year'){
 		header += '<th>3rd dt</th>';
 	}
-	if((ret.call_number.element8 != "" && ret.call_number.element8meaning != 'year') ||
-	   ret.call_number.element9 != "" || ret.call_number.element10 != ""){
+	if((ret.parsed_call_number.element8 != "" && ret.parsed_call_number.element8meaning != 'year') ||
+	   ret.parsed_call_number.element9 != "" || ret.parsed_call_number.element10 != ""){
 		header += '<th>Unused</th>';
 	}
 	header += '</tr>';
 	parse_result.innerHTML = header;
 
 	var iH = '<tr>'
-	+ '<td>' + ret.call_number.alphabetic + ret.call_number.wholeClass ;
-	if(ret.call_number.decClass != ""){
- 		iH = iH + '.' + ret.call_number.decClass ;
+	+ '<td>' + ret.parsed_call_number.alphabetic + ret.parsed_call_number.wholeClass ;
+	if(ret.parsed_call_number.decClass != ""){
+ 		iH = iH + '.' + ret.parsed_call_number.decClass ;
 	}
-	if(ret.call_number.date1 != ""){
-		iH += '<td>' + ret.call_number.date1 + '</td>'
+	if(ret.parsed_call_number.date1 != ""){
+		iH += '<td>' + ret.parsed_call_number.date1 + '</td>'
 	}
-	if(ret.call_number.cutter1 != ""){
-		iH += "<td>" + ret.call_number.cutter1 + "</td>";
+	if(ret.parsed_call_number.cutter1 != ""){
+		iH += "<td>" + ret.parsed_call_number.cutter1 + "</td>";
 	}
-	if(ret.call_number.date2 != ""){
-		iH += "<td>" + ret.call_number.date2 + "</td>";
+	if(ret.parsed_call_number.date2 != ""){
+		iH += "<td>" + ret.parsed_call_number.date2 + "</td>";
 	}
-	if(ret.call_number.cutter2 != ""){
-		iH += "<td>" + ret.call_number.cutter2 + "</td>";
+	if(ret.parsed_call_number.cutter2 != ""){
+		iH += "<td>" + ret.parsed_call_number.cutter2 + "</td>";
 	}
-	if(ret.call_number.element8meaning == 'year'){
-		iH += "<td>" + ret.call_number.element8 + "</td>";
+	if(ret.parsed_call_number.element8meaning == 'year'){
+		iH += "<td>" + ret.parsed_call_number.element8 + "</td>";
 	}
-	if((ret.call_number.element8 != "" && ret.call_number.element8meaning != 'year') ||
-	   ret.call_number.element9 != "" || ret.call_number.element10 != ""){
+	if((ret.parsed_call_number.element8 != "" && ret.parsed_call_number.element8meaning != 'year') ||
+	   ret.parsed_call_number.element9 != "" || ret.parsed_call_number.element10 != ""){
 		iH += "<td>";
-		if(ret.call_number.element8meaning != 'year'){
-			iH += ret.call_number.element8;
+		if(ret.parsed_call_number.element8meaning != 'year'){
+			iH += ret.parsed_call_number.element8;
 		}
-		iH += (ret.call_number.element9 + ret.call_number.element10 + "</td>" + "</tr>");
+		iH += (ret.parsed_call_number.element9 + ret.parsed_call_number.element10 + "</td>" + "</tr>");
 	}
 	parse_result.innerHTML += iH;
 }
@@ -114,23 +113,16 @@ function CheckNumResponse(ret, id)
 	var tag = doc(id.id + '_tag');
 	tag.innerHTML = "";
 
-	if(ret.allow) {
+	if(ret.result.search("SUCCESS") != -1) {
 		id.style.color = good_color;
-		//Set the tag to contain the book's tag, if the call number is valid
-		
-		$.post("api/call_numbers/", 
-			{ "call_number": JSON.stringify(ret.call_number) }, 
-			function(ret) {
-				tag.innerHTML += ret.base64;
-				EnableGetTagsButton();
-			}, "json");
-		//doc(id.id + '_tag').innerHTML = DisplayImage(ret.lcNum);
+		tag.innerHTML += ret.book_tag;
+		EnableGetTagsButton();
 	} else {
 		id.style.color = error_color; 
 	}
 	
-	if(!ret.warningFree) {
-		if(ret.allow){id.style.color = warn_color;}
+	if(ret.parser_feedback.length != 0) {
+	  if(ret.result.search("SUCCESS") != -1){id.style.color = warn_color;}
 		doc(id.id + '_error').innerHTML = DisplayWarnings(ret.arrOfConflicts,ret.originalInput);
 	}
 }
@@ -145,25 +137,30 @@ function CheckNums()
 {
 	var nums = doc('LCnums').value;
 	nums = nums.split('\n');
-	$.post("api/lcparse/parseMultiple.php", 
-		{ callNumInput: JSON.stringify(nums) },
-		function(ret) {		
-			CheckNumsResponse(ret, nums);
-		}, "json");
+        CheckNumsResponse(nums);
+	//$.post("api/lcparse/parseMultiple.php", 
+	//	{ callNumInput: JSON.stringify(nums) },
+	//	function(ret) {		
+	//		CheckNumsResponse(ret, nums);
+	//	}, "json");
 }
 
-function CheckNumsResponse(ret, nums)
+function CheckNumsResponse(nums)
 {
 	multiHTML = doc('multi').innerHTML;
 	doc('multi').innerHTML = "";
 	
-	num_ids = ret.length;
+	num_ids = nums.length;
 
 	var i;
-	for(i = 0; i < ret.length; i++)
+	for(i = 0; i < nums.length; i++)
 	{
-		ret[i].original = nums[i];
-		GenerateLCField(ret[i], i);
+	  var url_to_get = "api/call_numbers/"+escape(nums[i])+".json";
+	  $.get(url_to_get, 
+		function(ret) {		
+			GenerateLCField(ret, i);
+		 }, "json");
+		
 	}
 
     $("#BackButton").show();
@@ -189,7 +186,7 @@ function GenerateLCField(ret, id)
 	
 	var input = document.createElement('input');
 	input.setAttribute('type', 'text');
-	input.setAttribute('value', ret.original);
+	input.setAttribute('value', ret.call_number);
 	input.setAttribute('id', id);
 	input.setAttribute('size','30');
 	input.setAttribute('onkeyup', 'SetTimer("' + id + '")');
@@ -214,21 +211,14 @@ function GenerateLCField(ret, id)
 	tag.style.display = 'none';
 	tag.innerHTML = "";
 
-	if(!ret.warningFree){
+	if(ret.parser_feedback.length != 0){
 		errors.innerHTML += DisplayWarnings(ret.arrOfConflicts,ret.originalInput);
 	}
 	
-	if(ret.allow) { 
+	if(ret.result.search("SUCCESS") != -1) { 
 		input.style.color = good_color;
-		
-		//Set the tag to contain the book's tag, if the call number is valid
-		$.post("api/call_numbers/", 
-			{ "call_number": JSON.stringify(ret.call_number) }, 
-			function(ret) {
-				tag.innerHTML += ret.base64;
-				EnableGetTagsButton();
-			}, "json");
-		//tag.innerHTML += DisplayImage(ret.lcNum); 
+		tag.innerHTML += ret.book_tag;
+		EnableGetTagsButton();
 	} else { 
 		input.style.color = error_color; 
 	}
@@ -254,8 +244,7 @@ function DisplayImage(num)
 {	
 	var tag;
 
-	$.post("api/call_numbers/", 
-		{ "call_number": JSON.stringify(num) }, 
+	$.get("api/call_numbers/"+escape(num)+".json",
 		function(ret) {
 			tag = ret.base64;
 		}, "json");
@@ -329,7 +318,7 @@ function EnableGetTagsButton(){
 	} else {
 		doc('num_tags_counter').style.color = "#000";
 	}
-	doc('gtb_debug').innerHTML = alldone;
+	//doc('gtb_debug').innerHTML = alldone;
 }
 
 function GetTags(){
