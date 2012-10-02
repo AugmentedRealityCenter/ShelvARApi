@@ -44,7 +44,7 @@ function CheckNum(id)
 	
 	var lcjson = '{ "call_number" : "' + id.value + '" }';
 	
-	$.post("api/call_numbers", 
+	$.post("api/call_numbers/", 
 		{ callNumInput: lcjson }, 
 		function(ret) {
 			CheckNumResponse(ret, id);
@@ -118,8 +118,8 @@ function CheckNumResponse(ret, id)
 		id.style.color = good_color;
 		//Set the tag to contain the book's tag, if the call number is valid
 		
-		$.post("api/lc2bin/LC2B64.php", 
-			{ "LC": JSON.stringify(ret.call_number) }, 
+		$.post("api/call_numbers/", 
+			{ "call_number": JSON.stringify(ret.call_number) }, 
 			function(ret) {
 				tag.innerHTML += ret.base64;
 				EnableGetTagsButton();
@@ -222,8 +222,8 @@ function GenerateLCField(ret, id)
 		input.style.color = good_color;
 		
 		//Set the tag to contain the book's tag, if the call number is valid
-		$.post("api/lc2bin/LC2B64.php", 
-			{ "LC": JSON.stringify(ret.call_number) }, 
+		$.post("api/call_numbers/", 
+			{ "call_number": JSON.stringify(ret.call_number) }, 
 			function(ret) {
 				tag.innerHTML += ret.base64;
 				EnableGetTagsButton();
@@ -254,8 +254,8 @@ function DisplayImage(num)
 {	
 	var tag;
 
-	$.post("api/lc2bin/LC2B64.php", 
-		{ "LC": JSON.stringify(num) }, 
+	$.post("api/call_numbers/", 
+		{ "call_number": JSON.stringify(num) }, 
 		function(ret) {
 			tag = ret.base64;
 		}, "json");
