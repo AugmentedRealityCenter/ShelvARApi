@@ -10,8 +10,8 @@
             "operations": [
                 {
                     "httpMethod": "POST", 
-                    "summary": "Insert book pings in database", 
-                    "notes": "Uploads book_pings to the database. Data should be a JSON array of entries. On call, returns a string with the value 'SUCCESS' on success and 'ERRORS' otherwise. If the value is 'ERRORS', information about the error is printed in HTML format.",
+                    "summary": "Insert book pings into database", 
+                    "notes": "Uploads book_pings to the database. Data should be a JSON array of entries. On call, returns a string, named result, with the value 'SUCCESS' on success and 'ERROR' otherwise. If the value is 'ERROR', information about the error follows.",
                     "responseClass": "string", 
                     "nickname": "book_pings", 
                     "parameters": [
@@ -40,7 +40,7 @@
                     "parameters": [
                         {
                             "name": "book_tag", 
-                            "description": "base-64 representation of the binary tag", 
+                            "description": "Base-64 representation of the book tag. Example: 0cOZA09fhM0cM_gw000000a0", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -48,7 +48,7 @@
                         }, 
 						{
                             "name": "call_number", 
-                            "description": "Call number, in human-readable format", 
+                            "description": "Call number, in human-readable format. Must be URL Encoded. Example: NX543%20.c38%202000", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -56,7 +56,7 @@
                         },
                         {
                             "name": "start_date", 
-                            "description": "Return only pings that come on or after this date. \"0000-00-00 00:00:00\" format.",
+                            "description": "Return only pings that come on or after this date. \"0000-00-00 00:00:00\" format. Must be URL Encoded. Example: 2010-01-01%2010%3A15%3A00",
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -64,7 +64,7 @@
                         }, 
                         {
                             "name": "end_date", 
-                            "description": "Return only pings that come before this date. \"0000-00-00 00:00:00\" format.",
+                            "description": "Return only pings that come before this date. \"0000-00-00 00:00:00\" format. Must be URL Encoded. Example: 2010-01-01%2010%3A15%3A00",
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -95,13 +95,13 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Count the number of book pings in the database", 
-                    "notes": "Returns an integer, book_ping_count, representing the number of book_pings in the database. This count may be limited using the optional parameters.",  
+                    "notes": "Returns an integer, book_ping_count, representing the number of book_pings in the database. This count may be limited using the optional parameters. Note that this method does not return a result. If there is an error, it simply returns a book_ping_count of 0.",  
                     "responseClass": "string", 
                     "nickname": "count", 
                     "parameters": [
                         {
                             "name": "book_tag", 
-                            "description": "base-64 representation of a book_tag. Limit the count to only count pings with this book_tag. Example: 0cOZA09fhM0cM_gw000000a0", 
+                            "description": "Base-64 representation of a book_tag. Limit the count to only count pings with this book_tag. Example: 0cOZA09fhM0cM_gw000000a0", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -109,7 +109,7 @@
                         }, 
 						{
                             "name": "call_number", 
-                            "description": "human-readable call number. Must be URL-encoded. Limit the count to only count pings with this call_number. Example: NX543%20.c38%202000", 
+                            "description": "Human-readable call number. Must be URL-encoded. Limit the count to only count pings with this call_number. Example: NX543%20.c38%202000", 
                             "paramType": "query", 
                             "required": false, 
                             "allowMultiple": false, 
@@ -148,13 +148,13 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Retrieve a book ping", 
-                    "notes": "Returns the book ping with the database id that is entered.",
+                    "notes": "Returns the book ping with the database id that is entered, in a variable named book_ping. Also returns result, which contains SUCCESS if the call succeeded. If it failed, result will be ERROR, followed by an explanatory message.",
                     "responseClass": "string", 
                     "nickname": "book_ping_by_id", 
                     "parameters": [
                         {
                             "name": "book_ping_id", 
-                            "description": "an integer, which is the database id of the book ping", 
+                            "description": "An integer, which is the database id of the book ping. These id values can be obtained using GET /book_pings/", 
                             "paramType": "path", 
                             "required": false, 
                             "allowMultiple": false, 

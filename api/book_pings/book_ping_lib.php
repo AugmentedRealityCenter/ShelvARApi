@@ -32,8 +32,8 @@
  *     "0000-00-00 00:00:00" format
  *
  * @return
- *   A string. "SUCCESS" if everything worked, "ERRORS" if not. If the return
- *   value is "ERRORS," information about the error is printed in HTML format.
+ *   A string. "SUCCESS" if everything worked, "ERROR" if not. If the return
+ *   value is "ERROR," information about the error is printed in HTML format.
  *
  * Example input:
  * @code
@@ -153,7 +153,7 @@ function do_book_ping($jsoninput,$institution){
     return 'SUCCESS Added '.count($decoded).' book_pings';
   } 
   else {
-    return 'ERRORS';
+    return 'ERROR';
   }
   
   /* Close connection */
