@@ -20,7 +20,7 @@ $binret = LC2Bin($JSONparsedArr["lcNum"]);
 
 $result = ($JSONparsedArr["allow"]=="true") ? "SUCCESS" : "ERROR";
 
-echo json_encode(array("book_tag"=>bin2base64($binret['Bin']), "parsed_call_number"=>$JSONparsedArr["lcNum"],
+echo json_encode(array("book_tag"=>bin2base64($binret['Bin']), "call_number"=>$JSONparsed, "parsed_call_number"=>$JSONparsedArr["lcNum"],
 						"parser_feedback"=>$JSONparsedArr["arrOfConflicts"], "result"=>$result));
 
  ?>
