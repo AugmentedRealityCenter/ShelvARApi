@@ -6,7 +6,7 @@ $count = 0;
 
 $sql = "SELECT * FROM book_pings";
 $result;
-bool $cond = false;
+$cond = false;
 
 if(isset($_GET["book_tag"])){ 
 	$qArray[] = 'book_tag = ' . $_GET["book_tag"]; 
@@ -26,7 +26,7 @@ if(isset($_GET["end_date"])){
 } 
 
 if($cond)
-	$sql .= " WHERE ";
+	$sql = $sql . " WHERE ";
 
 $sql .= implode(' AND ', $qArray); 
 echo $sql;
