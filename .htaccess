@@ -57,7 +57,7 @@ RewriteRule ^api/book_pings/?$ test.php [L]
 
 #TODO update which php script this calls
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/book_pings/count/?$ test.php [L]
+RewriteRule ^api/book_pings/count/?$ api/book_pings/get_ping_count_book.php [L]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^api/book_pings/([0-9]+)(?=.json) api/book_pings/get_by_id.php?book_ping_id=$1 [L,QSA]
@@ -69,4 +69,3 @@ RewriteRule ^api/book_pings/([0-9]+)(?=.json) api/book_pings/get_by_id.php?book_
 # via a re-direct...
 RewriteCond %{ENV:REDIRECT_STATUS} !=200
 RewriteRule ^api/(.*) sorry-api.php?api_info=/api/$1 [NS,QSA]
-
