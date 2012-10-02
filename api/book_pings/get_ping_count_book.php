@@ -69,39 +69,6 @@ function refValues($arr){
 		echo "Connection Failed: " . mysqli_connect_errno();
 		exit();
 	}
-	// Create a prepared statement
-		if($stmt = $mysqli -> prepare($sql)) {/*
-			// Bind parameters
-			 //s - string, b - blob, i - int, etc
-			 //echo $sql . '<br/>'; 
-			//var_dump($bindParam->get());
-			 //$refs = refValues($bindParam->get());
-			 //echo "refs = " . $refs;
-			//call_user_func_array(array($stmt, "bind_param"),refValues($bindParam->get())); 
-			//call_user_func_array( array($stmt, 'bind_param'), $bindParam->get());
-			$stmt -> bind_param('s', $book_tag);
-			var_dump($stmt);
-
-			//Execute it
-			$stmt -> execute();
-			// Bind results
-			//$stmt -> bind_result($result);
-
-			// Fetch the value
-			//$stmt -> fetch();
-			
-			$result = $stmt->get_result();
-			echo "result is" . $result;
-			while ($myrow = $result->fetch_assoc()) {
-				$count++;
-				echo $count;
-			}
-
-			// Close statement
-			$stmt -> close();
-		*/}/*
-
-		echo $mysqli->error;
 
 	if($count == 0){
 		Print "FAILED 1";
