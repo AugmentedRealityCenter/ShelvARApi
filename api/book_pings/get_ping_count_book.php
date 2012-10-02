@@ -17,10 +17,11 @@ if(isset($_GET["start_date"])){
 	$qArray[] = 'start_date = ' . $_GET["start_date"]; 
 } 
 if(isset($_GET["end_date"])){ 
-    $qArray[] = 'end_date = ?' . $_GET["end_date"]; 
+    $qArray[] = 'end_date = ' . $_GET["end_date"]; 
 } 
 
 $sql .= implode(' AND ', $qArray); 
+echo $sql;
 
 	
 $con = mysql_connect($server,$user,$password);
