@@ -43,9 +43,8 @@ $count = 0;
 while($row = mysql_fetch_array($result))
 {
 	$count++;
-	echo "count is " . $count;
 }
 
-return $count;
+echo $count;
 	
 ?>
