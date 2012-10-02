@@ -29,106 +29,68 @@
  *   1 indicates that the book was seen.
  */
 $ret; //!< return value from function call that does most of the work
-$ret = get_ping_count_since(stripslashes($_GET["book_tag"]), stripslashes($_GET["start_date"]), stripslashes($_GET["end_date"]));
-Print $ret;
+$ret = book_seen(stripslashes($_GET["book_tag"]), stripslashes($_GET["start_date"]), stripslashes($_GET["end_date"]));
+//Currently unsure if this is what is wanted..?
+print_r ($ret);
 
 function book_seen($book_tag,$start_date,$end_date){
-	include "../../db_info.php";
+	include "../../database.php";
 
 	/* Create a new mysqli object with database connection parameters */
-	$con = new mysqli($server, $user, $password, $database);
-	$query_or_not = true;
-	$start_date_formatted = strtotime("Y-m-d H:i:s",$start_date);
-	$end_date_formatted = strtotime("Y-m-d H:i:s",$end_date);
-	if(mysqli_connect_errno()) {
-		Print "Connection Failed: " . mysqli_connect_errno();
-	}
-
+	date_default_timezone_set("UTC");
+	$s_date = new DateTime($start_date);
+	$e_date = new DateTime($end_date);
+	$start_date_formatted = $s_date->format('Y-m-d H:i:s');
+	$end_date_formatted = $e_date->format('Y-m-d H:i:s');
 	if (strlen($end_date) == 0){
 		$end_date_formatted = date("Y-m-d H:i:s",time());//Current datetime
 	}
 
-	if ($start_date_formatted === false){
-		Print "Bad start_date.";
-		$query_or_not = false;
-	}
-	elseif ($end_date_formatted === false) {
-		Print "Bad end_date.";
-		$query_or_not = false;
-	}
-	/* Create a prepared statement */
 	//First, build up a list of the neighbors of the book we are looking for
 	//TODO: Increase performance, possibly by using COUNT and UNIQUE
-	if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag = ? AND ping_time >= ? AND ping_time <= ?") && query_or_not === true) {
-
-		/* Bind parameters
-		 s - string, b - blob, i - int, etc */
-		$stmt -> bind_param("sss", $book_tag,$start_date_formatted,$end_date_formatted);
-
-		/* Execute it */
-		$stmt -> execute();
-
-		/* Bind results */
-		$stmt -> bind_result($result);
-
-		/* Fetch the value */
-		$stmt -> fetch();
-
-		/* Close statement */
-		$stmt -> close();
-	}
-
+	
+	/* Create a prepared statement */
+	$array = array();
+    $db = new database();
+	$book_tag = stripslashes($_GET['book_tag']);
+	$date = stripslashes($_GET["start_date"]);
+    $db->query = "SELECT * FROM book_pings WHERE book_tag = ? AND ping_time >= ? AND ping_time <= ?";
+    $db->params = array($book_tag,$start_date_formatted,$end_date_formatted);
+    $db->type = 'sss';
+    $r = $db->fetch();
+	
+	
+	
 	$seen_days = array();
 
 
-
-	if($result == FALSE){
-		//Print 'SQL Select failed' . mysqli_error();
-	} else if(mysqli_num_rows($result) == 0) {
-		//Print 'No rows seleted';
-	} else {
-		while ($row = mysqli_fetch_assoc($result)) {
-			$arr = explode(" ",$row["ping_time"]);
+	foreach ($r as $result){
+			$arr = explode(" ",$result["ping_time"]);
 			$days_seen[$arr[0]] = 1;
 			$days_neighbor_seen[$arr[0]] = 1;
-			$neighbors[$row["neighbor1_tag"]] = 1;
-			$neighbors[$row["neighbor2_tag"]] = 1;
-		}
-		mysqli_free_result($result);
+			$neighbors[$result["neighbor1_tag"]] = 1;
+			$neighbors[$result["neighbor2_tag"]] = 1;
+	}
+	
 
 
 		/* Then calculate which days there was a shelf read
 		 * based on the days when a neighbor was seen */
 		/* TODO Improve performance by selecting just unique dates */
+			/* Create a prepared statement */
 		foreach($neighbors as $key => $value){
-			if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE book_tag = ? AND ping_time >= ? AND ping_time <= ?") && (query_or_not === true)) {
-
-				/* Bind parameters
-				 s - string, b - blob, i - int, etc */
-				$stmt -> bind_param("sss", $key,$start_date_formatted,$end_date_formatted);
-
-				/* Execute it */
-				$stmt -> execute();
-
-				/* Bind results */
-				$stmt -> bind_result($res2);
-
-				/* Fetch the value */
-				$stmt -> fetch();
-
-				/* Close statement */
-				$stmt -> close();
-			}
-			if($res2 == FALSE){
-				//Print 'SQL Select failed' . mysqli_error();
-			} else {
-				while ($row = mysqli_fetch_assoc($res2)) {
-	    $arr = explode(" ",$row["ping_time"]);
-	    $days_neighbor_seen[$arr[0]] = 1;
-				}
-				mysqli_free_result($res2);
+			$array = array();
+			$db = new database();
+			$db->query = "SELECT * FROM book_pings WHERE book_tag = ? AND ping_time >= ? AND ping_time <= ?";
+			$db->params = array($key,$start_date_formatted,$end_date_formatted);
+			$db->type = 'sss';
+			$r2 = $db->fetch();
+			foreach ($r2 as $result2){
+				$arr = explode(" ",$result2["ping_time"]);
+				$days_neighbor_seen[$arr[0]] = 1;
 			}
 		}
+		
 
 		/* Finally, check to see if the book in question was
 		 * seen on all the shelf-read days */
@@ -140,10 +102,8 @@ function book_seen($book_tag,$start_date,$end_date){
 				$seen_days[$key] = 1;
 			}
 		}
-	}
 
 	/* Close connection */
-	$con -> close();
 	return $seen_days;
 }
 //Very important to not have whitespace after the closing tag, since using

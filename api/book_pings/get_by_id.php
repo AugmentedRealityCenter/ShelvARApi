@@ -26,6 +26,7 @@ if(count($the_rec)>0){
 } else {
   $arr = array('book_ping' => "", 'result'=>"ERROR No such book ping id.");
   print json_encode($arr);
+
  }
 
  ?>
