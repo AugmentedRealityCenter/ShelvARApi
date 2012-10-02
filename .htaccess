@@ -19,6 +19,7 @@ RewriteCond %{REMOTE_ADDR} ^10\.(.*).\.(.*)\.(.*)$
 RewriteRule (.*) $1?institution=muohio [QSA]
 
 #TEST - Brinkman's house
+RewriteCond %{REMOTE_ADDR} ^74\.83\.72\.5.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.118\.5.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.215\.173\.188$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.66\.91$
