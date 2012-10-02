@@ -1,89 +1,50 @@
 <?php
-ini_set('display_errors', 'On');
-error_reporting(E_ALL);
 include_once ("../../db_info.php");
-if(isset($_GET["book_tag"]))
-	$book_tag = $_GET['book_tag'];
-$call_number = $_GET['call_number'];
-$neighbor_tag = $_GET['neighbor_tag'];
-$neighbor_call = $_GET['neighbor_call'];
-$start_date = $_GET['start_date'];
-$end_date = $_GET['end_date'];
-//$count = -1;
-//$where = "";
-if(isset($book_tag)) {
-	$where = "book_tag = " . $book_tag;
+ 
+$qArray = array();
+
+
+$sql = "SELECT * FROM book_pings";
+$result;
+$cond = false;
+
+if(isset($_GET["book_tag"])){ 
+	$qArray[] = "book_tag = '" . urldecode($_GET["book_tag"]) . "'"; 
+	$cond = true;
+} 
+if(isset($_GET["call_number"])){ 
+    $qArray[] = "book_call = '" . urldecode($_GET["call_number"]) . "'"; 
+	$cond = true;
+} 
+if(isset($_GET["start_date"])){ 
+	$qArray[] = "start_date = '" . urldecode($_GET["start_date"]) . "'"; 
+	$cond = true;
+} 
+if(isset($_GET["end_date"])){ 
+    $qArray[] = "end_date = '" . urldecode($_GET["end_date"]) . "'"; 
+	$cond = true;
+} 
+
+if($cond)
+	$sql = $sql . " WHERE ";
+
+$sql .= implode(" AND ", $qArray); 
+
+	
+$con = mysql_connect($server,$user,$password);
+
+if (!$con)
+	die('Could not connect: ' . mysql_error());
+	
+mysql_select_db($database, $con);
+
+$result = mysql_query($sql);
+$count = 0;
+while($row = mysql_fetch_array($result))
+{
+	$count++;
 }
-if(isset($call_number)) {
-	if($where != "") {
-		$where += " AND book_call = " . $call_number;
-	}
-	else $where = "book_call = " . $call_number;
-}
 
-	// Create a new mysqli object with database connection parameters
-	$con = new mysqli($server, $user, $password, $database);
-
-	if(mysqli_connect_errno()) {
-		echo "Connection Failed: " . mysqli_connect_errno();
-		exit();
-	}
-	// Create a prepared statement
-	/*if($where != "") {
-		if($stmt = $con -> prepare("SELECT * FROM book_pings WHERE " . $where . "?")) {
-
-			// Bind parameters
-			 //s - string, b - blob, i - int, etc
-			$stmt -> bind_param("s", $lcNum);
-
-			//Execute it
-			$stmt -> execute();
-
-			// Bind results
-			$stmt -> bind_result($result);
-
-			// Fetch the value
-			$stmt -> fetch();
-
-			// Close statement
-			$stmt -> close();
-		}
-	} /*else {
-		if($stmt = $con -> prepare("SELECT * FROM book_pings LIMIT 20") {
-
-			// Bind parameters
-			 //s - string, b - blob, i - int, etc
-			$stmt -> bind_param("s", $lcNum);
-
-			//Execute it
-			$stmt -> execute();
-
-			// Bind results
-			$stmt -> bind_result($result);
-
-			// Fetch the value
-			$stmt -> fetch();
-
-			// Close statement
-			$stmt -> close();
-		}
-	}*/
-
-/*
-	if($result == FALSE){
-		Print "FAILED 1";
-		//Print 'SQL Select failed' . mysqli_error();
-	} else if(mysqli_num_rows($result) == 0) {
-		Print "NO ROWS";
-		//Print 'No rows seleted';
-	} else {
-		//Print $resource;
-		while ($row = mysqli_fetch_assoc($result)) {
-			$arr[] = $row;
-		}
-		$count = count($arr);
-		// Close connection
-		$con -> close();*/
-		//return $count;ds
-	//}d
+echo $count;
+	
 ?>
