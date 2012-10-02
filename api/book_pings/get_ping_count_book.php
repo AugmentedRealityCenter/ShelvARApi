@@ -2,7 +2,7 @@
 include_once ("../../db_info.php");
  
 $qArray = array();
-$count = 0;
+
 
 $sql = "SELECT * FROM book_pings";
 $result;
@@ -39,11 +39,11 @@ if (!$con)
 mysql_select_db($database, $con);
 
 $result = mysql_query($sql);
-
+$count = 0;
 while($row = mysql_fetch_array($result))
 {
-echo "hi";
-  $count++;
+	$count++;
+	echo "count is " . $count;
 }
 
 return $count;
