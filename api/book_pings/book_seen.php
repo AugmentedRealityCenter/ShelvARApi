@@ -42,10 +42,6 @@ function book_seen($book_tag,$start_date,$end_date){
 	$e_date = new DateTime($end_date);
 	$start_date_formatted = $s_date->format('Y-m-d H:i:s');
 	$end_date_formatted = $e_date->format('Y-m-d H:i:s');
-	if(mysqli_connect_errno()) {
-		Print "Connection Failed: " . mysqli_connect_errno();
-	}
-
 	if (strlen($end_date) == 0){
 		$end_date_formatted = date("Y-m-d H:i:s",time());//Current datetime
 	}
