@@ -1,7 +1,7 @@
 {
     "apiVersion": "0.2", 
     "swaggerVersion": "1.1", 
-    "basePath": "http://24.164.78.127/dev/ShelvARWeb/api", 
+    "basePath": "http://dev.shelvar.com/api", 
     "resourcePath": "/book_pings", 
     "apis": [
 		{
