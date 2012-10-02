@@ -29,7 +29,6 @@ if($cond)
 	$sql = $sql . " WHERE ";
 
 $sql .= implode(" AND ", $qArray); 
-echo $sql;
 
 	
 $con = mysql_connect($server,$user,$password);
@@ -43,6 +42,7 @@ $result = mysql_query($sql);
 
 while($row = mysql_fetch_array($result))
 {
+echo "hi";
   $count++;
 }
 
