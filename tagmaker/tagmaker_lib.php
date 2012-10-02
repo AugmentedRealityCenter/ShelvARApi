@@ -58,7 +58,8 @@ function init($tag){
  */
 
 function lcFormat($btag){
-	$lcTag = Bin2LC($btag);
+  $lcTag = Bin2LC($btag);
+  $lcTag = $lcTag['parsed_call_number'];
 	
 	//Step 1 is to build up our call number.
 	// goal is 6 characters per line.
