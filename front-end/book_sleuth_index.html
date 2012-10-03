@@ -13,54 +13,49 @@
         throw new Error("Could not create HTTP request object.");
     }
 
-    function createTimeline(){
-        url = null;
-        start_time = null;
-        var call_no=document.getElementById('BScall_no');
-		if(document.getElementById('BScall_no').value.length > 0)
-			doc("call_number_entered").innerHTML = "Currently showing results for " + document.getElementById('BScall_no').value;
-			else doc("call_number_entered").innerHTML = "No call number entered.";
-        var lcjson = '{ "lcNum" : "' + call_no.value + '" }';
+function createTimeline(){
+  url = null;
+  start_time = null;
+  var call_no=document.getElementById('BScall_no');
+  if(document.getElementById('BScall_no').value.length > 0)
+    doc("call_number_entered").innerHTML = "Currently showing results for " + document.getElementById('BScall_no').value;
+  else doc("call_number_entered").innerHTML = "No call number entered.";
 
-        $.post("api/lcparse/parse.php", 
-                { callNumInput: lcjson }, 
-                function(retval) {
-                        if(retval.warningFree == true){
-                                call_no.style.color="#00cc00";
-                        } else if(retval.allow == true){
-                                call_no.style.color="#cccc00";
-                        } else {
-                                call_no.style.color="#cc0000";
-                                url = null;
-                                BSonLoad();
-                        }
+  $.get("api/call_numbers/"+call_no.value+".json", 
+	function(retval) {
+	  if(retval.parser_feedback.length == 0){
+	    call_no.style.color="#00cc00";
+	  } else if(retval.result.search("SUCCESS") != -1){
+	    call_no.style.color="#cccc00";
+	  } else {
+	    call_no.style.color="#cc0000";
+	    url = null;
+	    BSonLoad();
+	  }
 
-                        var lcNum = retval.lcNum;
+	  //var lcNum = retval.call_number;
     
-                        FillOutParseResult(doc('book_sleuth_presult'),retval);
-                        doc('book_sleuth_error').innerHTML = "";
-                        if(!retval.warningFree){
-                                doc('book_sleuth_error').innerHTML += DisplayWarnings(retval.arrOfConflicts,retval.originalInput);
-                        }
+	  FillOutParseResult(doc('book_sleuth_presult'),retval);
+	  doc('book_sleuth_error').innerHTML = "";
+	  if(retval.parser_feedback.length != 0){
+	    doc('book_sleuth_error').innerHTML += DisplayWarnings(retval.parser_feedback,retval.call_number);
+	  }
 
-                        if(retval.allow) { 
-                                //doc('call_no').style.color = good_color;
-                                $.post("api/lc2bin/LC2B64.php", 
-                                        { "LC": JSON.stringify(retval.lcNum) }, 
-                                        function(retLC) {
-                                            $.post("front-end/book_sleuth_wrapper_index.php", 
-                                                        { "callNumInput": JSON.stringify(retLC.base64) }, 
-                                                        function(retBS) {
-															start_time = retBS.events[0].start;
-															BSonLoad();
-                                                        }, "json");
-                                            url = "front-end/book_sleuth_wrapper_index.php?book_tag=" + retLC.base64;
-                                            BSonLoad();
-                                            }, "json");
-                        }
+	  if(retval.result.search("SUCCESS") != -1) { 
+	    $.post("front-end/book_sleuth_wrapper_index.php", 
+		   { "callNumInput": JSON.stringify(retval.book_tag) }, 
+		   function(retBS) {
+		     start_time = retBS.events[0].start;
+		     url = "front-end/book_sleuth_wrapper_index.php?book_tag=" + retval.book_tag;
+		     BSonLoad();
+		   }, "json");
+	    
+	  }
 
-                } , "json");
-    }
+	} , "json");
+} //end createTimeline()
+
+
 
             var tl;
             function BSonLoad() {

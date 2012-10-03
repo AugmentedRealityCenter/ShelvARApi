@@ -1,5 +1,5 @@
 <?php
-include_once("../api/book_pings/book_seen.php");
+include_once("book_seen.php");
 include_once("lc_utils.php");
 
 $JSONin = null;
@@ -12,7 +12,7 @@ if(isset($_POST["callNumInput"])){
 
 if($JSONin == null)
     $JSONin = $_GET["book_tag"];
-$seenArr = book_seen($JSONin,0,0);
+$seenArr = book_seen($JSONin,"0000-00-00 00:00:00","");
 
 include "../db_info.php";
 $con = mysql_connect($server,$user,$password);

@@ -23,11 +23,11 @@ include_once "../tagmaker/base64_lib.php";
  */
 function lessthan($base641, $base642)
 {
-	$lc1 = array('LC'=>Bin2LC(base642bin($base641)));
-	$lc2 = array('LC'=>Bin2LC(base642bin($base642)));
+  $lc1 = Bin2LC(base642bin($base641));
+  $lc2 = Bin2LC(base642bin($base642));
 	
-	$lc1 = $lc1["LC"];
-	$lc2 = $lc2["LC"];
+	$lc1 = $lc1["parsed_call_number"];
+	$lc2 = $lc2["parsed_call_number"];
 	
 	if(strcmp($lc1['alphabetic'],$lc2['alphabetic']) < 0) return true;
 	if(strcmp($lc1['alphabetic'],$lc2['alphabetic']) > 0) return false;
