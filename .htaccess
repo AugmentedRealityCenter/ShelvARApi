@@ -22,7 +22,7 @@ RewriteRule (.*) $1?institution=muohio [QSA]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.72\.5.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.118\.5.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.215\.173\.188$ [OR]
-RewriteCond %{REMOTE_ADDR} ^208\.102\.106\.254$ [OR]
+RewriteCond %{REMOTE_ADDR} ^208\.102\.(.*)\.(.*)$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.66\.91$
 RewriteRule (.*) $1?institution=brinkman [QSA]
 
