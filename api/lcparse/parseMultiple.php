@@ -1,4 +1,10 @@
 <?php 
+
+/**
+ * DEPRECATED: Marked for deletion!
+ **/
+
+/*
 require_once("parseLibrary.php");
 /**
 * @file
@@ -55,5 +61,5 @@ function parseMultipleNums($arrOfNums)
 	return $returnArr;
 }
 
-
+*/
 ?>
