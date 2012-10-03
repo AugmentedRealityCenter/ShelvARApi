@@ -10,6 +10,7 @@
    */
 
 include "../../database.php";
+include_once "../../header_include.php";
 
 $array = array();
 $db = new database();

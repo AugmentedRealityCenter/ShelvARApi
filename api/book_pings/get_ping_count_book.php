@@ -1,5 +1,6 @@
 <?php
 include_once ("../../db_info.php");
+include_once "../../header_include.php";
  
 $qArray = array();
 
