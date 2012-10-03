@@ -9,7 +9,7 @@
  */
 
 include_once "LC_Converter_lib.php";
-include_once "../../tagmaker/base64_lib.php";
+include_once "../base64_lib.php";
 include_once "../lcparse/parseLibrary.php";
 
 $JSONparsed = urldecode($_GET["call_number"]);

@@ -10,7 +10,7 @@
  */
 
 include_once "LC_Converter_lib.php";
-include_once "../../tagmaker/base64_lib.php";
+include_once "../base64_lib.php";
 
 $JSONin = stripslashes($_GET["B64"]);
 if(strlen($JSONin) != 24){

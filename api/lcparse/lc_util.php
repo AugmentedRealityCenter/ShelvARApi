@@ -10,7 +10,7 @@ $reuslt = array();
 result[] = parseToAssocArray($call_number)
 
 include_once "LC_Converter_lib.php";
-include_once "../../tagmaker/base64_lib.php";
+include_once "../base64_lib.php";
 $binret = LC2Bin($JSONin);
 //echo $binret['Bin'];
 if(substr($binret['Bin'],0,1) == 'E') echo json_encode(array("base64"=>$binret['Bin'])); //For debugging
