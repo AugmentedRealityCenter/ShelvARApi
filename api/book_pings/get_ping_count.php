@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * DEPRECATED. TODO: Delete this file
+ **/
+
+/**
  * @file
  * Get count of number of book_pings since a particular date
  *
@@ -21,6 +25,8 @@
  *   An integer, which is the number of book pings since the given date.
  *
  */
+
+/*
 $ret; //!< return value from function call that does most of the work
 $ret = get_ping_count_since(stripslashes($_GET["date"]));
 echo $ret;
@@ -46,5 +52,5 @@ function get_ping_count_since($date){
 	} else {
 		return $r[0]['TOTALFOUND'];
 	} 
-}
+}*/
 ?>
