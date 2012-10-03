@@ -1,7 +1,7 @@
-ShelvARWeb
-==========
+ShelvAR API
+===========
 
-Web platform and tools for ShelvAR
+Web API and documentation for ShelvAR
 
 Installation
 ------------
@@ -12,4 +12,5 @@ Installation
 
 Git Branches
 ------------
-The master branch runs on prod, and the dev branch runs on dev. When adding code for a sprint, please branch from dev, then merge back into dev. Big merges from dev to master will be less frequent.
+The master branch runs on api.shelvar.com, and the dev branch runs on devapi.shelvar.com. 
+dev (and devapi) is unstanble, and should only be used by ShelvAR developers. If you are building front-end code that uses shelvar, use master (and api).
