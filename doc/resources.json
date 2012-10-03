@@ -1,18 +1,17 @@
 {
 	"apiVersion":"0.2",
 	"swaggerVersion":"1.1",
-	"basePath":"http://dev.shelvar.com/doc",
 	"apis":[
 		{
-			"path":"/book_pings.{format}",
+			"path":"book_pings.{format}",
 			"description":"Operations on call numbers and database records of them"
 		},
 		{
-			"path":"/book_tags.{format}",
+			"path":"book_tags.{format}",
 			"description":"Operations about pets"
 		},
 		{
-			"path":"/call_numbers.{format}",
+			"path":"call_numbers.{format}",
 			"description":"Operations about pets"
 		}]
 }
