@@ -3,7 +3,6 @@
 # a rule that sets their institution code.
 RewriteEngine On
 
-#If the user is access the doc directory, do nothing
 RewriteRule ^doc - [L]
 
 #First, delete any institution the user put in
@@ -32,7 +31,7 @@ RewriteRule (.*) $1?institution=eliot [QSA]
 
 #If no institution, redirect to sorry page
 RewriteCond %{QUERY_STRING} !institution
-RewriteRule (.*) sorry.php [L]
+RewriteRule (.*) $1?institution=playground [QSA]
 
 ###########
 ### API ###
@@ -40,23 +39,22 @@ RewriteRule (.*) sorry.php [L]
 
 #TODO: Update the regular expression to only accept valid base64 characters
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/book_tags/([^/]+)(?=.json) api/lc2bin/B642LC.php?B64=$1 [L,QSA]
+RewriteRule ^book_tags/([^/]+)(?=.json) api/lc2bin/B642LC.php?B64=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
+RewriteRule ^call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} POST
-RewriteRule ^api/book_pings/?$ api/book_pings/book_ping.php [L]
+RewriteRule ^book_pings/?$ api/book_pings/book_ping.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/book_pings/?$ api/book_pings/book_pings_get.php [L]
+RewriteRule ^book_pings/?$ api/book_pings/book_pings_get.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/book_pings/count/?$ api/book_pings/get_ping_count_book.php [L]
+RewriteRule ^book_pings/count/?$ api/book_pings/get_ping_count_book.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/book_pings/([0-9]+)(?=.json) api/book_pings/get_by_id.php?book_ping_id=$1 [L,QSA]
-
+RewriteRule ^book_pings/([0-9]+)(?=.json) api/book_pings/get_by_id.php?book_ping_id=$1 [L,QSA]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
@@ -64,4 +62,4 @@ RewriteRule ^api/book_pings/([0-9]+)(?=.json) api/book_pings/get_by_id.php?book_
 #Also, if you do any substitution, then it will get here
 # via a re-direct...
 RewriteCond %{ENV:REDIRECT_STATUS} !=200
-RewriteRule ^api/(.*) sorry-api.php?api_info=/api/$1 [NS,QSA]
+RewriteRule ^/(.*) sorry-api.php?api_info=/api/$1 [NS,QSA]
