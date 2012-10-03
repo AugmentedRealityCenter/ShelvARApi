@@ -22,6 +22,7 @@ RewriteRule (.*) $1?institution=muohio [QSA]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.72\.5.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.118\.5.$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.215\.173\.188$ [OR]
+RewriteCond %{REMOTE_ADDR} ^208\.102\.106\.254$ [OR]
 RewriteCond %{REMOTE_ADDR} ^74\.83\.66\.91$
 RewriteRule (.*) $1?institution=brinkman [QSA]
 
@@ -37,31 +38,25 @@ RewriteRule (.*) sorry.php [L]
 ### API ###
 ###########
 
-# ^api/B642LC/ = does the page start with "api/B642LC"
-# ([^/.]+) = capture 1+ characters that aren't '.' or '/' and store them in $1
-# /?$ = only allows a POSSIBLE '/'
-# Therefore: accessing ".../api/B642LC/blah" will actually call ".../api/book_tags/B642LC.php?B64=blah"
+#TODO: Update the regular expression to only accept valid base64 characters
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^api/book_tags/([^/]+)(?=.json) api/lc2bin/B642LC.php?B64=$1 [L,QSA]
 
-# Same as above for LC2B64
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^api/call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
 
-# Handles POST access to book_pings_lib 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^api/book_pings/?$ api/book_pings/book_ping.php [L]
 
-#TODO update which php script this calls
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^api/book_pings/?$ test.php [L]
+RewriteRule ^api/book_pings/?$ api/book_pings/book_pings_get.php [L]
 
-#TODO update which php script this calls
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^api/book_pings/count/?$ api/book_pings/get_ping_count_book.php [L]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^api/book_pings/([0-9]+)(?=.json) api/book_pings/get_by_id.php?book_ping_id=$1 [L,QSA]
+
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
