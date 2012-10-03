@@ -34,7 +34,7 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Get recent book pings", 
-                    "notes": "Retrieves a list of the most recent book_pings. By default, returns the 20 most recent. Search can be limited using the optional parameters: Will return the 20 most recent pings that match all parameters.", 
+                    "notes": "Retrieves a list of the most recent book_pings, which it returns as a json array called book_pings. By default, returns the 20 most recent. Search can be limited using the optional parameters: Will return the 20 most recent pings that match all parameters. Also returns a string named result which will be 'SUCCESS' if everything worked. If not, it will be 'ERROR' followed by an explanatory message.", 
                     "responseClass": "void", 
                     "nickname": "book_pings", 
                     "parameters": [

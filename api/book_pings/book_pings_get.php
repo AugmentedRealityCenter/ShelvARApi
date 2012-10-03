@@ -44,33 +44,34 @@ $sql .= " LIMIT 0,".$lim;
 	
 $con = mysql_connect($server,$user,$password);
 
-if (!$con)
-	die('Could not connect: ' . mysql_error());
+if (!$con){
+  print json_encode(array("book_pings"=>array(),"result"=>'ERROR Could not connect: ' . mysql_error()));
+ } else {
 	
-mysql_select_db($database, $con);
-
-$result = mysql_query($sql);
-$count = 0;
-
-$ret = array();
-
-while($row = mysql_fetch_array($result))
-{
-  $row['book_ping_id'] = $row['id'];
-  unset($row['id']);
-  unset($row['institution']);
-  unset($row[0]);
-  unset($row[1]);
-  unset($row[2]);
-  unset($row[3]);
-  unset($row[4]);
-  unset($row[5]);
-  unset($row[6]);
-  unset($row[7]);
-  unset($row[8]);
-  $ret[] = $row;
-}
-
-print(json_encode($ret));
-	
+  mysql_select_db($database, $con);
+  
+  $result = mysql_query($sql);
+  $count = 0;
+  
+  $ret = array();
+  
+  while($row = mysql_fetch_array($result))
+    {
+      $row['book_ping_id'] = $row['id'];
+      unset($row['id']);
+      unset($row['institution']);
+      unset($row[0]);
+      unset($row[1]);
+      unset($row[2]);
+      unset($row[3]);
+      unset($row[4]);
+      unset($row[5]);
+      unset($row[6]);
+      unset($row[7]);
+      unset($row[8]);
+      $ret[] = $row;
+    }
+  
+  print(json_encode(array("book_pings"=>$ret,"result"=>"SUCCESS")));
+ }
 ?>
