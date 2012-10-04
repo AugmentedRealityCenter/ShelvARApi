@@ -3,8 +3,7 @@
 # a rule that sets their institution code.
 RewriteEngine On
 
-RewriteRule ^$ - [L]
-RewriteRule ^index.html - [L]
+RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 
 #First, delete any institution the user put in
