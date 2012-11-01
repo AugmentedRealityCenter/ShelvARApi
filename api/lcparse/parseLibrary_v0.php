@@ -1033,7 +1033,7 @@ function addConflictDate2HasAlpha()
 	$problem->msg = "Alphabetic characters not currently supported in date 2. Date must be a 4-digit year.";
 	$problem->isWarning = false;
 	$problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ (4) 
-							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeofreDate1'] + $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2'];
+							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1'] + $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2'];
 	$problem->conflictEnd = $problem->conflictStart + ($arrOfSizes['date2Size']- 4);
 	
 	$arrOfConflicts[] = $problem;
@@ -1305,7 +1305,7 @@ function addConflictElements9and10NotEmpty()
     $problem = new conflict();
     $problem->msg = "ShelvAR does not currently support LC Call Numbers that make use of the 9th and 10th fields of the call number standards and has not included them in the parsing.";
     $problem->isWarning = true;
-    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + $arrOfSizes['element8Size'] + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeofreDate2'] + $arrOfSpaces['spacesBeforeCut2']+ $arrOfSpaces['spacesBeforeEle8'] + $arrOfSpaces['spacesBeforeEle9'];
+    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + $arrOfSizes['element8Size'] + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2'] + $arrOfSpaces['spacesBeforeCut2']+ $arrOfSpaces['spacesBeforeEle8'] + $arrOfSpaces['spacesBeforeEle9'];
     $problem->conflictEnd = $problem->conflictStart + $arrOfSizes['element9Size']+ $arrOfSizes['element10Size']+ $arrOfSpaces['spacesBeforeEle10'] - 1;
 
     $arrOfConflicts[] = $problem;
