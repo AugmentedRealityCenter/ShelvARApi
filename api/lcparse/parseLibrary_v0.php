@@ -112,7 +112,14 @@ function parseToAssocArray_delegate($lcNum)
 {
 	global $arrOfConflicts, $res, $parsedArr;
 
-	initialize();
+        initialize();
+
+        $lcnumi = $lcnum;
+        $lcnum = trim_excess_whitespace();
+        if(strcmp($lcnumi, $lcnum) != 0) {
+           //We trimmed, should add warning.
+           addConflictTrimmedWhitspace();
+        }
 
 	$parsedArr["alphabetic"] = strtoupper(getAlphabetic($lcNum));
 	$parsedArr["wholeClass"] = getWholeClass($lcNum);
@@ -706,6 +713,12 @@ function getElement10($lcNum)
 
 	return $result;
 }
+
+function trim_excess_whitespace($str) {
+   $ro = preg_replace('/\s+/', ' ', $str);
+   return $str;
+}
+
 // @cond ASDF
 /**
 * Adds conflict if alphabetic portion doesn't exist
@@ -1329,6 +1342,21 @@ function addConflictTooManyCutter2AlphasError($cutter2Alphs)
 	$res->endResult["warningFree"] = false;
 	$res->endResult["allow"] = false;
 }
+
+function addConflictTrimmedWhitspace() {
+   global $arrOfConflicts, $res;
+
+   $problem = new conflict();
+   $problem->msg = "There were extra spaces that we trimmed.";
+   $problem->isWarning = true;
+   $problem->conflictStart = 0;
+   $problem->conflictEnd = 0;
+
+   $arrOfConflicts[] = $problem;
+   $res->endResult["warningFree"] = false;
+   $res->endResult["allow"] = true;
+}
+
 /**
 * Checks for remaining bugs on whole LC
 **/
