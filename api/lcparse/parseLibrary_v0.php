@@ -114,9 +114,9 @@ function parseToAssocArray_delegate($lcNum)
 
         initialize();
 
-        $lcnumi = $lcnum;
-        $lcnum = trim_excess_whitespace();
-        if(strcmp($lcnumi, $lcnum) != 0) {
+        $lcnumi = $lcNum;
+        $lcNum = trim_excess_whitespace($lcnumi);
+        if(strcmp($lcnumi, $lcNum) != 0) {
            //We trimmed, should add warning.
            addConflictTrimmedWhitspace();
         }
