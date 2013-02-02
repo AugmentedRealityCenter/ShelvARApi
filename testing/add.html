@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <title>
+      ShelvAR - Add Books Tester
+    </title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="/helpers/upclick.js"></script>
+	<script type="text/javascript">
+		document.write("This test adds an excel spreadsheet (.csv format) of books and tests to make sure they're in the database");
+		<!--
+		
+		/*
+		 * File Uploader
+		 *   Waits for an up-click event on the uploader
+		*/
+		var uploader = document.getElementById('uploader');
+	    upclick(
+		 {
+		  element: uploader,
+		  action: 'helpers/uploadScript.php', 
+		  onstart:
+			function(filename)
+			{
+			  alert('Start upload: '+filename);
+			},
+		  oncomplete:
+			function(response_data) 
+			{
+			  alert(response_data);
+			}
+		 });
+		
+		/*
+		 * Parse Uploaed CSV
+		*/
+		function parseFile() {
+			var file = document.getElementById('UploadForm').elements['upload_file'].value;
+			var allTextLines = file.split(/\r\n|\n/);
+			var headers = allTextLines[0].split(',');
+			var lines = [];
+
+			for (var i=1; i<allTextLines.length; i++) {
+				var data = allTextLines[i].split(',');
+				if (data.length == headers.length) {
+
+					var tarr = [];
+					for (var j=0; j<headers.length; j++) {
+						tarr.push(headers[j]+":"+data[j]);
+					}
+					lines.push(tarr);
+				}
+			}
+			alert(lines[0]);
+		};
+		
+		//TEMP: display the one LC call num
+		function callService() {
+			//document.TesterForm.write("OUTPUT: " + (window.location.href = 'http://devapi.shelvar.com/call_numbers/' + document.TesterForm.fileNameBox.value + '.json'));
+			$.getJSON("http://devapi.shelvar.com/call_numbers/NX543%20.c38%202000.json", 
+					function(data){
+						alert(document.getElementById('TesterForm').elements['fileNameBox'].value);
+					}
+			);
+		};
+
+		-->
+	</script>
+  </head>
+  <body>
+    <form id="UploadForm" method="post">
+		<input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+		Choose a CSV file to upload: <input type="button" id="uploader" value="UploadedFile">
+	</form>
+	
+	<form id="TesterForm">
+		<input type="text" name="fileNameBox">
+		<input type="button" value="GO" onclick="parseFile()">
+	</form>
+	
+	<form id="TesterOutput">
+		document.write("TEST VALUE: NX543%20.c38%202000");
+	</form>
+  </body>
+</html>

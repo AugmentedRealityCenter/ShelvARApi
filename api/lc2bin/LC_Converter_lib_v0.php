@@ -98,6 +98,13 @@ $GLOBALS['LC2Bin_version'] = '0000000'; //Binary representation of the version n
   		if($four != '' && intval($four) <= 4095){
   			$zero[3]='1';
   			$four1 = str_pad(decbin($four), 12, '0',STR_PAD_LEFT);
+			//@AB if the date has letters after it, represent them
+			$letters = substr($six, 4);
+			$let = '00';
+			if(strtolower($letters) == "x") $let = "01";
+			else if(strtolower($letters) == "b") $let = "10";
+			else if(strtolower($letters) == "ax") $let = "11";
+			$four1 = $four1.$let;
   		}
   		else if(intval($four) > 4095 || strlen($four) > 4) {
 			//Error, bad input.
@@ -129,6 +136,13 @@ $GLOBALS['LC2Bin_version'] = '0000000'; //Binary representation of the version n
   		if($six != '' && intval($six) <= 4095){
   			$zero[5]='1';
   			$six1 = str_pad(decbin($six), 12, '0',STR_PAD_LEFT);
+			//@AB if the date has letters after it, represent them
+			$letters = substr($six, 4);
+			$let = '00';
+			if(strtolower($letters) == "x") $let = "01";
+			else if(strtolower($letters) == "b") $let = "10";
+			else if(strtolower($letters) == "ax") $let = "11";
+			$six1 = $six1.$let;
   		}
   		else if(intval($six) > 4095 || strlen($six) > 4) {
 			//Error, bad input.

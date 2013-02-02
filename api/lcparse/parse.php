@@ -22,6 +22,8 @@
 
 include("parseLibrary.php");
 
+alert('HELLO!!!');
+
 $JSONin = stripslashes($_POST["callNumInput"]);
 $JSONin = json_decode($JSONin,true);
 
