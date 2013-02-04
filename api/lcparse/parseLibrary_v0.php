@@ -519,17 +519,11 @@ function getCutter2($lcNum)
 
 	if($cur == ".")
 	{
-<<<<<<< HEAD
-		$arrOfSpaces['spacesBeforeCut2']++; //Does this fix the problem? RED FLAG RED FLAG RED FLAG! WHAT IS THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		$loc++;
-		$cur = substr($lcNum, $loc, 1);
-=======
 		//@AB no reason cutter 2 should have period; throw error
 		addConflictPeriodInCutter2Num();
 //		$arrOfSpaces['spacesBeforeCut2']++; //Does this fix the problem? RED FLAG RED FLAG RED FLAG! WHAT IS THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //		$loc++;
 //		$cur = substr($lcNum, $loc, 1);
->>>>>>> updates to parser and tester
 	}
 
 	if(preg_match("/^[A-Z]$/i", $cur))
