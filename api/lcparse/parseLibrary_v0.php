@@ -519,9 +519,11 @@ function getCutter2($lcNum)
 
 	if($cur == ".")
 	{
-		$arrOfSpaces['spacesBeforeCut2']++; //Does this fix the problem? RED FLAG RED FLAG RED FLAG! WHAT IS THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		$loc++;
-		$cur = substr($lcNum, $loc, 1);
+		//@AB no reason cutter 2 should have period; throw error
+		addConflictPeriodInCutter2Num();
+//		$arrOfSpaces['spacesBeforeCut2']++; //Does this fix the problem? RED FLAG RED FLAG RED FLAG! WHAT IS THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		$loc++;
+//		$cur = substr($lcNum, $loc, 1);
 	}
 
 	if(preg_match("/^[A-Z]$/i", $cur))
@@ -1151,6 +1153,25 @@ function addConflictNoNumsInCutter2Num()
     $res->endResult["allow"] = false;
 }
 /**
+* Adds conflict if cutter2 has a period
+**/
+function addConflictPeriodInCutter2Num()
+{
+    global $arrOfConflicts, $arrOfSpaces, $arrOfSizes, $res;
+
+    $problem = new conflict();
+    $problem->msg = "The second cutter number should not contain a period";
+    $problem->isWarning = false;
+    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']
+							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']
+							+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2']+ $arrOfSpaces['spacesBeforeCut2'];
+    $problem->conflictEnd = $problem->conflictStart + $arrOfSizes['cutter2Size'] - 1;
+
+    $arrOfConflicts[] = $problem;
+    $res->endResult["warningFree"] = false;
+    $res->endResult["allow"] = false;
+}
+/**
 * Adds conflict if all fields empty
 **/
 function addConflictAllFieldsEmpty()
@@ -1246,15 +1267,13 @@ function addConflictDate3isEbook()
 /**
 * Adds conflict if last char not alphabetic or numeric
 **/
-function addConflictLastCharIsNotAlphaNumeric($loc)
+function addConflictLastCharIsNotAlphaNumeric()
 {
     global $arrOfConflicts, $arrOfSpaces, $arrOfSizes, $res;
 
     $problem = new conflict();
     $problem->msg = "The last number in the call number is not a number or a letter.";
     $problem->isWarning = false;
-    $problem->conflictStart = $loc;
-    $problem->conflictEnd = $loc;
 
     $arrOfConflicts[] = $problem;
     $res->endResult["warningFree"] = false;
