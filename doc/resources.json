@@ -8,11 +8,11 @@
 		},
 		{
 			"path":"book_tags.{format}",
-			"description":"Operations about pets"
+			"description":"Operations on book tags"
 		},
 		{
 			"path":"call_numbers.{format}",
-			"description":"Operations about pets"
+			"description":"Operations on call numbers"
 		},
                 {
                     	"path":"institutions.{format}",
