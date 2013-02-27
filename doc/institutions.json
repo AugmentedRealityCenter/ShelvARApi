@@ -1,0 +1,107 @@
+{
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "resourcePath": "/institutions", 
+    "apis": [
+		{
+            "path": "/institutions/", 
+            "description": "List of book pings", 
+            "operations": [
+                {
+                    "httpMethod": "POST", 
+                    "summary": "Registers an institution with ShelvAR", 
+                    "notes": "Registers an institution with ShelvAR.",
+                    "responseClass": "string", 
+                    "nickname": "institutions", 
+                    "parameters": [
+                        {
+                            "name": "institution_name", 
+                            "description": "The official name of the institution", 
+                            "paramType": "body", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "admin_email",
+                            "description": "Email of the administrator for the institution",
+                            "paramType": "body",
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+ 
+                        },
+                        {
+                            "name": "alt_contact",
+                            "description": "The name and contact method of another individual at the institution that should be contacted in case of loss of contact with the administrator.",
+                            "paramType": "body",
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "institution_type",
+                            "description": "The enumerated type of your institution. TODO: docuemnt these.",
+                            "paramType": "body",
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+ 
+                        }
+ 
+}
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ping"
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get information about all registered institutions", 
+                    "notes": "Retrieve a list of all registered institutions with basic information about each one.", 
+                    "responseClass": "string", 
+                    "nickname": "institutions", 
+                    "parameters": [], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid status value"
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            "path": "/institutions/{institution_id}.json", 
+            "description": "Get information about a specific institution", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get public information about a specific insititution. If authorized, get detailed information about your institution.", 
+                    "notes": "Returns an integer, book_ping_count, representing the number of book_pings in the database. This count may be limited using the optional parameters. Note that this method does not return a result. If there is an error, it simply returns a book_ping_count of 0.",  
+                    "responseClass": "string", 
+                    "nickname": "institution_info", 
+                    "parameters": [
+                        {
+                            "name": "book_tag", 
+                            "description": "Base-64 representation of a book_tag. Limit the count to only count pings with this book_tag. Example: 0cOZA09fhM0cM_gw000000a0", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }  
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid institution ID"
+                        }
+                    ]
+                }
+            ]
+        },
+    ] 
+}

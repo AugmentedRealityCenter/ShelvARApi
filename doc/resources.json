@@ -13,5 +13,9 @@
 		{
 			"path":"call_numbers.{format}",
 			"description":"Operations about pets"
-		}]
+		},
+                {
+                    	"path":"institutions.{format}",
+			"description":"Institution administration"
+                }]
 }
