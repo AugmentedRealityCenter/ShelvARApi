@@ -114,9 +114,9 @@ function parseToAssocArray_delegate($lcNum)
 
         initialize();
 
-        $lcnumi = $lcnum;
-        $lcnum = trim_excess_whitespace();
-        if(strcmp($lcnumi, $lcnum) != 0) {
+        $lcnumi = $lcNum;
+        $lcNum = trim_excess_whitespace($lcnumi);
+        if(strcmp($lcnumi, $lcNum) != 0) {
            //We trimmed, should add warning.
            addConflictTrimmedWhitspace();
         }
@@ -519,9 +519,11 @@ function getCutter2($lcNum)
 
 	if($cur == ".")
 	{
-		$arrOfSpaces['spacesBeforeCut2']++; //Does this fix the problem? RED FLAG RED FLAG RED FLAG! WHAT IS THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		$loc++;
-		$cur = substr($lcNum, $loc, 1);
+		//@AB no reason cutter 2 should have period; throw error
+		addConflictPeriodInCutter2Num();
+//		$arrOfSpaces['spacesBeforeCut2']++; //Does this fix the problem? RED FLAG RED FLAG RED FLAG! WHAT IS THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//		$loc++;
+//		$cur = substr($lcNum, $loc, 1);
 	}
 
 	if(preg_match("/^[A-Z]$/i", $cur))
@@ -1047,8 +1049,8 @@ function addConflictDate2HasAlpha()
 	$problem = new conflict();
 	$problem->msg = "Alphabetic characters not currently supported in date 2. Date must be a 4-digit year.";
 	$problem->isWarning = false;
-	$problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ (4)
-							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeofreDate1'] + $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2'];
+
+	$problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ (4) + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1'] + $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2'];
 	$problem->conflictEnd = $problem->conflictStart + ($arrOfSizes['date2Size']- 4);
 
 	$arrOfConflicts[] = $problem;
@@ -1140,6 +1142,25 @@ function addConflictNoNumsInCutter2Num()
 
     $problem = new conflict();
     $problem->msg = "The second cutter number has no numerical portion";
+    $problem->isWarning = false;
+    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']
+							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']
+							+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2']+ $arrOfSpaces['spacesBeforeCut2'];
+    $problem->conflictEnd = $problem->conflictStart + $arrOfSizes['cutter2Size'] - 1;
+
+    $arrOfConflicts[] = $problem;
+    $res->endResult["warningFree"] = false;
+    $res->endResult["allow"] = false;
+}
+/**
+* Adds conflict if cutter2 has a period
+**/
+function addConflictPeriodInCutter2Num()
+{
+    global $arrOfConflicts, $arrOfSpaces, $arrOfSizes, $res;
+
+    $problem = new conflict();
+    $problem->msg = "The second cutter number should not contain a period";
     $problem->isWarning = false;
     $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']
 							+ $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']
@@ -1246,15 +1267,13 @@ function addConflictDate3isEbook()
 /**
 * Adds conflict if last char not alphabetic or numeric
 **/
-function addConflictLastCharIsNotAlphaNumeric($loc)
+function addConflictLastCharIsNotAlphaNumeric()
 {
     global $arrOfConflicts, $arrOfSpaces, $arrOfSizes, $res;
 
     $problem = new conflict();
     $problem->msg = "The last number in the call number is not a number or a letter.";
     $problem->isWarning = false;
-    $problem->conflictStart = $loc;
-    $problem->conflictEnd = $loc;
 
     $arrOfConflicts[] = $problem;
     $res->endResult["warningFree"] = false;
@@ -1320,7 +1339,7 @@ function addConflictElements9and10NotEmpty()
     $problem = new conflict();
     $problem->msg = "ShelvAR does not currently support LC Call Numbers that make use of the 9th and 10th fields of the call number standards and has not included them in the parsing.";
     $problem->isWarning = true;
-    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + $arrOfSizes['element8Size'] + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeofreDate2'] + $arrOfSpaces['spacesBeforeCut2']+ $arrOfSpaces['spacesBeforeEle8'] + $arrOfSpaces['spacesBeforeEle9'];
+    $problem->conflictStart = $arrOfSizes['alphabeticSize'] + $arrOfSizes['wholeClassSize']+ $arrOfSizes['decClassSize'] + $arrOfSizes['date1Size']+ $arrOfSizes['cutter1Size']+ $arrOfSizes['date2Size']+ $arrOfSizes['cutter2Size'] + $arrOfSizes['element8Size'] + $arrOfSpaces['spacesBeforeWhole']+ $arrOfSpaces['spacesBeforeDec']+ $arrOfSpaces['spacesBeforeDate1']+ $arrOfSpaces['spacesBeforeCut1']+ $arrOfSpaces['spacesBeforeDate2'] + $arrOfSpaces['spacesBeforeCut2']+ $arrOfSpaces['spacesBeforeEle8'] + $arrOfSpaces['spacesBeforeEle9'];
     $problem->conflictEnd = $problem->conflictStart + $arrOfSizes['element9Size']+ $arrOfSizes['element10Size']+ $arrOfSpaces['spacesBeforeEle10'] - 1;
 
     $arrOfConflicts[] = $problem;
