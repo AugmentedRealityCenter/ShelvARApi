@@ -9,6 +9,7 @@ Installation
 1. Copy files to your server.
 2. Create the database you will use for ShelvAR, then import setup/shelvar.sql to create the necessary tables. We use phpMyAdmin for this.
 3. Edit db_info.php with the login and password for your database.
+4. Modify the .htaccess file and institutions.php to reflect settings for your site. Documentation on how to do this is TODO
 
 Git Branches
 ------------
