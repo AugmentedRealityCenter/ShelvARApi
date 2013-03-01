@@ -59,7 +59,7 @@
                             "name": "description",
                             "description": "Basic description about your institution.",
                             "paramType": "body",
-                            "required": true,
+                            "required": false,
                             "allowMultiple": false,
                             "dataType": "string"
                         }
