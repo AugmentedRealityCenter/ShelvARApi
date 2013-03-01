@@ -93,7 +93,7 @@
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "summary": "Get public information about a specific insititution. If authorized, get detailed information about your institution.",
+                    "summary": "Get information about a specific institution",
                     "notes": "Get public information about a specific insititution. If authorized, get detailed information about your institution.",
                     "responseClass": "string",
                     "nickname": "institution_info",
