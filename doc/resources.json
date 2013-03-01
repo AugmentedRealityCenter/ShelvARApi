@@ -17,5 +17,9 @@
                 {
                     	"path":"institutions.{format}",
 			"description":"Institution administration"
-                }]
+                },
+		{
+                    	"path":"users.{format}",
+			"description":"Information about users"
+		}]
 }
