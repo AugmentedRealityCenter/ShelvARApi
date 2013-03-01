@@ -1,7 +1,5 @@
 <?php 
-	include '../../connect.php';
-	
-	session_start();  
+	include '../../connect.php'; 
 	
 	$err = array();
 	
@@ -52,17 +50,14 @@
 					  VALUES('$user_id','$inst_id','$password','$salt','$name','$email','NO',$is_admin,0,0);";
 			$mysql = mysql_query($query);
 			if($mysql) {
-				$_SESSION['msg']['reg-succ'] = 'Your account was successfully created';
-				header("Location: http://dev.shelvar.com/loginTest/");
-				exit;
+				echo json_encode(array('result'=>"SUCCESS")); 
 			}
 			else {
 				$err[] = 'Account Error - MySQL Error';
 			}
 		}
 	}
-	$_SESSION['msg']['reg-err'] = implode('<br />',$err);
-	
-	header("Location: http://dev.shelvar.com/loginTest/users/");
-	exit;
+	if($err) {
+		echo json_encode(array('result'=>"ERROR", 'errors'=>$err)); 
+	}
 ?>

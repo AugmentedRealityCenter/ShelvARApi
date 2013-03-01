@@ -1,8 +1,6 @@
 <?php 
 	include '../../connect.php';
 	
-	session_start();  
-	
 	$err = array();
 	
 	if(!$_POST['inst_id'] || !$_POST['description'] || !$_POST['admin_contact'] || !$_POST['alt_contact'] || !$_POST['inst_type'] || !$_POST['inst_size']) {
@@ -26,24 +24,21 @@
 		
 		$check_id = mysql_query("SELECT * FROM institutions WHERE inst_id = '".$inst_id."'");  
 		if(mysql_num_rows($check_id) > 0) {  
-			$err[]='Institution ID already taken';
+			$err[]="Institution ID already taken";
 		}
 		else { 
 			$query = "INSERT INTO institutions(inst_id,description,admin_contact,alt_contact,inst_type,inst_size,is_activated,exp_date,num_api_calls)
 					  VALUES('$inst_id','$description','$admin_contact','$alt_contact','$inst_type','$inst_size',0,NOW(),0);";
-			$result = mysql_query($query);
-			if($result) {
-				$_SESSION['msg']['reg-succ'] = 'Institution was successfully created';
-				header("Location: http://dev.shelvar.com/loginTest/users/");
-				exit;
+			$success = mysql_query($query);
+			if($success) {
+				echo json_encode(array('result'=>"SUCCESS"));
 			}
 			else {
-				$err[] = 'MySQL Error';
+				$err[] = "MySQL Error";
 			}
 		}
 	}
-	$_SESSION['msg']['reg-err'] = implode('<br />',$err);
-	
-	header("Location: http://dev.shelvar.com/loginTest/institutions/");
-	exit;
+	if($err) {
+		echo json_encode(array('result'=>"ERROR",'errors'=>$err));
+	}
 ?>
