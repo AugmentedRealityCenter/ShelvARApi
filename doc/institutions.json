@@ -1,0 +1,142 @@
+{
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "resourcePath": "/institutions", 
+    "apis": [
+        {
+            "path": "/institutions/{institution_id}.json", 
+            "description": "Institution Information", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get information about an institution", 
+                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR.", 
+                    "responseClass": "string", 
+                    "nickname": "institution", 
+                    "parameters": [
+                        {
+                            "name": "institution_id", 
+                            "description": "The shortname for your institution.", 
+                            "paramType": "path", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ID supplied"
+                        }, 
+                        {
+                            "code": 404, 
+                            "reason": "Data not found"
+                        },
+			{
+			    "code": 403,
+			    "reason": "Access denied. Authorization not provided."
+			}	
+                    ]
+                }
+            ]
+        },
+	{
+            "path": "/institutions/",
+            "description": "Register institution",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Register a new institution with ShelvAR",
+                    "notes": "Registers an institution with ShelvAR",
+                    "responseClass": "string",
+                    "nickname": "institution",
+                    "parameters": [
+                        {
+                            "name": "institution_name",
+                            "description": "The official name of your institution",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+			{
+                            "name": "admin_email",
+                            "description": "The email address of the user who will be the administrator of the account.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+			{
+                            "name": "alt_contact",
+                            "description": "The name of another person at the institution that should be contacted if the admin contact is unavailable.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+			{
+                            "name": "institution_type",
+                            "description": "Based on the size of your institution and the level of governemnt funding it recevies, you will be categorized into a type. Please enter that type in this field. TODO: Provide documentation and possibly a tool for customers to calculate what their institution type is.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+		    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        {
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                }
+            ]
+        },
+	{
+            "path": "/institutions/{institution_id}.json",
+            "description": "Institution Information",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get information about an institution",
+                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR.",
+                    "responseClass": "string",
+                    "nickname": "institution",
+                    "parameters": [
+                        {
+                            "name": "institution_id",
+                            "description": "The shortname for your institution.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ] 
+}
