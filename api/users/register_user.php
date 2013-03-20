@@ -13,8 +13,6 @@
 		$err[] = 'Your username contains invalid characters';
 	}
 	
-	
-	// If there are no errors
 	if(!count($err)) {
 		$user_id = $_POST['user_id'];
 		$inst_id = $_POST['inst_id'];
@@ -50,7 +48,7 @@
 					  VALUES('$user_id','$inst_id','$password','$salt','$name','$email','NO',$is_admin,0,0);";
 			$mysql = mysql_query($query);
 			if($mysql) {
-				echo json_encode(array('result'=>"SUCCESS")); 
+				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id)); 
 			}
 			else {
 				$err[] = 'Account Error - MySQL Error';

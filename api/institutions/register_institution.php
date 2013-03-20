@@ -22,16 +22,18 @@
 		$inst_type = $_POST['inst_type'];
 		$inst_size = $_POST['inst_size'];
 		
+		// needs prepared statements
 		$check_id = mysql_query("SELECT * FROM institutions WHERE inst_id = '".$inst_id."'");  
 		if(mysql_num_rows($check_id) > 0) {  
 			$err[]="Institution ID already taken";
 		}
 		else { 
+			// needs prepared statements
 			$query = "INSERT INTO institutions(inst_id,description,admin_contact,alt_contact,inst_type,inst_size,is_activated,exp_date,num_api_calls)
 					  VALUES('$inst_id','$description','$admin_contact','$alt_contact','$inst_type','$inst_size',0,NOW(),0);";
 			$success = mysql_query($query);
 			if($success) {
-				echo json_encode(array('result'=>"SUCCESS"));
+				echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id));
 			}
 			else {
 				$err[] = "MySQL Error";
