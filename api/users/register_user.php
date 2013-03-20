@@ -1,12 +1,13 @@
 <?php 
-	include '../../connect.php'; 
+	include "../../database.php";
+	include_once "../../header_include.php";
 	
 	$err = array();
 	
 	if(!$_POST['user_id'] || !$_POST['password'] || !$_POST['name'] || !$_POST['email'] || !$_POST['inst_id']) {
 		$err[] = 'Please fill in all fields';
 	}
-	if(strlen($_POST['user_id'])<4 || strlen($_POST['user_id'])>45) {
+	if(strlen($_POST['user_id']) < 4 || strlen($_POST['user_id']) > 45) {
 		$err[] = 'Your username must be between 5 and 45 characters';
 	}
 	if(preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['user_id'])) {
@@ -20,8 +21,14 @@
 		$name = $_POST['name'];
 		$email = $_POST['email'];
 		
-		$result = mysql_query("SELECT * FROM users WHERE user_id = '".$username."'");  
-		if(mysql_num_rows($result) > 0) {  
+		$db = new database();
+		$db->query = "SELECT * FROM users WHERE user_id = ?";
+		$db->params = array($user_id);
+		$db->type = 's';
+		
+		$result = $db->fetch();
+		 
+		if(count($result) > 0) {  
 			$err[]='Username already taken';
 		}
 		else {
@@ -37,25 +44,32 @@
 			} 
 			
 			// check if email matches admin email in institutions to give admin rights
-			$result = mysql_query("SELECT admin_contact FROM institutions WHERE inst_id = '".$inst_id."'");
-			$row = mysql_fetch_array($result, MYSQL_ASSOC);
-			if($row['admin_contact'] == $email) {
+			$db = new database();
+			$db->query = "SELECT admin_contact FROM institutions WHERE inst_id = ?";
+			$db->params = array($inst_id);
+			$db->type = 's';
+		
+			$result = $db->fetch();
+			if($result[0]['admin_contact'] == $email) {
 				$is_admin = 1;
 			}
 			else $is_admin = 0;
 			
-			$query = "INSERT INTO users(user_id,inst_id,password,salt,name,email,email_verified,is_admin,can_submit_data,can_read_data)
-					  VALUES('$user_id','$inst_id','$password','$salt','$name','$email','NO',$is_admin,0,0);";
-			$mysql = mysql_query($query);
-			if($mysql) {
+			$db = new database();
+			$db->query = "INSERT INTO users(user_id,inst_id,password,salt,name,email,email_verified,is_admin,can_submit_data,can_read_data)
+							VALUES(?,?,?,?,?,?,?,?,?,?)";
+			$db->params = array($user_id, $inst_id, $password, $salt, $name, $email, "NO", $is_admin, 0, 0);
+			$db->type = 'sssssssiii';
+
+			if($db->insert()) {
 				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id)); 
 			}
 			else {
-				$err[] = 'Account Error - MySQL Error';
+				$err[] = 'MySQL Error';
 			}
 		}
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'user_id'=>"", 'errors'=>$err)); 
 	}
 ?>
