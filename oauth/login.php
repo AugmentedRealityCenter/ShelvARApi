@@ -31,8 +31,22 @@
 			$password = $_POST['password'];
 
 			// TODO Use prepared statements
-			$query = "SELECT user_id,inst_id,password,salt FROM users WHERE user_id = '$user_id';";
-			$result = mysql_query($query);
+			//$query = "SELECT user_id,inst_id,password,salt FROM users WHERE user_id = '$user_id';";
+			//$result = mysql_query($query);
+			
+			/******************* Prepared Statement ******************************/
+			// need to include datastore?
+			$mysqli = new mysqli( "localhost", "user", "password", "world");
+			if( $stmt = $mysqli->prepare("SELECT user_id, inst_id, password, salt
+										FROM 'users'
+										WHERE 'user_id' = ?") ) 
+			{
+				$stmt->bind_param(1, $user_id);			
+				$result = $stmt->fetch();	// set query results to variable
+			}
+			/********************************************************************/
+		
+			
 			
 			// If there is a username that matches
 			if(mysql_num_rows($result) > 0) {
