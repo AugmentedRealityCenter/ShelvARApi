@@ -3,9 +3,13 @@ Header set Access-Control-Allow-Origin *
 #This htaccess file implements site-based
 # licensing for ShelvAR. Each supported site needs
 # a rule that sets their institution code.
+
+#Allow cross-site scripting
+Header set Access-Control-Allow-Origin *
+
 RewriteEngine On
 
-RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
+RewriteRule ^$ http://api.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 
 #First, delete any institution the user put in
