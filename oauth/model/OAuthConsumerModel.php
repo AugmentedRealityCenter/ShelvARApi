@@ -34,6 +34,8 @@
  * @license BSD License
  */
 
+include "../../database.php";
+
 class OAuthConsumerModel extends ModelBase
 {
 	/**
@@ -75,14 +77,14 @@ class OAuthConsumerModel extends ModelBase
 		*/
 		
 		/******************* Prepared Statement ******************************/
-			// need to include datastore?
-		$mysqli = new mysqli( "localhost", "user", "password", "world");
-		if( $stmt = $mysqli->prepare("SELECT *
-									  FROM 'oauth_provider_consumer'
-									  WHERE 'consumer_key' = ?") ) 
-		{
-			$stmt->bind_param(1, $DataStore->real_escape_string($consumerKey));			
-			$result = $stmt->fetch();	// set query results to variable
+		$db = new database();
+		if( $db->query = "SELECT * 
+					  FROM 'oauth_provider_consumer'
+					  WHERE 'consumer_key' = ?"; ) 
+		{					  
+			$db->params = array( $DataStore->real_escape_string($consumerKey) );			
+			$db->type = 's';
+			$result = $db->fetch();	// set query results to variable
 		}
 		/********************************************************************/
 		
@@ -108,17 +110,31 @@ class OAuthConsumerModel extends ModelBase
 	 */
 	protected function create()
 	{
-		// PREPARED STATEMENT
+		/*
 		$sql = "INSERT INTO `oauth_provider_consumer`
 				SET `consumer_key` = '" . $this->DataStore->real_escape_string($this->consumerKey) . "',
 					`consumer_secret` = '" . $this->DataStore->real_escape_string($this->consumerSecret) . "',
 					`consumer_create_date` = '" . $this->DataStore->real_escape_string($this->consumerCreateDate) . "'";
+		*/
 		
-		if ($this->DataStore->query($sql)) {
+		$consumer_key = $this->DataStore->real_escape_string($this->consumerKey);
+		$consumer_secret = $this->DataStore->real_escape_string($this->consumerSecret);
+		$consumer_create_date = $this->DataStore->real_escape_string($this->consumerCreateDate);		
+		/***********************PREPARED STATEMENT*********************************/
+		$db = new database();
+		$db->query = "INSERT INTO `oauth_provider_consumer`
+					 SET `consumer_key` = ? ,
+						 `consumer_secret` = ?,
+						 `consumer_create_date` = ?";
+		$db->params = array( $consumer_key, $consumer_secret, $consumer_create_date );
+		$db->type = 's,s,s';
+					 
+		/**************************************************************************/
+		if ($db->insert()) {	// was $this->DataStore->query($sql)
 			$this->tokenId = $this->DataStore->insert_id;
 		} else {
 			throw new DataStoreCreateException("Couldn't save the consumer to the datastore");
-		}
+		}	
 	}
 
 	/**
@@ -134,21 +150,16 @@ class OAuthConsumerModel extends ModelBase
 
 		$result = $this->DataStore->query($sql);
 		*/
-		
+		$consumer_id = $this->$DataStore->real_escape_string($this->consumerId);
 		/******************* Prepared Statement ******************************/
-			// need to include datastore?
-		$mysqli = new mysqli( "localhost", "user", "password", "world");
-		if( $stmt = $mysqli->prepare("SELECT *
-									  FROM 'oauth_provider_consumer'
-									  WHERE 'consumer_id' = ?") ) 
-		{
-			$stmt->bind_param(1, $this->$DataStore->real_escape_string($this->consumerId));			
-			$result = $stmt->fetch();	// set query results to variable
-		}
+		$db = new database();
+		$db->query = "SELECT * FROM `oauth_provider_consumer`
+						WHERE `consumer_id`	= ?";
+		$db->params = array($consumer_id);
+		
+		$result = $db->fetch();
 		/********************************************************************/
-		
-		
-		
+			
 		if (!$result) {
 			throw new DataStoreReadException("Couldn't read the consumer data from the datastore");
 		}
@@ -165,14 +176,30 @@ class OAuthConsumerModel extends ModelBase
 	 */
 	protected function update()
 	{
-		// PREPARED STATEMENT
+		/* OLD STATEMENT
 		$sql = "UPDATE `oauth_provider_consumer`
 				SET `consumer_key` = '" . $this->DataStore->real_escape_string($this->consumerKey) . "
 					`consumer_secret` = '" . $this->DataStore->real_escape_string($this->consumerSecret) . "',
 					`consumer_create_date` = '" . $this->DataStore->real_escape_string($this->consumerCreateDate) . "
 				WHERE `consumer_id` = '" . $this->DataStore->real_escape_string($this->consumerId) . "'";
-
-		if (!$this->DataStore->query($sql)) {
+		*/
+		
+		$consumer_key = $this->DataStore->real_escape_string($this->consumerKey);
+		$consumer_secret = $this->DataStore->real_escape_string($this->consumerSecret);
+		$consumer_create_date = $this->DataStore->real_escape_string($this->consumerCreateDate);	
+		$consumer_id = $this->DataStore->real_escape_string($this->consumerId);
+		/**************************PREPARED STATEMENT ********************************/
+		$db = new database();
+		$db->query = "UPDATE `oauth_provider_consumer`
+					SET `consumer_key` = ?,
+					`consumer_secret` = ?,
+					`consumer_create_date` = ?,
+					WHERE `consumer_id` = ? ";
+		$db->params = array($consumer_key, $consumer_secret, $consumer_create_date, $consumer_id);
+		$db->type = 'ssss';
+		/*****************************************************************************/
+		/
+		if (!($db->update())) {
 			throw new DataStoreUpdateException("Couldn't update the consumer to the datastore");
 		}
 	}
@@ -183,11 +210,19 @@ class OAuthConsumerModel extends ModelBase
 	 */
 	public function delete()
 	{
-		// PREPARED STATEMENT
+		/* Old Statement
 		$sql = "DELETE FROM `oauth_provider_consumer`
 				WHERE `consumer_id` = '" . $this->DataStore->real_escape_string($this->consumerId) . "'";
-
-		if (!$this->DataStore->query($sql)) {
+		*/
+		
+		$consumer_id = $this->DataStore->real_escape_string($this->consumerId);
+		/*******************Prepared Statement***************************/
+		$db = new datatbase();
+		$db->query = "DELETE FROM `oauth_provider_consumer` WHERE `consumer_id` = ?";
+		$db->params = array($consumer_id);
+		$db->type = 's';
+		/****************************************************************/				
+		if (!$db->delete()) { // was !$this->DataStore->query($sql)
 			throw new DataStoreDeleteException("Couldn't delete the consumer from the datastore");
 		}
 	}
