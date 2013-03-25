@@ -1,18 +1,18 @@
 {
     "apiVersion": "0.2", 
     "swaggerVersion": "1.1", 
-    "resourcePath": "/institutions", 
+    "resourcePath": "/users", 
     "apis": [
         {
-            "path": "/institutions", 
-            "description": "Institution Information", 
+            "path": "/users", 
+            "description": "List Users", 
             "operations": [
                 {
                     "httpMethod": "GET", 
-                    "summary": "Get all institutions", 
-                    "notes": "Retrieves all institutions currently registered with ShelvAR.", 
+                    "summary": "Get all users at your institutions", 
+                    "notes": "Retrieves all users at your institution currently registered with ShelvAR.", 
                     "responseClass": "string", 
-                    "nickname": "institution", 
+                    "nickname": "user", 
                     "parameters": [
 						{
                             "name": "auth_token",
@@ -49,15 +49,15 @@
             ]
         },
 	{
-            "path": "/institutions/",
-            "description": "Register institution",
+            "path": "/users/user_id/permissions",
+            "description": "Get permissions for a user",
             "operations": [
                 {
                     "httpMethod": "POST",
                     "summary": "Register a new institution with ShelvAR",
                     "notes": "Registers an institution with ShelvAR",
                     "responseClass": "string",
-                    "nickname": "institution",
+                    "nickname": "user",
                     "parameters": [
                         {
                             "name": "institution_name",
@@ -98,14 +98,6 @@
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
-                        },
-                        {
-                            "name": "username",
-                            "description": "Your username.",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
                         }
                     ],
 		    "errorResponses": [
@@ -126,15 +118,15 @@
             ]
         },
 	{
-            "path": "/institutions/{institution_id}.json",
-            "description": "Institution Information",
+            "path": "/institutions/{user_id}.json",
+            "description": "User Information",
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "summary": "Get information about an institution",
-                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR.",
+                    "summary": "Get information about a user",
+                    "notes": "Retrieves standard information about any user at your institution currently registered with ShelvAR.",
                     "responseClass": "string",
-                    "nickname": "institution",
+                    "nickname": "user",
                     "parameters": [
                         {
                             "name": "institution_id",

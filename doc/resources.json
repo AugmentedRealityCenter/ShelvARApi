@@ -13,5 +13,13 @@
 		{
 			"path":"call_numbers.{format}",
 			"description":"Operations about pets"
+		},
+		{
+			"path":"institutions.{format}",
+			"description":"Operations about pets"
+		},
+		{
+			"path":"users.{format}",
+			"description":"Operations about pets"
 		}]
 }
