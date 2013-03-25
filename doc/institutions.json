@@ -1,70 +1,4 @@
 {
-<<<<<<< HEAD
-    "apiVersion": "0.2", 
-    "swaggerVersion": "1.1", 
-    "resourcePath": "/institutions", 
-    "apis": [
-        {
-            "path": "/institutions", 
-            "description": "Institution Information", 
-            "operations": [
-                {
-                    "httpMethod": "GET", 
-                    "summary": "Get all institutions", 
-                    "notes": "Retrieves all institutions currently registered with ShelvAR.", 
-                    "responseClass": "string", 
-                    "nickname": "institution", 
-                    "parameters": [
-						{
-                            "name": "auth_token",
-                            "description": "The token received from logging in that will be used to identify and validate that you have sufficient API calls remaining.",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "username",
-                            "description": "Your username.",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        }
-                    ], 
-                    "errorResponses": [
-                        {
-                            "code": 400, 
-                            "reason": "Invalid ID supplied"
-                        }, 
-                        {
-                            "code": 404, 
-                            "reason": "Data not found"
-                        },
-			{
-			    "code": 403,
-			    "reason": "Access denied. Authorization not provided."
-			}	
-                    ]
-                }
-            ]
-        },
-	{
-            "path": "/institutions/",
-            "description": "Register institution",
-            "operations": [
-                {
-                    "httpMethod": "POST",
-                    "summary": "Register a new institution with ShelvAR",
-                    "notes": "Registers an institution with ShelvAR",
-                    "responseClass": "string",
-                    "nickname": "institution",
-                    "parameters": [
-                        {
-                            "name": "institution_name",
-                            "description": "The official name of your institution",
-                            "paramType": "path",
-=======
     "apiVersion": "0.2",
     "swaggerVersion": "1.1",
     "resourcePath": "/institutions",
@@ -81,15 +15,13 @@
                     "nickname": "institutions",
                     "parameters": [
                         {
-                            "name": "institution_name",
+                            "name": "institution_id",
                             "description": "The official name of the institution",
                             "paramType": "body",
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
                         },
-<<<<<<< HEAD
 						{
                             "name": "admin_email",
                             "description": "The email address of the user who will be the administrator of the account.",
@@ -101,40 +33,11 @@
 						{
                             "name": "alt_contact",
                             "description": "The name of another person at the institution that should be contacted if the admin contact is unavailable.",
-                            "paramType": "path",
-=======
-                        {
-                            "name": "admin_email",
-                            "description": "Email of the administrator for the institution",
                             "paramType": "body",
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
-
                         },
-                        {
-                            "name": "alt_contact",
-                            "description": "The name and contact method of another individual at the institution that should be contacted in case of loss of contact with the administrator.",
-                            "paramType": "body",
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-<<<<<<< HEAD
-						{
-                            "name": "institution_type",
-                            "description": "Based on the size of your institution and the level of governemnt funding it recevies, you will be categorized into a type. Please enter that type in this field. TODO: Provide documentation and possibly a tool for customers to calculate what their institution type is.",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        } ,
-						{
-                            "name": "auth_token",
-                            "description": "The token received from logging in that will be used to identify and validate that you have sufficient API calls remaining.",
-                            "paramType": "path",
-=======
                         {
                             "name": "institution_type",
                             "description": "The enumerated type of your institution. TODO: docuemnt these.",
@@ -147,28 +50,11 @@
                             "name": "short_code",
                             "description": "2 - 10 character string that represents your institution.",
                             "paramType": "body",
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
                             "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-<<<<<<< HEAD
-                            "name": "username",
-                            "description": "Your username.",
-                            "paramType": "path",
-                            "required": true,
-=======
-                            "name": "description",
-                            "description": "Basic description about your institution.",
-                            "paramType": "body",
-                            "required": false,
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
                             "allowMultiple": false,
                             "dataType": "string"
                         }
                     ],
-<<<<<<< HEAD
 		    "errorResponses": [
                         {
                             "code": 400,
@@ -181,11 +67,6 @@
                         {
                             "code": 403,
                             "reason": "Access denied. Authorization not provided."
-=======
-                    "errorResponses": [
-                        {
-                            "code": 400,
-                            "reason": "Invalid ping"
                         }
                     ]
                 },
@@ -200,13 +81,11 @@
                         {
                             "code": 400,
                             "reason": "Invalid status value"
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
                         }
                     ]
                 }
             ]
         },
-<<<<<<< HEAD
 	{
             "path": "/institutions/{institution_id}.json",
             "description": "Institution Information",
@@ -239,24 +118,6 @@
                             "description": "Your username.",
                             "paramType": "path",
                             "required": true,
-=======
-        {
-            "path": "/institutions/{institution_id}.json",
-            "description": "Get information about a specific institution",
-            "operations": [
-                {
-                    "httpMethod": "GET",
-                    "summary": "Get information about a specific institution",
-                    "notes": "Get public information about a specific insititution. If authorized, get detailed information about your institution.",
-                    "responseClass": "string",
-                    "nickname": "institution_info",
-                    "parameters": [
-                        {
-                            "name": "institution_id",
-                            "description": "The unique identifier for your institution",
-                            "paramType": "query",
-                            "required": false,
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
                             "allowMultiple": false,
                             "dataType": "string"
                         }
@@ -264,7 +125,6 @@
                     "errorResponses": [
                         {
                             "code": 400,
-<<<<<<< HEAD
                             "reason": "Invalid ID supplied"
                         },
                         { 
@@ -274,17 +134,10 @@
                         {
                             "code": 403,
                             "reason": "Access denied. Authorization not provided."
-=======
-                            "reason": "Invalid institution ID"
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
                         }
                     ]
                 }
             ]
         }
-<<<<<<< HEAD
-    ] 
-=======
     ]
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
 }
