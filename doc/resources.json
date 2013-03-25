@@ -12,17 +12,6 @@
 		},
 		{
 			"path":"call_numbers.{format}",
-<<<<<<< HEAD
-			"description":"Operations about pets"
-		},
-		{
-			"path":"institutions.{format}",
-			"description":"Operations about pets"
-		},
-		{
-			"path":"users.{format}",
-			"description":"Operations about pets"
-=======
 			"description":"Operations on call numbers"
 		},
                 {
@@ -32,6 +21,5 @@
 		{
                     	"path":"users.{format}",
 			"description":"Information about users"
->>>>>>> 51cc0bbcbdfb16b9f58d7d99d50ea449e0294d57
 		}]
 }
