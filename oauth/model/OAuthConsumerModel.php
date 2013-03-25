@@ -66,13 +66,27 @@ class OAuthConsumerModel extends ModelBase
 	public static function loadFromConsumerKey($consumerKey, $DataStore)
 	{
 		$OAuthConsumer = new OAuthConsumerModel($DataStore);
-		// PREPARED STATEMENT
+		/*
 		$sql = "SELECT *
 				FROM `oauth_provider_consumer`
 				WHERE `consumer_key` = '" . $DataStore->real_escape_string($consumerKey) . "'";
 
 		$result = $DataStore->query($sql);
-
+		*/
+		
+		/******************* Prepared Statement ******************************/
+			// need to include datastore?
+		$mysqli = new mysqli( "localhost", "user", "password", "world");
+		if( $stmt = $mysqli->prepare("SELECT *
+									  FROM 'oauth_provider_consumer'
+									  WHERE 'consumer_key' = ?") ) 
+		{
+			$stmt->bind_param(1, $DataStore->real_escape_string($consumerKey));			
+			$result = $stmt->fetch();	// set query results to variable
+		}
+		/********************************************************************/
+		
+		
 		if (!$result || $result->num_rows < 1) {
 			throw new DataStoreReadException("Couldn't read the consumer data from the datastore");
 		}
@@ -99,7 +113,7 @@ class OAuthConsumerModel extends ModelBase
 				SET `consumer_key` = '" . $this->DataStore->real_escape_string($this->consumerKey) . "',
 					`consumer_secret` = '" . $this->DataStore->real_escape_string($this->consumerSecret) . "',
 					`consumer_create_date` = '" . $this->DataStore->real_escape_string($this->consumerCreateDate) . "'";
-
+		
 		if ($this->DataStore->query($sql)) {
 			$this->tokenId = $this->DataStore->insert_id;
 		} else {
@@ -113,13 +127,28 @@ class OAuthConsumerModel extends ModelBase
 	 */
 	protected function read()
 	{
-		// PREPARED STATEMENT
+		/*
 		$sql = "SELECT *
 				FROM `oauth_provider_consumer`
 				WHERE `consumer_id` = '" . $this->DataStore->real_escape_string($this->consumerId) . "'";
 
 		$result = $this->DataStore->query($sql);
-
+		*/
+		
+		/******************* Prepared Statement ******************************/
+			// need to include datastore?
+		$mysqli = new mysqli( "localhost", "user", "password", "world");
+		if( $stmt = $mysqli->prepare("SELECT *
+									  FROM 'oauth_provider_consumer'
+									  WHERE 'consumer_id' = ?") ) 
+		{
+			$stmt->bind_param(1, $this->$DataStore->real_escape_string($this->consumerId));			
+			$result = $stmt->fetch();	// set query results to variable
+		}
+		/********************************************************************/
+		
+		
+		
 		if (!$result) {
 			throw new DataStoreReadException("Couldn't read the consumer data from the datastore");
 		}

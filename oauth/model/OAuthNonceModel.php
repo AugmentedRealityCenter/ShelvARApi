@@ -60,13 +60,27 @@ class OAuthNonceModel extends ModelBase
 	public static function nonceExists($nonce, $DataStore)
 	{
 	
-		// PREPARED STATEMENTS!!
+		/*
 		$sql = "SELECT 1
 				FROM `oauth_provider_nonce`
 				WHERE `nonce` = 'S" . $DataStore->real_escape_string($nonce) . "'";
 
 		$result = $DataStore->query($sql);
-
+		*/
+		
+		/******************* Prepared Statement ******************************/
+			// need to include datastore?
+		$mysqli = new mysqli( "localhost", "user", "password", "world");
+		if( $stmt = $mysqli->prepare("SELECT 1
+									  FROM 'oauth_provider_nonce'
+									  WHERE 'nonce' = ?") ) 
+		{
+			$stmt->bind_param(1, $DataStore->real_escape_string($nonce));			
+			$result = $stmt->fetch();	// set query results to variable
+		}
+		/********************************************************************/
+		
+		
 		return $result->num_rows > 0;
 	}
 
@@ -93,13 +107,27 @@ class OAuthNonceModel extends ModelBase
 	 */
 	protected function read()
 	{
-		// PREPARED STATEMENT
+		/*
 		$sql = "SELECT *
 				FROM `oauth_provider_nonce`
 				WHERE `nonce` = '" . $this->DataStore->real_escape_string($this->nonce) . "'";
 
 		$result = $this->DataStore->query($sql);
-
+		*/
+		
+		/******************* Prepared Statement ******************************/
+			// need to include datastore?
+		$mysqli = new mysqli( "localhost", "user", "password", "world");
+		if( $stmt = $mysqli->prepare("SELECT *
+									  FROM 'oauth_provider_nonce'
+									  WHERE 'nonce' = ?") ) 
+		{
+			$stmt->bind_param(1, $DataStore->real_escape_string($this->nonce));			
+			$result = $stmt->fetch();	// set query results to variable
+		}
+		/********************************************************************/
+		
+		
 		if (!$result) {
 			throw new DataStoreReadException("Couldn't read the nonce data from the datastore");
 		}
