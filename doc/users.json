@@ -23,8 +23,8 @@
                             "dataType": "string"
                         },
                         {
-                            "name": "username",
-                            "description": "Your username.",
+                            "name": "user_id",
+                            "description": "The user ID of the requester",
                             "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
@@ -61,7 +61,7 @@
                     "parameters": [
                         {
                             "name": "user_id",
-                            "description": "ID of the requester",
+                            "description": "The user ID of the requester",
                             "paramType": "body",
                             "required": true,
                             "allowMultiple": false,
@@ -151,21 +151,21 @@
                     "nickname": "user",
                     "parameters": [
                         {
-                            "name": "user_id",
-                            "description": "ID of the requester",
-                            "paramType": "body",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-
-                        },
-                        {
                             "name": "auth_token",
                             "description": "The token received upon logging in to ShelvAR",
                             "paramType": "body",
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
+                        },
+                        {
+                            "name": "user_id",
+                            "description": "The user ID of the requester",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+
                         },
                         {
                             "name": "admin",

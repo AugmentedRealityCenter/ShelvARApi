@@ -98,14 +98,6 @@
                     "nickname": "institution",
                     "parameters": [
                         {
-                            "name": "institution_id",
-                            "description": "The shortname for your institution.",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-						{
                             "name": "auth_token",
                             "description": "The token received from logging in that will be used to identify and validate that you have sufficient API calls remaining.",
                             "paramType": "path",
@@ -114,8 +106,16 @@
                             "dataType": "string"
                         },
                         {
-                            "name": "username",
-                            "description": "Your username.",
+                            "name": "user_id",
+                            "description": "The user ID of the requester",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "institution_id",
+                            "description": "The shortname for your institution.",
                             "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
