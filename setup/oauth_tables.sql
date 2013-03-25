@@ -1,6 +1,6 @@
 # This file contains the table definitions necessary for using the OAuth provider class out of the box.
 
-CREATE TABLE `oauth_provider_consumer` (
+CREATE TABLE IF NOT EXISTS `oauth_provider_consumer`  (
 `consumer_id` int(11) NOT NULL AUTO_INCREMENT,
 `consumer_key` varchar(40) NOT NULL,
 `consumer_secret` varchar(40) NOT NULL,
@@ -9,7 +9,7 @@ PRIMARY KEY (`consumer_id`)
 );
 
 # Could be emptied by a cronjonb every five minutes for each row where nonce_data < now() - 5 minutes
-CREATE TABLE `oauth_provider_nonce` (
+CREATE TABLE IF NOT EXISTS `oauth_provider_nonce`  (
 `nonce` varchar(255) NOT NULL,
 `nonce_consumer_key` varchar(40) NOT NULL,
 `nonce_date` int(11) NOT NULL,
@@ -17,7 +17,7 @@ PRIMARY KEY (`nonce`)
 );
 
 # Could be emptied every hour for each row where request_token_date < now() - 60 minutes
-CREATE TABLE `oauth_provider_request_token` (
+CREATE TABLE IF NOT EXISTS `oauth_provider_request_token`  (
 `request_token_id` int(11) NOT NULL AUTO_INCREMENT,
 `request_token` varchar(40) NOT NULL,
 `request_token_secret` varchar(40) NOT NULL,
@@ -31,7 +31,7 @@ PRIMARY KEY (`request_token_id`),
 UNIQUE KEY (`request_token`)
 );
 
-CREATE TABLE `oauth_provider_access_token` (
+CREATE TABLE IF NOT EXISTS `oauth_provider_access_token`  (
 `access_token_id` int(11) NOT NULL AUTO_INCREMENT,
 `access_token` varchar(40) NOT NULL,
 `access_token_secret` varchar(40) NOT NULL,
