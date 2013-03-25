@@ -8,10 +8,18 @@
 		},
 		{
 			"path":"book_tags.{format}",
-			"description":"Operations about pets"
+			"description":"Operations on book tags"
 		},
 		{
 			"path":"call_numbers.{format}",
-			"description":"Operations about pets"
+			"description":"Operations on call numbers"
+		},
+                {
+                    	"path":"institutions.{format}",
+			"description":"Institution administration"
+                },
+		{
+                    	"path":"users.{format}",
+			"description":"Information about users"
 		}]
 }
