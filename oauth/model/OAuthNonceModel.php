@@ -33,6 +33,7 @@
  * @author	Freek Lijten
  * @license BSD License
  */
+include "../../database.php";
 
 class OAuthNonceModel extends ModelBase
 {
@@ -60,13 +61,21 @@ class OAuthNonceModel extends ModelBase
 	public static function nonceExists($nonce, $DataStore)
 	{
 	
-		// PREPARED STATEMENTS!!
+		/* Old Statement
 		$sql = "SELECT 1
 				FROM `oauth_provider_nonce`
 				WHERE `nonce` = 'S" . $DataStore->real_escape_string($nonce) . "'";
-
 		$result = $DataStore->query($sql);
-
+		*/
+				
+		$the_nonse = $DataStore->real_escape_string($nonce);
+		/******************* Prepared Statement ******************************/
+		$db = new database();
+		$db->query = "SELECT 1 FROM `oauth_provider_nonce` WHERE `nonce` = ?";
+		$db->params = array($the_nonce);
+		$db->type = 's';
+		/********************************************************************/
+		$result = $db->fetch() 				
 		return $result->num_rows > 0;
 	}
 
@@ -76,13 +85,26 @@ class OAuthNonceModel extends ModelBase
 	 */
 	protected function create()
 	{
-		// PREP STATEMENTS
+		/* Old Statement
 		$sql = "INSERT INTO `oauth_provider_nonce`
 				SET `nonce` = '" . $this->DataStore->real_escape_string($this->nonce) . "',
 					`nonce_consumer_key` = '" . $this->DataStore->real_escape_string($this->nonceConsumerKey) . "',
 					`nonce_date` = '" . $this->DataStore->real_escape_string($this->nonceDate) . "'";
-
-		if (!$this->DataStore->query($sql)) {
+		*/
+		
+		$the_nonce = $this->DataStore->real_escape_string($this->nonce);
+		$nonce_consumer_key = $this->DataStore->real_escape_string($this->nonceConsumerKey);
+		$nonce_date = $this->DataStore->real_escape_string($this->nonceDate);
+		/******************* Prepared Statement ******************************/
+		$db = new database();
+		$db->query = "INSERT INTO `oauth_provider_name`
+						SET `nonce` = ?
+							`nonce_consumer_key = ?`
+							`nonce_date` = ?";
+		$db->params = array($the_nonce, $nonce_consumer_key, $nonce_date);
+		$db->type = 'sss';
+		/********************************************************************/
+		if ( !$db->insert() ) { // was !$this->DataStore->query($sql)
 			throw new DataStoreCreateException("Couldn't save the nonce to the datastore");
 		}
 	}
@@ -93,13 +115,26 @@ class OAuthNonceModel extends ModelBase
 	 */
 	protected function read()
 	{
-		// PREPARED STATEMENT
+		/* Old Statement
 		$sql = "SELECT *
 				FROM `oauth_provider_nonce`
 				WHERE `nonce` = '" . $this->DataStore->real_escape_string($this->nonce) . "'";
 
 		$result = $this->DataStore->query($sql);
-
+		*/
+		
+		$the_nonce = $this->DataStore->real_escape_string($this->nonce);
+		/******************* Prepared Statement ******************************/
+		$db = new database();
+		$db->query = "SELECT *
+					  FROM `oauth_provider_nonce`
+					  WHERE `nonce` = ?";
+		$db->params = array($the_nonce);
+		$db->type = 's';
+		
+		$result = $db->fetch();
+		/********************************************************************/		
+		
 		if (!$result) {
 			throw new DataStoreReadException("Couldn't read the nonce data from the datastore");
 		}
@@ -116,13 +151,25 @@ class OAuthNonceModel extends ModelBase
 	 */
 	protected function update()
 	{
-	// PREPARED STATEMENT
+		/* Old Statement
 		$sql = "UPDATE `oauth_provider_nonce`
 				SET `nonce_consumer_key` = '" . $this->DataStore->real_escape_string($this->nonceConsumerKey) . "',
 					`nonce_date` = '" . $this->DataStore->real_escape_string($this->nonceDate) . "'
 				WHERE `nonce` = '" . $this->DataStore->real_escape_string($this->nonce) . "'";
-
-		if (!$this->DataStore->query($sql)) {
+		*/
+		
+		$nonce_consumer_key = $this->DataStore->real_escape_string($this->nonceConsumerKey);
+		$nonce_date = $this->DataStore->real_escape_string($this->nonceDate);
+		$the_nonce = $this->DataStore->real_escape_string($this->nonce);
+		/*******************Prepared Statement*************************/
+		$db = new database();
+		$db->query = "UPDATE `oauth_provider_nonce` SET `nonce_consumer_key` = ?, `nonce_date` = ?
+					  WHERE `nonce` = ?"; 
+		$db->params = array( $nonce_consumer_key, $nonce_date, $the_nonce);
+		$db->type = 'sss';
+		/*************************************************************/
+		
+		if ( !$db->update() ) { // was !$this->DataStore->query($sql)
 			throw new DataStoreUpdateException("Couldn't update the nonce to the datastore");
 		}
 	}
@@ -133,11 +180,20 @@ class OAuthNonceModel extends ModelBase
 	 */
 	public function delete()
 	{
-		// PREPARED STATEMENT
+		/* old Statement
 		$sql = "DELETE FROM `oauth_provider_nonce`
 				WHERE `nonce` = '" . $this->DataStore->real_escape_string($this->nonce) . "'";
-
-		if (!$this->DataStore->query($sql)) {
+		*/
+		
+		$the_nonce = $this->DataStore->real_escape_string($this->nonce);
+		/*******************Prepared Statement*************************/
+		$db = new database();
+		$db->query = "DELETE FROM `oauth_provider_nonce`
+					  WHERE `nonce` = ? ";
+		$db->params = array($the_nonce);
+		$db->type = 's';	
+		/**************************************************************/
+		if ( !$db->delete() ) {	// was !$this->DataStore->query($sql)
 			throw new DataStoreDeleteException("Couldn't delete the nonce from the datastore");
 		}
 	}
