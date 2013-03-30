@@ -11,18 +11,137 @@
 
 include_once "../base64_lib.php";
 include_once "../HuffmanEncoder.php";
+include_once "../HammingCode.php";
+
+function lc_to_tag($call_number_in){
+  //TODO: Use result for something...
+  $result = "SUCCESS";
+
+  $huffman_code = huffman_encode($call_number_in);
+  
+  //The call number will be divided into blocks of 26 bits,
+  // and encoded using Hamming(32,26)
+  $num_call_bits = 32*ceil(strlen($huffman_code)/26);
+  $num_call_rows = ceil($num_call_bits/7);
+
+  //Bottom row is tag type and size
+  //Next row up is information about the call number encoding
+  //So we need two rows for that stuff, the rest is data
+  $num_tag_rows = $num_call_rows + 2;
+  
+  $tag_type = "00"; //Library call number type
+  $tag_size_bits = "00"; //25 rows, 142 bits
+  $num_tag_bits = 142;
+  if($num_tag_rows > 25){
+    $tag_size_bits = "01";//34 rows, 206 bits
+    $num_tag_bits = 206;
+  }
+  if($num_tag_rows > 34){
+    $tag_size_bits = "10";//43 rows, 270 bits
+    $num_tag_bits = 270;
+  }
+  if($num_tag_rows > 43){
+    $tag_size_bits = "11";//52 rows, 334 bits
+    $num_tag_bits = 334;
+  }
+  if($num_tag_rows > 52){
+    $result = "ERROR. Call number is too long to be represented as a tag.";
+    return "";
+  }
+  
+  $tag_binary = encode_7_4($tag_type . $tag_size_bits);
+  //Call number encoding info. Right now "0000" is the only valid option,
+  // which is a Huffman-encoded LC number
+  $tag_binary .= encode_7_4("0000");
+  
+  while(strlen($huffman_code) > 26){
+    $tag_binary .= encode_32_26(substr($huffman_code,0,26));
+    $huffman_code = substr($huffman_code,26);
+  }
+  while(strlen($huffman_code) < 26){
+    $huffman_code .= "0";
+  }
+
+  $tag_binary .= encode_32_26(substr($huffman_code,0,26));
+  while(strlen($tag_binary) < $num_tag_bits){
+    $tag_binary .= "0";
+  }
+
+  return $tag_binary;
+}
+
+function tag_to_lc($binaryTag){
+  $type_and_size = decode_7_4(substr($binaryTag,0,7));
+  if(strlen($type_and_size) != 4){
+    return "";
+  }
+
+  $binaryTag = substr($binaryTag,7);
+  $encoding = decode_7_4(substr($binaryTag,0,7));
+  if(strlen($encoding) != 4){
+    return "";
+  }
+
+  $binaryTag = substr($binaryTag,7);
+  if(strcmp(substr($type_and_size,0,2),"00") != 0){
+    return "";
+  }
+
+  $num_blocks = 4;
+  if(strcmp(substr($type_and_size,2,2),"01") == 0){
+    $num_blocks = 6;
+  } else if(strcmp(substr($type_and_size,2,2),"10") == 0){
+    $num_blocks = 8;
+  } else if(strcmp(substr($type_and_size,2,2),"11") == 0){
+    $num_blocks = 10;
+  }
+
+  if(strcmp($encoding,"0000") != 0){
+    return "";
+  }
+
+  $huffman_string = "";
+  for($i=0;$i<$num_blocks;$i++){
+    $huffman_string .= decode_32_26(substr($binaryTag,0,32));
+    $binaryTag = substr($binaryTag,32);
+  }
+  if(strlen($huffman_string) != 26*$num_blocks){
+    return "";
+  }
+
+  return huffman_decode($huffman_string);
+}
+
+
+
+/*----Main----*/
 
 $call_number_in = urldecode($_GET["call_number"]);
-$huffman_code = huffman_encode($call_number_in);
-$call_number_out = huffman_decode($huffman_code);
 
-$result = "SUCCESS";
+/*$call_number_out = huffman_decode($huffman_code);
+
 if(strcmp($call_number_out,trim($call_number_in)) != 0){
-  $result = "ERROR";
+  $result = "ERROR. call number out != call number in. This is a bug, please report it to the developers.";
+ }
+*/
+
+$result = "";
+$book_tag = lc_to_tag($call_number_in);
+if(strlen($book_tag) == 0){
+  $result = "ERROR: Call number too long ";
  }
 
-echo json_encode(array("book_tag"=>$huffman_code, 
-		       "call_number"=>$call_number_out, 
-		       "result"=>$result));
+$call_number_out = tag_to_lc($book_tag);
+if(strlen($result) == 0 && strcmp(trim($call_number_in),$call_number_out) != 0){
+  $result = "ERROR: Call number in doesn't match call number out. This is a bug, report to the developers ";
+ }
+
+if(strlen($result) == 0){
+  $result = "SUCCESS";
+ }
+
+echo json_encode(array("book_tag" => $book_tag, 
+		       "call_number" => $call_number_out,
+		       "result" => $result));
 
  ?>
