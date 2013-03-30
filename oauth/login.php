@@ -35,18 +35,14 @@
 			//$result = mysql_query($query);
 			
 			/******************* Prepared Statement ******************************/
-			// need to include datastore?
-			$mysqli = new mysqli( "localhost", "user", "password", "world");
-			if( $stmt = $mysqli->prepare("SELECT user_id, inst_id, password, salt
-										FROM 'users'
-										WHERE 'user_id' = ?") ) 
-			{
-				$stmt->bind_param(1, $user_id);			
-				$result = $stmt->fetch();	// set query results to variable
-			}
+			$db = new database();
+			$db->query = "SELECT user_id, inst_id, password, salt
+						  FROM 'users'
+						  WHERE 'user_id' = ?";
+			$db->params = array($user_id);
 			/********************************************************************/
 		
-			
+			$result = $db->fetch();
 			
 			// If there is a username that matches
 			if(mysql_num_rows($result) > 0) {

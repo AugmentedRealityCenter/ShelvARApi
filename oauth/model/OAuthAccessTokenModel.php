@@ -81,12 +81,26 @@ class OAuthAccessTokenModel extends ModelBase
 	 */
 	public static function loadFromToken($token, $DataStore)
 	{
+		/*
 		$sql = "SELECT *
 				FROM `oauth_provider_access_token`
 				WHERE `access_token` = '" . $DataStore->real_escape_string($token) . "'";
-
 		$result = $DataStore->query($sql);
-
+		*/
+		
+		/******************* Prepared Statement ******************************/
+			// need to include datastore?
+		$mysqli = new mysqli( "localhost", "user", "password", "world");
+		if( $stmt = $mysqli->prepare("SELECT *
+									  FROM 'oauth_provider_access_token'
+									  WHERE 'access_token' = ?") ) 
+		{
+			$stmt->bind_param(1, $DataStore->real_escape_string($token));			
+			$result = $stmt->fetch();	// set query results to variable
+		}
+		/********************************************************************/
+		
+		
 		if (!$result || $result->num_rows < 1) {
 			throw new DataStoreReadException("Couldn't read the access token data from the datastore");
 		}
@@ -135,12 +149,27 @@ class OAuthAccessTokenModel extends ModelBase
 	 */
 	protected function read()
 	{
+		/*
 		$sql = "SELECT *
 				FROM `oauth_provider_access_token
 				WHERE `access_token_id` = '" . $this->DataStore->real_escape_string($this->accessTokenId) . "'";
 
 		$result = $this->DataStore->query($sql);
-
+		*/
+		
+		/******************* Prepared Statement ******************************/
+			// need to include datastore?
+		$mysqli = new mysqli( "localhost", "user", "password", "world");
+		if( $stmt = $mysqli->prepare("SELECT *
+									  FROM 'oauth_provider_access_token'
+									  WHERE 'access_token_id' = ?") ) 
+		{
+			$stmt->bind_param(1, $this->DataStore->real_escape_string($this->accessTokenId));			
+			$result = $stmt->fetch();	// set query results to variable
+		}
+		/********************************************************************/
+		
+		
 		if (!$result) {
 			throw new DataStoreReadException("Couldn't read the access token data from the datastore");
 		}
