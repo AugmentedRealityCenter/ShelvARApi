@@ -1,5 +1,3 @@
-delimiter $$
-
 CREATE TABLE `users` (
   `inst_id` varchar(20) NOT NULL,
   `password` char(64) NOT NULL,
@@ -17,11 +15,9 @@ CREATE TABLE `users` (
   KEY `inst_id_idx` (`inst_id`),
   KEY `inst_id_idx1` (`inst_id`),
   CONSTRAINT `inst_id` FOREIGN KEY (`inst_id`) REFERENCES `institution` (`inst_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
+);
 
-
-
-CREATE TABLE `institution` (
+CREATE TABLE `institutions` (
   `inst_id` varchar(20) NOT NULL,
   `name` varchar(140) NOT NULL,
   `admin_contact` varchar(45) NOT NULL,
@@ -36,5 +32,4 @@ CREATE TABLE `institution` (
   PRIMARY KEY (`inst_num`),
   UNIQUE KEY `inst_id_UNIQUE` (`inst_id`),
   KEY `inst_id_idx` (`inst_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8$$
-
+);
