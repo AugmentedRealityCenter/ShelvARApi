@@ -12,6 +12,7 @@
 include_once "../base64_lib.php";
 include_once "../HuffmanEncoder.php";
 include_once "../HammingCode.php";
+include_once "../api_ref_call.php";
 
 function lc_to_tag($call_number_in){
   //TODO: Use result for something...
