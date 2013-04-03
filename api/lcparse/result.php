@@ -6,7 +6,7 @@
 * @version October 9, 2011
 * @author Eliot Fowler
 */
-
+include_once('../api_ref_call.php');
 /**
 * Defines a result
 **/

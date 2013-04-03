@@ -8,6 +8,8 @@
  * version of the parseLibrary to use.
  * \note Used by librariantagger.js, book_sleuth, book_seen
  **/
+ include_once('../api_ref_call.php');
+ 
 function parseToAssocArray($lcNum, $version=0)
 {		
 	switch($version){
