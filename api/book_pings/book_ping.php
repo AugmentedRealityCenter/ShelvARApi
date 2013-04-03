@@ -15,6 +15,7 @@
 
 include_once "book_ping_lib.php";
 include_once "../../header_include.php";
+include_once "../api_ref_call.php";
 /** @cond */
 $ret; //!< return value from function call that does most of the work
 $ret = do_book_ping(stripslashes($_POST["book_pings"]),$_GET["institution"]);

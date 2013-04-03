@@ -10,6 +10,7 @@
  */
 
 include_once "lc_numbers_lib.php";
+include_once "../api_ref_call.php";
 
 $call_number_in = urldecode($_GET["call_number"]);
 
