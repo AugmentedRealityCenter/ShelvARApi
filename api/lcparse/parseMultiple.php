@@ -40,6 +40,7 @@ require_once("parseLibrary.php");
 * @version September 26, 2011
 * @author Eliot Fowler
 */
+include_once('../api_ref_call.php');
 
 $JSONin = stripslashes($_POST["callNumInput"]);
 $JSONin = json_decode($JSONin,true);

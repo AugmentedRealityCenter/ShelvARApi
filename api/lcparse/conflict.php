@@ -17,6 +17,9 @@
 * @version September 26, 2011
 * @author Eliot Fowler
 */
+
+include_once('../api_ref_call.php');
+
 class conflict {
 	/**
 	* True if the conflict is a warning and NOT an error
