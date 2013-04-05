@@ -11,7 +11,7 @@
 
 include_once "LC_Converter_lib.php";
 include_once "../base64_lib.php";
-include_once "../api_ref_call.php";
+//include_once "../api_ref_call.php";
 
 $JSONin = stripslashes($_GET["LC"]);
 $JSONin = json_decode($JSONin,true);
