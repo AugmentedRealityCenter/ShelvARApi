@@ -1,6 +1,6 @@
 <?php
 
-include_once "../api_ref_call.php";
+//include_once "../api_ref_call.php";
 
 
 ini_set('display_errors', 'On');
