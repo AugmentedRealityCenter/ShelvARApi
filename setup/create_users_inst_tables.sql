@@ -14,7 +14,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   KEY `inst_id_idx` (`inst_id`),
   KEY `inst_id_idx1` (`inst_id`),
-  CONSTRAINT `inst_id` FOREIGN KEY (`inst_id`) REFERENCES `institution` (`inst_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `inst_id` FOREIGN KEY (`inst_id`) REFERENCES `institutions` (`inst_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 CREATE TABLE `institutions` (
