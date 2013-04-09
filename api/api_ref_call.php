@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/../../lib/AutoLoader.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 new AutoLoader();
 
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
