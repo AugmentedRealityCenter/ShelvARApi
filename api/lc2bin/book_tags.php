@@ -20,7 +20,7 @@ if(strlen($decoded) == 0){
   echo json_encode($result);
  } else {
   $result = array('call_number' => $decoded, 
-		  'result' => SUCCESS);
+		  'result' => "SUCCESS");
   echo json_encode($result);
  }
 
