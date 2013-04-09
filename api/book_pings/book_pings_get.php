@@ -39,7 +39,7 @@ $sql .= implode(" AND ", $qArray);
 $sql .= " ORDER BY id DESC";
 
 $lim = "20";
-if(is_int($_GET["num_limit"]) || ctype_digit($_GET["num_limit"])){
+if(isset($_GET["num_limit"]) && (is_int($_GET["num_limit"]) || ctype_digit($_GET["num_limit"]))){
   $lim = $_GET["num_limit"];
  }
 $sql .= " LIMIT 0,".$lim;
