@@ -19,6 +19,8 @@
  * @return An associative array with three values: last_time_seen, left_neighbor, right_neighbor.
  */
  
+ include_once "../api_ref_call.php";
+ 
 function find_book($lcNum,$institution)
 {
 	include_once "../../database.php";

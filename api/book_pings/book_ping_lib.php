@@ -42,6 +42,8 @@
  * @endcode
  * See http://json.org
  */
+ 
+ include_once "../api_ref_call.php";
 
 function do_book_ping($jsoninput,$institution){
 	//TODO should also take $institution as input, and add that to the record in the database
