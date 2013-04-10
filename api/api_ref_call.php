@@ -1,7 +1,7 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
+require_once('../oauth/lib/AutoLoader.php');
+require_once('../oauth/OAuthProviderWrapper.php');
 
 new AutoLoader();
 

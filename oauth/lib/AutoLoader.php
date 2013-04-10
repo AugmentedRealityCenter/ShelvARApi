@@ -63,7 +63,7 @@ class AutoLoader
 		$classPath = '';
 
 		if (isset($index[$className])) {
-			$classPath = __DIR__ . '/../' . $index[$className];
+			$classPath = '/../' . $index[$className];
 		}
 
 		if (file_exists($classPath)) {
@@ -79,7 +79,7 @@ class AutoLoader
 	 */
 	private function loadModelClass($className)
 	{
-		$filePath = __DIR__ . '/../model/' . $className . '.php';
+		$filePath = '/../model/' . $className . '.php';
 
 		if (file_exists($filePath)) {
 			require_once $filePath;
@@ -104,7 +104,7 @@ class AutoLoader
 		$classPath = '';
 
 		if (isset($index[$className])) {
-			$classPath = __DIR__ . '/../exception/' . $index[$className];
+			$classPath = '/../exception/' . $index[$className];
 		}
 
 		if (file_exists($classPath)) {

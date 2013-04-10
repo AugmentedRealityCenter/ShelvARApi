@@ -34,7 +34,7 @@
  * @license BSD License
  */
 
-require_once(__DIR__ . '/AutoLoader.php');
+require_once('AutoLoader.php');
 new AutoLoader();
 
 class Configuration
@@ -52,7 +52,7 @@ class Configuration
 		static $DataStore;
 
 		if (!isset($DataStore)) {
-			$DataStore = new mysqli('localhost', 'myspl_username', 'mysql_pword', 'mysql_db');
+			$DataStore = new mysqli('localhost', 'mysql_username', 'mysql_pword', 'mysql_db');
 
 			if ($DataStore->connect_error) {
 				throw new DataStoreConnectException($DataStore->connect_error);
