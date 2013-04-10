@@ -3,6 +3,10 @@ Header set Access-Control-Allow-Origin *
 #This htaccess file implements site-based
 # licensing for ShelvAR. Each supported site needs
 # a rule that sets their institution code.
+
+#Allow cross-site scripting
+Header set Access-Control-Allow-Origin *
+
 RewriteEngine On
 
 RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
@@ -42,10 +46,13 @@ RewriteRule (.*) $1?institution=playground [QSA]
 
 #TODO: Update the regular expression to only accept valid base64 characters
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_tags/([^/]+)(?=.json) api/lc2bin/B642LC.php?B64=$1 [L,QSA]
+RewriteRule ^book_tags/([^/]+)(?=.json) api/lc2bin/book_tags.php?B64=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^lc_numbers/([^/]+)(?=.json) api/lc2bin/lc_numbers.php?call_number=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings/count api/book_pings/get_ping_count_book.php [L]
@@ -55,6 +62,12 @@ RewriteRule ^book_pings/([0-9]+)(?=.json) api/book_pings/get_by_id.php?book_ping
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^book_pings api/book_pings/book_ping.php [L]
+
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^users api/users/register_user.php [L]
+
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^institutions api/institutions/register_institution.php [L]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
