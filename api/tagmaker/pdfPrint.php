@@ -80,7 +80,7 @@
 			$xOffset = 1 + (($tagWidth + 2) * ($j%$numAcrossPage) ) + $sheetType['marginL'];
 			$x = $xOffset;
 			$yOffset = $tagHeight * (floor($j / $numAcrossPage) + 1) + $sheetType['marginT'];
-			print_r("numAcross: " . $numAcrossPage . " || yOffset: " . $yOffset);
+//			print_r("numAcross: " . $numAcrossPage . " || yOffset: " . $yOffset);
 			$y = $yOffset;
 			$tagIndex = 0;
 			
