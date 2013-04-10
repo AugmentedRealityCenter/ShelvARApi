@@ -52,7 +52,7 @@ class Configuration
 		static $DataStore;
 
 		if (!isset($DataStore)) {
-			$DataStore = new mysqli('localhost', 'root', '', 'oauth');
+			$DataStore = new mysqli('localhost', 'myspl_username', 'mysql_pword', 'mysql_db');
 
 			if ($DataStore->connect_error) {
 				throw new DataStoreConnectException($DataStore->connect_error);

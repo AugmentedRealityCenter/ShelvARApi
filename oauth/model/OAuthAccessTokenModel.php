@@ -90,13 +90,17 @@ class OAuthAccessTokenModel extends ModelBase
 		
 		/******************* Prepared Statement ******************************/
 			// need to include datastore?
-		$mysqli = new mysqli( "localhost", "user", "password", "world");
-		if( $stmt = $mysqli->prepare("SELECT *
-									  FROM 'oauth_provider_access_token'
-									  WHERE 'access_token' = ?") ) 
+		$db = new database();
+		$db->query("SELECT *
+						FROM 'oauth_provider_access_token'
+						WHERE 'access_token' = ?");
+		$db->params = array($access_token);
+		$result = $db->fetch();
+		
+		if( $result != null ) 
 		{
-			$stmt->bind_param(1, $DataStore->real_escape_string($token));			
-			$result = $stmt->fetch();	// set query results to variable
+			$db->params($DataStore->real_escape_string($token));			
+			$result = $db->fetch();	// set query results to variable
 		}
 		/********************************************************************/
 		
