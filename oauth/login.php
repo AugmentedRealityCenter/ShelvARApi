@@ -4,7 +4,7 @@
 		exit;
 	}
 
-	require_once "lib/AutoLoader.php"
+	require_once "AutoLoader.php"
 	new AutoLoader();
 	
 	try {
