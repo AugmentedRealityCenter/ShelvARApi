@@ -35,6 +35,7 @@
  */
 
 require_once(__DIR__ . '/AutoLoader.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreConnectException.php');
 new AutoLoader();
 
 class Configuration

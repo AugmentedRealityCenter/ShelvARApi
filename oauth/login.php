@@ -3,8 +3,12 @@
 		echo "No token supplied";
 		exit;
 	}
-
-	require_once "AutoLoader.php"
+	
+	include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreReadException.php');
+	include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreUpdateException.php');
+	include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreDeleteException.php');
+	
+	require_once "/AutoLoader.php";
 	new AutoLoader();
 	
 	try {
