@@ -10,27 +10,10 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Get all users at your institutions", 
-                    "notes": "Retrieves all users at your institution currently registered with ShelvAR.", 
+                    "notes": "Retrieves all users at your institution currently registered with ShelvAR. Set user id and authentication token in user context.", 
                     "responseClass": "string", 
                     "nickname": "user", 
-                    "parameters": [
-						{
-                            "name": "auth_token",
-                            "description": "The token received from logging in that will be used to identify and validate that you have sufficient API calls remaining.",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "user_id",
-                            "description": "The user ID of the requester",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        }
-                    ], 
+                    "parameters": [], 
                     "errorResponses": [
                         {
                             "code": 400, 
@@ -54,29 +37,11 @@
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "summary": "Retrieve permissions for a user",
+                    "summary": "Retrieve permissions for a user. Set user id and authentication token in user context.",
                     "notes": "Retrieve permissions for a user",
                     "responseClass": "string",
                     "nickname": "user",
-                    "parameters": [
-                        {
-                            "name": "user_id",
-                            "description": "The user ID of the requester",
-                            "paramType": "body",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-
-                        },
-                        {
-                            "name": "auth_token",
-                            "description": "The token received upon logging in to ShelvAR",
-                            "paramType": "body",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        }
-                    ],
+                    "parameters": [],
 		    "errorResponses": [
                         {
                             "code": 400,
@@ -100,28 +65,11 @@
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "summary": "Get information about a registered ShelvAR user",
+                    "summary": "Get information about a registered ShelvAR user. Set user id and authentication token in user context.",
                     "notes": "Get information about a registered ShelvAR user",
                     "responseClass": "string",
                     "nickname": "user",
-                    "parameters": [
-                        {
-                            "name": "auth_token",
-                            "description": "The token received upon logging in to ShelvAR",
-                            "paramType": "query",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "user_id",
-                            "description": "The user ID of the requester",
-                            "paramType": "query",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        }
-                    ],
+                    "parameters": [],
                     "errorResponses": [
                         {
                             "code": 400,
@@ -145,28 +93,11 @@
             "operations": [
                 {
                     "httpMethod": "POST",
-                    "summary": "Set permissions for a user",
-                    "notes": "Set permissions for a user",
+                    "summary": "Set permissions for a user. Set user id and authentication token in user context.",
+                    "notes": "Set permissions for a user. Set user id and authentication token in user context.",
                     "responseClass": "string",
                     "nickname": "user",
                     "parameters": [
-                        {
-                            "name": "auth_token",
-                            "description": "The token received upon logging in to ShelvAR",
-                            "paramType": "body",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "user_id",
-                            "description": "The user ID of the requester",
-                            "paramType": "body",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-
-                        },
                         {
                             "name": "admin",
                             "description": "Value that determines whether the user is an administrator",
