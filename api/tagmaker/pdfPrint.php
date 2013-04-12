@@ -2,14 +2,19 @@
 //EXAMPLE INPUT
 //		http://devapi.shelvar.com/tagmaker/9003/%5B%22NX543%20.c38%202000%22%2C%22NX543%20.c38%202000%22%5D.json
 //   JSON array (w/o HTML encoding):  ["NX543%20.c38%202000","NX543%20.c38%202000"]
-//test URL: http://devapi.shelvar.com/tagmaker/9003/%5B%22NX543%20.c38%202000%22%2C%22NX543%20.c38%202000%22%5D.json
+//test URL: http://devapi.shelvar.com/tagmaker/9003/%5B%22NX543%20.c38%202000%22%2C%22AB453%20.c38%202000%22%2C%22ZX732%20.c38%202000%22%2C%22AB453%20.c38%202000%22%2C%22ZX732%20.c38%202000%22%2C%22AB453%20.c38%202000%22%2C%22ZX732%20.c38%202000%22%2C%22AB453%20.c38%202000%22%2C%22ZX732%20.c38%202000%22%5D.json
+//   cd /var/www/html/shelvar_devapi/api/tagmaker/pdfPrint.php
 	
 		require_once('helper/fpdf.php');
-		require_once('../lc2bin/LC_Converter_lib.php');
+		require_once('../lc2bin/lc_numbers_lib.php');
+		include_once "../HammingCode.php";
+		include_once "../lc2bin/base64_lib.php";
 	
 		/** GLOBAL VARS **/
 		//conversion rate from inches to millimeters
 		$convertInchToMillimeter = 25.4;
+		//width in blocks (11 columns + 2 on both sides for borders)
+		$tagWidth = 15; 
 		//array of call nums in base 64
 		$binCallNums = array();
 		//array of callNumbers to print
@@ -33,9 +38,12 @@
 		//print_r($sheetType); //$$$DEBUG
 		
 		//grab all base64 conversions for call numbers
-		$binCallNums = MultLC2Bin($callNumsParam);
-		//print_r($b64CallNums); //$$$DEBUG
-		
+		//also, grab the height from the first one (assumes all are uniform height)
+		//### ABOVE WORKS ###
+		$returnedHeighOfTag = decode_7_4( substr( base642bin( lc_to_tag($callNumsParam[0])) ,0,7) );
+		for($i=0; $i < sizeof($callNumsParam); $i++){
+			$binCallNums[$i] = base642bin(lc_to_tag($callNumsParam[$i]));
+		}
 		
 		//use FPDF to print the tag, use assoc. array global var as params
 		$pdf = new FPDF( ($sheetType['isVert'] ? 'P':'L') //P for portrait/vert, L for landscape/horiz 
@@ -58,37 +66,69 @@
 		    ACTUALLY MAKE THE PDF 
 		****/
 		$pdf->AddPage();
-		//for every number / tag to be created...
-		$binStr = implode($binCallNums[0]);
-		//@TODO FINISH set tag properties
-		$tagWidth = 7; //width in blocks
-		$tagHeight = ceil(strlen($binStr) / $tagWidth); //height in blocks
+		$tagHeight = (25 + 9 * bindec(substr($returnedHeighOfTag, 2, 4)) + 5); //height in blocks from WS + 5 for border
 		$blockSize = 1.5; //width/height of block in millimeters
-		$x = 1;
-		$y = $tagHeight;
-		//@TODO big loop to do multiple tags
-		//FOR EVER BINARY STRING IN THE ARRAY...
-		$j = 0;
-			for($i=0;$i<strlen($binStr);$i++){
-				//loop through, printing each tag from bottom left to top right
-				if(0 == strcmp("1", substr($binStr, $i, 1))){
+		//calc number of tags that can fit across
+		$numAcrossPage = floor($sheetType['paper width'] / ($tagWidth + 5));
+		//how many rows down the printer is
+		$rowOffset = 0;
+		//for every number / tag to be created...
+		for($j=0;$j<sizeof($binCallNums);$j++){
+			$binStr = $binCallNums[$j];
+			$tagBlockIndex = 0;
+			//fix tag spacing based on chosen label type and page-print them
+			$xOffset = 1 + (($tagWidth + 2) * ($j%$numAcrossPage) ) + $sheetType['marginL'];
+//2			$xOffset = 1 + (($tagWidth + 2) * $j) + $sheetType['marginL'];
+			$x = $xOffset;
+			$yOffset = $tagHeight * (floor($j / $numAcrossPage) + 1) + (4 * floor($j/$numAcrossPage)) + $sheetType['marginT'];
+//2			$yOffset = $tagHeight + $sheetType['marginT'];
+//			print_r("numAcross: " . $numAcrossPage . " || yOffset: " . $yOffset);
+			$y = $yOffset;
+			$tagIndex = 0;
+			
+			//if it's off the right side of the page (including margins) move it to the next row
+//2			print_r("{ j: " . $j . " xOffset:" . $xOffset . " , compare: " . ($sheetType['paper width'] - $sheetType['marginR'] - $sheetType['marginL'] - $tagWidth - 2) . " }");
+//2			if($xOffset >= ($sheetType['paper width'] - $sheetType['marginR'] - $sheetType['marginL'] - $tagWidth - 2) ){
+//2				$rowOffset += ($tagHeight + $sheetType['spacebetweenV'] + 4);
+//2				$xOffset = floor($xOffset / $sheetType['paper width'] - $sheetType['marginR'] - $sheetType['marginL'] - $tagWidth - 2);
+//2			}
+			//apply the number of rows we've moved down
+//2			$yOffset += $rowOffset;
+			for($i=0;$i<$tagHeight*$tagWidth;$i++){
+				//loop through, printing each block in the tag from bottom left to top right (including border)
+				//if it's 1 above/below the bottom and sides, fill it in (outer border)
+				if( ($y == ($yOffset - $tagHeight)+1) || ($y == $yOffset) || ($x == $xOffset) || ($x == ($xOffset + $tagWidth - 1)) ){
 					$pdf->Rect($x*$blockSize,
 								$y*$blockSize,
 								$blockSize,
 								$blockSize,
 								'F'); //  X, Y, W, H, Fill 
+				}else if( !(($y == ($yOffset - $tagHeight+2)) || ($y == $yOffset-1) || ($x == $xOffset+1) || ($x == ($xOffset + $tagWidth-2))) ){
+					//else if it's NOT 2 above/below the bottom and sides, don't fill it in and advance the encoder tracker
+					if(0 == strcmp("1", substr($binStr, $tagIndex, 1))){
+						//print a black square
+						$pdf->Rect($x*$blockSize,
+									$y*$blockSize,
+									$blockSize,
+									$blockSize,
+									'F'); //  X, Y, W, H, Fill 
+						$tagBlockIndex++; //move to next tag block index
+					}
+					$tagIndex++;
 				}
+				//no matter what, advance this
 				$x++;
-				if($x > $tagWidth){
-					$x = 1;
+				if($x > ($xOffset + $tagWidth-1)){
+					$x = $xOffset;
 					$y--;
 				}
 			}
 			//print LC num below tag
 			$pdf->SetFont('Arial','B',6);
-			$pdf->SetXY(0, $tagHeight + 15);
+			$pdf->SetXY($xOffset + (8 * ($j%$numAcrossPage+1)), 
+					$yOffset + (24 * (floor($j/$numAcrossPage)+1)));
 			$pdf->MultiCell($tagWidth * 2, 2, $callNumsParam[$j]);
-		//}
+		}
 		
 		
 		/**
