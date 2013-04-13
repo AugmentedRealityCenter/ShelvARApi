@@ -10,6 +10,7 @@ RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 
 RewriteRule ^oauth - [L]
+RewriteRule ^deploy - [L]
 
 ###########
 ### API ###
