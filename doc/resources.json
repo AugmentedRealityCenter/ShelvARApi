@@ -11,7 +11,7 @@
 			"description":"Operations on book tags"
 		},
 		{
-			"path":"call_numbers.{format}",
+			"path":"lc_numbers.{format}",
 			"description":"Operations on call numbers"
 		},
                 {
