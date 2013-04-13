@@ -16,7 +16,7 @@
                               "parameters": [
                                     {
                                           "name": "book_tag", 
-                                          "description": "Base 64 representation of the call number. Example: 0cOZA09fhM0cM_gw000000a0", 
+                                          "description": "Base 64 representation of the call number. Example: 00bQu5M2JJDVmHB7__OM0004", 
                                           "paramType": "path", 
                                           "required": true, 
                                           "allowMultiple": false, 
