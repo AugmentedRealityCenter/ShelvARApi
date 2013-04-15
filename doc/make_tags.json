@@ -24,7 +24,7 @@
                         },
                         {
                             "name": "tags", 
-                            "description": "A json array of base-64 ShelvAR tag codes to be printed. Example: "['007vO2Yn0xGiT_i7CzD_VU00', '007vO2Yn0xGiT_i7CzGXXU04']", 
+                            "description": "A json array of base-64 ShelvAR tag codes to be printed. Example: "\['007vO2Yn0xGiT_i7CzD_VU00', '007vO2Yn0xGiT_i7CzGXXU04'\]", 
                             "paramType": "query", 
                             "required": true, 
                             "allowMultiple": false, 
