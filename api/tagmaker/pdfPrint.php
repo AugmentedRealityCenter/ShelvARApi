@@ -152,5 +152,5 @@
 			}
 		}
 		
-	$pdf->Output( ($sheetType['name'] . ".pdf"), "D");
+	$pdf->Output( ($sheetType['name'] . ".pdf"), "I");
 ?>
