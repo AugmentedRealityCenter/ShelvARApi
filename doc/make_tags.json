@@ -9,14 +9,14 @@
             "operations": [
                 {
                     "httpMethod": "GET", 
-                    "summary": "Get a printable PDF of tags ", 
-                    "notes": "Returns a printable PDF of tags, called {paper_type}.pdf.", 
+                    "summary": "Get a printable PDF of tags", 
+                    "notes": "Returns a printable PDF of tags.", 
                     "responseClass": "void", 
                     "nickname": "make_tags", 
                     "parameters": [
                         {
                             "name": "paper_type", 
-                            "description": "Type of label paper to use, such as \"Avery5160\" or \"WW-9003\"",
+                            "description": "Type of label paper to use, such as 'Avery5160' or 'WW-9003'",
                             "paramType": "path", 
                             "required": true, 
                             "allowMultiple": false, 
@@ -24,7 +24,7 @@
                         },
                         {
                             "name": "tags", 
-                            "description": "A json array of base-64 ShelvAR tag codes to be printed. Example: "[\"007vO2Yn0xGiT_i7CzD_VU00\", \"007vO2Yn0xGiT_i7CzGXXU04\"]", 
+                            "description": "A json array of base-64 ShelvAR tag codes to be printed. Example: "['007vO2Yn0xGiT_i7CzD_VU00', '007vO2Yn0xGiT_i7CzGXXU04']", 
                             "paramType": "query", 
                             "required": true, 
                             "allowMultiple": false, 
