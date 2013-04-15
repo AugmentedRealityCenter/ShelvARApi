@@ -16,7 +16,7 @@
                     "parameters": [
                         {
                             "name": "paper_type", 
-                            "description": "",
+                            "description": "A string specifying the paper type. Example: Avery-5160",
                             "paramType": "path", 
                             "required": true, 
                             "allowMultiple": false, 
