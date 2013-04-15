@@ -10,6 +10,7 @@ RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 
 RewriteRule ^oauth - [L]
+RewriteRule ^deploy - [L]
 
 ###########
 ### API ###
@@ -19,8 +20,8 @@ RewriteRule ^oauth - [L]
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_tags/([^/]+)(?=.json) api/lc2bin/book_tags.php?B64=$1 [L,QSA]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^lc_numbers/([^/]+)(?=.json) api/lc2bin/lc_numbers.php?call_number=$1 [L,QSA]
@@ -44,7 +45,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^tagmaker/([^/]+)/([^/]+)(?=.json) api/tagmaker/pdfPrint.php?type=$1&nums=$2 [L,QSA]
+RewriteRule ^make_tags/([^/]+)(?=.pdf) api/tagmaker/pdfPrint.php?type=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^tagmaker/helper/openCSVScript api/tagmaker/helper/openCSVScript.php [L]

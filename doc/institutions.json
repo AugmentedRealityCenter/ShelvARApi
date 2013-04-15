@@ -93,26 +93,10 @@
                 {
                     "httpMethod": "GET",
                     "summary": "Get information about an institution",
-                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR.",
+                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR. Set user id and authentication token in user context.",
                     "responseClass": "string",
                     "nickname": "institution",
                     "parameters": [
-                        {
-                            "name": "auth_token",
-                            "description": "The token received from logging in that will be used to identify and validate that you have sufficient API calls remaining.",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "user_id",
-                            "description": "The user ID of the requester",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
                         {
                             "name": "institution_id",
                             "description": "The shortname for your institution.",

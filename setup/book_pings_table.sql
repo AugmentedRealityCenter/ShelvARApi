@@ -7,6 +7,9 @@ CREATE TABLE IF NOT EXISTS `book_pings` (
   `neighbor2_tag` varchar(40) DEFAULT NULL,
   `neighbor2_call` varchar(240) DEFAULT NULL,
   `ping_time` datetime NOT NULL,
-  `institution` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  `user_id` varchar(40) DEFAULT NULL,
+  `inst_id` varchar(40) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `user_id_bp` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `inst_id_bp` FOREIGN KEY (`inst_id`) REFERENCES `institutions` (`inst_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
