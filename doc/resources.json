@@ -21,5 +21,9 @@
 		{
                     	"path":"users.{format}",
 			"description":"Information about users"
+		},
+		{
+                    	"path":"make_tags.{format}",
+			"description":"Utility for printing tags to PDF files"
 		}]
 }

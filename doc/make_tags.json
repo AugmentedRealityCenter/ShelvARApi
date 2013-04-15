@@ -1,0 +1,49 @@
+{
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "resourcePath": "/make_tags", 
+    "apis": [
+        {
+            "path": "/make_tags/{paper_type}.pdf", 
+            "description": "Print tags to PDF", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get a printable PDF of tags ", 
+                    "notes": "Returns a printable PDF of tags, called {paper_type}.pdf.", 
+                    "responseClass": "void", 
+                    "nickname": "make_tags", 
+                    "parameters": [
+                        {
+                            "name": "paper_type", 
+                            "description": "Type of label paper to use, such as \"Avery5160\" or \"WW-9003\"",
+                            "paramType": "path", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "tags", 
+                            "description": "A json array of base-64 ShelvAR tag codes to be printed. Example: "[\"007vO2Yn0xGiT_i7CzD_VU00\", \"007vO2Yn0xGiT_i7CzGXXU04\"]", 
+                            "paramType": "query", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ID supplied"
+                        }, 
+                        {
+                            "code": 404, 
+                            "reason": "Data not found"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]    
+}
