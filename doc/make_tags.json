@@ -24,7 +24,7 @@
                         },
                         {
                             "name": "tags", 
-                            "description": "List of tags to print. Example: \"007vO2Yn0xGiT_i7CzD_VU00\"",
+                            "description": "List of tags to print. Example: [\"007vO2Yn0xGiT_i7CzD_VU00\"",
                             "paramType": "query", 
                             "required": true, 
                             "allowMultiple": false, 
