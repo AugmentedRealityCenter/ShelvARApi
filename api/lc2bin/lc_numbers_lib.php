@@ -71,7 +71,7 @@ function lc_to_tag($call_number_in){
     $tag_binary .= encode_32_26(substr($huffman_code,0,26));
   }
 
-  echo(strlen($tag_binary) . $num_tag_bits . "<br/>");
+  echo(strlen($tag_binary) . " " . $num_tag_bits . "<br/>");
   while(strlen($tag_binary) < $num_tag_bits){
     $tag_binary .= "0";
   }
