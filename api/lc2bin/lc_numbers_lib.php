@@ -22,8 +22,8 @@ function lc_to_tag($call_number_in){
   
   //The call number will be divided into blocks of 26 bits,
   // and encoded using Hamming(32,26)
-  $num_call_bits = 32*ceil(strlen($huffman_code)/26);
-  $num_call_rows = ceil($num_call_bits/7);
+  $num_call_bits = 32*ceil(strlen($huffman_code)/26.0);
+  $num_call_rows = ceil($num_call_bits/7.0);
 
   //Bottom row is tag type and size
   //Next row up is information about the call number encoding
