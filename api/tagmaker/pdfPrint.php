@@ -8,7 +8,6 @@
 		require_once('helper/fpdf.php');
 		require_once('../lc2bin/lc_numbers_lib.php');
 		include_once "../HammingCode.php";
-		include_once "../lc2bin/base64_lib.php";
 	
 		/** GLOBAL VARS **/
 		//conversion rate from inches to millimeters
@@ -18,7 +17,7 @@
 		//array of call nums in base 64
 		$binCallNums = array();
 		//array of callNumbers to print
-		$callNumsParam = json_decode(stripslashes($_GET['nums']), true);
+		$tagsParam = json_decode($_GET['tags']);
 		//requested sheet type
 		$sheetTypeParam = $_GET['type'];
 		//array of sheet values
@@ -40,9 +39,9 @@
 		//grab all base64 conversions for call numbers
 		//also, grab the height from the first one (assumes all are uniform height)
 		//### ABOVE WORKS ###
-		$returnedHeighOfTag = decode_7_4( substr( base642bin( lc_to_tag($callNumsParam[0])) ,0,7) );
-		for($i=0; $i < sizeof($callNumsParam); $i++){
-			$binCallNums[$i] = base642bin(lc_to_tag($callNumsParam[$i]));
+		$returnedHeighOfTag = decode_7_4( substr( base642bin($tagsParam[0]) ,0,7) );
+		for($i=0; $i < sizeof($tagsParam); $i++){
+			$binCallNums[$i] = base642bin($tagsParam[$i]);
 		}
 		
 		//use FPDF to print the tag, use assoc. array global var as params
@@ -127,7 +126,7 @@
 			$pdf->SetFont('Arial','B',6);
 			$pdf->SetXY($xOffset + (8 * ($j%$numAcrossPage+1)), 
 					$yOffset + (24 * (floor($j/$numAcrossPage)+1)));
-			$pdf->MultiCell($tagWidth * 2, 2, $callNumsParam[$j]);
+			$pdf->MultiCell($tagWidth * 2, 2, tag_to_lc($tagsParam[$j]));
 		}
 		
 		
@@ -137,7 +136,7 @@
 		function fetchOptions(){
 			global $sheetValues;
 			$header = array();
-			$tempValues = file("http://devapi.shelvar.com/tagmaker/csvFormats", FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+			$tempValues = file('tagformats.csv', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 			$header = explode(",", $tempValues[0]);
 			
 			for($i=1;$i<sizeof($tempValues);$i++){
@@ -153,5 +152,5 @@
 			}
 		}
 		
-	$pdf->Output("output.pdf", "D");
+	$pdf->Output( ($sheetType['name'] . ".pdf"), "D");
 ?>
