@@ -35,18 +35,18 @@ function lc_to_tag($call_number_in){
   
   $tag_type = "00"; //Library call number type
   $tag_size_bits = "00"; //25 rows, 142 bits
-  $num_tag_bits = 142;
+  $num_tag_bits = 175;
   if($num_tag_rows > 25){
     $tag_size_bits = "01";//34 rows, 206 bits
-    $num_tag_bits = 206;
+    $num_tag_bits = 238;
   }
   if($num_tag_rows > 34){
     $tag_size_bits = "10";//43 rows, 270 bits
-    $num_tag_bits = 270;
+    $num_tag_bits = 301;
   }
   if($num_tag_rows > 43){
     $tag_size_bits = "11";//52 rows, 334 bits
-    $num_tag_bits = 334;
+    $num_tag_bits = 364;
   }
   if($num_tag_rows > 52){
     $result = "ERROR. Call number is too long to be represented as a tag.";
