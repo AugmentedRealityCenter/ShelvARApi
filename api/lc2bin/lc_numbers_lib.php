@@ -22,11 +22,8 @@ function lc_to_tag($call_number_in){
   
   //The call number will be divided into blocks of 26 bits,
   // and encoded using Hamming(32,26)
-  echo(strlen($huffman_code) . "<br/>");
   $num_call_bits = 32*ceil(strlen($huffman_code)/26.0);
-  echo($num_call_bits  . "<br/>");
   $num_call_rows = ceil($num_call_bits/7.0);
-  echo($num_call_rows . "<br/>");
 
   //Bottom row is tag type and size
   //Next row up is information about the call number encoding
@@ -71,7 +68,6 @@ function lc_to_tag($call_number_in){
     $tag_binary .= encode_32_26(substr($huffman_code,0,26));
   }
 
-  echo(strlen($tag_binary) . " " . $num_tag_bits . "<br/>");
   while(strlen($tag_binary) < $num_tag_bits){
     $tag_binary .= "0";
   }
@@ -82,14 +78,12 @@ function lc_to_tag($call_number_in){
 function tag_to_lc($b64Tag){
   $binaryTag = base642bin($b64Tag);
   $type_and_size = decode_7_4(substr($binaryTag,0,7));
-  //echo($type_and_size . "<br/>");
   if(strlen($type_and_size) != 4){
     return "";
   }
 
   $binaryTag = substr($binaryTag,7);
   $encoding = decode_7_4(substr($binaryTag,0,7));
-  //echo($encoding . "<br/>");
 
   if(strlen($encoding) != 4){
     return "";
@@ -118,7 +112,6 @@ function tag_to_lc($b64Tag){
     $huffman_string .= decode_32_26(substr($binaryTag,0,32));
     $binaryTag = substr($binaryTag,32);
   }
-  echo(strlen($huffman_string) . " " . $num_blocks . "<br/>");
   if(strlen($huffman_string) != 26*$num_blocks){
     return "";
   }

@@ -45,7 +45,6 @@ function huffman_decode($input){
 
     //If prefixLen is 0, it means we are not making progress. Better abort.
     if($prefixLen <= 0) {
-      echo("Prefixlen: " . $prefixLen . "<br/>");
       return "";
     }
 
@@ -58,7 +57,6 @@ function huffman_decode($input){
   }
 
   //Looks like the string wasn't null terminated. Better abort.
-  echo("No null termination. " . $ret . "<br/>");
   return "";
 }
 
