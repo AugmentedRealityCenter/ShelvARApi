@@ -58,7 +58,7 @@ function huffman_decode($input){
   }
 
   //Looks like the string wasn't null terminated. Better abort.
-  echo("No null termination<br/>");
+  echo("No null termination. " . $ret . "<br/>");
   return "";
 }
 
