@@ -2,7 +2,7 @@
 //EXAMPLE INPUT
 //		http://devapi.shelvar.com/tagmaker/9003/%5B%22NX543%20.c38%202000%22%2C%22NX543%20.c38%202000%22%5D.json
 //   JSON array (w/o HTML encoding):  ["NX543%20.c38%202000","NX543%20.c38%202000"]
-//test URL: http://devapi.shelvar.com/tagmaker/9003/%5B%22NX543%20.c38%202000%22%2C%22AB453%20.c38%202000%22%2C%22ZX732%20.c38%202000%22%2C%22AB453%20.c38%202000%22%2C%22ZX732%20.c38%202000%22%2C%22AB453%20.c38%202000%22%2C%22ZX732%20.c38%202000%22%2C%22AB453%20.c38%202000%22%2C%22ZX732%20.c38%202000%22%5D.json
+//test URL: http://devapi.shelvar.com/make_tags/9003.pdf?tags=[%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22,%20%22007vO2Yn0xGiT_i7CzD_VU00%22,%20%22001TIi7n9JsKqM_XTwg00000%22]
 //   cd /var/www/html/shelvar_devapi/api/tagmaker/pdfPrint.php
 	
 		require_once('helper/fpdf.php');
@@ -12,8 +12,12 @@
 		/** GLOBAL VARS **/
 		//conversion rate from inches to millimeters
 		$convertInchToMillimeter = 25.4;
+		//how wide the tag should be in inches
+		//$tagWidthInch = 0.375;
+		//how wide the tag should be in millimeters
+		$tagWidthMilliMeter = 9.525;
 		//width in blocks (11 columns + 2 on both sides for borders)
-		$tagWidth = 15; 
+		$tagWidth = 11; 
 		//array of call nums in base 64
 		$binCallNums = array();
 		//array of callNumbers to print
@@ -55,8 +59,8 @@
 			$sheetType['marginL'] = $sheetType['marginL']  * $convertInchToMillimeter;
 			$sheetType['marginB'] = $sheetType['marginB']  * $convertInchToMillimeter;
 			$sheetType['marginR'] = $sheetType['marginR']  * $convertInchToMillimeter;
-			$sheetType['tag width'] = $sheetType['tag width']  * $convertInchToMillimeter;
-			$sheetType['tag height'] = $sheetType['tag height']  * $convertInchToMillimeter;
+			$sheetType['label width'] = $sheetType['label width']  * $convertInchToMillimeter;
+			$sheetType['label height'] = $sheetType['label height']  * $convertInchToMillimeter;
 			$sheetType['spacebetweenH'] = $sheetType['spacebetweenH']  * $convertInchToMillimeter;
 			$sheetType['spacebetweenV'] = $sheetType['spacebetweenV']  * $convertInchToMillimeter;
 		}
@@ -65,10 +69,18 @@
 		    ACTUALLY MAKE THE PDF 
 		****/
 		$pdf->AddPage();
-		$tagHeight = (25 + 9 * bindec(substr($returnedHeighOfTag, 2, 4)) + 5); //height in blocks from WS + 5 for border
-		$blockSize = 1.5; //width/height of block in millimeters
+		//width/height of block in millimeters
+		$blockSize = $tagWidthMilliMeter / $tagWidth; 
+		//tag height in blocks
+		$tagHeight = 25 + (9 * bindec(substr($returnedHeighOfTag, 2, 4))); //height in blocks from WS + 5 for border
 		//calc number of tags that can fit across
-		$numAcrossPage = floor($sheetType['paper width'] / ($tagWidth + 5));
+		$numAcrossPage = ceil(($sheetType['paper width'] - $sheetType['marginL'] - $sheetType['marginR']) / ($tagWidthMilliMeter + $sheetType['spacebetweenH'])) + 1;
+		//calc number of tags high the page should be
+		$numHighOnPage = ceil(($sheetType['paper height'] - $sheetType['marginT'] - $sheetType['marginB']) / (($blockSize * $tagHeight) + $sheetType['spacebetweenV'])) + 1;
+//		print_r("{ " . $sheetType['paper width'] . " , " . $sheetType['marginL'] . " , " . $sheetType['marginR'] . " }");
+//		print_r("{ " . $tagWidthMilliMeter . " , " . $sheetType['spacebetweenH'] . " , " . $sheetType['marginR'] . " }");
+//		print_r("{ " . $tagWidthMilliMeter . " }");
+//		print_r("[ " . sizeof($binCallNums) . " , " . $numAcrossPage . " , " . $numHighOnPage . " ]");
 		//how many rows down the printer is
 		$rowOffset = 0;
 		//for every number / tag to be created...
@@ -76,23 +88,16 @@
 			$binStr = $binCallNums[$j];
 			$tagBlockIndex = 0;
 			//fix tag spacing based on chosen label type and page-print them
-			$xOffset = 1 + (($tagWidth + 2) * ($j%$numAcrossPage) ) + $sheetType['marginL'];
-//2			$xOffset = 1 + (($tagWidth + 2) * $j) + $sheetType['marginL'];
+			$xOffset = (($tagWidthMilliMeter + $sheetType['spacebetweenH']) * ($j%$numAcrossPage) ) + $sheetType['marginL'];
 			$x = $xOffset;
-			$yOffset = $tagHeight * (floor($j / $numAcrossPage) + 1) + (4 * floor($j/$numAcrossPage)) + $sheetType['marginT'];
-//2			$yOffset = $tagHeight + $sheetType['marginT'];
-//			print_r("numAcross: " . $numAcrossPage . " || yOffset: " . $yOffset);
+			//(tag size in mm * num of tags across for rows) + (number of tags * space between them vert) + marginT + (stored tag height - what was used)     ***off by one vert
+			$yOffset = ($tagHeight * $blockSize) * (floor($j / $numAcrossPage) + 1) + ((floor($j / $numHighOnPage) + 1) * $sheetType['spacebetweenV']) 
+					+ $sheetType['marginT'] + (floor($j / $numAcrossPage) * ($sheetType['label height'] - ($tagHeight * $blockSize)));
 			$y = $yOffset;
 			$tagIndex = 0;
 			
-			//if it's off the right side of the page (including margins) move it to the next row
-//2			print_r("{ j: " . $j . " xOffset:" . $xOffset . " , compare: " . ($sheetType['paper width'] - $sheetType['marginR'] - $sheetType['marginL'] - $tagWidth - 2) . " }");
-//2			if($xOffset >= ($sheetType['paper width'] - $sheetType['marginR'] - $sheetType['marginL'] - $tagWidth - 2) ){
-//2				$rowOffset += ($tagHeight + $sheetType['spacebetweenV'] + 4);
-//2				$xOffset = floor($xOffset / $sheetType['paper width'] - $sheetType['marginR'] - $sheetType['marginL'] - $tagWidth - 2);
-//2			}
-			//apply the number of rows we've moved down
-//2			$yOffset += $rowOffset;
+//			print_r("{ " . $j . " , " . $xOffset . " , " . $yOffset . " }");
+			
 			for($i=0;$i<$tagHeight*$tagWidth;$i++){
 				//loop through, printing each block in the tag from bottom left to top right (including border)
 				//if it's 1 above/below the bottom and sides, fill it in (outer border)
@@ -117,16 +122,17 @@
 				}
 				//no matter what, advance this
 				$x++;
-				if($x > ($xOffset + $tagWidth-1)){
+				if($x >= ($xOffset + $tagWidth)){
 					$x = $xOffset;
 					$y--;
 				}
 			}
 			//print LC num below tag
 			$pdf->SetFont('Arial','B',6);
-			$pdf->SetXY($xOffset + (8 * ($j%$numAcrossPage+1)), 
-					$yOffset + (24 * (floor($j/$numAcrossPage)+1)));
-			$pdf->MultiCell($tagWidth * 2, 2, tag_to_lc($tagsParam[$j]));
+			$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
+					$y + ((floor($j / $numHighOnPage)+1) * 22));
+					//$y + ((floor($j / $numAcrossPage)+1) * 10));
+			$pdf->MultiCell($tagWidth, 2, tag_to_lc($tagsParam[$j]));
 		}
 		
 		
