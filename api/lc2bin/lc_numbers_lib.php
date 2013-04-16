@@ -82,14 +82,14 @@ function lc_to_tag($call_number_in){
 function tag_to_lc($b64Tag){
   $binaryTag = base642bin($b64Tag);
   $type_and_size = decode_7_4(substr($binaryTag,0,7));
-  echo($type_and_size . "<br/>");
+  //echo($type_and_size . "<br/>");
   if(strlen($type_and_size) != 4){
     return "";
   }
 
   $binaryTag = substr($binaryTag,7);
   $encoding = decode_7_4(substr($binaryTag,0,7));
-  echo($encoding . "<br/>");
+  //echo($encoding . "<br/>");
 
   if(strlen($encoding) != 4){
     return "";
@@ -118,6 +118,7 @@ function tag_to_lc($b64Tag){
     $huffman_string .= decode_32_26(substr($binaryTag,0,32));
     $binaryTag = substr($binaryTag,32);
   }
+  echo(stlen($huffman_string) . " " . $num_blocks . "<br/>");
   if(strlen($huffman_string) != 26*$num_blocks){
     return "";
   }
