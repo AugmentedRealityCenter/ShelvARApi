@@ -20,6 +20,8 @@
 		$tagWidth = 11; 
 		//array of call nums in base 64
 		$binCallNums = array();
+		//array of returned tag lengths
+		$tagLengths = array();
 		//array of callNumbers to print
 		$tagsParam = json_decode($_GET['tags']);
 		//requested sheet type
@@ -43,9 +45,9 @@
 		//grab all base64 conversions for call numbers
 		//also, grab the height from the first one (assumes all are uniform height)
 		//### ABOVE WORKS ###
-		$returnedHeighOfTag = decode_7_4( substr( base642bin($tagsParam[0]) ,0,7) );
 		for($i=0; $i < sizeof($tagsParam); $i++){
 			$binCallNums[$i] = base642bin($tagsParam[$i]);
+			$tagLengths[$i] = decode_7_4( substr( base642bin($tagsParam[$i]) ,0,7) ); 
 		}
 		
 		//use FPDF to print the tag, use assoc. array global var as params
@@ -71,20 +73,18 @@
 		$pdf->AddPage();
 		//width/height of block in millimeters
 		$blockSize = $tagWidthMilliMeter / $tagWidth; 
-		//tag height in blocks
-		$tagHeight = 25 + (9 * bindec(substr($returnedHeighOfTag, 2, 4))); //height in blocks from WS + 5 for border
-		//calc number of tags that can fit across
-		$numAcrossPage = ceil(($sheetType['paper width'] - $sheetType['marginL'] - $sheetType['marginR']) / ($tagWidthMilliMeter + $sheetType['spacebetweenH'])) + 1;
-		//calc number of tags high the page should be
-		$numHighOnPage = ceil(($sheetType['paper height'] - $sheetType['marginT'] - $sheetType['marginB']) / (($blockSize * $tagHeight) + $sheetType['spacebetweenV'])) + 1;
-//		print_r("{ " . $sheetType['paper width'] . " , " . $sheetType['marginL'] . " , " . $sheetType['marginR'] . " }");
-//		print_r("{ " . $tagWidthMilliMeter . " , " . $sheetType['spacebetweenH'] . " , " . $sheetType['marginR'] . " }");
-//		print_r("{ " . $tagWidthMilliMeter . " }");
-//		print_r("[ " . sizeof($binCallNums) . " , " . $numAcrossPage . " , " . $numHighOnPage . " ]");
 		//how many rows down the printer is
 		$rowOffset = 0;
 		//for every number / tag to be created...
 		for($j=0;$j<sizeof($binCallNums);$j++){
+			//tag height in blocks
+			$tagHeight = 25 + (9 * bindec(substr($tagLengths[$j], 2, 4))); //height in blocks from WS + 5 for border
+//			print_r($tagHeight . " , ");
+			//calc number of tags that can fit across
+			$numAcrossPage = ceil(($sheetType['paper width'] - $sheetType['marginL'] - $sheetType['marginR']) / ($tagWidthMilliMeter + $sheetType['spacebetweenH'])) + 1;
+			//calc number of tags high the page should be
+			$numHighOnPage = ceil(($sheetType['paper height'] - $sheetType['marginT'] - $sheetType['marginB']) / (($blockSize * $tagHeight) + $sheetType['spacebetweenV'])) + 1;
+			
 			$binStr = $binCallNums[$j];
 			$tagBlockIndex = 0;
 			//fix tag spacing based on chosen label type and page-print them
