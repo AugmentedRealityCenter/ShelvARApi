@@ -31,21 +31,21 @@ function lc_to_tag($call_number_in){
   $num_tag_rows = $num_call_rows + 2;
   
   $tag_type = "00"; //Library call number type
-  $tag_size_bits = "00"; //25 rows, 142 bits
-  $num_tag_bits = 175;
-  if($num_tag_rows > 25){
-    $tag_size_bits = "01";//34 rows, 206 bits
-    $num_tag_bits = 238;
+  $tag_size_bits = "00"; //4 blocks, which is 147 bits 
+  $num_tag_bits = 147;
+  if($num_tag_rows > 21){
+    $tag_size_bits = "01";//6 blocks, which is 210 bits
+    $num_tag_bits = 210;
   }
-  if($num_tag_rows > 34){
-    $tag_size_bits = "10";//43 rows, 270 bits
-    $num_tag_bits = 301;
+  if($num_tag_rows > 30){
+    $tag_size_bits = "10";//8 blocks, 273 bits
+    $num_tag_bits = 273;
   }
-  if($num_tag_rows > 43){
-    $tag_size_bits = "11";//52 rows, 334 bits
-    $num_tag_bits = 364;
+  if($num_tag_rows > 39){
+    $tag_size_bits = "11";//10 blocks, 336 bits
+    $num_tag_bits = 336;
   }
-  if($num_tag_rows > 52){
+  if($num_tag_rows > 48){
     $result = "ERROR. Call number is too long to be represented as a tag.";
     return "";
   }
@@ -94,13 +94,13 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
-  $num_blocks = 5;
+  $num_blocks = 4;
   if(strcmp(substr($type_and_size,2,2),"01") == 0){
-    $num_blocks = 7;
+    $num_blocks = 6;
   } else if(strcmp(substr($type_and_size,2,2),"10") == 0){
-    $num_blocks = 9;
+    $num_blocks = 8;
   } else if(strcmp(substr($type_and_size,2,2),"11") == 0){
-    $num_blocks = 11;
+    $num_blocks = 10;
   }
 
   if(strcmp($encoding,"0000") != 0){
