@@ -58,8 +58,6 @@ function lc_to_tag($call_number_in){
   // which is a Huffman-encoded LC number
   $tag_binary .= encode_7_4("0000");
   
-  echo("Huffamn code length: " . strlen($huffman_code) . "<br/>");
-
   while(strlen($huffman_code) >= 26){
     $tag_binary .= encode_32_26(substr($huffman_code,0,26));
     $huffman_code = substr($huffman_code,26);
@@ -102,13 +100,13 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
-  $num_blocks = 4;
+  $num_blocks = 5;
   if(strcmp(substr($type_and_size,2,2),"01") == 0){
-    $num_blocks = 6;
+    $num_blocks = 7;
   } else if(strcmp(substr($type_and_size,2,2),"10") == 0){
-    $num_blocks = 8;
+    $num_blocks = 9;
   } else if(strcmp(substr($type_and_size,2,2),"11") == 0){
-    $num_blocks = 10;
+    $num_blocks = 11;
   }
 
   if(strcmp($encoding,"0000") != 0){
