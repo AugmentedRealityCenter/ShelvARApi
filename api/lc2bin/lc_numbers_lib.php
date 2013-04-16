@@ -118,7 +118,7 @@ function tag_to_lc($b64Tag){
     $huffman_string .= decode_32_26(substr($binaryTag,0,32));
     $binaryTag = substr($binaryTag,32);
   }
-  echo(stlen($huffman_string) . " " . $num_blocks . "<br/>");
+  echo(strlen($huffman_string) . " " . $num_blocks . "<br/>");
   if(strlen($huffman_string) != 26*$num_blocks){
     return "";
   }
