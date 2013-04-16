@@ -58,6 +58,8 @@ function lc_to_tag($call_number_in){
   // which is a Huffman-encoded LC number
   $tag_binary .= encode_7_4("0000");
   
+  echo("Huffamn code length: " . strlen($huffman_code) . "<br/>");
+
   while(strlen($huffman_code) >= 26){
     $tag_binary .= encode_32_26(substr($huffman_code,0,26));
     $huffman_code = substr($huffman_code,26);
