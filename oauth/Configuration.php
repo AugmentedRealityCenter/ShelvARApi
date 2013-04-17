@@ -36,6 +36,8 @@
 
 require_once(__DIR__ . '/AutoLoader.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreConnectException.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/Configuration.php');
+
 new AutoLoader();
 
 class Configuration
@@ -53,7 +55,7 @@ class Configuration
 		static $DataStore;
 
 		if (!isset($DataStore)) {
-			$DataStore = new mysqli("localhost", "mysql_username", "mysql_pword", "mysql_db");
+			$DataStore = new mysqli($server, $user, $password, $database);
 
 			if ($DataStore->connect_error) {
 				throw new DataStoreConnectException($DataStore->connect_error);
