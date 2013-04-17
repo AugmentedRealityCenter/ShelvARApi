@@ -35,6 +35,7 @@
  */
 
 include "../../database.php";
+include( $_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
 
 class OAuthConsumerModel extends ModelBase
 {
@@ -80,7 +81,7 @@ class OAuthConsumerModel extends ModelBase
 		$db = new database();
 		if( $db->query = "SELECT * 
 					  FROM 'oauth_provider_consumer'
-					  WHERE 'consumer_key' = ?"; ) 
+					  WHERE 'consumer_key' = ?" ) 
 		{					  
 			$db->params = array( $DataStore->real_escape_string($consumerKey) );			
 			$db->type = 's';
@@ -198,7 +199,7 @@ class OAuthConsumerModel extends ModelBase
 		$db->params = array($consumer_key, $consumer_secret, $consumer_create_date, $consumer_id);
 		$db->type = 'ssss';
 		/*****************************************************************************/
-		/
+		
 		if (!($db->update())) {
 			throw new DataStoreUpdateException("Couldn't update the consumer to the datastore");
 		}

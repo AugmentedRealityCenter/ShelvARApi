@@ -3,7 +3,8 @@
  * @author      Freek Lijten <freek@procurios.nl>
  */
 
-require_once(__DIR__ . '/../../lib/AutoLoader.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 new AutoLoader();
 
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
