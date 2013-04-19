@@ -128,6 +128,8 @@ function do_book_ping($jsoninput,$institution){
 					   "user_id,inst_id) VALUES".
 					   "(?,?,?,?,?,?,?,?,?)")) {
 
+		  $book_ping_entry["user_id"]="brinkmwj";
+		  $book_ping_entry["inst_id"]="miamioh";
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
 		$stmt -> bind_param("sssssssss",
@@ -138,8 +140,8 @@ function do_book_ping($jsoninput,$institution){
 		$book_ping_entry["neighbor2_tag"],
 		$book_ping_entry["neighbor2_call"],
 		$book_ping_entry["ping_time"],
-				    "brinkmwj",
-				    "miamioh");
+		$book_ping_entry["user_id"],
+				    $book_ping_entry["inst_id"]);
 
 		/* Execute it */
 		$stmt -> execute();
