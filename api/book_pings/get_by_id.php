@@ -17,7 +17,8 @@ $array = array();
 $db = new database();
 print($db->query . "\n\n");
 $db->query = "SELECT * FROM book_pings WHERE id = ? and institution = ?";
-$db->params = array($_GET['book_ping_id'],"miamioh");
+$_GET['institution']="miamioh";
+$db->params = array($_GET['book_ping_id'],$_GET['institution']);
 $db->type = 'is';
 $the_rec = $db->fetch();
 
