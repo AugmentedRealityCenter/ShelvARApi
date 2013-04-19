@@ -34,8 +34,8 @@
  * @license BSD License
  */
 
-include "../../database.php";
-include( $_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/database.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
 
 class OAuthConsumerModel extends ModelBase
 {
@@ -69,15 +69,15 @@ class OAuthConsumerModel extends ModelBase
 	public static function loadFromConsumerKey($consumerKey, $DataStore)
 	{
 		$OAuthConsumer = new OAuthConsumerModel($DataStore);
-		/*
+		
 		$sql = "SELECT *
 				FROM `oauth_provider_consumer`
 				WHERE `consumer_key` = '" . $DataStore->real_escape_string($consumerKey) . "'";
 
 		$result = $DataStore->query($sql);
-		*/
 		
-		/******************* Prepared Statement ******************************/
+		
+		/******************* Prepared Statement ******************************
 		$db = new database();
 		if( $db->query = "SELECT * 
 					  FROM 'oauth_provider_consumer'
@@ -87,7 +87,7 @@ class OAuthConsumerModel extends ModelBase
 			$db->type = 's';
 			$result = $db->fetch();	// set query results to variable
 		}
-		/********************************************************************/
+		*****************************************************************/
 		
 		
 		if (!$result || $result->num_rows < 1) {
@@ -111,6 +111,7 @@ class OAuthConsumerModel extends ModelBase
 	 */
 	protected function create()
 	{
+		include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreCreateException.php');
 		/*
 		$sql = "INSERT INTO `oauth_provider_consumer`
 				SET `consumer_key` = '" . $this->DataStore->real_escape_string($this->consumerKey) . "',

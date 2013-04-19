@@ -33,6 +33,8 @@
  * @author	Freek Lijten
  * @license BSD License
  */
+ 
+include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
 
 class OAuthAccessTokenModel extends ModelBase
 {
