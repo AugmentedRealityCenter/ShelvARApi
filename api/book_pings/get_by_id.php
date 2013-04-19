@@ -11,13 +11,13 @@
 
 include "../../database.php";
 include_once "../../header_include.php";
-include_once "../api_ref_call.php";
+//include_once "../api_ref_call.php";
 
 $array = array();
 $db = new database();
 print($db->query . "\n\n");
 $db->query = "SELECT * FROM book_pings WHERE id = ? and institution = ?";
-$db->params = array($_GET['book_ping_id'],$_GET['institution']);
+$db->params = array($_GET['book_ping_id'],"miamioh");
 $db->type = 'is';
 $the_rec = $db->fetch();
 
