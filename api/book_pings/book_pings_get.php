@@ -71,6 +71,7 @@ if (!$con){
       unset($row[6]);
       unset($row[7]);
       unset($row[8]);
+      unset($row[9]);
       $ret[] = $row;
     }
   
