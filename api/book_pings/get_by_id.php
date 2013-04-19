@@ -16,7 +16,7 @@ include_once "../../header_include.php";
 $array = array();
 $db = new database();
 print($db->query . "\n\n");
-$db->query = "SELECT * FROM book_pings WHERE id = ? and institution = ?";
+$db->query = "SELECT * FROM book_pings WHERE id = ? and inst_id = ?";
 $_GET['institution']="miamioh";
 $db->params = array($_GET['book_ping_id'],$_GET['institution']);
 $db->type = 'is';
