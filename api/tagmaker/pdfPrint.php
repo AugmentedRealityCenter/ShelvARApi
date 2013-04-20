@@ -99,7 +99,6 @@
 			$y = $yOffset;
 			$tagIndex = 0;
 			
-			
 			//figure out how many lines to print
 			//if it's too tall, say so
 			$callNumRows = explode(" ", $callNumPlanText);
@@ -152,9 +151,9 @@ tags on the book. May be awkwardly long, results will vary.
 			
 			//***print the call num below the tag***
 			//actually print the tag
-			$divisor =.5 + ( 1 + floor($j / $numAcrossPage) ) * .5;
+			$divisor = .5 + ( 1 + floor($j / $numAcrossPage) ) * .5;
 			$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
-					$y + ($tagHeight /  $divisor));
+					$y + $tagHeightMM - (floor($j / $numAcrossPage) * 6.75)); //+ ($tagHeight /  $divisor));
 			$pdf->MultiCell($tagWidthMilliMeter, 2, $callNumPlanText);
 			
 //			print_r("{ " . ($x - (($j % $numAcrossPage) * 4.5)) . " , " . ($y + ($tagHeight /  $divisor)) . " , " . $tagHeight . " , " . $divisor . " , " . $numAcrossPage . "} ");
