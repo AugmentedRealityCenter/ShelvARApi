@@ -34,6 +34,8 @@
  * @license BSD License
  */
 include "../../database.php";
+include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
+
 
 class OAuthNonceModel extends ModelBase
 {
@@ -75,7 +77,7 @@ class OAuthNonceModel extends ModelBase
 		$db->params = array($the_nonce);
 		$db->type = 's';
 		/********************************************************************/
-		$result = $db->fetch() 				
+		$result = $db->fetch(); 				
 		return $result->num_rows > 0;
 	}
 
