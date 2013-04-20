@@ -71,20 +71,23 @@
 		    ACTUALLY MAKE THE PDF 
 		****/
 		$pdf->AddPage();
+		$pdf->SetFont('Arial','B',6);
 		//width/height of block in millimeters
 		$blockSize = $tagWidthMilliMeter / $tagWidth; 
 		//how many rows down the printer is
 		$rowOffset = 0;
 		//for every number / tag to be created...
 		for($j=0;$j<sizeof($binCallNums);$j++){
+			//plain text of the call num to be printed
+			$callNumPlanText = tag_to_lc($tagsParam[$j]);
 			//tag height in blocks
 			$tagHeight = 25 + (9 * bindec(substr($tagLengths[$j], 2, 4))); //height in blocks from WS + 5 for border
-//			print_r($tagHeight . " , ");
+			//height of tag in millimeters
+			$tagHeightMM = ($tagHeight * $blockSize);
 			//calc number of tags that can fit across
 			$numAcrossPage = ceil(($sheetType['paper width'] - $sheetType['marginL'] - $sheetType['marginR']) / ($tagWidthMilliMeter + $sheetType['spacebetweenH'])) + 1;
 			//calc number of tags high the page should be
 			$numHighOnPage = ceil(($sheetType['paper height'] - $sheetType['marginT'] - $sheetType['marginB']) / (($blockSize * $tagHeight) + $sheetType['spacebetweenV'])) + 1;
-			
 			$binStr = $binCallNums[$j];
 			$tagBlockIndex = 0;
 			//fix tag spacing based on chosen label type and page-print them
@@ -96,7 +99,26 @@
 			$y = $yOffset;
 			$tagIndex = 0;
 			
-//			print_r("{ " . $j . " , " . $xOffset . " , " . $yOffset . " }");
+			
+			//figure out how many lines to print
+			//if it's too tall, say so
+			$callNumRows = explode(" ", $callNumPlanText);
+			if(($tagHeightMM + (sizeof($callNumRows) * 2)) > $sheetType['label height']){
+				$pdf->SetFont('Arial','B',6);
+				$divisor =.5 + ( 1 + floor($j / $numAcrossPage)  / 8);
+				$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
+					$y - $tagHeight);
+				$pdf->MultiCell($tagWidth, 2, ("ERROR! Tag: " . tag_to_lc($tagsParam[$j]) . " Too tall to print, try again") );
+				continue;
+			}
+			
+/*****
+   To whom this reaches,
+       Above is the painfuly-lazy way of handling overly-tall tags. Here's my idea for a better system: print as much as possible on a tag, remove the bottom border (blank border
+and black border, printing in this space as well) then print the rest on the next tag, closing the border at the bottom and printing the call number under. To apply; line-up the
+tags on the book. May be awkwardly long, results will vary.
+    -Andrew
+*****/
 			
 			for($i=0;$i<$tagHeight*$tagWidth;$i++){
 				//loop through, printing each block in the tag from bottom left to top right (including border)
@@ -127,12 +149,15 @@
 					$y--;
 				}
 			}
-			//print LC num below tag
-			$pdf->SetFont('Arial','B',6);
+			
+			//***print the call num below the tag***
+			//actually print the tag
+			$divisor =.5 + ( 1 + floor($j / $numAcrossPage) ) * .5;
 			$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
-					$y + ((floor($j / $numHighOnPage)+1) * 22));
-					//$y + ((floor($j / $numAcrossPage)+1) * 10));
-			$pdf->MultiCell($tagWidth, 2, tag_to_lc($tagsParam[$j]));
+					$y + ($tagHeight /  $divisor));
+			$pdf->MultiCell($tagWidthMilliMeter, 2, $callNumPlanText);
+			
+//			print_r("{ " . ($x - (($j % $numAcrossPage) * 4.5)) . " , " . ($y + ($tagHeight /  $divisor)) . " , " . $tagHeight . " , " . $divisor . " , " . $numAcrossPage . "} ");
 		}
 		
 		
