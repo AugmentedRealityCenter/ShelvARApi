@@ -36,6 +36,7 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreConnectException.php');
+include('../db_info.php');
 
 new AutoLoader();
 
@@ -51,7 +52,7 @@ class Configuration
 	 */
 	public static function getDataStore()
 	{
-		include('../db_info.php');
+		
 		static $DataStore;
 
 		if (!isset($DataStore)) {

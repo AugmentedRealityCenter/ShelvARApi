@@ -129,7 +129,7 @@ class OAuthConsumerModel extends ModelBase
 						 `consumer_secret` = ?,
 						 `consumer_create_date` = ?";
 		$db->params = array( $consumer_key, $consumer_secret, $consumer_create_date );
-		$db->type = 's,s,s';
+		$db->type = 'sss';
 					 
 		/**************************************************************************/
 		if ($db->insert()) {	// was $this->DataStore->query($sql)
