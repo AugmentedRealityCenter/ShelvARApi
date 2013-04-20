@@ -33,7 +33,10 @@
  * @author	Freek Lijten
  * @license BSD License
  */
- include "../../database.php"
+include($_SERVER['DOCUMENT_ROOT'] . '/database.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
+
+
 class OAuthRequestTokenModel extends ModelBase
 {
 

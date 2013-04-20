@@ -5,6 +5,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthConsumerModel.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/oauth/Configuration.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
 new AutoLoader();
 
