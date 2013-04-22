@@ -79,7 +79,7 @@
 		//for every number / tag to be created...
 		for($j=0;$j<sizeof($binCallNums);$j++){
 			//plain text of the call num to be printed
-			$callNumPlanText = tag_to_lc($tagsParam[$j]);
+			$callNumPlainText = tag_to_lc($tagsParam[$j]);
 			//tag height in blocks
 			$tagHeight = 25 + (9 * bindec(substr($tagLengths[$j], 2, 4))); //height in blocks from WS + 5 for border
 			//height of tag in millimeters
@@ -101,10 +101,9 @@
 			
 			//figure out how many lines to print
 			//if it's too tall, say so
-			$callNumRows = explode(" ", $callNumPlanText);
+			$callNumRows = explode(" ", $callNumPlainText);
 			if(($tagHeightMM + (sizeof($callNumRows) * 2)) > $sheetType['label height']){
 				$pdf->SetFont('Arial','B',6);
-				$divisor =.5 + ( 1 + floor($j / $numAcrossPage)  / 8);
 				$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
 					$y - $tagHeight);
 				$pdf->MultiCell($tagWidth, 2, ("ERROR! Tag: " . tag_to_lc($tagsParam[$j]) . " Too tall to print, try again") );
@@ -147,17 +146,46 @@ tags on the book. May be awkwardly long, results will vary.
 					$x = $xOffset;
 					$y--;
 				}
-			}
+			}	
+
+			//QA76.7777 .A32 .K32 2002
 			
 			//***print the call num below the tag***
+			//for each value in callNumRows (which contains every "word" of the call number)
+			for($i=0; $i < sizeof($callNumRows)-1; $i++){
+				//if it's too long, break at the period and add a space 
+				if($pdf->GetStringWidth($callNumRows[$i]) > $tagWidthMilliMeter){
+					//split into two strings
+					$temp = $callNumRows[$i];
+					$callNumRows[$i] = substr($callNumRows[$i], 0, strpos($callNumRows[$i], "."));
+					$temp = " " . substr($temp, strpos($temp, "."));
+					//insert the second string
+					array_splice($callNumRows, $i+1, 0, $temp);
+					//skip over the next one
+					$i++;
+					continue;
+				}
+				//if we can combine them, do so
+				if( ($pdf->GetStringWidth($callNumRows[$i]) + $pdf->GetStringWidth($callNumRows[$i+1]))
+						<= $tagWidthMilliMeter){
+					//combine them
+					$callNumRows[$i] .= " " . $callNumRows[$i+1];
+					//remove old
+					unset($callNumRows[$i+1]);
+					//skip over the next one
+					continue;
+				}
+			}
+			//since everything that can be combined is, implode the array separating by "/n"
+			$callNumPlainText = implode("\n", $callNumRows);
 			//actually print the tag
-			$divisor = .5 + ( 1 + floor($j / $numAcrossPage) ) * .5;
 			$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
-					$y + $tagHeightMM - (floor($j / $numAcrossPage) * 6.75)); //+ ($tagHeight /  $divisor));
-			$pdf->MultiCell($tagWidthMilliMeter, 2, $callNumPlanText);
-			
-//			print_r("{ " . ($x - (($j % $numAcrossPage) * 4.5)) . " , " . ($y + ($tagHeight /  $divisor)) . " , " . $tagHeight . " , " . $divisor . " , " . $numAcrossPage . "} ");
+					$y + $tagHeightMM - (floor($j / $numAcrossPage) * 6.75));
+			$pdf->MultiCell($tagWidthMilliMeter, 2, $callNumPlainText);
 		}
+		
+		//lastly, print the logo
+		make_logo();
 		
 		
 		/**
@@ -178,6 +206,42 @@ tags on the book. May be awkwardly long, results will vary.
 						$tempIndex = array_merge( $tempIndex, $add );
 					}
 					array_push($sheetValues, $tempIndex);
+				}
+			}
+		}
+		
+		/***
+		   * Make the ShelvAR logo
+		   *     31x12
+		***/
+		function make_logo(){
+			global $pdf;
+		
+			$logoArr = array(array(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),
+				array(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),
+				array(1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1),
+				array(1,0,1,0,0,0,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,0,0,1,1,0,0,0,1,0,1),
+				array(1,0,1,0,1,1,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1),
+				array(1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,0,1,1,0,1),
+				array(1,0,1,1,0,0,1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1),
+				array(1,0,1,1,1,0,1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1),
+				array(1,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,1,1,0,1,0,1,0,1,0,1,0,1),
+				array(1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1),
+				array(1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1),
+				array(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),
+				array(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+			);
+			
+			
+			for($i=0; $i <= 12; $i++){
+				for($j=0; $j <= 31; $j++){
+					if(1 == $logoArr[$i][$j]){
+						$pdf->Rect($j + 90,
+									$i + 280,
+									1,
+									1,
+									'F'); //  X, Y, W, H, Fill 
+					}
 				}
 			}
 		}
