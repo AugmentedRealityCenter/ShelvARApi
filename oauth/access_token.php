@@ -3,7 +3,7 @@
  * @Author	Freek Lijten
  */
 require_once('AutoLoader.php');
-include('OAuthProviderWrapper.php');
+include_once('OAuthProviderWrapper.php');
 new AutoLoader();
 
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_ACCESS);
