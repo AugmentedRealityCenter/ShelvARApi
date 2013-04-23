@@ -148,7 +148,8 @@ tags on the book. May be awkwardly long, results will vary.
 				}
 			}	
 
-			//QA76.7777 .A32 .K32 2002
+			//QA76.7777.A32 .K32 2002
+			//QA76.777.A32.C32 .B32 2002
 			
 			//***print the call num below the tag***
 			//for each value in callNumRows (which contains every "word" of the call number)
@@ -157,10 +158,20 @@ tags on the book. May be awkwardly long, results will vary.
 				if($pdf->GetStringWidth($callNumRows[$i]) > $tagWidthMilliMeter){
 					//split into two strings
 					$temp = $callNumRows[$i];
-					$callNumRows[$i] = substr($callNumRows[$i], 0, strpos($callNumRows[$i], "."));
-					$temp = " " . substr($temp, strpos($temp, "."));
+					unset($callNumRows[$i]);
+					$count = 0;
+//					print_r("{ start: " . $temp . " , ");
+					while($pdf->GetStringWidth(" " . $temp) > $tagWidthMilliMeter){
+						$add = substr($temp, 0, strpos($temp, ".", 1));
+						if($count > 0){ 
+							$add = " " . $add;
+						}
+						array_splice($callNumRows, $i+$count, 0, $add);
+						$temp = substr($temp, strpos($temp, ".", 1));
+						$count++;
+					}
 					//insert the second string
-					array_splice($callNumRows, $i+1, 0, $temp);
+					array_splice($callNumRows, $i+$count, 0, (" " . $temp));
 					//skip over the next one
 					$i++;
 					continue;
@@ -172,7 +183,7 @@ tags on the book. May be awkwardly long, results will vary.
 					$callNumRows[$i] .= " " . $callNumRows[$i+1];
 					//remove old
 					unset($callNumRows[$i+1]);
-					//skip over the next one
+					//skip to the next one
 					continue;
 				}
 			}
@@ -181,7 +192,7 @@ tags on the book. May be awkwardly long, results will vary.
 			//actually print the tag
 			$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
 					$y + $tagHeightMM - (floor($j / $numAcrossPage) * 6.75));
-			$pdf->MultiCell($tagWidthMilliMeter, 2, $callNumPlainText);
+			$pdf->MultiCell($tagWidthMilliMeter, 2, $callNumPlainText, 0, "L");
 		}
 		
 		//lastly, print the logo
