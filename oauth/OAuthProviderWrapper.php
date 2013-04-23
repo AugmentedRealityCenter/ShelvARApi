@@ -36,7 +36,7 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/Configuration.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthConsumerModel.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthProviderModel.php');
+//include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthProviderModel.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthNonceModel.php');
 
 class OAuthProviderWrapper

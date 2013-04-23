@@ -33,7 +33,7 @@
  * @author	Freek Lijten
  * @license BSD License
  */
-include_once($_SERVER['DOCUMENT_ROOT'] ."/database.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . "/database.php");
 include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
 
 
@@ -79,8 +79,7 @@ class OAuthNonceModel extends ModelBase
 		$db->type = 's';
 		$result = $db->fetch();
 		/********************************************************************/
-		 		
-			
+		 			
 		return mysql_num_rows($result) > 0;
 		//return $result->num_rows > 0;
 	}

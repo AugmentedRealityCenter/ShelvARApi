@@ -10,8 +10,6 @@ require_once __DIR__ . '/config.php';
 
 session_start();
 
-error_log("AHHHHHHH! " . $consumerKey);
-
 try {
 	error_log("Consumer Key before is: " . $consumerKey);
 	$OAuth              = new OAuth($consumerKey, $consumerSecret);
@@ -22,7 +20,7 @@ try {
 		'&scope=all'
 	);
 	
-	error_log("Post-get RequestToken ASFLDKJGNLDSFNSIDOGNSDIOGNSDONOSNFS");
+	error_log("Post-get RequestToken");
 	echo $tokenInfo;
 } catch (Exception $E) {
 	echo "error";
