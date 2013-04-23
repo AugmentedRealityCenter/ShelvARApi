@@ -3,9 +3,9 @@
  * @Author	Freek Lijten
  */
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthConsumerModel.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/Configuration.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthConsumerModel.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/Configuration.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
 new AutoLoader();
 

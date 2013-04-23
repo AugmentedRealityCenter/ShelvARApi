@@ -8,7 +8,7 @@
 	include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreUpdateException.php');
 	include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreDeleteException.php');
 	
-	require_once "/AutoLoader.php";
+	require_once $_SERVER['DOCUMENT_ROOT'] . "/oauth/AutoLoader.php";
 	new AutoLoader();
 	
 	try {
