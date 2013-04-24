@@ -33,8 +33,8 @@
  * @author	Freek Lijten
  * @license BSD License
  */
-include($_SERVER['DOCUMENT_ROOT'] . '/database.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/database.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
 
 
 class OAuthRequestTokenModel extends ModelBase
@@ -93,14 +93,14 @@ class OAuthRequestTokenModel extends ModelBase
 	 */
 	public static function loadFromToken($token, $DataStore)
 	{
-		/*
+		
 		$sql = "SELECT *
 				FROM `oauth_provider_request_token`
 				WHERE `request_token` = '" . $DataStore->real_escape_string($token) . "'";
 		$result = $DataStore->query($sql);		
-		*/
 		
-		/******************* Prepared Statement ******************************/
+		
+		/******************* Prepared Statement ******************************
 			
 			// need to include datastore?
 		$database = new database();
@@ -111,7 +111,7 @@ class OAuthRequestTokenModel extends ModelBase
 			$stmt->bind_param(1, $DataStore->real_escape_string($token));			
 			$result = $stmt->fetch();	// set query results to variable
 		}
-		/********************************************************************/
+		/***************************************************************/
 		
 		
 		if (!$result || $result->num_rows < 1) {

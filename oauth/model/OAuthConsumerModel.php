@@ -36,6 +36,7 @@
 
 include($_SERVER['DOCUMENT_ROOT'] . '/database.php');
 include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreReadException.php');
 
 class OAuthConsumerModel extends ModelBase
 {
