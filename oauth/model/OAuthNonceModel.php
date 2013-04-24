@@ -33,8 +33,8 @@
  * @author	Freek Lijten
  * @license BSD License
  */
-include "../../database.php";
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . "/database.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
 
 
 class OAuthNonceModel extends ModelBase
@@ -63,22 +63,25 @@ class OAuthNonceModel extends ModelBase
 	public static function nonceExists($nonce, $DataStore)
 	{
 	
-		/* Old Statement
+		/* Old Statement */
 		$sql = "SELECT 1
 				FROM `oauth_provider_nonce`
 				WHERE `nonce` = 'S" . $DataStore->real_escape_string($nonce) . "'";
 		$result = $DataStore->query($sql);
-		*/
+		
 				
-		$the_nonse = $DataStore->real_escape_string($nonce);
-		/******************* Prepared Statement ******************************/
+		
+		/******************* Prepared Statement ******************************
+		$the_nonce = $DataStore->real_escape_string($nonce);
 		$db = new database();
 		$db->query = "SELECT 1 FROM `oauth_provider_nonce` WHERE `nonce` = ?";
 		$db->params = array($the_nonce);
 		$db->type = 's';
+		$result = $db->fetch();
 		/********************************************************************/
-		$result = $db->fetch(); 				
-		return $result->num_rows > 0;
+		 			
+		return mysql_num_rows($result) > 0;
+		//return $result->num_rows > 0;
 	}
 
 	/**

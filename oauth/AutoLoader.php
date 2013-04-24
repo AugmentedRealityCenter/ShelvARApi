@@ -56,14 +56,14 @@ class AutoLoader
 	private function loadClass($className)
 	{
 		$index = array(
-			'Configuration'			=> 'lib/Configuration.php',
+			'Configuration'			=> '/Configuration.php',
 			'OAuthProviderWrapper'	=> 'OAuthProviderWrapper.php',
 		);
 
 		$classPath = '';
 
 		if (isset($index[$className])) {
-			$classPath = __DIR__ . '/../' . $index[$className];
+			$classPath = $_SERVER['DOCUMENT_ROOT'] . '/oauth/' . $index[$className];
 		}
 
 		if (file_exists($classPath)) {
@@ -79,7 +79,7 @@ class AutoLoader
 	 */
 	private function loadModelClass($className)
 	{
-		$filePath = __DIR__ . '/../model/' . $className . '.php';
+		$filePath = $_SERVER['DOCUMENT_ROOT'] . '/oauth/model/' . $className . '.php';
 
 		if (file_exists($filePath)) {
 			require_once $filePath;
@@ -104,7 +104,7 @@ class AutoLoader
 		$classPath = '';
 
 		if (isset($index[$className])) {
-			$classPath = __DIR__ . '/../exception/' . $index[$className];
+			$classPath = $_SERVER['DOCUMENT_ROOT']  . '/oauth/exceptions/' . $index[$className];
 		}
 
 		if (file_exists($classPath)) {

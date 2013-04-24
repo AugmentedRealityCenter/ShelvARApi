@@ -8,7 +8,7 @@
 	include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreUpdateException.php');
 	include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreDeleteException.php');
 	
-	require_once "/AutoLoader.php";
+	require_once $_SERVER['DOCUMENT_ROOT'] . "/oauth/AutoLoader.php";
 	new AutoLoader();
 	
 	try {
@@ -19,43 +19,41 @@
 		echo $Exception->getMessage();
 		exit;
 	}
-
-
+	$err = array();
 	if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
 		if(!$_POST['user_id']) {
-			echo 'No username supplied';
+			$err[] = 'No username supplied';	
 			exit;
-		}
+		}/*
 		if(!$_POST['password']) {
 			echo 'No password supplied';
 			exit;
-		}
+		}*/
 		if(!count($err)) {
 			$user_id = $_POST['user_id'];
 			$password = $_POST['password'];
 
-			// TODO Use prepared statements
-			//$query = "SELECT user_id,inst_id,password,salt FROM users WHERE user_id = '$user_id';";
-			//$result = mysql_query($query);
-			
 			/******************* Prepared Statement ******************************/
 			$db = new database();
-			$db->query = "SELECT user_id, inst_id, password, salt
+			$db->query = "SELECT user_id, inst_id, password, encrip_salt
 						  FROM 'users'
 						  WHERE 'user_id' = ?";
 			$db->params = array($user_id);
+			$db->type = 's';
 			/********************************************************************/
 		
 			$result = $db->fetch();
+			
+			echo $result;
 			
 			// If there is a username that matches
 			if(mysql_num_rows($result) > 0) {
 				$row = mysql_fetch_array($result, MYSQL_ASSOC);
 				
 				// Hash the password
-				$check_password = hash('sha256', $password . $row['salt']); 
+				$check_password = hash('sha256', $password . $row['encrip_salt']); 
 				for($i = 0; $i < 1000; $i++) { 
-					$check_password = hash('sha256', $check_password . $row['salt']); 
+					$check_password = hash('sha256', $check_password . $row['encrip_salt']); 
 				} 
 					
 				if($check_password != $row['password']) { 
