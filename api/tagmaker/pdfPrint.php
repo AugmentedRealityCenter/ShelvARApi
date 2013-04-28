@@ -108,6 +108,7 @@
 				QA7.76.A32C32 .A32 2002
 				QA7.76.A32C32 .A32 2002 c.2 2002 2002
 			*/
+			$tagWidthPadded = $tagWidthMilliMeter + 2;
 			//if it's too tall, say so
 			$callNumRows = explode(" ", $callNumPlainText);
 			//also parse call number for sizing
@@ -115,13 +116,13 @@
 			for($i=0; $i < sizeof($callNumRows); $i++){
 				//if it's too long, break at the period and add a space 
 //				print_r("{ start: " . $callNumRows[$i] . " }");
-				if($pdf->GetStringWidth($callNumRows[$i]) > $tagWidthMilliMeter){
+				if($pdf->GetStringWidth($callNumRows[$i]) > $tagWidthPadded){
 					//split into two strings
 					$temp = $callNumRows[$i];
 					unset($callNumRows[$i]);
 					$count = 0;
 //					print_r("{ 0: " . $temp . " }");
-					while($pdf->GetStringWidth("XX" . $temp) > $tagWidthMilliMeter){
+					while($pdf->GetStringWidth("XXX" . $temp) > $tagWidthPadded){
 						$add = "";
 //						print_r("{1:" . $temp . "}");
 						if(false === strpos($temp, ".", 1)){
@@ -154,7 +155,7 @@
 //						print_r("{4:" . $add . " , " . $temp . "}");
 						//if the $add chunk is still too large, widdle it down
 						$addTemp = '';
-						while($pdf->GetStringWidth("XX" . $add) > $tagWidthMilliMeter){
+						while($pdf->GetStringWidth("XXX" . $add) > $tagWidthPadded){
 							$addTemp = substr($add, strlen($add)-1) . $addTemp;
 							$add = substr($add, 0, strlen($add)-1);
 						}
@@ -169,21 +170,10 @@
 							array_splice($callNumRows, $i+$count, 0, $add);
 							$count++;
 						}
-//						print_r("|" . $temp . " , " . $pdf->GetStringWidth(" " . $temp) . " , " . $tagWidthMilliMeter . "|");
+//						print_r("|" . $temp . " , " . $pdf->GetStringWidth("XX" . $temp) . " , " . $tagWidthPadded . "|");
 					}
 					//insert the second string
 //					print_r("[" . $temp . "]");
-					if((strlen($temp) >= 5) && (false !== strpos($temp, ".", 1))){
-						//if there's still another '.' portion left, factor it
-						$add = substr($temp, 0, strpos($temp, ".", 1));
-						if($count > 0){ 
-							$add = " " . $add;
-						}
-						$temp = substr($temp, strpos($temp, ".", 1));
-//						print_r("{X1:" . $add . " , " . $temp . "}");
-						array_splice($callNumRows, $i+$count, 0, $add);
-						$count++;
-					}
 					array_splice($callNumRows, $i+$count, 0, (" " . $temp));
 					$count++;
 					//skip over the next one
@@ -191,7 +181,7 @@
 //					print_r("#1#");
 //					var_dump($callNumRows);
 					continue;
-				} else if($pdf->GetStringWidth("XX" . $callNumRows[$i]) > $tagWidthMilliMeter){
+				} else if($pdf->GetStringWidth("XXX" . $callNumRows[$i]) > $tagWidthPadded){
 					//split into two strings
 					$temp = $callNumRows[$i];
 					unset($callNumRows[$i]);
@@ -199,7 +189,7 @@
 					//   figure out how many chars 
 					//   should be moved to the next row
 					$add = "";
-					while($pdf->GetStringWidth("XX" . $temp) > $tagWidthMilliMeter){
+					while($pdf->GetStringWidth("XXX" . $temp) > $tagWidthPadded){
 						$add = substr($temp, strlen($temp)-1) . $add;
 						$temp = substr($temp, 0, strlen($temp)-1);
 //						print_r("{ " . $temp . " , " . $add . " }");
@@ -212,8 +202,8 @@
 					continue;
 				}
 				//if we can combine them, do so
-				if( ($pdf->GetStringWidth("XX" . $callNumRows[$i]) + $pdf->GetStringWidth($callNumRows[$i+1]))
-						<= $tagWidthMilliMeter){
+				if( ($pdf->GetStringWidth("XXX" . $callNumRows[$i]) + $pdf->GetStringWidth($callNumRows[$i+1]))
+						<= $tagWidthPadded){
 					//combine them
 					$callNumRows[$i] .= " " . $callNumRows[$i+1];
 					//remove old
@@ -226,10 +216,20 @@
 //				print_r("#4#");
 //				var_dump($callNumRows);
 			}
+			//one last sweep to combine if two parts are short enough
+			for($i=0; $i < sizeof($callNumRows)-1; $i++){
+				//if combineable, do so
+				if( ($pdf->GetStringWidth("XXX" . $callNumRows[$i]) + $pdf->GetStringWidth(( ltrim($callNumRows[$i+1]) ))) <= $tagWidthPadded){
+					//combine them
+					$callNumRows[$i] .= ltrim($callNumRows[$i+1]);
+					$callNumRows[$i+1] = "";
+					continue;
+				}
+			}
 			if(($tagHeightMM + (sizeof($callNumRows) * 2)) > $sheetType['label height']){
-				$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
+				$pdf->SetXY($x - (($j % $numAcrossPage + 0.5) * 4.5), 
 					$y - $tagHeight);
-				$pdf->MultiCell($tagWidthMilliMeter, 2, ("ERROR! Tag: " . tag_to_lc($tagsParam[$j]) . " Too tall to print, try again") );
+				$pdf->MultiCell($tagWidthPadded, 2, ("ERROR! Tag: " . tag_to_lc($tagsParam[$j]) . " Too tall to print, try again") );
 				continue;
 			}
 			
@@ -275,9 +275,9 @@ tags on the book. May be awkwardly long, results will vary.
 			//since everything that can be combined is, implode the array separating by "/n"
 			$callNumPlainText = implode("\n", $callNumRows);
 			//actually print the tag
-			$pdf->SetXY($x - (($j % $numAcrossPage) * 4.5), 
+			$pdf->SetXY($x - (($j % $numAcrossPage +0.5) * 4.5), 
 					$y + $tagHeightMM - (floor($j / $numAcrossPage) * 6.75));
-			$pdf->MultiCell($tagWidthMilliMeter, 2, $callNumPlainText, 0, "L");
+			$pdf->MultiCell($tagWidthPadded, 2, $callNumPlainText, 0, "L");
 		}
 		
 		//lastly, print the logo
