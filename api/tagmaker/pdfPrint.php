@@ -155,7 +155,7 @@
 //						print_r("{4:" . $add . " , " . $temp . "}");
 						//if the $add chunk is still too large, widdle it down
 						$addTemp = '';
-						while($pdf->GetStringWidth("XX" . $add) > $tagWidthPadded){
+						while($pdf->GetStringWidth("XXX" . $add) > $tagWidthPadded){
 							$addTemp = substr($add, strlen($add)-1) . $addTemp;
 							$add = substr($add, 0, strlen($add)-1);
 						}
@@ -192,7 +192,7 @@
 //					print_r("#1#");
 //					var_dump($callNumRows);
 					continue;
-				} else if($pdf->GetStringWidth("XX" . $callNumRows[$i]) > $tagWidthPadded){
+				} else if($pdf->GetStringWidth("XXX" . $callNumRows[$i]) > $tagWidthPadded){
 					//split into two strings
 					$temp = $callNumRows[$i];
 					unset($callNumRows[$i]);
@@ -200,7 +200,7 @@
 					//   figure out how many chars 
 					//   should be moved to the next row
 					$add = "";
-					while($pdf->GetStringWidth("XX" . $temp) > $tagWidthPadded){
+					while($pdf->GetStringWidth("XXX" . $temp) > $tagWidthPadded){
 						$add = substr($temp, strlen($temp)-1) . $add;
 						$temp = substr($temp, 0, strlen($temp)-1);
 //						print_r("{ " . $temp . " , " . $add . " }");
@@ -213,7 +213,7 @@
 					continue;
 				}
 				//if we can combine them, do so
-				if( ($pdf->GetStringWidth("XX" . $callNumRows[$i]) + $pdf->GetStringWidth($callNumRows[$i+1]))
+				if( ($pdf->GetStringWidth("XXX" . $callNumRows[$i]) + $pdf->GetStringWidth($callNumRows[$i+1]))
 						<= $tagWidthPadded){
 					//combine them
 					$callNumRows[$i] .= " " . $callNumRows[$i+1];
@@ -226,6 +226,16 @@
 				}
 //				print_r("#4#");
 //				var_dump($callNumRows);
+			}
+			//one last sweep to combine if two parts are short enough
+			for($i=0; $i < sizeof($callNumRows)-1; $i++){
+				//if combineable, do so
+				if( ($pdf->GetStringWidth("XXX" . $callNumRows[$i]) + $pdf->GetStringWidth(( ltrim($callNumRows[$i+1]) ))) <= $tagWidthPadded){
+					//combine them
+					$callNumRows[$i] .= ltrim($callNumRows[$i+1]);
+					$callNumRows[$i+1] = "";
+					continue;
+				}
 			}
 			if(($tagHeightMM + (sizeof($callNumRows) * 2)) > $sheetType['label height']){
 				$pdf->SetXY($x - (($j % $numAcrossPage + 0.5) * 4.5), 
