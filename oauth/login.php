@@ -36,27 +36,27 @@
 			/******************* Prepared Statement ******************************/
 			$db = new database();
 			$db->query = "SELECT user_id, inst_id, password, encrip_salt
-						  FROM 'users'
-						  WHERE 'user_id' = ?";
+						  FROM users
+						  WHERE user_id = ?";
 			$db->params = array($user_id);
 			$db->type = 's';
 			/********************************************************************/
 		
 			$result = $db->fetch();
 			
-			echo $result;
+			print_r($result);
 			
 			// If there is a username that matches
-			if(mysql_num_rows($result) > 0) {
-				$row = mysql_fetch_array($result, MYSQL_ASSOC);
-				
+			if(count($result) > 0) {
+				//$row = mysql_fetch_array($result, MYSQL_ASSOC);
+				$salt = $result[0]['encrip_salt'];
 				// Hash the password
-				$check_password = hash('sha256', $password . $row['encrip_salt']); 
+				$check_password = hash('sha256', trim($password) . $salt ); //$result['encrip_salt'] ); 
 				for($i = 0; $i < 1000; $i++) { 
-					$check_password = hash('sha256', $check_password . $row['encrip_salt']); 
+					$check_password = hash('sha256', $check_password . $salt);//$result['encrip_salt']); 
 				} 
-					
-				if($check_password != $row['password']) { 
+				echo 'CHECK PASS: ' . $check_password;	
+				if($check_password != $result[0]['password']) { 
 					 echo 'Incorrect password';
 					 exit;
 				} 
@@ -70,7 +70,7 @@
 		// get verification code
 		$verificationCode = OAuthProviderWrapper::generateToken();
 		$RequestToken->setTokenVerificationCode($verificationCode);
-		$RequestToken->setTokenUserId($row['user_id']);
+		$RequestToken->setTokenUserId($result[0]['user_id']);
 		
 		try {
 			$RequestToken->save();

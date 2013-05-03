@@ -6,12 +6,12 @@
  */
 
 
-require_once __DIR__ . '/config.php';
+include_once($_SERVER['DOCUMENT_ROOT']  . '/oauth_test/config.php');
 
 session_start();
 
 try {
-	error_log("Consumer Key before is: " . $consumerKey);
+	//error_log("Consumer Key before is: " . $consumerKey);
 	$OAuth              = new OAuth($consumerKey, $consumerSecret);
 	$tokenInfo          = $OAuth->getRequestToken(
 		$requestURL .
@@ -21,8 +21,8 @@ try {
 	);
 	
 	error_log("Post-get RequestToken");
-	echo $tokenInfo;
-} catch (Exception $E) {
+	print_r($tokenInfo);
+} catch (Exception $E) {	
 	echo "error";
 	echo '<pre>';
 	var_dump($E->getMessage());
