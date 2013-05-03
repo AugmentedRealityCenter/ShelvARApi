@@ -12,7 +12,7 @@ session_start();
 try {
 	$OAuth	= new OAuth($consumerKey, $consumerSecret);
 	$OAuth->setToken($token, $tokenSecret);
-	$result = $OAuth->fetch($apiURL, array(), OAUTH_HTTP_METHOD_POST);
+	$result = $OAuth->fetch($apiURL, array(), OAUTH_HTTP_METHOD_GET);
 
 	echo $OAuth->getLastResponse();
 } catch (Exception $E) {

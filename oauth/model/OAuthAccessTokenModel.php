@@ -34,7 +34,7 @@
  * @license BSD License
  */
  
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
 
 class OAuthAccessTokenModel extends ModelBase
 {
