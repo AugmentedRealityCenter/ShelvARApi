@@ -10,7 +10,7 @@
                 {
                     "httpMethod": "POST", 
                     "summary": "Insert book pings into database", 
-                    "notes": "Uploads book_pings to the database. Data should be a JSON array of entries. On call, returns a string, named result, with the value 'SUCCESS' on success and 'ERROR' otherwise. If the value is 'ERROR', information about the error follows.",
+                    "notes": "Uploads book_pings to the database. Data should be a JSON array of entries. On call, returns a string, named result, with the value 'SUCCESS' on success and 'ERROR' otherwise. If the value is 'ERROR', information about the error follows. Set user id and authentication token in user context.",
                     "responseClass": "string", 
                     "nickname": "book_pings", 
                     "parameters": [
@@ -33,7 +33,7 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Get recent book pings", 
-                    "notes": "Retrieves a list of the most recent book_pings, which it returns as a json array called book_pings. By default, returns the 20 most recent. Search can be limited using the optional parameters: Will return the 20 most recent pings that match all parameters. Also returns a string named result which will be 'SUCCESS' if everything worked. If not, it will be 'ERROR' followed by an explanatory message.", 
+                    "notes": "Retrieves a list of the most recent book_pings, which it returns as a json array called book_pings. By default, returns the 20 most recent. Search can be limited using the optional parameters: Will return the 20 most recent pings that match all parameters. Also returns a string named result which will be 'SUCCESS' if everything worked. If not, it will be 'ERROR' followed by an explanatory message. Set user id and authentication token in user context.", 
                     "responseClass": "void", 
                     "nickname": "book_pings", 
                     "parameters": [
@@ -94,7 +94,7 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Count the number of book pings in the database", 
-                    "notes": "Returns an integer, book_ping_count, representing the number of book_pings in the database. This count may be limited using the optional parameters. Note that this method does not return a result. If there is an error, it simply returns a book_ping_count of 0.",  
+                    "notes": "Returns an integer, book_ping_count, representing the number of book_pings in the database. This count may be limited using the optional parameters. Note that this method does not return a result. If there is an error, it simply returns a book_ping_count of 0. Set user id and authentication token in user context.",  
                     "responseClass": "string", 
                     "nickname": "count", 
                     "parameters": [
@@ -147,7 +147,7 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Retrieve a book ping", 
-                    "notes": "Returns the book ping with the database id that is entered, in a variable named book_ping. Also returns result, which contains SUCCESS if the call succeeded. If it failed, result will be ERROR, followed by an explanatory message.",
+                    "notes": "Returns the book ping with the database id that is entered, in a variable named book_ping. Also returns result, which contains SUCCESS if the call succeeded. If it failed, result will be ERROR, followed by an explanatory message. Set user id and authentication token in user context.",
                     "responseClass": "string", 
                     "nickname": "book_ping_by_id", 
                     "parameters": [
@@ -169,67 +169,5 @@
                 }
             ]
         }
-    ], 
-    "models": {
-        "Category": {
-            "id": "Category", 
-            "properties": {
-                "id": {
-                    "type": "long"
-                }, 
-                "name": {
-                    "type": "string"
-                }
-            }
-        }, 
-        "Pet": {
-            "id": "Pet", 
-            "properties": {
-                "tags": {
-                    "items": {
-                        "$ref": "Tag"
-                    }, 
-                    "type": "Array"
-                }, 
-                "id": {
-                    "type": "long"
-                }, 
-                "category": {
-                    "type": "Category"
-                }, 
-                "status": {
-                    "allowableValues": {
-                        "valueType": "LIST", 
-                        "values": [
-                            "available", 
-                            "pending", 
-                            "sold"
-                        ]
-                    }, 
-                    "description": "pet status in the store", 
-                    "type": "string"
-                }, 
-                "name": {
-                    "type": "string"
-                }, 
-                "photoUrls": {
-                    "items": {
-                        "type": "string"
-                    }, 
-                    "type": "Array"
-                }
-            }
-        }, 
-        "Tag": {
-            "id": "Tag", 
-            "properties": {
-                "id": {
-                    "type": "long"
-                }, 
-                "name": {
-                    "type": "string"
-                }
-            }
-        }
-    }
+    ] 
 }

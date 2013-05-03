@@ -1,0 +1,49 @@
+{
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "resourcePath": "/make_tags", 
+    "apis": [
+        {
+            "path": "/make_tags/{paper_type}.pdf", 
+            "description": "Print tags to PDF", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get a printable PDF of tags", 
+                    "notes": "Returns a printable PDF of tags.", 
+                    "responseClass": "void", 
+                    "nickname": "make_tags", 
+                    "parameters": [
+                        {
+                            "name": "paper_type", 
+                            "description": "A string specifying the paper type. Example: Avery-5160",
+                            "paramType": "path", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "tags", 
+                            "description": "List of tags to print. Example: [\"007vO2Yn0xGiT_i7CzD_VU00\", \"001TIi7n9JsKqM_XTwg00000\"]",
+                            "paramType": "query", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ID supplied"
+                        }, 
+                        {
+                            "code": 404, 
+                            "reason": "Data not found"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]    
+}

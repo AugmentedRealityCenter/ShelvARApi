@@ -1,6 +1,7 @@
 <?php
 include_once ("result.php");
 include_once ("conflict.php");
+include_once('../api_ref_call.php');
 /**
 * @file
 * \author Bo Brinkman

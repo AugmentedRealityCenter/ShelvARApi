@@ -1,6 +1,7 @@
 <?php
 include_once('../lc2bin/LC2B64.php');
 include_once("parseLibrary.php");
+//include_once('../api_ref_call.php');
 
 $call_number = url_decode($_GET["call_number"]);
 $call_number = substr($call_number, 0, strlen($call_number) - 5);

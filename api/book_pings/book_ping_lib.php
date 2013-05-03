@@ -42,6 +42,8 @@
  * @endcode
  * See http://json.org
  */
+ 
+  //include_once "../api_ref_call.php";
 
 function do_book_ping($jsoninput,$institution){
 	//TODO should also take $institution as input, and add that to the record in the database
@@ -119,12 +121,18 @@ function do_book_ping($jsoninput,$institution){
 		// No guarantee that
 		// they are the correct format, though.
 		/* Create a prepared statement */
-		if($stmt = $con -> prepare("INSERT INTO book_pings (book_tag, book_call, neighbor1_tag, neighbor1_call,
-		neighbor2_tag, neighbor2_call, ping_time, institution) VALUES (?,?,?,?,?,?,?,?)")) {
+		if($stmt = $con -> prepare("INSERT INTO book_pings (book_tag,".
+					   "book_call, neighbor1_tag,".
+					   "neighbor1_call,neighbor2_tag,".
+					   "neighbor2_call, ping_time,".
+					   "user_id,inst_id) VALUES".
+					   "(?,?,?,?,?,?,?,?,?)")) {
 
+		  $book_ping_entry["user_id"]="brinkmwj";
+		  $book_ping_entry["inst_id"]="miamioh";
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
-		$stmt -> bind_param("ssssssss",
+		$stmt -> bind_param("sssssssss",
 		$book_ping_entry["book_tag"],
 		$book_ping_entry["book_call"],
 		$book_ping_entry["neighbor1_tag"],
@@ -132,7 +140,8 @@ function do_book_ping($jsoninput,$institution){
 		$book_ping_entry["neighbor2_tag"],
 		$book_ping_entry["neighbor2_call"],
 		$book_ping_entry["ping_time"],
-		$institution);
+		$book_ping_entry["user_id"],
+				    $book_ping_entry["inst_id"]);
 
 		/* Execute it */
 		$stmt -> execute();

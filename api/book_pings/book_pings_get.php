@@ -1,6 +1,7 @@
 <?php
 include_once ("../../db_info.php");
 include_once "../../header_include.php";
+//include_once "../api_ref_call.php";
  
 $qArray = array();
 
@@ -38,7 +39,7 @@ $sql .= implode(" AND ", $qArray);
 $sql .= " ORDER BY id DESC";
 
 $lim = "20";
-if(is_int($_GET["num_limit"]) || ctype_digit($_GET["num_limit"])){
+if(isset($_GET["num_limit"]) && (is_int($_GET["num_limit"]) || ctype_digit($_GET["num_limit"]))){
   $lim = $_GET["num_limit"];
  }
 $sql .= " LIMIT 0,".$lim;
@@ -70,6 +71,7 @@ if (!$con){
       unset($row[6]);
       unset($row[7]);
       unset($row[8]);
+      unset($row[9]);
       $ret[] = $row;
     }
   

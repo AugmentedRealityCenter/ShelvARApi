@@ -4,41 +4,13 @@ Header set Access-Control-Allow-Origin *
 # licensing for ShelvAR. Each supported site needs
 # a rule that sets their institution code.
 
-#Allow cross-site scripting
-Header set Access-Control-Allow-Origin *
-
 RewriteEngine On
 
-RewriteRule ^$ http://api.shelvar.com/doc [R=301,L]
+RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 
-#First, delete any institution the user put in
-RewriteCond %{QUERY_STRING} ^(([^&]*&)*)institution=[^&]*((&[^&]*)*)$
-RewriteRule (.*) $1?%1%3
-
-#Miami University of Ohio
-RewriteCond %{REMOTE_ADDR} ^134\.53\.(.*)\.(.*)$ [OR]
-RewriteCond %{REMOTE_ADDR} ^172\.25\.5.\.(.*)$ [OR]
-RewriteCond %{REMOTE_ADDR} ^172\.25\.120.\.(.*)$ [OR]
-RewriteCond %{REMOTE_ADDR} ^172\.25\.27\.144$ [OR]
-RewriteCond %{REMOTE_ADDR} ^10\.(.*).\.(.*)\.(.*)$
-RewriteRule (.*) $1?institution=muohio [QSA]
-
-#TEST - Brinkman's house
-RewriteCond %{REMOTE_ADDR} ^74\.83\.72\.5.$ [OR]
-RewriteCond %{REMOTE_ADDR} ^74\.83\.118\.5.$ [OR]
-RewriteCond %{REMOTE_ADDR} ^74\.215\.173\.188$ [OR]
-RewriteCond %{REMOTE_ADDR} ^208\.102\.(.*)\.(.*)$ [OR]
-RewriteCond %{REMOTE_ADDR} ^74\.83\.66\.91$
-RewriteRule (.*) $1?institution=brinkman [QSA]
-
-#Eliot's Pad
-RewriteCond %{REMOTE_ADDR} ^24\.164\.78\.127$
-RewriteRule (.*) $1?institution=eliot [QSA]
-
-#If no institution, redirect to sorry page
-RewriteCond %{QUERY_STRING} !institution
-RewriteRule (.*) $1?institution=playground [QSA]
+RewriteRule ^oauth - [L]
+RewriteRule ^deploy - [L]
 
 ###########
 ### API ###
@@ -46,10 +18,13 @@ RewriteRule (.*) $1?institution=playground [QSA]
 
 #TODO: Update the regular expression to only accept valid base64 characters
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_tags/([^/]+)(?=.json) api/lc2bin/B642LC.php?B64=$1 [L,QSA]
+RewriteRule ^book_tags/([^/]+)(?=.json) api/lc2bin/book_tags.php?B64=$1 [L,QSA]
+
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
+RewriteRule ^lc_numbers/([^/]+)(?=.json) api/lc2bin/lc_numbers.php?call_number=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings/count api/book_pings/get_ping_count_book.php [L]
@@ -69,7 +44,11 @@ RewriteRule ^institutions api/institutions/register_institution.php [L]
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
 
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^make_tags/([^/]+)(?=.pdf) api/tagmaker/pdfPrint.php?type=$1 [L,QSA]
 
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^make_tags/csvFormats api/tagmaker/tagformats.csv [L]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!

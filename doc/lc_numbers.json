@@ -1,0 +1,40 @@
+{
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "resourcePath": "/lc_numbers", 
+    "apis": [
+        {
+            "path": "/lc_numbers/{call_number}.json", 
+            "description": "LC Number information", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get book_tag for a particular call_number", 
+                    "notes": "Returns three items: base 64 representation of the call_number in book_tag, the original call number in call_number, and result. result will be SUCCESS if everything worked. If not, it will be ERROR, followed by an explanatory message. The returned call_number is made by first converting to base-64, and then converting back, as a way of double-checking that the process worked.", 
+                    "responseClass": "string", 
+                    "nickname": "lc_numbers", 
+                    "parameters": [
+                        {
+                            "name": "call_number", 
+                            "description": "LC Call Number. Must be URL-encoded. Example: NX543%20.c38%202000", 
+                            "paramType": "path", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ID supplied"
+                        }, 
+                        {
+                            "code": 404, 
+                            "reason": "Data not found"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]    
+}

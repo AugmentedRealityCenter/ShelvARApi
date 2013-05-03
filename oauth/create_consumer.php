@@ -2,7 +2,11 @@
 /**
  * @Author	Freek Lijten
  */
-require_once(__DIR__ . '/../../lib/AutoLoader.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthConsumerModel.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/Configuration.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
+
 new AutoLoader();
 
 //create consumer model
