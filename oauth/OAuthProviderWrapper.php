@@ -36,7 +36,7 @@
 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/Configuration.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthConsumerModel.php');
-//include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthProviderModel.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthRequestTokenModel.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/OAuthNonceModel.php');
 
 class OAuthProviderWrapper
@@ -94,7 +94,7 @@ class OAuthProviderWrapper
 	 */
 	public static function generateToken()
 	{
-		$token = OAuthProvider::generateToken(40, true);
+		$token = OAuthProvider::generateToken(40); //, true
 		return sha1( $token );
 	}
 

@@ -3,7 +3,6 @@
  * @Author	Freek Lijten
  */
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
-include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 new AutoLoader();
 
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_REQUEST);
