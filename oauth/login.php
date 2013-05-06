@@ -35,7 +35,7 @@
 
 			/******************* Prepared Statement ******************************/
 			$db = new database();
-			$db->query = "SELECT user_id, inst_id, password, encrip_salt
+			$db->query = "SELECT user_id, inst_id, password, encrip_salt, user_num
 						  FROM users
 						  WHERE user_id = ?";
 			$db->params = array($user_id);
@@ -70,7 +70,7 @@
 		// get verification code
 		$verificationCode = OAuthProviderWrapper::generateToken();
 		$RequestToken->setTokenVerificationCode($verificationCode);
-		$RequestToken->setTokenUserId($result[0]['user_id']);
+		$RequestToken->setTokenUserId($result[0]['user_num']);
 		
 		try {
 			$RequestToken->save();
