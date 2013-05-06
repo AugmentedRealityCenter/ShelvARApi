@@ -70,7 +70,7 @@
 		// get verification code
 		$verificationCode = OAuthProviderWrapper::generateToken();
 		$RequestToken->setTokenVerificationCode($verificationCode);
-		$RequestToken->setTokenUserId($result[0]['user_id']." ".$result[0]['inst_id']);
+		$RequestToken->setTokenUserId($result[0]['user_id']);
 		
 		try {
 			$RequestToken->save();
