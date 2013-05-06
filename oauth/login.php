@@ -53,7 +53,7 @@
 				// Hash the password
 				$check_password = hash('sha256', trim($password) . $salt ); //$result['encrip_salt'] ); 
 				//for($i = 0; $i < 1000; $i++) { 
-					$check_password = hash('sha256', $check_password . $salt);//$result['encrip_salt']); 
+				//$check_password = hash('sha256', $check_password . $salt);//$result['encrip_salt']); 
 					//} 
 				echo 'CHECK PASS: ' . $check_password;	
 				if($check_password != $result[0]['password']) { 
