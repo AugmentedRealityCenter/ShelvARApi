@@ -39,9 +39,9 @@
 			// Hash the password with the salt
 			$password = hash('sha256', $password . $salt); 
 
-			for($i = 0; $i < 1000; $i++) { 
+			/*for($i = 0; $i < 1000; $i++) { 
 				$password = hash('sha256', $password . $salt); 
-			} 
+				}*/ 
 
 			// check if email matches admin email in institutions to give admin rights
 			$db = new database();
