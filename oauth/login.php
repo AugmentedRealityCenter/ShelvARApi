@@ -79,7 +79,7 @@
 			exit;
 		}
 
-	header( 'location: ' . $RequestToken->getTokenCallback() . '?oauth_token=' . $RequestToken->getToken() . '&oauth_verifier=' . $verificationCode );
+		header( 'location: ' . $RequestToken->getTokenCallback() . '?oauth_token=' . $RequestToken->getToken() . '&oauth_verifier=' . $verificationCode . '&user_id=' . $user_id . '&inst_id=' . $result[0]['inst_id'] );
 
 	} 
 	else if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
