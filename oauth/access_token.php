@@ -2,8 +2,8 @@
 /**
  * @Author	Freek Lijten
  */
-require_once('AutoLoader.php');
-include_once('OAuthProviderWrapper.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
+//include_once('OAuthProviderWrapper.php');
 new AutoLoader();
 
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_ACCESS);

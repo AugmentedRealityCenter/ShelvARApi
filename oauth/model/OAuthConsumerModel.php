@@ -34,9 +34,11 @@
  * @license BSD License
  */
 
-include($_SERVER['DOCUMENT_ROOT'] . '/database.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreReadException.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/database.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/model/ModelBase.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreReadException.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreCreateException.php');
+	
 
 class OAuthConsumerModel extends ModelBase
 {
@@ -112,8 +114,7 @@ class OAuthConsumerModel extends ModelBase
 	 */
 	protected function create()
 	{
-		include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreCreateException.php');
-		/*
+			/*
 		$sql = "INSERT INTO `oauth_provider_consumer`
 				SET `consumer_key` = '" . $this->DataStore->real_escape_string($this->consumerKey) . "',
 					`consumer_secret` = '" . $this->DataStore->real_escape_string($this->consumerSecret) . "',
