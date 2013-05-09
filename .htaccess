@@ -51,7 +51,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^make_tags/csvFormats api/tagmaker/tagformats.csv [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oautht/whoami api/oauth/whoami.php [L]
+RewriteRule ^oaut/whoami api/oauth/whoami.php [L]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
