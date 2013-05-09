@@ -50,6 +50,9 @@ RewriteRule ^make_tags/([^/]+)(?=.pdf) api/tagmaker/pdfPrint.php?type=$1 [L,QSA]
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^make_tags/csvFormats api/tagmaker/tagformats.csv [L]
 
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^oauth/whoami api/oauth/whoami.php [L]
+
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
 #If you don't use L, then we will get here.
