@@ -23,8 +23,8 @@ if(is_bool($response) && $response == true){
 
     if(count($the_rec) > 0){
       $oauth_user = $the_rec[0];
-      $user_id = $user['user_id'];
-      $inst_id = $user['inst_id'];
+      $user_id = $oauth_user['user_id'];
+      $inst_id = $oauth_user['inst_id'];
     } else {
       $arr = array('result' => "ERROR Sandbox user not found.");
       exit(json_encode($arr));
@@ -49,8 +49,8 @@ if(!isset($oauth_user)){
 
     if(count($the_rec) > 0){
       $oauth_user = $the_rec[0];
-      $user_id = $user['user_id'];
-      $inst_id = $user['inst_id'];
+      $user_id = $oauth_user['user_id'];
+      $inst_id = $pauth_user['inst_id'];
     } else {
       $arr = array('result' => "ERROR User not found.");
       exit(json_encode($arr));

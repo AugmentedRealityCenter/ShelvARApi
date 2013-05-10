@@ -55,6 +55,6 @@ while($row = mysql_fetch_array($result))
 	$count++;
 }
 
-print(json_encode(array('book_ping_count'=>$count)));
+print(json_encode(array('book_ping_count'=>$count,'result'=>"SUCCESS")));
 	
 ?>
