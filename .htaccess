@@ -19,9 +19,6 @@ RewriteRule ^deploy - [L]
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_tags/([^/]+)(?=.json) api/lc2bin/book_tags.php?B64=$1 [L,QSA]
 
-#RewriteCond %{THE_REQUEST} GET
-#RewriteRule ^call_numbers/([^/]+)(?=.json) api/lc2bin/call_numbers.php?call_number=$1 [L,QSA]
-
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^lc_numbers/([^/]+)(?=.json) api/lc2bin/lc_numbers.php?call_number=$1 [L,QSA]
 
@@ -63,6 +60,8 @@ RewriteRule ^oauth/login oauth/login.php [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^oauth/login oauth/login.php [L]
+
+RewriteRule ^oauth/register_user oauth/register_user.php [L]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
