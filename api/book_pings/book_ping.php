@@ -24,7 +24,11 @@ if($oauth_user['can_submit_data'] != 1){
 
 /** @cond */
 $ret; //!< return value from function call that does most of the work
-$ret = do_book_ping(stripslashes($_POST["book_pings"]),$inst_id,$user_id);
+$input="[]";
+if(isset($_POST["book_pings"])){
+  $input = stripslashes($_POST["book_pings"]);
+ }
+$ret = do_book_ping($input,$inst_id,$user_id);
 Print json_encode(array('result'=>$ret)); 
 //var_dump($_POST);
 //var_dump($_GET);

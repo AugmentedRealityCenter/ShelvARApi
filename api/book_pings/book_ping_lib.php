@@ -43,10 +43,8 @@
  * See http://json.org
  */
  
-  //include_once "../api_ref_call.php";
 
 function do_book_ping($jsoninput,$inst_id,$user_id){
-	//TODO should also take $institution as input, and add that to the record in the database
 	$decoded = json_decode($jsoninput,true);
 	$success = false; //Assume JSON decoding failed.
 
