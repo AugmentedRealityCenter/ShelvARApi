@@ -38,7 +38,7 @@ if(is_bool($response) && $response == true){
   exit(json_encode(array("result"=>"ERROR. OAuth token missing or invalid.")));
 }
 
-if(!isset($user)){
+if(!isset($oauth_user)){
   try {
     $user_num = $Provider->getUserId();
     $db = new database();
