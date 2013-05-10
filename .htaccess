@@ -62,6 +62,7 @@ RewriteCond %{THE_REQUEST} POST
 RewriteRule ^oauth/login oauth/login.php [L]
 
 RewriteRule ^oauth/register_user oauth/register_user.php [L]
+RewriteRule ^oauth_test/register oauth_test/register.html [L]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
