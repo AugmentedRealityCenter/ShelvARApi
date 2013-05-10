@@ -45,7 +45,7 @@
  
   //include_once "../api_ref_call.php";
 
-function do_book_ping($jsoninput,$institution){
+function do_book_ping($jsoninput,$institution,$user){
 	//TODO should also take $institution as input, and add that to the record in the database
 	$decoded = json_decode($jsoninput,true);
 	$success = false; //Assume JSON decoding failed.
@@ -128,8 +128,8 @@ function do_book_ping($jsoninput,$institution){
 					   "user_id,inst_id) VALUES".
 					   "(?,?,?,?,?,?,?,?,?)")) {
 
-		  $book_ping_entry["user_id"]="brinkmwj";
-		  $book_ping_entry["inst_id"]="miamioh";
+		  $book_ping_entry["user_id"]=$user;
+		  $book_ping_entry["inst_id"]=$institution;
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
 		$stmt -> bind_param("sssssssss",

@@ -21,6 +21,8 @@ try {
 
   if(count($the_rec) > 0){
     $user = $the_rec[0];
+    $user_id = $user['user_id'];
+    $inst_id = $user['inst_id'];
   } else {
     $arr = array('result' => "ERROR User not found.");
     exit(json_encode($arr));
