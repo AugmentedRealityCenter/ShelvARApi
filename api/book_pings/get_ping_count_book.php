@@ -30,8 +30,8 @@ if(isset($_GET["end_date"])){
     $qArray[] = "ping_time < '" . urldecode($_GET["end_date"]) . "'"; 
 	$cond = true;
 } 
-if(isset($_GET["institution"])){ 
-    $qArray[] = "institution = '" . urldecode($_GET["institution"]) . "'"; 
+if(isset($inst_id)){ 
+    $qArray[] = "institution = '" . urldecode($inst_id) . "'"; 
 	$cond = true;
 } 
 
