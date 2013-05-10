@@ -25,6 +25,7 @@ if(is_bool($response) && $response == true){
       $oauth_user = $the_rec[0];
       $user_id = $oauth_user['user_id'];
       $inst_id = $oauth_user['inst_id'];
+      http_response_code(200);
     } else {
       $arr = array('result' => "ERROR Sandbox user not found.");
       exit(json_encode($arr));
