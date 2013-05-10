@@ -25,8 +25,8 @@ if(is_bool($response) && $response == true){
       $user = $the_rec[0];
       $user_id = $user['user_id'];
       $inst_id = $user['inst_id'];
-    } else if{
-      $arr = array('result' => "ERROR User not found.");
+    } else {
+      $arr = array('result' => "ERROR Sandbox user not found.");
       exit(json_encode($arr));
     }
 
