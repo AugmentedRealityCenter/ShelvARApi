@@ -61,6 +61,9 @@ RewriteRule ^oauth/get_request_token oauth/request_token.php [L]
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^oauth/login oauth/login.php [L]
 
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^oauth/login oauth/login.php [L]
+
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
 #If you don't use L, then we will get here.
