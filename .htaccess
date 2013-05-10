@@ -67,4 +67,4 @@ RewriteRule ^oauth/login oauth/login.php [L]
 #Also, if you do any substitution, then it will get here
 # via a re-direct...
 RewriteCond %{ENV:REDIRECT_STATUS} !=200
-RewriteRule ^(.*) sorry-api.php?api_info=/api/$1 [NS,QSA]
+RewriteRule ^(.*) sorry-api.php?api_info=/$1 [NS,QSA]
