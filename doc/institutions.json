@@ -5,12 +5,12 @@
     "apis": [
 		{
             "path": "/institutions/",
-            "description": "List of book pings",
+            "description": "List of enrolled institutions",
             "operations": [
                 {
                     "httpMethod": "POST",
                     "summary": "Registers an institution with ShelvAR",
-                    "notes": "Registers an institution with ShelvAR.",
+                    "notes": "Registers an institution with ShelvAR. Does not require authentication.",
                     "responseClass": "string",
                     "nickname": "institutions",
                     "parameters": [
@@ -73,7 +73,7 @@
                 {
                     "httpMethod": "GET",
                     "summary": "Get information about all registered institutions",
-                    "notes": "Retrieve a list of all registered institutions with basic information about each one.",
+                    "notes": "Retrieve a list of all registered institutions with basic information about each one. Does not require authentication.",
                     "responseClass": "string",
                     "nickname": "institutions",
                     "parameters": [],
@@ -87,18 +87,49 @@
             ]
         },
 	{
-            "path": "/institutions/{institution_id}.json",
+            "path": "/institutions/{inst_id}",
             "description": "Institution Information",
             "operations": [
-                {
-                    "httpMethod": "GET",
-                    "summary": "Get information about an institution",
-                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR. Set user id and authentication token in user context.",
+		{
+                    "httpMethod": "POST",
+                    "summary": "Update information about an institution",
+                    "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
                     "nickname": "institution",
                     "parameters": [
                         {
-                            "name": "institution_id",
+                            "name": "inst_id",
+                            "description": "The shortname for your institution.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                },                
+		{
+                    "httpMethod": "GET",
+                    "summary": "Get all information about an institution",
+                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "responseClass": "string",
+                    "nickname": "institution",
+                    "parameters": [
+                        {
+                            "name": "inst_id",
                             "description": "The shortname for your institution.",
                             "paramType": "path",
                             "required": true,

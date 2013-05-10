@@ -10,7 +10,7 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Get a printable PDF of tags", 
-                    "notes": "Returns a printable PDF of tags.", 
+                    "notes": "Returns a printable PDF of tags. Does not require authentication.", 
                     "responseClass": "void", 
                     "nickname": "make_tags", 
                     "parameters": [
