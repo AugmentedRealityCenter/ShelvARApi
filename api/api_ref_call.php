@@ -5,7 +5,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
 new AutoLoader();
 
-unset($user);
+unset($oauth_user);
 
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
 $response 	= $Provider->checkOAuthRequest();
@@ -22,7 +22,7 @@ if(is_bool($response) && $response == true){
     $the_rec = $db->fetch();
 
     if(count($the_rec) > 0){
-      $user = $the_rec[0];
+      $oauth_user = $the_rec[0];
       $user_id = $user['user_id'];
       $inst_id = $user['inst_id'];
     } else {
@@ -48,7 +48,7 @@ if(!isset($user)){
     $the_rec = $db->fetch();
 
     if(count($the_rec) > 0){
-      $user = $the_rec[0];
+      $oauth_user = $the_rec[0];
       $user_id = $user['user_id'];
       $inst_id = $user['inst_id'];
     } else {

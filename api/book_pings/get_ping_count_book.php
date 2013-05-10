@@ -3,7 +3,7 @@ include_once ("../../db_info.php");
 include_once "../../header_include.php";
 
 include_once "../api_ref_call.php";
-if($user['can_read_data'] != 1){
+if($oauth_user['can_read_data'] != 1){
   exit(json_encode(array('result'=>'ERROR No permission to read data.')));
  }
  
@@ -41,12 +41,12 @@ if($cond)
 $sql .= implode(" AND ", $qArray); 
 
 	
-$con = mysql_connect($server,$user,$password);
+$con = mysql_connect($sql_server,$sql_user,$sql_password);
 
 if (!$con)
 	die('Could not connect: ' . mysql_error());
 	
-mysql_select_db($database, $con);
+mysql_select_db($sql_database, $con);
 
 $result = mysql_query($sql);
 $count = 0;

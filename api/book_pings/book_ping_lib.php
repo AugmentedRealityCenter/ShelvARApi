@@ -45,7 +45,7 @@
  
   //include_once "../api_ref_call.php";
 
-function do_book_ping($jsoninput,$institution,$user){
+function do_book_ping($jsoninput,$inst_id,$user_id){
 	//TODO should also take $institution as input, and add that to the record in the database
 	$decoded = json_decode($jsoninput,true);
 	$success = false; //Assume JSON decoding failed.
@@ -81,7 +81,7 @@ function do_book_ping($jsoninput,$institution,$user){
 
 	include_once "../../db_info.php";
 	/* Create a new mysqli object with database connection parameters */
-	$con = new mysqli($server, $user, $password, $database);
+	$con = new mysqli($sql_server, $sql_user, $sql_password, $sql_database);
 
 	if(mysqli_connect_errno()) {
 		echo "Connection Failed: " . mysqli_connect_errno();
@@ -128,8 +128,8 @@ function do_book_ping($jsoninput,$institution,$user){
 					   "user_id,inst_id) VALUES".
 					   "(?,?,?,?,?,?,?,?,?)")) {
 
-		  $book_ping_entry["user_id"]=$user;
-		  $book_ping_entry["inst_id"]=$institution;
+		  $book_ping_entry["user_id"]=$user_id;
+		  $book_ping_entry["inst_id"]=$inst_id;
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
 		$stmt -> bind_param("sssssssss",

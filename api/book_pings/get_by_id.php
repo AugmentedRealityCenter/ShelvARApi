@@ -11,9 +11,9 @@
 
 include "../../database.php";
 include_once "../../header_include.php";
-//include_once "../api_ref_call.php";
+
 include_once "../api_ref_call.php";
-if($user['can_read_data'] != 1){
+if($oauth_user['can_read_data'] != 1){
   exit(json_encode(array('result'=>'ERROR No permission to read data.')));
  }
 

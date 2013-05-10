@@ -34,7 +34,7 @@ class database {
 
         public function __construct() {
 			include ('db_info.php');
-            $this->mysqli = new mysqli($server, $user, $password, $database);
+            $this->mysqli = new mysqli($sql_server, $sql_user, $sql_password, $sql_database);
             $this->stmt = $this->mysqli->stmt_init();
         }
 
