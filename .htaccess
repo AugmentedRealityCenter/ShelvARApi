@@ -9,7 +9,6 @@ RewriteEngine On
 RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 
-RewriteRule ^oauth - [L]
 RewriteRule ^deploy - [L]
 
 ###########
@@ -51,7 +50,16 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^make_tags/csvFormats api/tagmaker/tagformats.csv [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oaut/whoami api/oauth/whoami.php [L]
+RewriteRule ^oauth/whoami api/oauth/whoami.php [L]
+
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^oauth/get_access_token oauth/access_token.php [L]
+
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^oauth/get_request_token oauth/request_token.php [L]
+
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^oauth/login oauth/login.php [L]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
