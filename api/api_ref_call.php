@@ -20,7 +20,7 @@ try {
   $the_rec = $db->fetch();
 
   if(count($the_rec) > 0){
-    $user = $the_rect[0];
+    $user = $the_rec[0];
   } else {
     $arr = array('result' => "ERROR User not found.");
     exit(json_encode($arr));
