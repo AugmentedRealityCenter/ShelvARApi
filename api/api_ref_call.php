@@ -51,7 +51,7 @@ if(!isset($user)){
       $user = $the_rec[0];
       $user_id = $user['user_id'];
       $inst_id = $user['inst_id'];
-    } else if{
+    } else {
       $arr = array('result' => "ERROR User not found.");
       exit(json_encode($arr));
     }
