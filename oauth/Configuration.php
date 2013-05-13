@@ -57,7 +57,7 @@ class Configuration
 		static $DataStore;
 
 		if (!isset($DataStore)) {
-			$DataStore = new mysqli($server, $user, $password, $database);			
+			$DataStore = new mysqli($sql_server, $sql_user, $sql_password, $sql_database);			
 		
 			if ($DataStore->connect_error) {
 				throw new DataStoreConnectException($DataStore->connect_error);
