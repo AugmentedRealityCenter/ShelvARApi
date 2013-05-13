@@ -18,4 +18,5 @@ try {
 } catch (ProviderException $Exception) {
 	echo $Exception->getMessage();
 }
-exit;
+//exit;
+?>
