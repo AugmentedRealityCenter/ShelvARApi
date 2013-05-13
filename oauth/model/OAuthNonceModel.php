@@ -79,8 +79,12 @@ class OAuthNonceModel extends ModelBase
 		$db->type = 's';
 		$result = $db->fetch();
 		/********************************************************************/
-		 			
+
+	  if(isset($result)){
 		return count($result) > 0;
+	  } else {
+	    return false;
+	  }
 		//return $result->num_rows > 0;
 	}
 
