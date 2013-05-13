@@ -12,7 +12,7 @@ $response 	= $Provider->checkOAuthRequest();
 
 if(is_bool($response) && $response == true){
   //Do nothing
- } else if(is_set($_SERVER['HTTP_REFERER']) && stripos($_SERVER['HTTP_REFERER'],"api.shelvar.com") !== false){
+ } else if(isset($_SERVER['HTTP_REFERER']) && stripos($_SERVER['HTTP_REFERER'],"api.shelvar.com") !== false){
   $user_id = "sandy";
   try {
     $db = new database();
