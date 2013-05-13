@@ -113,7 +113,7 @@ class OAuthProviderWrapper
 		$RequestToken->setTokenDate(time());
 		$RequestToken->setTokenConsumerKey($this->Provider->consumer_key);
 		$RequestToken->setTokenCallback($_GET['oauth_callback']);
-		$RequestToken->setTokenScope($_GET['scope']);
+		//$RequestToken->setTokenScope($_GET['scope']);
 
 		try {
 			$RequestToken->save();
