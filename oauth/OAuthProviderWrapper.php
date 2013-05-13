@@ -58,7 +58,7 @@ class OAuthProviderWrapper
 			$this->Provider->isRequestTokenEndpoint(true);
 			//enforce the presence of these parameters
 			$this->Provider->addRequiredParameter("oauth_callback");
-			//$this->Provider->addRequiredParameter("scope");
+			$this->Provider->addRequiredParameter("scope");
 
 		} else if ($mode == self::TOKEN_ACCESS) {
 
