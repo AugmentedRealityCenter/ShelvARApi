@@ -16,8 +16,8 @@ try {
 	$tokenInfo          = $OAuth->getRequestToken(
 		$requestURL .
 		'?oauth_callback=' .
-		$callbackURL .
-		'&scope=all'
+		$callbackURL// .
+		//		'&scope=all'
 	);
 	
 	error_log("Post-get RequestToken");
