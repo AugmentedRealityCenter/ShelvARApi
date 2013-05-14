@@ -112,10 +112,11 @@ class OAuthProviderWrapper
 		$RequestToken->setTokenSecret($tokenSecret);
 		$RequestToken->setTokenDate(time());
 		$RequestToken->setTokenConsumerKey($this->Provider->consumer_key);
+
+		$headers = apache_request_headers();
 		if(isset($_GET['oauth_callback'])){
 		  $RequestToken->setTokenCallback($_GET['oauth_callback']);
-		} else {
-		  $headers = apache_request_headers();
+		} else {	  
 		  if(isset($headers['Authorization'])){
 		    $pieces = explode(" ",$headers['Authorization']);
 		    foreach ($pieces as $piece){
@@ -129,7 +130,24 @@ class OAuthProviderWrapper
 		    exit;
 		  }
 		}
-		//$RequestToken->setTokenScope($_GET['scope']);
+
+		if(isset($_GET['scope'])){
+		  $RequestToken->setTokenScope($_GET['scope']);
+		} else {
+		  if(isset($headers['Authorization'])){
+		    $pieces = explode(" ",$headers['Authorization']);
+		    foreach ($pieces as $piece){
+		      if(stripos($piece,"scope") !== false){
+			$breakapart = explode("\"",$piece);
+			$RequestToken->setTokenScope(urldecode($breakapart[1]));
+		      }
+		    }
+		  } else {
+		    //If no scope supplied, just check that the app is
+		    // authorized
+		    $RequestToken->setTokenScope("shelfread");
+		  }
+		}
 
 		try {
 			$RequestToken->save();
