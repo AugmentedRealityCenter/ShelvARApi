@@ -42,6 +42,8 @@ if(is_bool($response) && $response == true){
 if(!isset($oauth_user)){
   try {
     $user_num = $Provider->getUserId();
+    $exp_date = $Provider->getAccessTokenDate();
+
     $db = new database();
     $db->query = "SELECT * FROM users WHERE user_num = ?";
     $db->params = array($user_num);

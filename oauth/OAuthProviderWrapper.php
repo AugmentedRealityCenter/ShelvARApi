@@ -233,6 +233,23 @@ class OAuthProviderWrapper
 	}
 
 	/**
+	 * Returns the expiration date for the current access token
+	 *
+	 * @throws ProviderException
+	 * @return int
+	 */
+	public function getAccessTokenDate()
+	{
+		try {
+			$AccessToken = OAuthAccessTokenModel::loadFromToken($this->Provider->token, Configuration::getDataStore());
+		} catch (DataStoreReadException $Exception) {
+			throw new ProviderException("Couldn't find a user id corresponding with current token information");
+		}
+		return $AccessToken->getAccessTokenDate();
+	}
+
+
+	/**
 	 * Checks if the nonce is valid and, if so, stores it in the DataStore.
 	 * Used as a callback function
 	 *
