@@ -172,7 +172,7 @@ class OAuthProviderWrapper
 
 		$db = new database();
 		$db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
-		$inst_id = $RequestToknen->getTokenUserId();
+		$inst_id = $RequestToken->getTokenUserId();
 		$db->params = array($inst_id);
 		$db->type = 's';
 		$res2 = $db->fetch();
