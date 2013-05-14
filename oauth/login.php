@@ -42,8 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
 		
     $result = $db->fetch();
 			
-    print_r($result);
-			
     // If there is a username that matches
     if(count($result) > 0) {
       $salt = $result[0]['encrip_salt'];
