@@ -171,11 +171,22 @@ class OAuthProviderWrapper
 		$AccessToken->setAccessTokenSecret($tokenSecret);
 
 		$db = new database();
-		$db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
-		$inst_id = $RequestToken->getTokenUserId();
-		$db->params = array($inst_id);
+		$db->query = "SELECT inst_id FROM users WHERE user_num = ?";
+		$user_num = $RequestToken->getTokenUserId();
+		$db->params = array($user_num);
 		$db->type = 's';
-		$res2 = $db->fetch();
+		$result = $db->fetch();
+
+		$res2 = array();
+
+		if(count($result) > 0){
+		  $db = new database();
+		  $db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
+		  $inst_id = $result[0]['inst_id'];
+		  $db->params = array($inst_id);
+		  $db->type = 's';
+		  $res2 = $db->fetch();
+		}
 
 		$date = time();
 		if(count($res2) > 0){
