@@ -4,25 +4,9 @@ if(!isset($_GET['oauth_token'])) {
   exit;
  }
 	
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreReadException.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreUpdateException.php');
-include($_SERVER['DOCUMENT_ROOT'] . '/oauth/exceptions/datastore/DataStoreDeleteException.php');
-	
-require_once $_SERVER['DOCUMENT_ROOT'] . "/oauth/AutoLoader.php";
-new AutoLoader();
-	
-try {
-  // load REQUEST TOKEN from datastore
-  $RequestToken = OAuthRequestTokenModel::loadFromToken($_GET['oauth_token'], 
-		  Configuration::getDataStore());
-} catch (DataStoreReadException $Exception) {
-  echo $Exception->getMessage();
-  exit;
-}
-
 $err = array();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
   if(!$_POST['user_id']) {
     $err[] = 'No username supplied';	
     exit;
@@ -58,50 +42,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
       exit;
     }
   }
-		
-  // get verification code
-  $verificationCode = OAuthProviderWrapper::generateToken();
-  $RequestToken->setTokenVerificationCode($verificationCode);
-  $RequestToken->setTokenUserId($result[0]['user_num']);
-		
-  try {
-    $RequestToken->save();
-  } catch (DataStoreUpdateException $Exception) {
-    echo $Exception->getMessage();
-    exit;
-  }
 
-  $verification_url = $RequestToken->getTokenCallback() . '?oauth_token='
-	  . $RequestToken->getToken() . '&oauth_verifier=' . 
-    $verificationCode;
+  session_start();
+  $_SESSION['user_num'] = $result[0]['user_num'];
 
-  /*header( 'location: ' . $RequestToken->getTokenCallback() . '?oauth_token='
-	  . $RequestToken->getToken() . '&oauth_verifier=' . 
-	  $verificationCode);*/
-  //Header MUST be the first thing to get done ... may be why it isn't working
-  // on Android Chrome?
-  echo("<html><head><meta http-equiv=\"refresh\" content=\"0;$verification_url\"></head></html>");
+  echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
   exit(200);
  } 
- else if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['deny'])) {
-   // User has denied access
-   try {
-     $RequestToken->delete();
-   } catch (DataStoreDeleteException $Exception) {
-     echo $Exception->getMessage();
-     exit;
-   }
- }
 
 echo("<html><body>"
      ."<img src=\"../ShelvARLogo_Big.png\" /><br/>"
-     ."This app is requesting access to your ShelvAR account."
+     ."Please log in your ShelvAR account."
      ."<form method='POST' action='?oauth_token=" .  
-     $RequestToken->getToken(). "'>" .
+     $_GET['oauth_token'] . "'>" .
        "Username <input name='user_id' type='input'><br />
         Password <input name='password' type='password'><br />
-	<input name='allow' type='submit' value='Allow'>
-	<input name='deny' type='submit' value='Deny'>
+	<input name='login' type='submit' value='Log in'>
       </form></body></html>");
 
 ?>
