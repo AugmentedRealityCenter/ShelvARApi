@@ -169,7 +169,10 @@ class OAuthProviderWrapper
 
 		$AccessToken->setAccessToken($token);
 		$AccessToken->setAccessTokenSecret($tokenSecret);
-		$AccessToken->setAccessTokenDate(time());
+
+		session_start();
+		$AccessToken->setAccessTokenDate($_SESSION['exp_date']);
+
 		$AccessToken->setAccessTokenConsumerKey($this->Provider->consumer_key);
 		$AccessToken->setAccessTokenUserId($RequestToken->getTokenUserId());
 		$AccessToken->setAccessTokenScope($RequestToken->getTokenScope());
