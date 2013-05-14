@@ -50,6 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
    // User has denied access
    try {
      $RequestToken->delete();
+     echo("<html><head><meta http-equiv=\"refresh\" content=\"0;$verification_url\"></head></html>");
+     exit(200);
    } catch (DataStoreDeleteException $Exception) {
      echo $Exception->getMessage();
      exit;
