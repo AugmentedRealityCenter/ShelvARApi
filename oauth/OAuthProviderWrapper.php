@@ -142,11 +142,7 @@ class OAuthProviderWrapper
 			$RequestToken->setTokenScope(urldecode($breakapart[1]));
 		      }
 		    }
-		  } else {
-		    //If no scope supplied, just check that the app is
-		    // authorized
-		    $RequestToken->setTokenScope("shelfread");
-		  }
+		  } 
 		}
 
 		try {
