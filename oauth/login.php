@@ -97,4 +97,9 @@ echo("<form method='POST' action='?oauth_token=" .
 	<input name='allow' type='submit' value='Allow'>
 	<input name='deny' type='submit' value='Deny'>
       </form>");
+
+echo("<br/><br/>");
+var_dump($_GET);
+echo("<br/><br/>");
+var_dump($_POST);
 ?>
