@@ -124,10 +124,10 @@ class OAuthProviderWrapper
 			$RequestToken->setTokenCallback($breakapart[1]);
 		      }
 		    }
+		  } else {
+		    echo "error: No callback supplied";
+		    exit;
 		  }
-		} else {
-		  echo "error: No callback supplied";
-		  exit;
 		}
 		//$RequestToken->setTokenScope($_GET['scope']);
 
