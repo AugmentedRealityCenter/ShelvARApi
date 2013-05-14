@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
  }
 
 echo("<html><body>"
-     ."<img src=\"ShelvARLogo_Big.png\" /><br/>"
+     ."<img src=\"../ShelvARLogo_Big.png\" /><br/>"
      ."This app is requesting access to your ShelvAR account."
      ."<form method='POST' action='?oauth_token=" .  
      $RequestToken->getToken(). "'>" .
