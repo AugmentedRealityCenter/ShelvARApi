@@ -2,8 +2,6 @@
 /**
  * @Author	Freek Lijten
  */
-		  error_log("rt Get: " . print_r($_GET,true));
-		  error_log("rt Post: " . print_r($_POST,true));
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 new AutoLoader();

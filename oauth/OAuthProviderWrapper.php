@@ -121,7 +121,7 @@ class OAuthProviderWrapper
 		    foreach ($pieces as $piece){
 		      if(stripos($piece,"oauth_callback") !== false){
 			$breakapart = explode("\"",$piece);
-			$RequestToken->setTokenCallback($breakapart[1]);
+			$RequestToken->setTokenCallback(urldecode($breakapart[1]));
 		      }
 		    }
 		  } else {
