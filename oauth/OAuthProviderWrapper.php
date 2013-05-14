@@ -378,6 +378,10 @@ class OAuthProviderWrapper
 			return OAUTH_TOKEN_REJECTED;
 		}
 
+		if(time()->getTimestamp > $AccessToken->getAccessTokenDate()){
+		  return OAUTH_TOKEN_REJECTED;
+		}
+
 		$Provider->token_secret = $AccessToken->getAccessTokenSecret();
 		return OAUTH_OK;
 	}
