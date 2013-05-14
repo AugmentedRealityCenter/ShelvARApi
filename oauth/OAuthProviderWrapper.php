@@ -378,7 +378,7 @@ class OAuthProviderWrapper
 			return OAUTH_TOKEN_REJECTED;
 		}
 
-		if(time()->getTimestamp > $AccessToken->getAccessTokenDate()){
+		if(time()->getTimestamp() > $AccessToken->getAccessTokenDate()){
 		  return OAUTH_TOKEN_REJECTED;
 		}
 
