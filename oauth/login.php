@@ -93,5 +93,5 @@ echo("<form method='POST' action='?oauth_token=" .
         Password <input name='password' type='password'><br />
 	<input name='allow' type='submit' value='Allow'>
 	<input name='deny' type='submit' value='Deny'>
-      </form>";
+      </form>");
 ?>
