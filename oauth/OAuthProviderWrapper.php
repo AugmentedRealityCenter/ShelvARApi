@@ -117,8 +117,17 @@ class OAuthProviderWrapper
 		} else {
 		  $headers = apache_request_headers();
 		  if(isset($headers['Authorization'])){
-		    error_log("Auth: " . print_r($headers['Authorization'],true));
+		    $pieces = explode(" ",$headers['Authorization']);
+		    foreach ($pieces as $piece){
+		      if(stripos($piece,"oauth_callback") !== false){
+			$breakapart = explode("\"",$piece);
+			$RequestToken->setTokenCallback($breakapart[1]);
+		      }
+		    }
 		  }
+		} else {
+		  echo "error: No callback supplied";
+		  exit;
 		}
 		//$RequestToken->setTokenScope($_GET['scope']);
 
