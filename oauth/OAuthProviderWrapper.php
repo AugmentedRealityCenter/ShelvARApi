@@ -115,8 +115,10 @@ class OAuthProviderWrapper
 		if(isset($_GET['oauth_callback'])){
 		  $RequestToken->setTokenCallback($_GET['oauth_callback']);
 		} else {
-		  error_log("Get: " . print_r($_GET,true));
-		  error_log("Post: " . print_r($_POST,true));
+		  $headers = apache_request_headers();
+		  if(isset($headers['Authorization'])){
+		    error_log("Auth: " . print_r($headers['Authorization'],true));
+		  }
 		}
 		//$RequestToken->setTokenScope($_GET['scope']);
 
