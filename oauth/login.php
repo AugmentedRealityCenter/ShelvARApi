@@ -76,6 +76,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
   header( 'location: ' . $RequestToken->getTokenCallback() . '?oauth_token='
 	  . $RequestToken->getToken() . '&oauth_verifier=' . 
 	  $verificationCode);
+  //Header MUST be the first thing to get done ... may be why it isn't working
+  // on Android Chrome?
+  exit;
  } 
  else if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['deny'])) {
    // User has denied access
