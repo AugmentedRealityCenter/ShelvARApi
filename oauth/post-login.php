@@ -62,9 +62,7 @@ echo("<html><body>"
      ."It will be allowed to <b>" . $RequestToken->getTokenScope() . "</b> on your behalf.<br/>"
      ."<form method='POST' action='?oauth_token=" .  
      $RequestToken->getToken(). "'>" .
-       "Username <input name='user_id' type='input'><br />
-        Password <input name='password' type='password'><br />
-	<input name='allow' type='submit' value='Allow'>
+	"<input name='allow' type='submit' value='Allow'>
 	<input name='deny' type='submit' value='Deny'>
       </form></body></html>");
 
