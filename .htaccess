@@ -10,7 +10,7 @@ RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 
 RewriteRule ^deploy - [L]
-
+RewriteRule ^ShelvARLogo_Big.png - [L]
 ###########
 ### API ###
 ###########
