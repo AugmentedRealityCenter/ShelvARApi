@@ -193,7 +193,7 @@ class OAuthProviderWrapper
 		  $date = new DateTime($res2[0]['exp_date'], new DateTimeZone("UTC"));
 		}
 
-		$AccessToken->setAccessTokenDate("" . $date);
+		$AccessToken->setAccessTokenDate("" . $date->getTimestamp());
 
 		$AccessToken->setAccessTokenConsumerKey($this->Provider->consumer_key);
 		$AccessToken->setAccessTokenUserId($RequestToken->getTokenUserId());
