@@ -112,7 +112,9 @@ class OAuthProviderWrapper
 		$RequestToken->setTokenSecret($tokenSecret);
 		$RequestToken->setTokenDate(time());
 		$RequestToken->setTokenConsumerKey($this->Provider->consumer_key);
-		$RequestToken->setTokenCallback($_GET['oauth_callback']);
+		if(isset($_GET['oauth_callback'])){
+		  $RequestToken->setTokenCallback($_GET['oauth_callback']);
+		}
 		//$RequestToken->setTokenScope($_GET['scope']);
 
 		try {
@@ -121,7 +123,11 @@ class OAuthProviderWrapper
 			throw new ProviderException($Exception->getMessage());
 		}
 
-		echo "oauth_token=$token&oauth_token_secret=$tokenSecret&oauth_callback_confirmed=true";
+		if(is_null($RequestToken->getTokenCallback())){
+		  echo "oauth_token=$token&oauth_token_secret=$tokenSecret&oauth_callback_confirmed=false";
+		} else {
+		  echo "oauth_token=$token&oauth_token_secret=$tokenSecret&oauth_callback_confirmed=true";
+		}
 	}
 
 	/**
