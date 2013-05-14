@@ -15,6 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
     $user_id = $_POST['user_id'];
     $password = $_POST['password'];
 
+    include_once("../db_info.php");
+    include_once("../database.php");
+
     /******************* Prepared Statement ******************************/
     $db = new database();
     $db->query = "SELECT user_id, inst_id, password, encrip_salt, user_num
