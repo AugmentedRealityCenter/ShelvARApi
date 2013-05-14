@@ -73,11 +73,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
     exit;
   }
 
-  header( 'location: ' . $RequestToken->getTokenCallback() . '?oauth_token='
+  $verification_url = $RequestToken->getTokenCallback() . '?oauth_token='
 	  . $RequestToken->getToken() . '&oauth_verifier=' . 
-	  $verificationCode);
+    $verificationCode;
+
+  /*header( 'location: ' . $RequestToken->getTokenCallback() . '?oauth_token='
+	  . $RequestToken->getToken() . '&oauth_verifier=' . 
+	  $verificationCode);*/
   //Header MUST be the first thing to get done ... may be why it isn't working
   // on Android Chrome?
+  echo("<html><head><meta http-equiv=\"refresh\" content=\"0;$verification_url\"></head></html>");
   exit(200);
  } 
  else if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['deny'])) {
