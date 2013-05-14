@@ -45,28 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
       exit;
     }
 
-    $db = new database();
-    $db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
-    $inst_id = $result[0]['inst_id'];
-    $db->params = array($inst_id);
-    $db->type = 's';
-    $res2 = $db->fetch();
-
-    session_start();
-    $_SESSION['user_num'] = $result[0]['user_num'];
-    if(count($res2) > 0){
-      $date = new DateTime($res2[0]['exp_date'], new DateTimeZone("UTC"));
-      $_SESSION['exp_date'] = $date->getTimestamp();
-    } else {
-      $_SESSION['exp_date'] = time();
-    }
-
-  
-    echo("<pre>");
-    var_dump($_SESSION);
-    echo("</pre>");
-
-    //echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
+    echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
     exit(200);
   }
  }

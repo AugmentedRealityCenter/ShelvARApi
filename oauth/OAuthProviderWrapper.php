@@ -170,8 +170,19 @@ class OAuthProviderWrapper
 		$AccessToken->setAccessToken($token);
 		$AccessToken->setAccessTokenSecret($tokenSecret);
 
-		session_start();
-		$AccessToken->setAccessTokenDate($_SESSION['exp_date']);
+		$db = new database();
+		$db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
+		$inst_id = $RequestToknen->getTokenUserId();
+		$db->params = array($inst_id);
+		$db->type = 's';
+		$res2 = $db->fetch();
+
+		$date = time(0;
+		if(count($res2) > 0){
+		  $date = new DateTime($res2[0]['exp_date'], new DateTimeZone("UTC"));
+		}
+
+		$AccessToken->setAccessTokenDate($date);
 
 		$AccessToken->setAccessTokenConsumerKey($this->Provider->consumer_key);
 		$AccessToken->setAccessTokenUserId($RequestToken->getTokenUserId());
