@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
 
 echo("<form method='POST' action='?oauth_token=" .  
      $RequestToken->getToken(). "'>" .
-     . "Username <input name='user_id' type='input'><br />
+       "Username <input name='user_id' type='input'><br />
         Password <input name='password' type='password'><br />
 	<input name='allow' type='submit' value='Allow'>
 	<input name='deny' type='submit' value='Deny'>
