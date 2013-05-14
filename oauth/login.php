@@ -51,10 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
     $db->params = array($inst_id);
     $db->type = 's';
     $res2 = $db->fetch();
-  
-    echo("<pre>");
-    var_dump($res2);
-    echo("</pre>");
 
     session_start();
     $_SESSION['user_num'] = $result[0]['user_num'];
@@ -64,6 +60,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
     } else {
       $_SESSION['exp_date'] = time();
     }
+
+  
+    echo("<pre>");
+    var_dump($_SESSION);
+    echo("</pre>");
 
     //echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
     exit(200);
