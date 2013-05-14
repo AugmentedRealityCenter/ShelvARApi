@@ -177,7 +177,7 @@ class OAuthProviderWrapper
 		$db->type = 's';
 		$res2 = $db->fetch();
 
-		$date = time(0;
+		$date = time();
 		if(count($res2) > 0){
 		  $date = new DateTime($res2[0]['exp_date'], new DateTimeZone("UTC"));
 		}
