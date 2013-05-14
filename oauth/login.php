@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
     session_start();
     $_SESSION['user_num'] = $result[0]['user_num'];
     if(count($res2) > 0){
-      $date = new DateTime($res2[0]['exp_date']);
+      $date = new DateTime($res2[0]['exp_date'], new DateTimeZone("UTC"));
       $_SESSION['exp_date'] = $date->getTimestamp();
     } else {
       $_SESSION['exp_date'] = time();
