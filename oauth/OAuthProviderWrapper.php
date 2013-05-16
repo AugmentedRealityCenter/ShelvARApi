@@ -355,8 +355,22 @@ class OAuthProviderWrapper
 			return OAUTH_TOKEN_REJECTED;
 		}
 
+		$input_verifier;
+		if(isset($_GET['oauth_verifier'])){
+		  $input_verifier = $_GET['oauth_verifier'];
+		}
+		if(isset($headers['Authorization'])){
+		  $pieces = explode(" ",$headers['Authorization']);
+		  foreach ($pieces as $piece){
+		    if(stripos($piece,"oauth_verifier") !== false){
+		      $breakapart = explode("\"",$piece);
+		      $input_verifier = $breakapart[1];
+		    }
+		  }
+		}
+
 		//Check if the verification code is correct.
-		if ($_GET['oauth_verifier'] != $RequestToken->getTokenVerificationCode()) {
+		if ($input_verifier != $RequestToken->getTokenVerificationCode()) {
 			return OAUTH_VERIFIER_INVALID;
 		}
 
