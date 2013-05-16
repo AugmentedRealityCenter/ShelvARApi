@@ -64,4 +64,18 @@ if(!isset($oauth_user)){
   }
  }
 
+if(isset($oauth_user)){
+  $db = new database();
+  $db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
+  $inst_id = $oauth_user['inst_id'];
+  $db->params = array($inst_id);
+  $db->type = 's';
+  $ret = $db->fetch();
+  $oauth_user['exp_date'] = "0";
+  if(count($ret)>0){
+    $date = new DateTime($ret[0]['exp_date'], new DateTimeZone("UTC"));
+    $oauth_user['exp_date'] = "" . $date->getTimestamp();
+  }
+ }
+    
 ?>
