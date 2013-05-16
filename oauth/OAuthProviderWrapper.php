@@ -355,7 +355,11 @@ class OAuthProviderWrapper
 			return OAUTH_TOKEN_REJECTED;
 		}
 
-		$input_verifier;
+		$headers = apache_request_headers();
+		error_log("GET: " . print_r($_GET,true));
+		error_log("POST: " . print_r($_POST,true));
+		error_log("HEAD: " . print_r($headers,true));
+		$input_verifier = "";
 		if(isset($_GET['oauth_verifier'])){
 		  $input_verifier = $_GET['oauth_verifier'];
 		}
