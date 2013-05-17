@@ -13,7 +13,7 @@ $sheetTypeParam = $_GET['type'];
 $paper_format = fetchOptions(urldecode($sheetTypeParam));
 error_log(print_r($paper_format,TRUE));
 
-$pdf = new FPDF($paper_format['orientation'],$paper_format['units'],array($paper_format['width'],$paper_format['height']));
+$pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_format->width,$paper_format->height));
 
 make_logo($pdf);
 
@@ -26,7 +26,7 @@ function fetchOptions($paper_type){
   $tempValues = file_get_contents('tagformats.json');
   $json_arr = json_decode($tempValues);
   foreach($json_arr as $options){
-    if($options['name'] === $paper_type){
+    if($options->name === $paper_type){
       return $options;
     }
   }
