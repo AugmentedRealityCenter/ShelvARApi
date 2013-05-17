@@ -81,7 +81,7 @@ function make_logo($pdf,$paper_format){
     for($i=0; $i < 12; $i++){
       for($j=0; $j < 31; $j++){
 	if(1 == $logoArr[$i][$j]){
-	  $pdf->Rect(11+($j * $scale),
+	  $pdf->Rect(11*$scale +($j * $scale),
 		     ($i * $scale),
 		     $scale,
 		     $scale,
