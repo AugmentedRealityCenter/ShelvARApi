@@ -10,9 +10,8 @@ $tagsParam = json_decode($_GET['tags']);
 $sheetTypeParam = $_GET['type'];
 		
 //grab the different label options and put them in $sheetValues
-$paper_formats = fetchOptions();
-error_log(print_r($paper_formats,TRUE));
-$paper_format = $paper_formats[urldecode($sheetTypeParam)];
+$paper_format = fetchOptions(urldecode($sheetTypeParam));
+error_log(print_r($paper_format,TRUE));
 
 $pdf = new FPDF($paper_format['orientation'],$paper_format['units'],array($paper_format['width'],$paper_format['height']));
 
@@ -23,9 +22,16 @@ $pdf->Output( ($sheetType['name'] . ".pdf"), "I");
 /**
  * Grab the available label sheet options
  **/
-function fetchOptions(){
+function fetchOptions($paper_type){
   $tempValues = file_get_contents('tagformats.json');
-  return json_decode($tempValues);
+  $json_arr = json_decode($tempValues);
+  foreach($json_arr as $options){
+    if($options['name'] === $paper_type){
+      return $options;
+    }
+  }
+
+  return null;
 }
 		
 /***
