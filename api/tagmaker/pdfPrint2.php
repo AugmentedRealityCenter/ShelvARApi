@@ -15,13 +15,27 @@ $paper_format = fetchOptions(urldecode($sheetTypeParam));
 
 $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_format->width,$paper_format->height));
 
-make_page($pdf,$paper_format);
+$tags_per_page = how_many_per_page($paper_format);
+
+for($i=0; $i < count($tagsParam); $i += $tags_per_page){
+  make_page($pdf,$paper_format);
+ }
 
 $pdf->Output( ($paper_format->name . ".pdf"), "I");
 
 function make_page($pdf,$paper_format){
   $pdf->AddPage();
   make_logo($pdf,$paper_format);
+}
+
+function how_many_per_page($paper_format){
+  $adj_width = $paper_format->width - $paper_format->margin_left - $paper_format->margin_right + $paper_format->hspace;
+  $tags_wide = round($adj_width/$paper_format->label_width);
+
+  $adj_height = $paper_format->height - $paper_format->margin_top - $paper_format->margin_bottom + $paper_format->vspace;
+  $tags_tall = round($adj_height/$paper_format->label_height);
+
+  return $tags_wide*$tags_tall;
 }
 		
 /**
