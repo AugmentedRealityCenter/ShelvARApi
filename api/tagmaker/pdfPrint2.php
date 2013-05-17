@@ -15,9 +15,14 @@ $paper_format = fetchOptions(urldecode($sheetTypeParam));
 
 $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_format->width,$paper_format->height));
 
-make_logo($pdf);
+make_page($pdf,$paper_format);
 
 $pdf->Output( ($paper_format->name . ".pdf"), "I");
+
+function make_page($pdf,$paper_format){
+  $pdf->AddPage();
+  make_logo($pdf);
+}
 		
 /**
  * Grab the available label sheet options
