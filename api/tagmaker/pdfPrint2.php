@@ -16,7 +16,7 @@ $paper_format = fetchOptions(urldecode($sheetTypeParam));
 $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_format->width,$paper_format->height));
 
 $tags_per_page = how_many_per_page($paper_format);
-
+error_log(print_r($tags_per_page));
 error_log(print_r($tagsParam,TRUE));
 
 for($i=0; $i < count($tagsParam); $i += $tags_per_page){
