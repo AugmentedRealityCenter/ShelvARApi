@@ -32,6 +32,23 @@ function fetchOptions($paper_type){
   $json_arr = json_decode($tempValues);
   foreach($json_arr as $options){
     if($options->name === $paper_type){
+      if($options->orientation === "L"){
+	//Need to rotate everything
+	$temp = $options->margin_left;
+	$options->margin_left = $options->margin_top;
+	$options->margin_top = $options->margin_right;
+	$options->margin_right = $options->margin_bottom;
+	$options->margin_bottom = $temp;
+
+	$temp = $options->label_width;
+	$options->label_width = $options->label_height;
+	$options->label_height = $temp;
+	
+	$temp = $options->hspace;
+	$options->hspace = $options->vspace;
+	$options->vspace = $temp;
+      }
+
       return $options;
     }
   }
