@@ -22,7 +22,7 @@ $pdf->Output( ($sheetType['name'] . ".pdf"), "I");
  * Grab the available label sheet options
  **/
 function fetchOptions(){
-  $tempValues = file('tagformats.json', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+  $tempValues = file_get_contents('tagformats.json');
   return json_decode($tempValues);
 }
 		
