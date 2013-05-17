@@ -10,7 +10,9 @@ $tagsParam = json_decode($_GET['tags']);
 $sheetTypeParam = $_GET['type'];
 		
 //grab the different label options and put them in $sheetValues
-$paper_format = fetchOptions()[urldecode($sheetTypeParam)];
+$paper_formats = fetchOptions();
+error_log(print_r($paper_formats,TRUE));
+$paper_format = $paper_formats[urldecode($sheetTypeParam)];
 
 $pdf = new FPDF($paper_format['orientation'],$paper_format['units'],array($paper_format['width'],$paper_format['height']));
 
