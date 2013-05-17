@@ -21,7 +21,7 @@ $pdf->Output( ($paper_format->name . ".pdf"), "I");
 
 function make_page($pdf,$paper_format){
   $pdf->AddPage();
-  make_logo($pdf);
+  make_logo($pdf,$paper_format);
 }
 		
 /**
@@ -43,7 +43,7 @@ function fetchOptions($paper_type){
  * Make the ShelvAR logo
  *     31x13
  ***/
-function make_logo($pdf,$paper_type){
+function make_logo($pdf,$paper_format){
   
   $logoArr = array(array(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),
 		   array(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),
@@ -60,7 +60,7 @@ function make_logo($pdf,$paper_type){
 		   array(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
 		   );
   
-  $scale = $paper_type->tag_width / 11.0;
+  $scale = $paper_format->tag_width / 11.0;
   for($i=0; $i < 13; $i++){
     for($j=0; $j < 31; $j++){
       if(1 == $logoArr[$i][$j]){
