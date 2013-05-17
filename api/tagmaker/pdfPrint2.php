@@ -11,7 +11,7 @@ $sheetTypeParam = $_GET['type'];
 		
 //grab the different label options and put them in $sheetValues
 $paper_format = fetchOptions(urldecode($sheetTypeParam));
-error_log(print_r($paper_format,TRUE));
+//error_log(print_r($paper_format,TRUE));
 
 $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_format->width,$paper_format->height));
 
