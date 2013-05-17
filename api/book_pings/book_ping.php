@@ -17,7 +17,7 @@ include_once "book_ping_lib.php";
 include_once "../../header_include.php";
 
 include_once "../api_ref_call.php";
-if($oauth_user['can_submit_data'] != 1){
+if($oauth_user['can_submit_inv'] != 1){
   exit(json_encode(array('result'=>'ERROR No permission to submit data.')));
  }
 
