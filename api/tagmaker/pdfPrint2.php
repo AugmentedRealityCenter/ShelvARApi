@@ -17,7 +17,7 @@ $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_for
 
 make_logo($pdf);
 
-$pdf->Output( ($sheetType['name'] . ".pdf"), "I");
+$pdf->Output( ($paper_format->name . ".pdf"), "I");
 		
 /**
  * Grab the available label sheet options
