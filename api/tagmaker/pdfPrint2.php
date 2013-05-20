@@ -84,7 +84,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   $lc_toprint = implode("\n",$lc_parts);
   $pdf->SetXY($left,$new_top);
-  $pdf->MultiCell(0,(8.0/72),$lc_toprint,0);
+  $pdf->Write((8.0/72),$lc_toprint);
 
   return $new_top;
 }
