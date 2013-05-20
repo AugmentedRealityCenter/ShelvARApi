@@ -55,14 +55,38 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 
   $code_y = $y + $paper_format->label_height - $safety_buffer;
   $code_x = $x + ($paper_format->label_width - $paper_format->tag_width)/2.0;
-  $pdf->Rect($code_x,$code_y-$paper_format->tag_width,$paper_format->tag_width, $paper_format->tag_width);
+
+  $code_top = make_code($code_x, $code_y, $y, $pdf, $paper_format, $tag);
+  if($code_top < 0){
+    //TODO print error message
+  }
 }
 
 //Note: The x and y are of the LOWER LEFT corner, and you are to 
-// print upwards from there, returning the height printed
-function make_code($x, $y, $pdf, $paper_format, $tag){
+// print upwards from there, returning the $y coordinate of the top.
+// Should not print if tag won't fit between $bottom and $top, return
+// error code instead. Any negative value is an error.
+function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
+  $tag_bin = base642bin($tag);
+  if(strlen($tag_bin) < 7) return -1;
+  $tag_size_type = decode_7_4(substr($tag_bin),0,7);
+  if(strlen($tag_size_type) != 4) return -2;
 
-  return 0;
+  //Base tag height is 25, including border rows and type/size row.
+  // Each added block adds 9 rows
+  $tag_rows_high = 25 + (9 * bindec(substr($tag_size_and_type, 2, 4)));
+
+  $rect_size = $paper_format->tag_width / 11.0;
+
+  $code_height = $rect_size*$tag_rows_high;
+  $top_after = $bottom - $code_height;
+  if($top_after < $top){
+    return -3;
+  }
+
+  $pdf->Rect($left,$top_after,$paper_format->tag_width,$code_height);
+
+  return $top_after;
 }
 
 function how_many_per_page($paper_format){
