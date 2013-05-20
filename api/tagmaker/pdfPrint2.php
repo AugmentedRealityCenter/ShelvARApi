@@ -100,7 +100,7 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
   $tag_pos = 0;
   $tag_arr = str_split($tag_bin);
   for($y=($tag_rows_high-4)-1; $y>=0; $y--){
-    for($x=0; $x<11; $x++){
+    for($x=0; $x<11-4; $x++){
       if($tag_arr[$tag_pos] == '1'){
 	$pdf->Rect($left + $rect_size*($x+2), $top_after+$rect_size*($y+2),$rect_size,$rect_size,"DF");
       }
