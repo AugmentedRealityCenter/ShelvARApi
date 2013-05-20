@@ -17,12 +17,12 @@ $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_for
 $tags_per_page = how_many_per_page($paper_format);
 
 for($i=0; $i < count($tagsParam); $i += $tags_per_page){
-  make_page($pdf,$paper_format);
+  make_page($pdf,$paper_format,array_slice($tagsParam,$i,$tags_per_page));
  }
 
 $pdf->Output( ($paper_format->name . ".pdf"), "I");
 
-function make_page($pdf,$paper_format){
+function make_page($pdf,$paper_format,$tags){
   $pdf->AddPage();
   make_logo($pdf,$paper_format);
 
@@ -30,18 +30,17 @@ function make_page($pdf,$paper_format){
   $inc_x = $paper_format->label_width + $paper_format->hspace;
   $end_x = $paper_format->width - $paper_format->margin_right - $paper_format->label_width;
   
-  error_log("x: $start_x $end_x $inc_x");
-
   $start_y = $paper_format->margin_top;
   $inc_y = $paper_format->label_height + $paper_format->vspace;
   $end_y = $paper_format->height - $paper_format->margin_bottom - $paper_format->label_height;
 
-  error_log("y: $start_y $end_y $inc_y");
-  
+  $tag_index = 0;
 
   for($y=$start_y; $y <= $end_y; $y += $inc_y){
     for($x=$start_x; $x <= $end_x; $x += $inc_x){
-      make_tag($x,$y,$pdf,$paper_format);
+      if($tag_index < count($tags)){
+	make_tag($x,$y,$pdf,$paper_format);
+      }
     }
   }
 }
