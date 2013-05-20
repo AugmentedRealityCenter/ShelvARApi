@@ -25,6 +25,25 @@ $pdf->Output( ($paper_format->name . ".pdf"), "I");
 function make_page($pdf,$paper_format){
   $pdf->AddPage();
   make_logo($pdf,$paper_format);
+
+  $start_x = $paper_format->margin_left;
+  $end_x = $paper_format->width - $paper_format->margin_right;
+  $inc_x = $paper_format->label_width + $paper_format->hspace;
+
+  $start_y = $paper_format->margin_top;
+  $end_y = $paper_format->height - $paper_format->margin_bottom;
+  $inc_y = $paper_format->label_height + $paper_format->vspace;
+
+  for($y=$start_y; $y < $end_y; $y += $inc_y){
+    for($x=$start_x; $x < $end_x; $x += $inc_x){
+      make_tag($x,$y,$pdf,$paper_format);
+    }
+  }
+}
+
+function make_tag($x, $y, $pdf, $paper_format){
+  $pdf->SetDrawColor(127);
+  $pdf->Rect($x,$y,$paper_format->label_width,$paper_format->label_height);
 }
 
 function how_many_per_page($paper_format){
@@ -33,9 +52,6 @@ function how_many_per_page($paper_format){
 
   $adj_height = $paper_format->height - $paper_format->margin_top - $paper_format->margin_bottom + $paper_format->vspace;
   $tags_tall = round($adj_height/($paper_format->label_height+$paper_format->vspace));
-
-  error_log("tags_w: $tags_wide");
-  error_log("tags_t: $tags_tall");
 
   return $tags_wide*$tags_tall;
 }
@@ -81,7 +97,8 @@ function fetchOptions($paper_type){
  *     31x13
  ***/
 function make_logo($pdf,$paper_format){
-  
+  $pdf->SetDrawColor(0);
+
   $logoArr = array(array(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),
 		   array(1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1),
 		   array(1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1),
