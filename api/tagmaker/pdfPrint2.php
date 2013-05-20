@@ -48,7 +48,7 @@ function make_page($pdf,$paper_format,$tags){
 }
 
 function make_tag($x, $y, $pdf, $paper_format, $tag){
-  $pdf->SetDrawColor(127);
+  $pdf->SetDrawColor(223);
   $pdf->Rect($x,$y,$paper_format->label_width,$paper_format->label_height);
 
   $safety_buffer = $paper_format->tag_width / 11.0;
