@@ -114,7 +114,7 @@ function make_logo($pdf,$paper_format){
 		   );
   
   if($paper_format->margin_top > $paper_format->margin_left){
-    $scale = $paper_format->margin_top / 11.0;
+    $scale = $paper_format->margin_top / 12.0;
     for($i=0; $i < 12; $i++){
       for($j=0; $j < 31; $j++){
 	if(1 == $logoArr[$i][$j]){
@@ -127,7 +127,7 @@ function make_logo($pdf,$paper_format){
       }
     }
   } else {
-    $scale = $paper_format->margin_right / 11.0;
+    $scale = $paper_format->margin_right / 12.0;
     for($i=0; $i < 12; $i++){
       for($j=0; $j < 31; $j++){
 	if(1 == $logoArr[$i][$j]){
