@@ -40,16 +40,29 @@ function make_page($pdf,$paper_format,$tags){
   for($y=$start_y; $y <= $end_y; $y += $inc_y){
     for($x=$start_x; $x <= $end_x; $x += $inc_x){
       if($tag_index < count($tags)){
-	make_tag($x,$y,$pdf,$paper_format);
+	make_tag($x,$y,$pdf,$paper_format,$tags[$tag_index]);
       }
       $tag_index += 1;
     }
   }
 }
 
-function make_tag($x, $y, $pdf, $paper_format){
+function make_tag($x, $y, $pdf, $paper_format, $tag){
   $pdf->SetDrawColor(127);
   $pdf->Rect($x,$y,$paper_format->label_width,$paper_format->label_height);
+
+  $safety_buffer = $paper_format->tag_width / 11.0;
+
+  $code_y = $y + $paper_format->label_height - $safety_buffer;
+  $code_x = $x + ($paper_format->label_width - $paper_format->tag_width)/2.0;
+  $pdf->Rect($x,$y-$paper_format->tag_width,$paper_format->tag_width, $paper_format->tag_width);
+}
+
+//Note: The x and y are of the LOWER LEFT corner, and you are to 
+// print upwards from there, returning the height printed
+function make_code($x, $y, $pdf, $paper_format, $tag){
+
+  return 0;
 }
 
 function how_many_per_page($paper_format){
