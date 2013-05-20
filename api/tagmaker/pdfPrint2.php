@@ -15,9 +15,10 @@ $paper_format = fetchOptions(urldecode($sheetTypeParam));
 $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_format->width,$paper_format->height));
 
 $tags_per_page = how_many_per_page($paper_format);
+$tag_chunks = array_chunk($tagsParam,$tags_per_page);
 
-for($i=0; $i < count($tagsParam); $i += $tags_per_page){
-  make_page($pdf,$paper_format,array_slice($tagsParam,$i,$tags_per_page));
+for($i=0; $i < count($tag_chunks); $i++){
+  make_page($pdf,$paper_format,$tag_chunks[$i]);
  }
 
 $pdf->Output( ($paper_format->name . ".pdf"), "I");
