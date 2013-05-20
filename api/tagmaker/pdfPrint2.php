@@ -64,8 +64,12 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
   }
 
   if($code_top < 0 || $num_top < 0){
-    //TODO print error message
-    error_log("Tag too tall");
+    $pdf->SetFillColor(255);
+    $pdf->Rect($x,$y,$paper_format->label_width,$paper_format->label_height,"F");
+    $pdf->SetFont('Courier','B',8);
+    $pdf->SetTextColor(0);
+    $pdf->SetXY($x,$y);
+    $pdf->MultiCell($paper_format->label_width,(8.0/72),"The call number will not fit on the tag");
   }
 }
 
