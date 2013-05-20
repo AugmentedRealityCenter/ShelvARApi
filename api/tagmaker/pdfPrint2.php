@@ -76,14 +76,15 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
 
   $lines_tall = count($lc_parts);
-  $new_top = $bottom - 6.0*$lines_tall;
+  $new_top = $bottom - (6.0/72)*$lines_tall;
   if($new_top < $top) {
     //Oops, not enough room
     return -1;
   }
 
   $lc_toprint = implode("\n",$lc_parts);
-  $pdf->MultiCell($left,$new_top,$lc_toprint,0);
+  $pdf->SetXY($left,$new_top);
+  $pdf->MultiCell($paper_format->tag_width,(6.0/72),$lc_toprint,0);
 
   return $new_top;
 }
