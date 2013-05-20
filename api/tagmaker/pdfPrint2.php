@@ -88,13 +88,13 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
   $pdf->SetFillColor(0);
 
   //Print outer border
-  for($x=$left;$x<$left+$paper_format->tag_width;$x += $rect_size){
-    $pdf->Rect($x,$top_after,$rect_size,$rect_size,"DF");
-    $pdf->Rect($x,$bottom-$rect_size,$rect_size,$rect_size,"DF");
+  for($x=0;$x<11;$x++){
+    $pdf->Rect($left + $rect_size*$x,$top_after,$rect_size,$rect_size,"DF");
+    $pdf->Rect($left + $rect_size*$x,$bottom-$rect_size,$rect_size,$rect_size,"DF");
   }
-  for($y=$top_after;$y<$bottom;$y += $rect_size){
-    $pdf->Rect($left,$y,$rect_size,$rect_size,"DF");
-    $pdf->Rect($left+$paper_format->tag_width-$rect_size,$y,$rect_size,$rect_size,"DF");
+  for($y=0;$y<$tag_rows_high;$y++){
+    $pdf->Rect($left,$top_after+$rect_size*$y,$rect_size,$rect_size,"DF");
+    $pdf->Rect($left+$paper_format->tag_width-$rect_size,$top_after+$rect_size*$y,$rect_size,$rect_size,"DF");
   }
 
   return $top_after;
