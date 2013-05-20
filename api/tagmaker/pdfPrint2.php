@@ -69,7 +69,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     $pdf->SetFont('Courier','B',8);
     $pdf->SetTextColor(0);
     $pdf->SetXY($x,$y);
-    $pdf->MultiCell($paper_format->label_width,(8.0/72),"The call number will not fit on the tag");
+    $pdf->MultiCell($paper_format->label_width,(8.0/72),"The call number will not fit on the tag",0,"C");
   }
 }
 
