@@ -74,7 +74,7 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   //Base tag height is 25, including border rows and type/size row.
   // Each added block adds 9 rows
-  $tag_rows_high = 25 + (9 * bindec(substr($tag_size_and_type, 2, 4)));
+  $tag_rows_high = 25 + (9 * bindec(substr($tag_size_type, 2, 4)));
 
   $rect_size = $paper_format->tag_width / 11.0;
 
