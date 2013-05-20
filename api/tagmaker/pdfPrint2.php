@@ -69,14 +69,14 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 // Should not print if tag won't fit between $bottom and $top, return
 // error code instead. Any negative value is an error.
 function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
-  $pdf->SetFont('Courier','B',6);
+  $pdf->SetFont('Courier','B',8);
   $pdf->SetTextColor(0);
   
   $lc_string = tag_to_lc($tag);
   $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
 
   $lines_tall = count($lc_parts);
-  $new_top = $bottom - (6.0/72)*($lines_tall+1);
+  $new_top = $bottom - (8.0/72)*$lines_tall;
   if($new_top < $top) {
     //Oops, not enough room
     return -1;
@@ -84,7 +84,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   $lc_toprint = implode("\n",$lc_parts);
   $pdf->SetXY($left,$new_top);
-  $pdf->MultiCell($paper_format->tag_width,(6.0/72),$lc_toprint,0);
+  $pdf->MultiCell(0,(8.0/72),$lc_toprint,0);
 
   return $new_top;
 }
