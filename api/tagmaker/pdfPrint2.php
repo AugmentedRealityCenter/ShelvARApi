@@ -60,7 +60,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
   if($code_top < 0){
     //TODO print error message
   } else {
-    $num_top = make_num($code_x, $code_top, $y, $pdf, $paper_format, $tag);
+    $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
   }
 }
 
