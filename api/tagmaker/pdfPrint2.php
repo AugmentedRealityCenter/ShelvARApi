@@ -84,7 +84,10 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
     return -3;
   }
 
-  $pdf->Rect($left,$top_after,$paper_format->tag_width,$code_height);
+  $pdf->SetDrawColor(0);
+  $pdf->SetFillColor(0);
+
+  $pdf->Rect($left,$top_after,$paper_format->tag_width,$code_height,"DF");
 
   return $top_after;
 }
