@@ -11,7 +11,6 @@ $sheetTypeParam = $_GET['type'];
 		
 //grab the different label options and put them in $sheetValues
 $paper_format = fetchOptions(urldecode($sheetTypeParam));
-//error_log(print_r($paper_format,TRUE));
 
 $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_format->width,$paper_format->height));
 
@@ -34,6 +33,9 @@ function how_many_per_page($paper_format){
 
   $adj_height = $paper_format->height - $paper_format->margin_top - $paper_format->margin_bottom + $paper_format->vspace;
   $tags_tall = round($adj_height/$paper_format->label_height);
+
+  error_log("tags_w: $tags_wide");
+  error_log("tags_t: $tags_tall");
 
   return $tags_wide*$tags_tall;
 }
