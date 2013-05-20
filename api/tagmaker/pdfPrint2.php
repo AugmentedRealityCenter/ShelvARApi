@@ -69,7 +69,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
   $tag_bin = base642bin($tag);
   if(strlen($tag_bin) < 7) return -1;
-  $tag_size_type = decode_7_4(substr($tag_bin),0,7);
+  $tag_size_type = decode_7_4(substr($tag_bin,0,7));
   if(strlen($tag_size_type) != 4) return -2;
 
   //Base tag height is 25, including border rows and type/size row.
