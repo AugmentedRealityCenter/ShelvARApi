@@ -104,7 +104,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 	}
 	if($counter < strlen($classification)){
 	  array_unshift($lc_parts,substr($classification,$counter));
-	  array_unshift($lc_parts,substr($classficiation,0,$counter));
+	  array_unshift($lc_parts,substr($classificiation,0,$counter));
 	} else {
 	  //Nothing we could do
 	  array_unshift($lc_parts,$classification);
