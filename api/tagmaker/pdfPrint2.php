@@ -57,10 +57,15 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
   $code_x = $x + ($paper_format->label_width - $paper_format->tag_width)/2.0;
 
   $code_top = make_code($code_x, $code_y, $y, $pdf, $paper_format, $tag);
-  if($code_top < 0){
-    //TODO print error message
-  } else {
+  $num_top = -1;
+  if($code_top >= 0){
+    //This 2.0/72 is to make some space between the tag and the lc
     $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
+  }
+
+  if($code_top < 0 || $num_top < 0){
+    //TODO print error message
+    error_log("Tag too tall");
   }
 }
 
