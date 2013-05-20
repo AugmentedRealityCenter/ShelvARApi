@@ -29,6 +29,7 @@ function make_page($pdf,$paper_format){
   $start_x = $paper_format->margin_left;
   $end_x = $paper_format->width - $paper_format->margin_right;
   $inc_x = $paper_format->label_width + $paper_format->hspace;
+  error_log("$start_x $end_x $inc_x");
 
   $start_y = $paper_format->margin_top;
   $end_y = $paper_format->height - $paper_format->margin_bottom;
