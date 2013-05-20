@@ -92,6 +92,10 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
     $pdf->Rect($x,$top_after,$rect_size,$rect_size,"DF");
     $pdf->Rect($x,$bottom-$rect_size,$rect_size,$rect_size,"DF");
   }
+  for($y=$top_after;$y<$bottom;$y += $rect_size){
+    $pdf->Rect($left,$y,$rect_size,$rect_size,"DF");
+    $pdf->Rect($left+$paper_format->tag_width-$rect_size,$y,$rect_size,$rect_size,"DF");
+  }
 
   return $top_after;
 }
