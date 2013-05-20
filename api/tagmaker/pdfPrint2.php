@@ -89,7 +89,8 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 	$classification = array_shift($lc_parts);
 	$class_expld = explode(".",$classification);
 	$class_impld = implode("\n .",$class_expld);
-	array_unshift($lc_parts,$class_impld);
+	$class_expld = explode("\n",$class_impld);
+	array_unshift($lc_parts,$class_expld);
       }
     }
 
