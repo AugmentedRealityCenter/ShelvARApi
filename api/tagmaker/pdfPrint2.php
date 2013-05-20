@@ -90,8 +90,10 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 	$class_expld = explode(".",$classification);
 	$class_impld = implode("\n .",$class_expld);
 	$class_expld = explode("\n",$class_impld);
-	array_unshift($class_expld,&$lc_parts);
-	call_user_func_array('array_unshift',$class_expld);
+
+	for($i=count($class_expld)-1;$i >= 0; $i--){
+	  array_unshift($lc_parts,$class_expld[$i]);
+	}
       }
     }
 
