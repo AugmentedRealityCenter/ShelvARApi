@@ -98,14 +98,14 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
     $parts_index++;
   }
 
-  $lines_tall = count($lc_parts);
+  $lines_tall = count($processed_parts);
   $new_top = $bottom - (8.0/72)*$lines_tall;
   if($new_top < $top) {
     //Oops, not enough room
     return -1;
   }
 
-  $lc_toprint = implode("\n",$lc_parts);
+  $lc_toprint = implode("\n",$processed_parts);
   $multi_shift = 3.0/72;
   $pdf->SetXY($left-$multi_shift,$new_top);
   $pdf->MultiCell(0,(8.0/72),$lc_toprint,0);
