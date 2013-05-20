@@ -84,17 +84,27 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $parts_index = 0;
   while($parts_index < count($lc_parts)){
     if($pdf->GetStringWidth($lc_parts[$parts_index]) > $paper_format->tag_width){
-      //Next part needs to be split. TODO
+      //This part should be split. Right now only handles classification
+      if($parts_index == 0){
+	$classification = array_shift($lc_parts);
+	$class_expld = explode(".",$classification);
+	$class_impld = implode("\n .",$class_expld);
+	array_unshift($lc_parts,$class_impld);
+      }
     }
+
+    //Try to merge the current item onto the end of the last one, if possible
     $joined = $lc_parts[$parts_index];
     if(count($processed_parts) > 0){
       $joined = $processed_parts[count($processed_parts)-1] . " " . $joined;
     }
+
     if(count($processed_parts) > 0 && $pdf->GetStringWidth($joined) <= $paper_format->tag_width){
       $processed_parts[count($processed_parts)-1] = $joined;
     } else {
       $processed_parts[count($processed_parts)] = $lc_parts[$parts_index];
     }
+
     $parts_index++;
   }
 
