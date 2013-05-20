@@ -27,16 +27,18 @@ function make_page($pdf,$paper_format){
   make_logo($pdf,$paper_format);
 
   $start_x = $paper_format->margin_left;
-  $end_x = $paper_format->width - $paper_format->margin_right;
   $inc_x = $paper_format->label_width + $paper_format->hspace;
+  $end_x = $paper_format->width - $paper_format->margin_right - $inc_x;
+  
   error_log("$start_x $end_x $inc_x");
 
   $start_y = $paper_format->margin_top;
-  $end_y = $paper_format->height - $paper_format->margin_bottom;
   $inc_y = $paper_format->label_height + $paper_format->vspace;
+  $end_y = $paper_format->height - $paper_format->margin_bottom - $inc_y;
+  
 
-  for($y=$start_y; $y < $end_y; $y += $inc_y){
-    for($x=$start_x; $x < $end_x; $x += $inc_x){
+  for($y=$start_y; $y <= $end_y; $y += $inc_y){
+    for($x=$start_x; $x <= $end_x; $x += $inc_x){
       make_tag($x,$y,$pdf,$paper_format);
     }
   }
