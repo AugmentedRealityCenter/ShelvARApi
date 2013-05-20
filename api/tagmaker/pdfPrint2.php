@@ -86,6 +86,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
     if($pdf->GetStringWidth($lc_parts[$parts_index]) > $paper_format->tag_width){
       //This part should be split. Right now only handles classification
       if($parts_index == 0){
+	//First, try splitting on periods
 	$classification = array_shift($lc_parts);
 	$class_expld = explode(".",$classification);
 	$class_impld = implode("\n .",$class_expld);
@@ -93,6 +94,20 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 
 	for($i=count($class_expld)-1;$i >= 0; $i--){
 	  array_unshift($lc_parts,$class_expld[$i]);
+	}
+
+	//If the first item is still too long, split the alphabetic and numeric parts.
+	$classification = array_shift($lc_parts);
+	$counter = 0;
+	while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
+	  $counter++;
+	}
+	if($counter < strlen($classification)){
+	  array_unshift($lc_parts,substr($classification,$counter));
+	  array_unshift($lc_parts,substr($classficiation,0,$counter));
+	} else {
+	  //Nothing we could do
+	  array_unshift($lc_parts,$classification);
 	}
       }
     }
