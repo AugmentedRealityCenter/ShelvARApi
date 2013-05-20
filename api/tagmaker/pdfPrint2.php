@@ -89,12 +89,12 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   //Print outer border
   for($x=0;$x<11;$x++){
-    $pdf->Rect($left + $rect_size*$x,$top_after,$rect_size,$rect_size,"DF");
-    $pdf->Rect($left + $rect_size*$x,$bottom-$rect_size,$rect_size,$rect_size,"DF");
+    $pdf->Rect($left + $rect_size*$x,$top_after,$rect_size,$rect_size,"F");
+    $pdf->Rect($left + $rect_size*$x,$bottom-$rect_size,$rect_size,$rect_size,"F");
   }
   for($y=0;$y<$tag_rows_high;$y++){
-    $pdf->Rect($left,$top_after+$rect_size*$y,$rect_size,$rect_size,"DF");
-    $pdf->Rect($left+$paper_format->tag_width-$rect_size,$top_after+$rect_size*$y,$rect_size,$rect_size,"DF");
+    $pdf->Rect($left,$top_after+$rect_size*$y,$rect_size,$rect_size,"F");
+    $pdf->Rect($left+$paper_format->tag_width-$rect_size,$top_after+$rect_size*$y,$rect_size,$rect_size,"F");
   }
 
   $tag_pos = 0;
@@ -102,7 +102,7 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
   for($y=($tag_rows_high-4)-1; $y>=0; $y--){
     for($x=0; $x<11-4; $x++){
       if($tag_arr[$tag_pos] == '1'){
-	$pdf->Rect($left + $rect_size*($x+2), $top_after+$rect_size*($y+2),$rect_size,$rect_size,"DF");
+	$pdf->Rect($left + $rect_size*($x+2), $top_after+$rect_size*($y+2),$rect_size,$rect_size,"F");
       }
       $tag_pos++;
     }
