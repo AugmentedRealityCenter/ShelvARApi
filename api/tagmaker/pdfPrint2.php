@@ -87,7 +87,11 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
   $pdf->SetDrawColor(0);
   $pdf->SetFillColor(0);
 
-  $pdf->Rect($left,$top_after,$paper_format->tag_width,$code_height,"DF");
+  //Print outer border
+  for($x=$left;$x<$left+$paper_format->tag_width;$x += $rect_size){
+    $pdf->Rect($x,$top_after,$rect_size,$rect_size,"DF");
+    $pdf->Rect($x,$bottom-$rect_size,$rect_size,$rect_size,"DF");
+  }
 
   return $top_after;
 }
