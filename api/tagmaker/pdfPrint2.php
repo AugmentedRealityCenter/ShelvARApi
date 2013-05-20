@@ -29,10 +29,10 @@ function make_page($pdf,$paper_format){
 
 function how_many_per_page($paper_format){
   $adj_width = $paper_format->width - $paper_format->margin_left - $paper_format->margin_right + $paper_format->hspace;
-  $tags_wide = round($adj_width/$paper_format->label_width);
+  $tags_wide = round($adj_width/($paper_format->label_width+$paper_format->hspace));
 
   $adj_height = $paper_format->height - $paper_format->margin_top - $paper_format->margin_bottom + $paper_format->vspace;
-  $tags_tall = round($adj_height/$paper_format->label_height);
+  $tags_tall = round($adj_height/($paper_format->label_height+$paper_format->vspace));
 
   error_log("tags_w: $tags_wide");
   error_log("tags_t: $tags_tall");
