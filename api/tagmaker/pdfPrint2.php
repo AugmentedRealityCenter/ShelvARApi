@@ -59,7 +59,33 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
   $code_top = make_code($code_x, $code_y, $y, $pdf, $paper_format, $tag);
   if($code_top < 0){
     //TODO print error message
+  } else {
+    $num_top = make_num($code_x, $code_top, $y, $pdf, $paper_format, $tag);
   }
+}
+
+//Note: The x and y are of the LOWER LEFT corner, and you are to 
+// print upwards from there, returning the $y coordinate of the top.
+// Should not print if tag won't fit between $bottom and $top, return
+// error code instead. Any negative value is an error.
+function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
+  $pdf->SetFont('Courier','B',6);
+  $pdf->SetTextColor(0);
+  
+  $lc_string = tag_to_lc($tag);
+  $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
+
+  $lines_tall = count($lc_parts);
+  $new_top = $bottom - 6.0*$lines_tall;
+  if($new_top < $top) {
+    //Oops, not enough room
+    return -1;
+  }
+
+  $lc_toprint = implode("\n",$lc_parts);
+  $pdf->MultiCell($left,$new_top,$lc_toprint,0);
+
+  return $new_top;
 }
 
 //Note: The x and y are of the LOWER LEFT corner, and you are to 
