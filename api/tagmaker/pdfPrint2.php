@@ -80,6 +80,24 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $lc_string = tag_to_lc($tag);
   $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
 
+  $processed_parts = array();
+  $parts_index = 0;
+  while($parts_index < count($lc_parts)){
+    if($pdf->GetStringWidth($lc_parts[$parts_index]) > $paper_format->tag_width){
+      //Next part needs to be split. TODO
+    }
+    $joined = $lc_parts[$parts_index];
+    if(count($processed_parts) > 0){
+      $joined = $processed_parts[count($processed_parts)-1] . " " . $joined;
+    }
+    if($pdf->GetStringWidth($joined) <= $paper_format->tag_width){
+      $processed_parts[count($processed_parts)-1] = $joined;
+    } else {
+      $processed_parts[] = $lc_parts[$parts_index];
+    }
+    $parts_index++;
+  }
+
   $lines_tall = count($lc_parts);
   $new_top = $bottom - (8.0/72)*$lines_tall;
   if($new_top < $top) {
