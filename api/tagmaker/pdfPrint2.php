@@ -39,10 +39,10 @@ function make_page($pdf,$paper_format,$tags){
 
   for($y=$start_y; $y <= $end_y; $y += $inc_y){
     for($x=$start_x; $x <= $end_x; $x += $inc_x){
-      $tag_index += 1;
       if($tag_index < count($tags)){
 	make_tag($x,$y,$pdf,$paper_format);
       }
+      $tag_index += 1;
     }
   }
 }
