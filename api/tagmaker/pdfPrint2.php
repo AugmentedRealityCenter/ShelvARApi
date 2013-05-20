@@ -96,18 +96,20 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 	  array_unshift($lc_parts,$class_expld[$i]);
 	}
 
-	//If the first item is still too long, split the alphabetic and numeric parts.
-	$classification = array_shift($lc_parts);
-	$counter = 0;
-	while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
-	  $counter++;
-	}
-	if($counter < strlen($classification)){
-	  array_unshift($lc_parts,substr($classification,$counter));
-	  array_unshift($lc_parts,substr($classificiation,0,$counter));
-	} else {
-	  //Nothing we could do
-	  array_unshift($lc_parts,$classification);
+	if($pdf->GetStringWidth($lc_parts[0]) > $paper_format->tag_width){
+	  //If the first item is still too long, split the alphabetic and numeric parts.
+	  $classification = array_shift($lc_parts);
+	  $counter = 0;
+	  while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
+	    $counter++;
+	  }
+	  if($counter < strlen($classification)){
+	    array_unshift($lc_parts,substr($classification,$counter));
+	    array_unshift($lc_parts,substr($classificiation,0,$counter));
+	  } else {
+	    //Nothing we could do
+	    array_unshift($lc_parts,$classification);
+	  }
 	}
       }
     }
