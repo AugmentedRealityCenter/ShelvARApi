@@ -30,11 +30,13 @@ function make_page($pdf,$paper_format){
   $inc_x = $paper_format->label_width + $paper_format->hspace;
   $end_x = $paper_format->width - $paper_format->margin_right - $inc_x;
   
-  error_log("$start_x $end_x $inc_x");
+  error_log("x: $start_x $end_x $inc_x");
 
   $start_y = $paper_format->margin_top;
   $inc_y = $paper_format->label_height + $paper_format->vspace;
   $end_y = $paper_format->height - $paper_format->margin_bottom - $inc_y;
+
+  error_log("y: $start_y $end_y $inc_y");
   
 
   for($y=$start_y; $y <= $end_y; $y += $inc_y){
