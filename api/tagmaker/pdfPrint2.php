@@ -91,7 +91,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
       error_log(print_r($processed_parts,true));
       $joined = $processed_parts[count($processed_parts)-1] . " " . $joined;
     }
-    if($pdf->GetStringWidth($joined) <= $paper_format->tag_width){
+    if(count($processed_parts) > 0 && $pdf->GetStringWidth($joined) <= $paper_format->tag_width){
       $processed_parts[count($processed_parts)-1] = $joined;
     } else {
       $processed_parts[count($processed_parts)] = $lc_parts[$parts_index];
