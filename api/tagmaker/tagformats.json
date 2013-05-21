@@ -10,7 +10,8 @@
 	"label_height":"1",
 	"tag_width":"0.375",
 	"hspace":"0.125",
-	"vspace":"0" },
+	"vspace":"0",
+	"padding":"0.625" },
  {"name":"Gaylord_9003",
 	"orientation":"P",
 	"units":"in",
@@ -23,4 +24,5 @@
 	"label_height":"2",
 	"tag_width":"0.375",
 	"hspace":"0.125",
-	"vspace":"0" }]
+	"vspace":"0",
+	"padding":"0.625" }]

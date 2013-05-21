@@ -49,27 +49,34 @@ function make_page($pdf,$paper_format,$tags){
 
 function make_tag($x, $y, $pdf, $paper_format, $tag){
   $pdf->SetDrawColor(223);
-  $pdf->Rect($x,$y,$paper_format->label_width,$paper_format->label_height);
+  $pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
+	     $paper_format->label_width-2*$paper_format->padding,
+	     $paper_format->label_height-2*$paper_format->padding);
 
-  $safety_buffer = $paper_format->tag_width / 11.0;
+  $safety_buffer = $paper_format->padding;
 
-  $code_y = $y + $paper_format->label_height - $safety_buffer;
+  //Since padding is symmetric, we don't need it in this calculation
+  $code_y = $y + $paper_format->label_height - $paper_format->padding - $safety_buffer;
   $code_x = $x + ($paper_format->label_width - $paper_format->tag_width)/2.0;
 
   $code_top = make_code($code_x, $code_y, $y, $pdf, $paper_format, $tag);
   $num_top = -1;
   if($code_top >= 0){
-    //This 2.0/72 is to make some space between the tag and the lc
+    //TODO This 2.0/72 is to make some space between the tag and the lc. Should make
+    // it unit independent. This assumes inches.
     $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
   }
 
   if($code_top < 0 || $num_top < 0){
     $pdf->SetFillColor(255);
-    $pdf->Rect($x,$y,$paper_format->label_width,$paper_format->label_height,"F");
+    $pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
+	       $paper_format->label_width-2*$paper_format->padding,
+	       $paper_format->label_height-2*$paper_format->padding,"F");
     $pdf->SetFont('Courier','B',8);
     $pdf->SetTextColor(0);
-    $pdf->SetXY($x,$y);
-    $pdf->MultiCell($paper_format->label_width,(8.0/72),"The call number will not fit on the tag",0,"C");
+    $pdf->SetXY($x+$paper_format->padding,$y+$paper_format->padding);
+    $pdf->MultiCell($paper_format->label_width-2*$paper_format->padding,
+		    (8.0/72),"The call number will not fit on the tag",0,"C");
   }
 }
 
