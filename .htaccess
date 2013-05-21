@@ -44,9 +44,6 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^make_tags/([^/]+)(?=.pdf) api/tagmaker/pdfPrint2.php?type=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^make_tags/csvFormats api/tagmaker/tagformats.csv [L]
-
-RewriteCond %{THE_REQUEST} GET
 RewriteRule ^make_tags/paper_formats api/tagmaker/tagformats.json [L]
 
 RewriteCond %{THE_REQUEST} GET
