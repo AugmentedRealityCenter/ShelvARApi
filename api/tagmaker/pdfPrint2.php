@@ -48,7 +48,7 @@ function make_page($pdf,$paper_format,$tags){
 }
 
 function make_tag($x, $y, $pdf, $paper_format, $tag){
-  $pdf->SetDrawColor(223);
+  $pdf->SetDrawColor(250);
   $pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
 	     $paper_format->label_width-2*$paper_format->padding,
 	     $paper_format->label_height-2*$paper_format->padding);
