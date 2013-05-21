@@ -11,7 +11,8 @@
 	"tag_width":"0.375",
 	"hspace":"0.125",
 	"vspace":"0",
-	"padding":"0.0625" },
+	"padding":"0.0625",
+	"font_size":"8" },
  {"name":"Gaylord_9003",
 	"orientation":"P",
 	"units":"in",
@@ -25,4 +26,5 @@
 	"tag_width":"0.375",
 	"hspace":"0.125",
 	"vspace":"0",
-	"padding":"0.0625" }]
+	"padding":"0.0625",
+	"font_size":"7" }]

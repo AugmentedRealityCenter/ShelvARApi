@@ -72,11 +72,11 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     $pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
 	       $paper_format->label_width-2*$paper_format->padding,
 	       $paper_format->label_height-2*$paper_format->padding,"F");
-    $pdf->SetFont('Courier','B',8);
+    $pdf->SetFont('Courier','B',$paper_format->font_size);
     $pdf->SetTextColor(0);
     $pdf->SetXY($x+$paper_format->padding,$y+$paper_format->padding);
     $pdf->MultiCell($paper_format->label_width-2*$paper_format->padding,
-		    (8.0/72),"The call number will not fit on the tag",0,"C");
+		    ($paper_format->font_size/72.0),"The call number will not fit on the tag",0,"C");
   }
 }
 
@@ -85,7 +85,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 // Should not print if tag won't fit between $bottom and $top, return
 // error code instead. Any negative value is an error.
 function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
-  $pdf->SetFont('Courier','B',8);
+  $pdf->SetFont('Courier','B',$paper_format->font_size);
   $pdf->SetTextColor(0);
   
   $lc_string = tag_to_lc($tag);
@@ -141,7 +141,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   }
 
   $lines_tall = count($processed_parts);
-  $new_top = $bottom - (8.0/72)*$lines_tall;
+  $new_top = $bottom - ($paper_format->font_size/72.0)*$lines_tall;
   if($new_top < $top) {
     //Oops, not enough room
     return -1;
@@ -150,7 +150,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $lc_toprint = implode("\n",$processed_parts);
   $multi_shift = 3.0/72;
   $pdf->SetXY($left-$multi_shift,$new_top);
-  $pdf->MultiCell(0,(8.0/72),$lc_toprint,0);
+  $pdf->MultiCell(0,($paper_format->font_size/72.0),$lc_toprint,0);
 
   return $new_top;
 }
