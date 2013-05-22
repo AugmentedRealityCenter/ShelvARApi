@@ -8,10 +8,22 @@
 		},
 		{
 			"path":"book_tags.{format}",
-			"description":"Operations about pets"
+			"description":"Operations on book tags"
 		},
 		{
-			"path":"call_numbers.{format}",
-			"description":"Operations about pets"
+			"path":"lc_numbers.{format}",
+			"description":"Operations on call numbers"
+		},
+                {
+                    	"path":"institutions.{format}",
+			"description":"Institution administration"
+                },
+		{
+                    	"path":"users.{format}",
+			"description":"Information about users"
+		},
+		{
+                    	"path":"make_tags.{format}",
+			"description":"Utility for printing tags to PDF files"
 		}]
 }

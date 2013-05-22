@@ -1,6 +1,11 @@
 <?php
 include_once ("../../db_info.php");
 include_once "../../header_include.php";
+
+include_once "../api_ref_call.php";
+if($oauth_user['can_read_data'] != 1){
+  exit(json_encode(array('result'=>'ERROR No permission to read data.')));
+ }
  
 $qArray = array();
 
@@ -25,8 +30,8 @@ if(isset($_GET["end_date"])){
     $qArray[] = "ping_time < '" . urldecode($_GET["end_date"]) . "'"; 
 	$cond = true;
 } 
-if(isset($_GET["institution"])){ 
-    $qArray[] = "institution = '" . urldecode($_GET["institution"]) . "'"; 
+if(isset($inst_id)){ 
+    $qArray[] = "institution = '" . urldecode($inst_id) . "'"; 
 	$cond = true;
 } 
 
@@ -36,12 +41,12 @@ if($cond)
 $sql .= implode(" AND ", $qArray); 
 
 	
-$con = mysql_connect($server,$user,$password);
+$con = mysql_connect($sql_server,$sql_user,$sql_password);
 
 if (!$con)
 	die('Could not connect: ' . mysql_error());
 	
-mysql_select_db($database, $con);
+mysql_select_db($sql_database, $con);
 
 $result = mysql_query($sql);
 $count = 0;
@@ -50,6 +55,6 @@ while($row = mysql_fetch_array($result))
 	$count++;
 }
 
-print(json_encode(array('book_ping_count'=>$count)));
+print(json_encode(array('book_ping_count'=>$count,'result'=>"SUCCESS")));
 	
 ?>

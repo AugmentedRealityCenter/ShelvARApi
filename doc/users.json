@@ -1,0 +1,205 @@
+{
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "resourcePath": "/users", 
+    "apis": [
+        {
+            "path": "/users", 
+            "description": "List Users", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get all users at your institutions", 
+                    "notes": "Retrieves all users at your institution currently registered with ShelvAR. Set user id and authentication token in user context.", 
+                    "responseClass": "string", 
+                    "nickname": "user", 
+                    "parameters": [], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ID supplied"
+                        }, 
+                        {
+                            "code": 404, 
+                            "reason": "Data not found"
+                        },
+			{
+			    "code": 403,
+			    "reason": "Access denied. Authorization not provided."
+			}	
+                    ]
+                }
+            ]
+        },
+		{
+            "path": "/users/{user_id}/permissions",
+            "description": "Get permissions for a user",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Retrieve permissions for a user. Set user id and authentication token in user context.",
+                    "notes": "Retrieve permissions for a user",
+                    "responseClass": "string",
+                    "nickname": "user",
+                    "parameters": [],
+		    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        {
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/users/{user_id}.json",
+            "description": "Get information about a registered ShelvAR user",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get information about a registered ShelvAR user. Set user id and authentication token in user context.",
+                    "notes": "Get information about a registered ShelvAR user",
+                    "responseClass": "string",
+                    "nickname": "user",
+                    "parameters": [],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Invalid institution ID"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/users/{user_id}/permissions",
+            "description": "Set permissions for a user",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Set permissions for a user. Set user id and authentication token in user context.",
+                    "notes": "Set permissions for a user. Set user id and authentication token in user context.",
+                    "responseClass": "string",
+                    "nickname": "user",
+                    "parameters": [
+                        {
+                            "name": "admin",
+                            "description": "Value that determines whether the user is an administrator",
+                            "paramType": "body",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "post",
+                            "description": "Value that determines whether the user has post permissions",
+                            "paramType": "body",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "get",
+                            "description": "Value that determines whether the user has get permissions",
+                            "paramType": "body",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+		    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        {
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/users/register",
+            "description": "Register a user with ShelvAR",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Register a user with ShelvAR",
+                    "notes": "Register a user with ShelvAR",
+                    "responseClass": "string",
+                    "nickname": "user",
+                    "parameters": [
+                        {
+                            "name": "user_id",
+                            "description": "The users ID",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "password",
+                            "description": "The users password",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "institution_id",
+                            "description": "The ID of the institution that the user wants to register with",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "user_email",
+                            "description": "The email address of the user",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Invalid institution ID"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

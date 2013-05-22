@@ -1,0 +1,158 @@
+{
+    "apiVersion": "0.2",
+    "swaggerVersion": "1.1",
+    "resourcePath": "/institutions",
+    "apis": [
+		{
+            "path": "/institutions/",
+            "description": "List of enrolled institutions",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Registers an institution with ShelvAR",
+                    "notes": "Registers an institution with ShelvAR. Does not require authentication.",
+                    "responseClass": "string",
+                    "nickname": "institutions",
+                    "parameters": [
+                        {
+                            "name": "institution_id",
+                            "description": "The official name of the institution",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "admin_email",
+                            "description": "The email address of the user who will be the administrator of the account.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "alt_contact",
+                            "description": "The name of another person at the institution that should be contacted if the admin contact is unavailable.",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "institution_type",
+                            "description": "The enumerated type of your institution. TODO: docuemnt these.",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "short_code",
+                            "description": "2 - 10 character string that represents your institution.",
+                            "paramType": "body",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+		    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        {
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get information about all registered institutions",
+                    "notes": "Retrieve a list of all registered institutions with basic information about each one. Does not require authentication.",
+                    "responseClass": "string",
+                    "nickname": "institutions",
+                    "parameters": [],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid status value"
+                        }
+                    ]
+                }
+            ]
+        },
+	{
+            "path": "/institutions/{inst_id}",
+            "description": "Institution Information",
+            "operations": [
+		{
+                    "httpMethod": "POST",
+                    "summary": "Update information about an institution",
+                    "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "responseClass": "string",
+                    "nickname": "institution",
+                    "parameters": [
+                        {
+                            "name": "inst_id",
+                            "description": "The shortname for your institution.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                },                
+		{
+                    "httpMethod": "GET",
+                    "summary": "Get all information about an institution",
+                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "responseClass": "string",
+                    "nickname": "institution",
+                    "parameters": [
+                        {
+                            "name": "inst_id",
+                            "description": "The shortname for your institution.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
