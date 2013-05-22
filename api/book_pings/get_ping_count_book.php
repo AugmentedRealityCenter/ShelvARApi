@@ -31,7 +31,7 @@ if(isset($_GET["end_date"])){
 	$cond = true;
 } 
 if(isset($inst_id)){ 
-    $qArray[] = "institution = '" . urldecode($inst_id) . "'"; 
+    $qArray[] = "inst_id = '" . urldecode($inst_id) . "'"; 
 	$cond = true;
 } 
 
@@ -47,6 +47,8 @@ if (!$con)
 	die('Could not connect: ' . mysql_error());
 	
 mysql_select_db($sql_database, $con);
+
+error_log(print_r($sql,TRUE));
 
 $result = mysql_query($sql);
 $count = 0;
