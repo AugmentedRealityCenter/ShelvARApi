@@ -31,7 +31,7 @@ if(isset($_GET["end_date"])){
 	$cond = true;
 } 
 if(isset($inst_id)){ 
-    $qArray[] = "institution = '" . urldecode($inst_id) . "'"; 
+    $qArray[] = "inst_id = '" . urldecode($inst_id) . "'"; 
 	$cond = true;
 } 
 
