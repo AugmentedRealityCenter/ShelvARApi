@@ -274,12 +274,12 @@ function make_logo($pdf,$paper_format){
 		   );
   
   if($paper_format->margin_top > $paper_format->margin_left){
-    $scale = $paper_format->margin_top / 12.0;
+    $scale = 0.5 * $paper_format->margin_top / 12.0;
     for($i=0; $i < 12; $i++){
       for($j=0; $j < 31; $j++){
 	if(1 == $logoArr[$i][$j]){
 	  $pdf->Rect(11*$scale +($j * $scale),
-		     ($i * $scale),
+		     3*$scale + ($i * $scale),
 		     $scale,
 		     $scale,
 		     'F'); //  X, Y, W, H, Fill 
@@ -287,11 +287,11 @@ function make_logo($pdf,$paper_format){
       }
     }
   } else {
-    $scale = $paper_format->margin_right / 12.0;
+    $scale = 0.5 * $paper_format->margin_right / 12.0;
     for($i=0; $i < 12; $i++){
       for($j=0; $j < 31; $j++){
 	if(1 == $logoArr[$i][$j]){
-	  $pdf->Rect(($i * $scale),
+	  $pdf->Rect(3*$scale + ($i * $scale),
 		     (11+30)*$scale - ($j * $scale),
 		     $scale,
 		     $scale,
