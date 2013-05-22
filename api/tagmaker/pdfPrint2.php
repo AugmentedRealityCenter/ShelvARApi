@@ -21,7 +21,7 @@ for($i=0; $i < count($tag_chunks); $i++){
   make_page($pdf,$paper_format,$tag_chunks[$i]);
  }
 
-$pdf->Output( ($paper_format->name . ".pdf"), "I");
+$pdf->Output( ($paper_format->name . ".pdf"), "D");
 
 function make_page($pdf,$paper_format,$tags){
   $pdf->AddPage();
