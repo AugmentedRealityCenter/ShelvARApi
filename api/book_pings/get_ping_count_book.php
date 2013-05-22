@@ -48,6 +48,8 @@ if (!$con)
 	
 mysql_select_db($sql_database, $con);
 
+error_log(print_r($sql,TRUE));
+
 $result = mysql_query($sql);
 $count = 0;
 while($row = mysql_fetch_array($result))
