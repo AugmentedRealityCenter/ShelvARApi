@@ -42,9 +42,9 @@
  * @endcode
  * See http://json.org
  */
+ 
 
-function do_book_ping($jsoninput,$institution){
-	//TODO should also take $institution as input, and add that to the record in the database
+function do_book_ping($jsoninput,$inst_id,$user_id){
 	$decoded = json_decode($jsoninput,true);
 	$success = false; //Assume JSON decoding failed.
 
@@ -77,9 +77,9 @@ function do_book_ping($jsoninput,$institution){
 		die('JSON error stopped script');
 	}
 
-	include_once "../../db_info.php";
+	include "../../db_info.php";
 	/* Create a new mysqli object with database connection parameters */
-	$con = new mysqli($server, $user, $password, $database);
+	$con = new mysqli($sql_server, $sql_user, $sql_password, $sql_database);
 
 	if(mysqli_connect_errno()) {
 		echo "Connection Failed: " . mysqli_connect_errno();
@@ -119,12 +119,18 @@ function do_book_ping($jsoninput,$institution){
 		// No guarantee that
 		// they are the correct format, though.
 		/* Create a prepared statement */
-		if($stmt = $con -> prepare("INSERT INTO book_pings (book_tag, book_call, neighbor1_tag, neighbor1_call,
-		neighbor2_tag, neighbor2_call, ping_time, institution) VALUES (?,?,?,?,?,?,?,?)")) {
+		if($stmt = $con -> prepare("INSERT INTO book_pings (book_tag,".
+					   "book_call, neighbor1_tag,".
+					   "neighbor1_call,neighbor2_tag,".
+					   "neighbor2_call, ping_time,".
+					   "user_id,inst_id) VALUES".
+					   "(?,?,?,?,?,?,?,?,?)")) {
 
+		  $book_ping_entry["user_id"]=$user_id;
+		  $book_ping_entry["inst_id"]=$inst_id;
 		/* Bind parameters
 		 s - string, b - blob, i - int, etc */
-		$stmt -> bind_param("ssssssss",
+		$stmt -> bind_param("sssssssss",
 		$book_ping_entry["book_tag"],
 		$book_ping_entry["book_call"],
 		$book_ping_entry["neighbor1_tag"],
@@ -132,7 +138,8 @@ function do_book_ping($jsoninput,$institution){
 		$book_ping_entry["neighbor2_tag"],
 		$book_ping_entry["neighbor2_call"],
 		$book_ping_entry["ping_time"],
-		$institution);
+		$book_ping_entry["user_id"],
+				    $book_ping_entry["inst_id"]);
 
 		/* Execute it */
 		$stmt -> execute();

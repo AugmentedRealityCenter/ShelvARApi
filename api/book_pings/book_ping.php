@@ -15,9 +15,20 @@
 
 include_once "book_ping_lib.php";
 include_once "../../header_include.php";
+
+include_once "../api_ref_call.php";
+if($oauth_user['can_submit_inv'] != 1){
+  exit(json_encode(array('result'=>'ERROR No permission to submit data.')));
+ }
+
+
 /** @cond */
 $ret; //!< return value from function call that does most of the work
-$ret = do_book_ping(stripslashes($_POST["book_pings"]),$_GET["institution"]);
+$input="[]";
+if(isset($_POST["book_pings"])){
+  $input = stripslashes($_POST["book_pings"]);
+ }
+$ret = do_book_ping($input,$inst_id,$user_id);
 Print json_encode(array('result'=>$ret)); 
 //var_dump($_POST);
 //var_dump($_GET);

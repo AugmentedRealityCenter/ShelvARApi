@@ -12,10 +12,16 @@
 include "../../database.php";
 include_once "../../header_include.php";
 
+include_once "../api_ref_call.php";
+if($oauth_user['can_read_data'] != 1){
+  exit(json_encode(array('result'=>'ERROR No permission to read data.')));
+ }
+
 $array = array();
 $db = new database();
 print($db->query . "\n\n");
-$db->query = "SELECT * FROM book_pings WHERE id = ? and institution = ?";
+$db->query = "SELECT * FROM book_pings WHERE id = ? and inst_id = ?";
+$_GET['institution']=$inst_id;
 $db->params = array($_GET['book_ping_id'],$_GET['institution']);
 $db->type = 'is';
 $the_rec = $db->fetch();
