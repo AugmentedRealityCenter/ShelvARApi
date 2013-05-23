@@ -3,7 +3,20 @@ include_once "../api_ref_call.php";
 include_once "../../database.php";
 include_once "../../header_include.php";
 
-$arr = array('user_id' => $oauth_user['user_id'], 'inst_id'=>$oauth_user['inst_id'], 'is_admin' => $oauth_user['is_admin'], 'can_submit_inv' => $oauth_user['can_submit_inv'], 'can_read_inv' => $oauth_user['can_read_inv'], 'is_superadmin' => '0', 'exp_date'=> $oauth_user['exp_date'], 'result'=>'SUCCESS');
+$arr = array('user_id' => $oauth_user['user_id'],
+	     'name'=> $oauth_user['name'],
+	     'inst_id'=>$oauth_user['inst_id'],
+	     'is_admin' => $oauth_user['is_admin'],
+	     'email_verified' => $oauth_user['email_verified'],
+	     'can_submit_inv' => $oauth_user['can_submit_inv'],
+	     'can_read_inv' => $oauth_user['can_read_inv'],
+	     'user_num' => $oauth_user['user_num'],
+	     'is_superadmin' => '0', //TODO
+	     'exp_date'=> $oauth_user['exp_date'],
+	     'inst_name'=> $oauth_user['inst_name'],
+	     'inst_activated'=> $oauth_user['inst_activated'],
+	     'inst_has_inv'=> $oauth_user['inst_has_inv'],
+	     'result'=>'SUCCESS');
     print(json_encode($arr));
 
 ?>
