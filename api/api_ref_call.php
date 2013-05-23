@@ -48,7 +48,7 @@ if(!isset($oauth_user)){
     $exp_date = $Provider->getAccessTokenDate();
 
     $db = new database();
-    $db->query = "SELECT inst_id, name, user_id, is_admin, email_verified, can_submit_inv, can_read_inv FROM users WHERE user_num = ?";
+    $db->query = "SELECT inst_id, name, user_id, is_admin, email_verified, can_submit_inv, can_read_inv, user_num FROM users WHERE user_num = ?";
     $db->params = array($user_num);
     $db->type = "i";
     $the_rec = $db->fetch();
@@ -71,7 +71,7 @@ error_log("cp3");
 if(isset($oauth_user)){
   error_log(print_r($oauth_user,TRUE));
   $db2 = new database();
-  $db2->query = "SELECT exp_date, has_inv, is_activated, name, FROM institutions WHERE inst_id = ?";
+  $db2->query = "SELECT exp_date, has_inv, is_activated, name FROM institutions WHERE inst_id = ?";
   $inst_id2 = $oauth_user['inst_id'];
   $db2->params = array($inst_id2);
   $db2->type = "s";
