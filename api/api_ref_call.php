@@ -69,11 +69,15 @@ if(!isset($oauth_user)){
 
 error_log("cp3");
 if(isset($oauth_user)){
+  error_log(print_r($oauth_user,TRUE));
   $db = new database();
   $db->query = "SELECT exp_date, has_inv, is_activated, name, FROM institutions WHERE inst_id = ?";
   $inst_id = $oauth_user['inst_id'];
   $db->params = array($inst_id);
   $db->type = 's';
+
+  error_log("cp3b");
+
   $ret = $db->fetch();
   $oauth_user['exp_date'] = "0";
   if(count($ret)>0){
