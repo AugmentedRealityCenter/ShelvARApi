@@ -10,6 +10,8 @@ unset($oauth_user);
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
 $response 	= $Provider->checkOAuthRequest();
 
+error_log("cp1");
+
 if(is_bool($response) && $response == true){
   //Do nothing
  } else if(isset($_SERVER['HTTP_REFERER']) && stripos($_SERVER['HTTP_REFERER'],"api.shelvar.com") !== false){
@@ -39,6 +41,7 @@ if(is_bool($response) && $response == true){
   exit(json_encode(array("result"=>"ERROR. OAuth token missing or invalid.")));
 }
 
+error_log("cp2");
 if(!isset($oauth_user)){
   try {
     $user_num = $Provider->getUserId();
@@ -64,6 +67,7 @@ if(!isset($oauth_user)){
   }
  }
 
+error_log("cp3");
 if(isset($oauth_user)){
   $db = new database();
   $db->query = "SELECT exp_date, has_inv, is_activated, name, FROM institutions WHERE inst_id = ?";
@@ -86,5 +90,5 @@ if(isset($oauth_user)){
     exit(json_encode(array("result"=>"ERROR Could not find your institution.")));
   }
  }
-    
+error_log("cp4");
 ?>
