@@ -72,9 +72,9 @@ if(isset($oauth_user)){
   error_log(print_r($oauth_user,TRUE));
   $db2 = new database();
   $db2->query = "SELECT exp_date, has_inv, is_activated, name, FROM institutions WHERE inst_id = ?";
-  $inst_id = $oauth_user['inst_id'];
-  $db2->params = array($inst_id);
-  $db2->type = 's';
+  $inst_id2 = $oauth_user['inst_id'];
+  $db2->params = array($inst_id2);
+  $db2->type = "s";
 
   error_log("cp3b");
 
