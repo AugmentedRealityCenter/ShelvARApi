@@ -31,6 +31,8 @@ function huffmanSearch($input){
 }
 
 function huffman_decode($input){
+  global $huffman1;
+
   //Make the decoding map
   $huffman2 = array();
   for($i=0;$i<256;$i++){
