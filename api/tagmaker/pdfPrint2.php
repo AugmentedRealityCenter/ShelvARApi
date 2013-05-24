@@ -117,7 +117,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
       $before = array_slice($lc_parts,0,$parts_index);
       $after = array_slice($lc_parts,$parts_index);
       $cur = array_shift($after);
-      error_log("before $before cur $cur after $after");
+      error_log("before ". print_r($before,TRUE) . "cur $cur after " . print_r($after,TRUE));
 
       $class_expld = explode(".",$cur);
       $class_impld = implode("\n.",$class_expld);
