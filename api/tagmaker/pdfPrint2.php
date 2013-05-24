@@ -126,6 +126,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 	array_unshift($after,$class_expld[$i]);
       }
       $lc_parts = array_merge($before,$after);
+      error_log(print_r($lc_parts,TRUE));
     }
 
     //Try to merge the current item onto the end of the last one, if possible
