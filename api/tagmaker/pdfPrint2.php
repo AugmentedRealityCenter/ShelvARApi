@@ -121,7 +121,9 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 	if($i != 0){
 	  $pre=".";
 	}
-	array_unshift($lc_parts,$pre . $class_expld[$i]);
+	if(strlen($expld[$i]) > 0){
+	  array_unshift($lc_parts,$pre . $expld[$i]);
+	}
       }
     }
 
