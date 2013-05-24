@@ -112,8 +112,8 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
       }
     }
 
-    if($pdf->GetStringWidth($lc_parts[0]) > $paper_format->tag_width){
-      $cur = array_shift($after);
+    $cur = array_shift($after);
+    if($pdf->GetStringWidth($cur) > $paper_format->tag_width){
       $expld = explode(".",$cur);
 
       for($i=count($expld)-1;$i >= 0; $i--){
@@ -125,6 +125,8 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 	  array_unshift($lc_parts,$pre . $expld[$i]);
 	}
       }
+    } else {
+      array_unshift($lc_parts,$cur);
     }
 
     $processed_parts[] = array_shift($lc_parts);
