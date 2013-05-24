@@ -43,6 +43,8 @@ function huffman_decode($input){
       }
     }
 
+    error_log("prefixLen: " . $prefixLen);
+
     //If prefixLen is 0, it means we are not making progress. Better abort.
     if($prefixLen <= 0) {
       return "";
