@@ -130,17 +130,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
       $lc_parts = array_merge($before,$after);
     }
 
-    //Try to merge the current item onto the end of the last one, if possible
-    /*    $joined = $lc_parts[$parts_index];
-    if(count($processed_parts) > 0){
-      $joined = $processed_parts[count($processed_parts)-1] . " " . $joined;
-    }
-
-    if(count($processed_parts) > 0 && $pdf->GetStringWidth($joined) <= $paper_format->tag_width){
-      $processed_parts[count($processed_parts)-1] = $joined;
-    } else {
-      $processed_parts[count($processed_parts)] = $lc_parts[$parts_index];
-      }*/
+    $processed_parts[$parts_index] = $lc_parts[$parts_index];
 
     $parts_index++;
   }
