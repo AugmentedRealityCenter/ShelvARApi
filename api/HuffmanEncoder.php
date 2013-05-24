@@ -37,6 +37,8 @@ function huffman_decode($input){
     $huffman2[$huffman1[$i]] = chr($i);
   }
 
+  error_log(print_r($huffman2,TRUE));
+
   $ret="";
   while(strlen($input) > 0){
     $prefixLen=0;
