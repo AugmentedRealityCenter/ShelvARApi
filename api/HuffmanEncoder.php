@@ -51,6 +51,7 @@ function huffman_decode($input){
     }
 
     $which = huffmanSearch(substr($input,0,$prefixLen));
+    error_log("which: " . $which);
     //Reached the null terminator, so we can return the result.
     if($which == 0) return $ret;
 
