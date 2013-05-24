@@ -31,14 +31,17 @@ function huffmanSearch($input){
 }
 
 function huffman_decode($input){
+  //Make the decoding map
+  $huffman2 = array();
+  for($i=0;$i<256;$i++){
+    $huffman2[$huffman1[$i]] = chr($i);
+  }
+
   $ret="";
   while(strlen($input) > 0){
-    //What is the length of the longest prefix that is in the table?
     $prefixLen=0;
     for($prefixLen=1; $prefixLen<strlen($input);$prefixLen++){
-      $which = huffmanSearch(substr($input,0,$prefixLen));
-      if($which == -1){
-	$prefixLen--;
+      if(array_key_exists(substr($input,0,$prefixLen),$huffman2)){
 	break;
       }
     }
@@ -50,12 +53,11 @@ function huffman_decode($input){
       return "";
     }
 
-    $which = huffmanSearch(substr($input,0,$prefixLen));
-    error_log("which: " . $which);
+    $whichchr = $huffman2[substr($input,0,$prefixLen)];
     //Reached the null terminator, so we can return the result.
-    if($which == 0) return $ret;
+    if($which === '\0') return $ret;
 
-    $ret .= chr($which);
+    $ret .= $whichchr
     error_log("ret: " . $ret);
     $input = substr($input,$prefixLen);
   }
