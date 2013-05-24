@@ -117,17 +117,17 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
       $before = array_slice($lc_parts,0,$parts_index);
       $after = array_slice($lc_parts,$parts_index);
       $cur = array_shift($after);
-      error_log("before ". print_r($before,TRUE) . "cur $cur after " . print_r($after,TRUE));
 
       $class_expld = explode(".",$cur);
-      $class_impld = implode("\n.",$class_expld);
-      $class_expld = explode("\n",$class_impld);
 
       for($i=count($class_expld)-1;$i >= 0; $i--){
-	//array_unshift($after,$class_expld[$i]);
+	$pre="";
+	if($i != 0){
+	  $pre=".";
+	}
+	array_unshift($after,$pre . $class_expld[$i]);
       }
       $lc_parts = array_merge($before,$after);
-      error_log(print_r($lc_parts,TRUE));
     }
 
     //Try to merge the current item onto the end of the last one, if possible
