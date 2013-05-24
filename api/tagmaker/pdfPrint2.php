@@ -74,7 +74,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     $pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
 	       $paper_format->label_width-2*$paper_format->padding,
 	       $paper_format->label_height-2*$paper_format->padding,"F");
-    $pdf->SetFont('Courier','B',$paper_format->font_size);
+    $pdf->SetFont($paper_format->font,'B',$paper_format->font_size);
     $pdf->SetTextColor(0);
     $pdf->SetXY($x+$paper_format->padding,$y+$paper_format->padding);
     $pdf->MultiCell($paper_format->label_width-2*$paper_format->padding,
