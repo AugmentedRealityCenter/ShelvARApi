@@ -74,7 +74,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     $pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
 	       $paper_format->label_width-2*$paper_format->padding,
 	       $paper_format->label_height-2*$paper_format->padding,"F");
-    $pdf->SetFont($paper_format->font,'B',$paper_format->font_size);
+    $pdf->SetFont($paper_format->font,$paper_format->font_style,$paper_format->font_size);
     $pdf->SetTextColor(0);
     $pdf->SetXY($x+$paper_format->padding,$y+$paper_format->padding);
     $pdf->MultiCell($paper_format->label_width-2*$paper_format->padding,
@@ -87,7 +87,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 // Should not print if tag won't fit between $bottom and $top, return
 // error code instead. Any negative value is an error.
 function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
-  $pdf->SetFont($paper_format->font,'B',$paper_format->font_size);
+  $pdf->SetFont($paper_format->font,$paper_format->font_style,$paper_format->font_size);
   $pdf->SetTextColor(0);
   
   $lc_string = tag_to_lc($tag);
