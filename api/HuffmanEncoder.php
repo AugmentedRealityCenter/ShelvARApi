@@ -59,7 +59,7 @@ function huffman_decode($input){
 
     $whichchr = $huffman2[substr($input,0,$prefixLen)];
     //Reached the null terminator, so we can return the result.
-    if($whichchr === '\0') return $ret;
+    if($whichchr == chr(0)) return $ret;
 
     $ret .= $whichchr;
     error_log("ret: " . $ret);
