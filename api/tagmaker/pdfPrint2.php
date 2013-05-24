@@ -112,7 +112,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
       }
     }
 
-    $cur = array_shift($after);
+    $cur = array_shift($lc_parts);
     if($pdf->GetStringWidth($cur) > $paper_format->tag_width){
       $expld = explode(".",$cur);
 
