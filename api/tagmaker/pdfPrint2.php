@@ -96,39 +96,40 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $processed_parts = array();
   $parts_index = 0;
   while($parts_index < count($lc_parts)){
-    if($pdf->GetStringWidth($lc_parts[$parts_index]) > $paper_format->tag_width){
-      //This part should be split. Right now only handles classification
-      if($parts_index == 0){
-	//First, try splitting on periods
-	$classification = array_shift($lc_parts);
-	$class_expld = explode(".",$classification);
-	$class_impld = implode("\n .",$class_expld);
-	$class_expld = explode("\n",$class_impld);
+    //This is the classification. Split off the letter parts
+    if($parts_index == 0){
+      $classification = array_shift($lc_parts);
+      $counter = 0;
+      while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
+	$counter++;
+      }
 
-	for($i=count($class_expld)-1;$i >= 0; $i--){
-	  array_unshift($lc_parts,$class_expld[$i]);
-	}
-
-	if($pdf->GetStringWidth($lc_parts[0]) > $paper_format->tag_width){
-	  //If the first item is still too long, split the alphabetic and numeric parts.
-	  $classification = array_shift($lc_parts);
-	  $counter = 0;
-	  while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
-	    $counter++;
-	  }
-	  if($counter < strlen($classification)){
-	    array_unshift($lc_parts,substr($classification,$counter));
-	    array_unshift($lc_parts,substr($classification,0,$counter));
-	  } else {
-	    //Nothing we could do
-	    array_unshift($lc_parts,$classification);
-	  }
-	}
+      if($counter < strlen($classification)){
+	array_unshift($lc_parts,substr($classification,$counter));
+	array_unshift($lc_parts,substr($classification,0,$counter));
+      } else {
+	//Nothing we could do
+	array_unshift($lc_parts,$classification);
       }
     }
 
+    if($pdf->GetStringWidth($lc_parts[$parts_index]) > $paper_format->tag_width){
+      $before = array_slice($lc_parts,0,$parts_index);
+      $after = array_slice($lc_parts,$parts_index);
+      $cur = array_shift($after);
+
+      $class_expld = explode(".",$cur);
+      $class_impld = implode("\n.",$class_expld);
+      $class_expld = explode("\n",$class_impld);
+
+      for($i=count($class_expld)-1;$i >= 0; $i--){
+	array_unshift($after,$class_expld[$i]);
+      }
+      $lc_parts = array_merge($before,$after);
+    }
+
     //Try to merge the current item onto the end of the last one, if possible
-    $joined = $lc_parts[$parts_index];
+    /*    $joined = $lc_parts[$parts_index];
     if(count($processed_parts) > 0){
       $joined = $processed_parts[count($processed_parts)-1] . " " . $joined;
     }
@@ -137,7 +138,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
       $processed_parts[count($processed_parts)-1] = $joined;
     } else {
       $processed_parts[count($processed_parts)] = $lc_parts[$parts_index];
-    }
+      }*/
 
     $parts_index++;
   }
