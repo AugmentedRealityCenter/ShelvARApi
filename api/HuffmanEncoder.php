@@ -15,21 +15,6 @@ function huffman_encode($input){
   return $ret;
 }
 
-//Find the first Huffman codeword that has the search string
-// as a prefix
-//TODO: This is stupidly inefficient. Improve using a trie-based
-// decoder.
-function huffmanSearch($input){
-  global $huffman1;
-  for($i=0;$i<256;$i++){
-    if(strpos($huffman1[$i],$input)===0){
-      return $i;
-    }
-  }
-
-  return -1;
-}
-
 function huffman_decode($input){
   global $huffman1;
 
