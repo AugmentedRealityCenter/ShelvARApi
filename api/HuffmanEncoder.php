@@ -58,6 +58,7 @@ function huffman_decode($input){
     $input = substr($input,$prefixLen);
   }
 
+  error_log("huffman decode failed. No null terminator");
   //Looks like the string wasn't null terminated. Better abort.
   return "";
 }
