@@ -24,8 +24,6 @@ function huffman_decode($input){
     $huffman2[$huffman1[$i]] = chr($i);
   }
 
-  error_log(print_r($huffman2,TRUE));
-
   $ret="";
   while(strlen($input) > 0){
     $prefixLen=0;
@@ -34,8 +32,6 @@ function huffman_decode($input){
 	break;
       }
     }
-
-    error_log("prefixLen: " . $prefixLen);
 
     //If prefixLen is 0, it means we are not making progress. Better abort.
     if($prefixLen <= 0) {
@@ -47,11 +43,9 @@ function huffman_decode($input){
     if($whichchr == chr(0)) return $ret;
 
     $ret .= $whichchr;
-    error_log("ret: " . $ret);
     $input = substr($input,$prefixLen);
   }
 
-  error_log("huffman decode failed. No null terminator");
   //Looks like the string wasn't null terminated. Better abort.
   return "";
 }

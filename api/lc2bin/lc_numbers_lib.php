@@ -103,8 +103,6 @@ function tag_to_lc($b64Tag){
     $num_blocks = 10;
   }
 
-  error_log("encoding: " . $encoding);
-
   if(strcmp($encoding,"0000") != 0){
     return "";
   }
@@ -118,7 +116,6 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
-  error_log("huffman string: " . $huffman_string);
   return huffman_decode($huffman_string);
 }
 

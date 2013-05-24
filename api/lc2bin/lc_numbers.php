@@ -21,7 +21,6 @@ if(strlen($book_tag) == 0){
 
 $call_number_out = tag_to_lc($book_tag);
 if(strlen($result) == 0 && strcmp(trim($call_number_in),$call_number_out) != 0){
-  error_log($call_number_out);
   $result = "ERROR: Call number in doesn't match call number out. This is a bug, report to the developers ";
  }
 
