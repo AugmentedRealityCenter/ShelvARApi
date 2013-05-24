@@ -94,10 +94,9 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
 
   $processed_parts = array();
-  $parts_index = 0;
-  while($parts_index < count($lc_parts)){
+  while(count($lc_parts) > 0){
     //This is the classification. Split off the letter parts
-    if($parts_index == 0){
+    if(count($processed_parts) == 0){
       $classification = array_shift($lc_parts);
       $counter = 0;
       while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
@@ -113,26 +112,20 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
       }
     }
 
-    if($pdf->GetStringWidth($lc_parts[$parts_index]) > $paper_format->tag_width){
-      $before = array_slice($lc_parts,0,$parts_index);
-      $after = array_slice($lc_parts,$parts_index);
+    if($pdf->GetStringWidth($lc_parts[0]) > $paper_format->tag_width){
       $cur = array_shift($after);
+      $expld = explode(".",$cur);
 
-      $class_expld = explode(".",$cur);
-
-      for($i=count($class_expld)-1;$i >= 0; $i--){
+      for($i=count($expld)-1;$i >= 0; $i--){
 	$pre="";
 	if($i != 0){
 	  $pre=".";
 	}
-	array_unshift($after,$pre . $class_expld[$i]);
+	array_unshift($lc_parts,$pre . $class_expld[$i]);
       }
-      $lc_parts = array_merge($before,$after);
     }
 
-    $processed_parts[$parts_index] = $lc_parts[$parts_index];
-
-    $parts_index++;
+    $processed_parts[] = array_shift($lc_parts);
   }
 
   $lines_tall = count($processed_parts);
