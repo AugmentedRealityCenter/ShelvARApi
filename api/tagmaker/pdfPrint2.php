@@ -87,7 +87,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 // Should not print if tag won't fit between $bottom and $top, return
 // error code instead. Any negative value is an error.
 function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
-  $pdf->SetFont('Courier','B',$paper_format->font_size);
+  $pdf->SetFont($paper_format->font,'B',$paper_format->font_size);
   $pdf->SetTextColor(0);
   
   $lc_string = tag_to_lc($tag);
