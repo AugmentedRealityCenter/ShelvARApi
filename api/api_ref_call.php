@@ -16,7 +16,7 @@ if(is_bool($response) && $response == true){
   $user_id = "sandy";
   try {
     $db = new database();
-    $db->query = "SELECT * FROM users WHERE user_id = ?";
+    $db->query = "SELECT inst_id, name, user_id, is_admin, email_verified, can_submit_inv, can_read_inv, user_num FROM users WHERE user_id = ?";
     $db->params = array($user_id);
     $db->type = "s";
     $the_rec = $db->fetch();
@@ -45,7 +45,7 @@ if(!isset($oauth_user)){
     $exp_date = $Provider->getAccessTokenDate();
 
     $db = new database();
-    $db->query = "SELECT * FROM users WHERE user_num = ?";
+    $db->query = "SELECT inst_id, name, user_id, is_admin, email_verified, can_submit_inv, can_read_inv, user_num FROM users WHERE user_num = ?";
     $db->params = array($user_num);
     $db->type = "i";
     $the_rec = $db->fetch();
@@ -65,17 +65,26 @@ if(!isset($oauth_user)){
  }
 
 if(isset($oauth_user)){
-  $db = new database();
-  $db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
-  $inst_id = $oauth_user['inst_id'];
-  $db->params = array($inst_id);
-  $db->type = 's';
-  $ret = $db->fetch();
+  $db2 = new database();
+  $db2->query = "SELECT exp_date, has_inv, is_activated, name FROM institutions WHERE inst_id = ?";
+  $inst_id2 = $oauth_user['inst_id'];
+  $db2->params = array($inst_id2);
+  $db2->type = "s";
+
+  $ret = $db2->fetch();
   $oauth_user['exp_date'] = "0";
   if(count($ret)>0){
     $date = new DateTime($ret[0]['exp_date'], new DateTimeZone("UTC"));
     $oauth_user['exp_date'] = "" . $date->getTimestamp();
+    $oauth_user['inst_has_inv'] = $ret[0]['has_inv'];
+    $oauth_user['inst_activated'] = $ret[0]['is_activated'];
+    $oauth_user['inst_name'] = $ret[0]['name'];
+  } else {
+    $oauth_user['exp_date'] = "0";
+    $oauth_user['inst_has_inv'] = "0";
+    $oauth_user['inst_activated'] = "0";
+    $oauth_user['inst_name'] = "ERROR";
+    exit(json_encode(array("result"=>"ERROR Could not find your institution.")));
   }
  }
-    
 ?>
