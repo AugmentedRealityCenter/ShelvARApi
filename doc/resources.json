@@ -25,5 +25,9 @@
 		{
                     	"path":"make_tags.{format}",
 			"description":"Utility for printing tags to PDF files"
+		},
+		{
+                    	"path":"oauth.{format}",
+			"description":"OAuth 1.0a utilities for app developers"
 		}]
 }
