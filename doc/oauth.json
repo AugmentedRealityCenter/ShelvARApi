@@ -10,9 +10,9 @@
                         {
                               "httpMethod": "GET", 
                               "summary": "OAuth step 1: Get request token", 
-                              "notes": "Returns a request token and token secret in the oauth_token and oauth_token_secret. You must provide an oauth_callback, as this is the only authorization method supported by the ShelvAR API. You will need to email Dr. Brinkman to get a consumer keyand consumer secret.", 
+                              "notes": "Returns a request token and token secret in the oauth_token and oauth_token_secret variable. In addition to the standard OAuth variables, you must provide an oauth_callback (this is the only authorization method supported by the ShelvAR API) and a scope. You will need to email Dr. Brinkman to get a consumer key and consumer secret.", 
                               "responseClass": "string", 
-                              "nickname": "book_tag", 
+                              "nickname": "get_request_token", 
                               "parameters": [
                                     {
                                           "name": "oauth_callback", 
@@ -69,7 +69,29 @@
                               ]
                         }
                   ]
+            },
+	    {
+                  "path": "/oauth/get_access_token", 
+                  "description": "OAuth step 3: Get access token", 
+                  "operations": [
+                        {
+                              "httpMethod": "GET", 
+                              "summary": "OAuth step 3: Get access token", 
+                              "notes": "Returns a a token and token_secret that can be used in signing requests to secure APIs.", 
+                              "responseClass": "string", 
+                              "nickname": "get_access_token", 
+                              "parameters": [
+                              ], 
+                              "errorResponses": [
+                                    {
+                                          "code": 400, 
+                                          "reason": "Invalid ID supplied"
+                                    }
+                              ]
+                        }
+                  ]
             }
+
       ]
 }
 
