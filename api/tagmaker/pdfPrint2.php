@@ -109,7 +109,7 @@ function split_class($cur){
   $ret['numbers'] = substr($cur,0,$count);
   $ret['rest'] = substr($cur,$count);
 
-  
+  return $ret;
 }
 
 //Note: The x and y are of the LOWER LEFT corner, and you are to 
