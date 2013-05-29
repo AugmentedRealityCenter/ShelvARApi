@@ -137,8 +137,9 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 	}
 	array_unshift($lc_parts,$ret['numbers']);
 	$cur = $ret['letters'];
+
+	$foundclass = true;
       }
-      $foundclass = true;
     }
 
     $processed_parts[] = $cur;
