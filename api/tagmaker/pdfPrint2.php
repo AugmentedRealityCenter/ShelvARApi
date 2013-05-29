@@ -130,7 +130,9 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
     $cur = array_shift($lc_parts);
 
     if(!$foundclass){
+      error_log($cur);
       $ret = split_class($cur);
+      error_log(print_r($ret,TRUE));
       if(isset($ret)){
 	if(strlen($ret['rest']) > 0){
 	  array_unshift($lc_parts,$ret['rest']);
