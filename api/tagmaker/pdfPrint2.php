@@ -82,6 +82,36 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
   }
 }
 
+function split_class($cur){
+  $count = 0;
+  $ret = array();
+  while($count < strlen($cur) && ctype_alpha(substr($cur,$count,1))){
+    $count++;
+  }
+
+  if($count == 0) return null;
+
+  $ret['letters'] = substr($cur,0,$count);
+  $cur = substr($cur,$count);
+
+  $count = 0;
+  while($count < strlen($cur) && //At least one char left
+	(ctype_digit(substr($cur,$count,1)) || //is a digit, or...
+	 (strcmp(substr($cur,$count,1),".") === 0 &&  //is a period, and:
+	  ($count+1 < strlen($cur) && //At least TWO chars left, and the
+	   ctype_digit(substr($cur,$count+1,1))))//next is a digit
+	 )){
+    $count++;
+  }
+
+  if($count == 0) return null;
+
+  $ret['numbers'] = substr($cur,0,$count);
+  $ret['rest'] = substr($cur,$count);
+
+  
+}
+
 //Note: The x and y are of the LOWER LEFT corner, and you are to 
 // print upwards from there, returning the $y coordinate of the top.
 // Should not print if tag won't fit between $bottom and $top, return
@@ -94,39 +124,21 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
 
   $processed_parts = array();
+  $foundclass = false;
+
   while(count($lc_parts) > 0){
-    //This is the classification. Split off the letter parts
-    if(count($processed_parts) == 0){
-      $classification = array_shift($lc_parts);
-      $counter = 0;
-      while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
-	$counter++;
-      }
-
-      if($counter < strlen($classification)){
-	array_unshift($lc_parts,substr($classification,$counter));
-	array_unshift($lc_parts,substr($classification,0,$counter));
-      } else {
-	//Nothing we could do
-	array_unshift($lc_parts,$classification);
-      }
-    }
-
     $cur = array_shift($lc_parts);
-    if($pdf->GetStringWidth($cur) > $paper_format->tag_width){
-      $expld = explode(".",$cur);
 
-      for($i=count($expld)-1;$i >= 0; $i--){
-	$pre="";
-	if($i != 0){
-	  $pre=".";
+    if(!$foundclass){
+      $ret = split_class($cur);
+      if(isset($ret)){
+	if(strlen($ret['rest']) > 0){
+	  array_unshift($lc_parts,$ret['rest']);
 	}
-	if(strlen($expld[$i]) > 0){
-	  array_unshift($lc_parts,$pre . $expld[$i]);
-	}
+	array_unshift($lc_parts,$ret['numbers']);
+	array_unshift($lc_parts,$ret['letters']);
       }
-    } else {
-      array_unshift($lc_parts,$cur);
+      $foundclass = true;
     }
 
     $processed_parts[] = array_shift($lc_parts);
