@@ -68,9 +68,9 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     // it unit independent. This assumes inches.
     $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
     $temp_format = clone $paper_format;
-    while($num_top < 0){
-      $temp_format->font_size--;
+    while($num_top < 0 && $temp_format->font_size > 0){
       $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $temp_format, $tag);
+      $temp_format->font_size--;
     }
   }
 
