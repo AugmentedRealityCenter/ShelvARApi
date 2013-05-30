@@ -67,7 +67,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     //TODO This 2.0/72 is to make some space between the tag and the lc. Should make
     // it unit independent. This assumes inches.
     $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
-    $temp_format = $paper_format;
+    $temp_format = clone $paper_format;
     while($num_top < 0){
       $temp_format->font_size--;
       $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $temp_format, $tag);
