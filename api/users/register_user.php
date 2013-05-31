@@ -58,7 +58,7 @@
 			$db = new database();
 			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,encrip_salt,can_submit_inv,can_read_inv)
 							VALUES(?,?,?,?,?,?,?,?,?,?)";
-			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, $email, "NO", $salt, 0, 0);
+			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, $email, 0, $salt, 0, 0);
 			$db->type = 'ssssisssii';
 
 			if($db->insert()) {
