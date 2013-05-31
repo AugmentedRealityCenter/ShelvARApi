@@ -256,7 +256,7 @@ function fetchOptions($paper_type){
 
       $options->font = "Courier";
       $options->font_size = "6";
-      $options->font_style = "I";
+      $options->font_style = "";
       
       return $options;
     }
