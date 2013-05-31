@@ -7,7 +7,7 @@
 	$err = array();
 
 	$db = new database();
-	$db->query = "SELECT inst_id, name FROM institution";
+	$db->query = "SELECT inst_id, name FROM institutions";
 	$result = $db->fetch();
 	
 	if(!$result) {
