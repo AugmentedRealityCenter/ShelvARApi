@@ -56,7 +56,7 @@
 			else $is_admin = 0;
 
 			$db = new database();
-			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,encrip_salt,can_submit_data,can_read_data)
+			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,encrip_salt,can_submit_inv,can_read_inv)
 							VALUES(?,?,?,?,?,?,?,?,?,?)";
 			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, $email, "NO", $salt, 0, 0);
 			$db->type = 'ssssisssii';
