@@ -67,6 +67,11 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     //TODO This 2.0/72 is to make some space between the tag and the lc. Should make
     // it unit independent. This assumes inches.
     $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
+    $temp_format = clone $paper_format;
+    while($num_top < 0 && $temp_format->font_size > 0){
+      $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $temp_format, $tag);
+      $temp_format->font_size--;
+    }
   }
 
   if($code_top < 0 || $num_top < 0){
@@ -75,11 +80,41 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 	       $paper_format->label_width-2*$paper_format->padding,
 	       $paper_format->label_height-2*$paper_format->padding,"F");
     $pdf->SetFont($paper_format->font,$paper_format->font_style,$paper_format->font_size);
-    $pdf->SetTextColor(0);
+    $pdf->SetTextColor(208);
     $pdf->SetXY($x+$paper_format->padding,$y+$paper_format->padding);
     $pdf->MultiCell($paper_format->label_width-2*$paper_format->padding,
 		    ($paper_format->font_size/72.0),"The call number will not fit on the tag",0,"C");
   }
+}
+
+function split_class($cur){
+  $count = 0;
+  $ret = array();
+  while($count < strlen($cur) && ctype_alpha(substr($cur,$count,1))){
+    $count++;
+  }
+
+  if($count == 0) return null;
+
+  $ret['letters'] = substr($cur,0,$count);
+  $cur = substr($cur,$count);
+
+  $count = 0;
+  while($count < strlen($cur) && //At least one char left
+	(ctype_digit(substr($cur,$count,1)) || //is a digit, or...
+	 (strcmp(substr($cur,$count,1),".") === 0 &&  //is a period, and:
+	  ($count+1 < strlen($cur) && //At least TWO chars left, and the
+	   ctype_digit(substr($cur,$count+1,1))))//next is a digit
+	 )){
+    $count++;
+  }
+
+  if($count == 0) return null;
+
+  $ret['numbers'] = substr($cur,0,$count);
+  $ret['rest'] = substr($cur,$count);
+
+  return $ret;
 }
 
 //Note: The x and y are of the LOWER LEFT corner, and you are to 
@@ -88,48 +123,31 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 // error code instead. Any negative value is an error.
 function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $pdf->SetFont($paper_format->font,$paper_format->font_style,$paper_format->font_size);
-  $pdf->SetTextColor(0);
+  $pdf->SetTextColor(208);
   
   $lc_string = tag_to_lc($tag);
   $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
 
   $processed_parts = array();
+  $foundclass = false;
+
   while(count($lc_parts) > 0){
-    //This is the classification. Split off the letter parts
-    if(count($processed_parts) == 0){
-      $classification = array_shift($lc_parts);
-      $counter = 0;
-      while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
-	$counter++;
-      }
-
-      if($counter < strlen($classification)){
-	array_unshift($lc_parts,substr($classification,$counter));
-	array_unshift($lc_parts,substr($classification,0,$counter));
-      } else {
-	//Nothing we could do
-	array_unshift($lc_parts,$classification);
-      }
-    }
-
     $cur = array_shift($lc_parts);
-    if($pdf->GetStringWidth($cur) > $paper_format->tag_width){
-      $expld = explode(".",$cur);
 
-      for($i=count($expld)-1;$i >= 0; $i--){
-	$pre="";
-	if($i != 0){
-	  $pre=".";
+    if(!$foundclass){
+      $ret = split_class($cur);
+      if(isset($ret)){
+	if(strlen($ret['rest']) > 0){
+	  array_unshift($lc_parts,$ret['rest']);
 	}
-	if(strlen($expld[$i]) > 0){
-	  array_unshift($lc_parts,$pre . $expld[$i]);
-	}
+	array_unshift($lc_parts,$ret['numbers']);
+	$cur = $ret['letters'];
+
+	$foundclass = true;
       }
-    } else {
-      array_unshift($lc_parts,$cur);
     }
 
-    $processed_parts[] = array_shift($lc_parts);
+    $processed_parts[] = $cur;
   }
 
   $lines_tall = count($processed_parts);
@@ -212,6 +230,7 @@ function how_many_per_page($paper_format){
 function fetchOptions($paper_type){
   $tempValues = file_get_contents('tagformats.json');
   $json_arr = json_decode($tempValues);
+
   foreach($json_arr as $options){
     if($options->name === $paper_type){
       if($options->orientation === "L"){
@@ -235,6 +254,10 @@ function fetchOptions($paper_type){
 	$options->height = $temp;
       }
 
+      $options->font = "Arial";
+      $options->font_size = "6";
+      $options->font_style = "I";
+      
       return $options;
     }
   }
