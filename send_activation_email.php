@@ -15,6 +15,7 @@
 
 	$headers = 'From: noreply@shelvar.com' . "\r\n" .
     		   'Reply-To: noreply@shelvar.com' . "\r\n" .
+    		   'Content-type: text/html' . "\r\n" .
     		   'X-Mailer: PHP/' . phpversion();
 
 	if(!mail($to, $subject, $message, $headers)) {
