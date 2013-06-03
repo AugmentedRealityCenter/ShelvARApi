@@ -11,7 +11,7 @@
 	
 	$subject = "ShelvAR.com Registration";
 
-	$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>elcome to ShelvAR!<br/><br/>You, or someone using your email address, has completed registration at ShelvAR.com. You can complete registration by clicking the following link:<br/>".$api."activate_email.php?$activation_key";
+	$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Welcome to ShelvAR!<br/><br/>You, or someone using your email address, has completed registration at ShelvAR.com. You can complete registration by clicking the following link:<br/>".$api."activate_email.php?$activation_key";
 
 	$headers = 'From: noreply@shelvar.com' . "\r\n" .
     		   'Reply-To: noreply@shelvar.com' . "\r\n" .
