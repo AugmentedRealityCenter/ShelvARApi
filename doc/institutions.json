@@ -73,7 +73,7 @@
                 {
                     "httpMethod": "GET",
                     "summary": "Get information about all registered institutions",
-                    "notes": "Retrieve a list of all registered institutions with basic information about each one. Does not require authentication.",
+                    "notes": "Returns the inst_id and name of all registered institutions, which it returns as a json array called institutions. Does not require authentication.",
                     "responseClass": "string",
                     "nickname": "institutions",
                     "parameters": [],
