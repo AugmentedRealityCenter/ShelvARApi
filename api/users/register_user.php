@@ -62,16 +62,16 @@
 			$pending_email = $email;
 
 			$db = new database();
-			/*
 			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,pending_email,activation_key,encrip_salt,can_submit_inv,can_read_inv)
 							VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, $email, 0, $pending_email, $activation_key, $salt, 0, 0);
+			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, "", 0, $pending_email, $activation_key, $salt, 0, 0);
 			$db->type = 'ssssisisssii';
-			*/
+			/*
 			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,encrip_salt,can_submit_inv,can_read_inv)
 							VALUES(?,?,?,?,?,?,?,?,?,?)";
 			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, $email, 0, $salt, 0, 0);
 			$db->type = 'ssssisisii';
+			*/
 
 			if($db->insert()) {
 				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
