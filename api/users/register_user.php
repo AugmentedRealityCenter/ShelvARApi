@@ -54,12 +54,24 @@
 				$is_admin = 1;
 			}
 			else $is_admin = 0;
+			
+			// Generate random activation key
+			$activation_key = md5(uniqid(rand(), true));
+			$activation_key = substr($activation_key, 0, 64);
+			
+			$pending_email = $email;
 
 			$db = new database();
+			/*
+			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,pending_email,activation_key,encrip_salt,can_submit_inv,can_read_inv)
+							VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, $email, 0, $pending_email, $activation_key, $salt, 0, 0);
+			$db->type = 'ssssisisssii';
+			*/
 			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,encrip_salt,can_submit_inv,can_read_inv)
 							VALUES(?,?,?,?,?,?,?,?,?,?)";
 			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, $email, 0, $salt, 0, 0);
-			$db->type = 'ssssisssii';
+			$db->type = 'ssssisisii';
 
 			if($db->insert()) {
 				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
