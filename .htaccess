@@ -66,8 +66,6 @@ RewriteRule ^oauth/login oauth/login.php [L]
 
 RewriteRule ^oauth/post_login oauth/post-login.php [L]
 
-RewriteRule ^server_info server_info.php [L]
-
 RewriteRule ^oauth/register_user oauth/register_user.php [L]
 RewriteRule ^oauth_test/register oauth_test/register.html [L]
 

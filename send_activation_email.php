@@ -5,7 +5,7 @@
 	else $to = $pending_email;
 	
 	$api = "https://api.shelvar.com/";
-	if($_SERVER['SERVER_NAME'] == "dev.shelvar.com") {
+	if($_SERVER['SERVER_NAME'] == "devapi.shelvar.com") {
 		$api = "http://devapi.shelvar.com/";
 	}
 	
