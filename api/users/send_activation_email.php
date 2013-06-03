@@ -1,15 +1,12 @@
 <?php
 	if(!isset($pending_email)) {
-		if(!isset($_POST['email'])) {
-			err[] = "No email address provided";
-		}
-		else $to = $_POST['email'];
+		$err[] = "No email address provided";
 	}
 	else $to = $pending_email;
 	
 	$api = "https://api.shelvar.com/";
 	if($_SERVER['HTTP_HOST'] == "dev.shelvar.com") {
-		api = "http://devapi.shelvar.com/";
+		$api = "http://devapi.shelvar.com/";
 	}
 	
 	$subject = "ShelvAR.com Registration";
@@ -22,6 +19,8 @@
     		   'Reply-To: noreply@shelvar.com' . "\r\n" .
     		   'X-Mailer: PHP/' . phpversion();
 
-	mail($to, $subject, $message, $headers);
+	if(!mail($to, $subject, $message, $headers)) {
+		$err[] = "Error sending confirmation email";
+	}
 
 ?>
