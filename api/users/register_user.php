@@ -74,7 +74,7 @@
 			*/
 
 			if($db->insert()) {
-				include_once($_SERVER['DOCUMENT_ROOT'] . "/users/send_registration_email.php");
+				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_registration_email.php");
 				if(!$err) {
 					echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
 				}	
