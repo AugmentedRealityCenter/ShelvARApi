@@ -18,7 +18,7 @@
 
 		$result = $db->fetch();
 		
-		if(count($result)<0) {
+		if(empty($result)) {
 			$err[] = "No user associated with supplied activation key";
 		}
 		else {
