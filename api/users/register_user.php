@@ -56,8 +56,18 @@
 			else $is_admin = 0;
 			
 			// Generate random activation key
-			$activation_key = md5(uniqid(rand(), true));
-			$activation_key = substr($activation_key, 0, 64);
+			// Check if key has already been generated
+			do {
+				$activation_key = md5(uniqid(rand(), true));
+				$activation_key = substr($activation_key, 0, 64);
+			
+				$db = new database();
+				$db->query = "SELECT user_id FROM users WHERE activation_key = ?";
+				$db->params = array($activation_key);
+				$db->type = 's';
+			
+				$result = $db->fetch();
+			} while(!empty($result));
 			
 			$pending_email = $email;
 
