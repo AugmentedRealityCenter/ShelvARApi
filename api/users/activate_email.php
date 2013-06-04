@@ -36,7 +36,7 @@
 			$db->type = 'ssiss';
 			
 			if($db->update()) {
-				echo json_encode(array('result'=>"SUCCESS", 'errors'=>"")); 
+				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
 			}
 		}
 	}
