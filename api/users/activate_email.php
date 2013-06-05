@@ -36,7 +36,12 @@
 			$db->type = 'ssiss';
 			
 			if($db->update()) {
-				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
+				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>""));
+				$frontend = "http://shelvar.com/";
+				if($_SERVER['SERVER_NAME'] == "devapi.shelvar.com") {
+					$frontend = "http://dev.shelvar.com/";
+				}
+				header('Location: '.$frontend.'registration-complete.php');
 			}
 		}
 	}
