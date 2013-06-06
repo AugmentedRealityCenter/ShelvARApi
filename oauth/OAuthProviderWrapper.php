@@ -79,7 +79,7 @@ class OAuthProviderWrapper
 	public function checkOAuthRequest()
 	{
 		try {
-			$this->Provider->checkOAuthRequest($_SERVER['REQUEST_URI']);
+			$this->Provider->checkOAuthRequest();
 		} catch (Exception $Exception) {
 			return OAuthProvider::reportProblem($Exception);
 		}
