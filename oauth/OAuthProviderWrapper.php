@@ -79,7 +79,12 @@ class OAuthProviderWrapper
 	public function checkOAuthRequest()
 	{
 		try {
-		  $uristring = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		  // Get HTTP/HTTPS (the possible values for this vary from server to server)
+		  $uristring = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] && !in_array(strtolower($_SERVER['HTTPS']),array('off','no'))) ? 'https' : 'http';
+		  // Get domain portion
+		  $uristring .= '://'.$_SERVER['HTTP_HOST'];
+		  // Get path to script
+		  $uristring .= $_SERVER['REQUEST_URI'];
 		  error_log($uristring);
 			$this->Provider->checkOAuthRequest();
 		} catch (Exception $Exception) {
