@@ -211,7 +211,7 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
     }
   }
 
-  return $top_after;
+  return $top_after-$rect_size;
 }
 
 function how_many_per_page($paper_format){
