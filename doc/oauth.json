@@ -1,0 +1,118 @@
+{
+      "apiVersion": "0.2", 
+      "swaggerVersion": "1.1", 
+      "resourcePath": "/oauth", 
+      "apis": [
+                        {
+                  "path": "/oauth/get_request_token", 
+                  "description": "OAuth step 1: Get request token", 
+                  "operations": [
+                        {
+                              "httpMethod": "GET", 
+                              "summary": "OAuth step 1: Get request token", 
+                              "notes": "Returns a request token and token secret in the oauth_token and oauth_token_secret variable. In addition to the standard OAuth variables, you must provide an oauth_callback (this is the only authorization method supported by the ShelvAR API) and a scope. You will need to email Dr. Brinkman to get a consumer key and consumer secret.", 
+                              "responseClass": "string", 
+                              "nickname": "get_request_token", 
+                              "parameters": [
+                                    {
+                                          "name": "oauth_callback", 
+                                          "description": "URL to callback in step 2", 
+                                          "paramType": "query", 
+                                          "required": true, 
+                                          "allowMultiple": false, 
+                                          "dataType": "string"
+                                    },
+                                    {
+                                          "name": "scope", 
+                                          "description": "An underscore-separated set of strings indicating which powers the app needs. \"invsubmit\" allows inventory data to be submitted, \"invread\" allows inventory data to be read, and \"acctmod\" allows modifications of user account settings. Example: The official ShelvAR website requests \"invread_acctmod\" scope. The official app requests \"invsubmit\" only. Note: Should normally be sent via Authorization header.", 
+                                          "paramType": "query", 
+                                          "required": true, 
+                                          "allowMultiple": false, 
+                                          "dataType": "string"
+                                    }
+
+                              ], 
+                              "errorResponses": [
+                                    {
+                                          "code": 400, 
+                                          "reason": "Invalid ID supplied"
+                                    }
+                              ]
+                        }
+                  ]
+            },
+	    {
+                  "path": "/oauth/login", 
+                  "description": "User login page for OAuth process", 
+                  "operations": [
+                        {
+                              "httpMethod": "GET", 
+                              "summary": "OAuth step 2: User login", 
+                              "notes": "If user succeeds in logging in, and chooses to give your app access, then your callback URL will be called, providing you with the oauth_token and oauth_verifier needed to get an access token.", 
+                              "responseClass": "string", 
+                              "nickname": "login", 
+                              "parameters": [
+                                    {
+                                          "name": "oauth_token", 
+                                          "description": "Must be a valid oauth token provided by the get_request_token API method", 
+                                          "paramType": "query", 
+                                          "required": true, 
+                                          "allowMultiple": false, 
+                                          "dataType": "string"
+                                    }
+                              ], 
+                              "errorResponses": [
+                                    {
+                                          "code": 400, 
+                                          "reason": "Invalid ID supplied"
+                                    }
+                              ]
+                        }
+                  ]
+            },
+	    {
+                  "path": "/oauth/get_access_token", 
+                  "description": "OAuth step 3: Get access token", 
+                  "operations": [
+                        {
+                              "httpMethod": "GET", 
+                              "summary": "OAuth step 3: Get access token", 
+                              "notes": "Returns a a token and token_secret that can be used in signing requests to secure APIs.", 
+                              "responseClass": "string", 
+                              "nickname": "get_access_token", 
+                              "parameters": [
+                              ], 
+                              "errorResponses": [
+                                    {
+                                          "code": 400, 
+                                          "reason": "Invalid ID supplied"
+                                    }
+                              ]
+                        }
+                  ]
+            },
+	    {
+                  "path": "/oauth/whoami", 
+                  "description": "Get authenticated user", 
+                  "operations": [
+                        {
+                              "httpMethod": "GET", 
+                              "summary": "Get authenticated user information", 
+                              "notes": "Requires any valid OAuth token (scope does not matter). Will return info about the user and user's institution: user_id, user_name, inst_id, inst_name, plus information about user permissions, institution permissions, and institution expiration date. Does NOT return private info such as user email or password hash.", 
+                              "responseClass": "string", 
+                              "nickname": "whoami", 
+                              "parameters": [
+                              ], 
+                              "errorResponses": [
+                                    {
+                                          "code": 400, 
+                                          "reason": "Invalid ID supplied"
+                                    }
+                              ]
+                        }
+                  ]
+            }
+
+      ]
+}
+

@@ -67,6 +67,11 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     //TODO This 2.0/72 is to make some space between the tag and the lc. Should make
     // it unit independent. This assumes inches.
     $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
+    $temp_format = clone $paper_format;
+    while($num_top < 0 && $temp_format->font_size > 0){
+      $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $temp_format, $tag);
+      $temp_format->font_size--;
+    }
   }
 
   if($code_top < 0 || $num_top < 0){
@@ -74,12 +79,42 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
     $pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
 	       $paper_format->label_width-2*$paper_format->padding,
 	       $paper_format->label_height-2*$paper_format->padding,"F");
-    $pdf->SetFont('Courier','B',$paper_format->font_size);
-    $pdf->SetTextColor(0);
+    $pdf->SetFont($paper_format->font,$paper_format->font_style,$paper_format->font_size);
+    $pdf->SetTextColor(208);
     $pdf->SetXY($x+$paper_format->padding,$y+$paper_format->padding);
     $pdf->MultiCell($paper_format->label_width-2*$paper_format->padding,
 		    ($paper_format->font_size/72.0),"The call number will not fit on the tag",0,"C");
   }
+}
+
+function split_class($cur){
+  $count = 0;
+  $ret = array();
+  while($count < strlen($cur) && ctype_alpha(substr($cur,$count,1))){
+    $count++;
+  }
+
+  if($count == 0) return null;
+
+  $ret['letters'] = substr($cur,0,$count);
+  $cur = substr($cur,$count);
+
+  $count = 0;
+  while($count < strlen($cur) && //At least one char left
+	(ctype_digit(substr($cur,$count,1)) || //is a digit, or...
+	 (strcmp(substr($cur,$count,1),".") === 0 &&  //is a period, and:
+	  ($count+1 < strlen($cur) && //At least TWO chars left, and the
+	   ctype_digit(substr($cur,$count+1,1))))//next is a digit
+	 )){
+    $count++;
+  }
+
+  if($count == 0) return null;
+
+  $ret['numbers'] = substr($cur,0,$count);
+  $ret['rest'] = substr($cur,$count);
+
+  return $ret;
 }
 
 //Note: The x and y are of the LOWER LEFT corner, and you are to 
@@ -87,59 +122,32 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 // Should not print if tag won't fit between $bottom and $top, return
 // error code instead. Any negative value is an error.
 function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
-  $pdf->SetFont('Courier','B',$paper_format->font_size);
-  $pdf->SetTextColor(0);
+  $pdf->SetFont($paper_format->font,$paper_format->font_style,$paper_format->font_size);
+  $pdf->SetTextColor(208);
   
   $lc_string = tag_to_lc($tag);
   $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
 
   $processed_parts = array();
-  $parts_index = 0;
-  while($parts_index < count($lc_parts)){
-    if($pdf->GetStringWidth($lc_parts[$parts_index]) > $paper_format->tag_width){
-      //This part should be split. Right now only handles classification
-      if($parts_index == 0){
-	//First, try splitting on periods
-	$classification = array_shift($lc_parts);
-	$class_expld = explode(".",$classification);
-	$class_impld = implode("\n .",$class_expld);
-	$class_expld = explode("\n",$class_impld);
+  $foundclass = false;
 
-	for($i=count($class_expld)-1;$i >= 0; $i--){
-	  array_unshift($lc_parts,$class_expld[$i]);
-	}
+  while(count($lc_parts) > 0){
+    $cur = array_shift($lc_parts);
 
-	if($pdf->GetStringWidth($lc_parts[0]) > $paper_format->tag_width){
-	  //If the first item is still too long, split the alphabetic and numeric parts.
-	  $classification = array_shift($lc_parts);
-	  $counter = 0;
-	  while($counter < strlen($classification) && ctype_alpha(substr($classification,$counter,1))){
-	    $counter++;
-	  }
-	  if($counter < strlen($classification)){
-	    array_unshift($lc_parts,substr($classification,$counter));
-	    array_unshift($lc_parts,substr($classification,0,$counter));
-	  } else {
-	    //Nothing we could do
-	    array_unshift($lc_parts,$classification);
-	  }
+    if(!$foundclass){
+      $ret = split_class($cur);
+      if(isset($ret)){
+	if(strlen($ret['rest']) > 0){
+	  array_unshift($lc_parts,$ret['rest']);
 	}
+	array_unshift($lc_parts,$ret['numbers']);
+	$cur = $ret['letters'];
+
+	$foundclass = true;
       }
     }
 
-    //Try to merge the current item onto the end of the last one, if possible
-    $joined = $lc_parts[$parts_index];
-    if(count($processed_parts) > 0){
-      $joined = $processed_parts[count($processed_parts)-1] . " " . $joined;
-    }
-
-    if(count($processed_parts) > 0 && $pdf->GetStringWidth($joined) <= $paper_format->tag_width){
-      $processed_parts[count($processed_parts)-1] = $joined;
-    } else {
-      $processed_parts[count($processed_parts)] = $lc_parts[$parts_index];
-    }
-
-    $parts_index++;
+    $processed_parts[] = $cur;
   }
 
   $lines_tall = count($processed_parts);
@@ -203,7 +211,7 @@ function make_code($left, $bottom, $top, $pdf, $paper_format, $tag){
     }
   }
 
-  return $top_after;
+  return $top_after-$rect_size;
 }
 
 function how_many_per_page($paper_format){
@@ -222,6 +230,7 @@ function how_many_per_page($paper_format){
 function fetchOptions($paper_type){
   $tempValues = file_get_contents('tagformats.json');
   $json_arr = json_decode($tempValues);
+
   foreach($json_arr as $options){
     if($options->name === $paper_type){
       if($options->orientation === "L"){
@@ -245,6 +254,10 @@ function fetchOptions($paper_type){
 	$options->height = $temp;
       }
 
+      $options->font = "Arial";
+      $options->font_size = "6";
+      $options->font_style = "";
+      
       return $options;
     }
   }

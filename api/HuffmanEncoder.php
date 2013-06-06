@@ -15,30 +15,20 @@ function huffman_encode($input){
   return $ret;
 }
 
-//Find the first Huffman codeword that has the search string
-// as a prefix
-//TODO: This is stupidly inefficient. Improve using a trie-based
-// decoder.
-function huffmanSearch($input){
+function huffman_decode($input){
   global $huffman1;
+
+  //Make the decoding map
+  $huffman2 = array();
   for($i=0;$i<256;$i++){
-    if(strpos($huffman1[$i],$input)===0){
-      return $i;
-    }
+    $huffman2[$huffman1[$i]] = chr($i);
   }
 
-  return -1;
-}
-
-function huffman_decode($input){
   $ret="";
   while(strlen($input) > 0){
-    //What is the length of the longest prefix that is in the table?
     $prefixLen=0;
     for($prefixLen=1; $prefixLen<strlen($input);$prefixLen++){
-      $which = huffmanSearch(substr($input,0,$prefixLen));
-      if($which == -1){
-	$prefixLen--;
+      if(array_key_exists(substr($input,0,$prefixLen),$huffman2)){
 	break;
       }
     }
@@ -48,11 +38,11 @@ function huffman_decode($input){
       return "";
     }
 
-    $which = huffmanSearch(substr($input,0,$prefixLen));
+    $whichchr = $huffman2[substr($input,0,$prefixLen)];
     //Reached the null terminator, so we can return the result.
-    if($which == 0) return $ret;
+    if($whichchr == chr(0)) return $ret;
 
-    $ret .= chr($which);
+    $ret .= $whichchr;
     $input = substr($input,$prefixLen);
   }
 

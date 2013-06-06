@@ -16,7 +16,7 @@
                     "parameters": [
                         {
                             "name": "paper_type", 
-                            "description": "A string specifying the paper type. Example: Avery-5160",
+                            "description": "A string specifying the paper type. Example: Avery_5160",
                             "paramType": "path", 
                             "required": true, 
                             "allowMultiple": false, 
@@ -44,6 +44,22 @@
                     ]
                 }
             ]
-        }
+        },
+	{
+	    "path": "/make_tags/paper_formats", 
+            "description": "List of supported paper formats", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get a list of supported paper formats", 
+                    "notes": "Most apps will only need to use the \"name\" field. Does not require authentication.", 
+                    "responseClass": "void", 
+                    "nickname": "make_tags", 
+                    "parameters": [],
+		    "errorResponses": []
+                }
+	    ]
+	}
+
     ]    
 }
