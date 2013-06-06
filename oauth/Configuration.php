@@ -53,7 +53,7 @@ class Configuration
 	 */
 	public static function getDataStore()
 	{
-		include_once($_SERVER['DOCUMENT_ROOT'] . '/db_info.php');
+		include($_SERVER['DOCUMENT_ROOT'] . '/db_info.php');
 		static $DataStore;
 
 		if (!isset($DataStore)) {
