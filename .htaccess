@@ -38,7 +38,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users/activate_email api/users/activate_email.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/([^/]+)(?=.json) api/users/get_user.php?user_id=$1 [L,QSA]
+RewriteRule ^users/([^/]+)(?=.json) api/users/get_user.php?user_id=$1 [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^institutions api/institutions/register_institution.php [L]
