@@ -10,14 +10,12 @@ unset($oauth_user);
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
 $response 	= $Provider->checkOAuthRequest();
 
-error_log("SERVER: " . print_r($_SERVER,TRUE));
 foreach($_SERVER as $key => $value){
   if(strpos($key,"REDIRECT_") !== FALSE 
      && strpos($key,"REDIRECT_STATUS") === FALSE
      && strpos($key,"REDIRECT_URL") === FALSE){
     $newkey = substr($key,9);
     $_GET[$newkey] = $value;
-    error_log("setting: $newkey => $value");
   }
 }
 

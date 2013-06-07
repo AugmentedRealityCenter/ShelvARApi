@@ -11,6 +11,15 @@
 
 include_once "lc_numbers_lib.php";
 
+foreach($_SERVER as $key => $value){
+  if(strpos($key,"REDIRECT_") !== FALSE 
+     && strpos($key,"REDIRECT_STATUS") === FALSE
+     && strpos($key,"REDIRECT_URL") === FALSE){
+    $newkey = substr($key,9);
+    $_GET[$newkey] = $value;
+  }
+}
+
 $call_number_in = urldecode($_GET["call_number"]);
 
 $result = "";
