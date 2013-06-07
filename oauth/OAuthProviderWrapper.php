@@ -82,6 +82,7 @@ class OAuthProviderWrapper
 		  $uristring = $_SERVER['REQUEST_URI'];
 		  list($base, $uriparams) = split("\?",$uristring,2);
 		  $_SERVER['QUERY_STRING'] = $uriparams;
+		  $_SERVER['REDIRECT_QUERY_STRING'] = $uriparams;
 
 		  $get_stash = array();
 		  foreach($_GET as $key => $value){
