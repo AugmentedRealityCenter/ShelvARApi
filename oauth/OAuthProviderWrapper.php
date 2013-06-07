@@ -84,7 +84,7 @@ class OAuthProviderWrapper
 
 		  error_log("uriparams: $uriparams");
 		  error_log("_GET: " . print_r($_GET,TRUE));
-
+		  error_log("GLOBALS: " .print_r($GLOBALS,TRUE));
 		  $get_stash = array();
 		  foreach($_GET as $key => $value){
 		    if(strpos($uriparams,$key."=") === false){
