@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 	  $uristring = $_SERVER['REQUEST_URI'];
 		  list($base, $uriparams) = split("\?",$uristring,2);
 		  $_SERVER['QUERY_STRING'] = $uriparams;
