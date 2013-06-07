@@ -16,8 +16,8 @@ session_start();
 		      unset($_GET[$key]);
 		    }
 		  }
-		  error_log("GLOBALS: " .print_r($GLOBALS,TRUE));
-error_log("Session: " . print_r($_SESSION,TRUE));
+error_log("Request headers: " . print_r(getallheaders(),TRUE));
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
