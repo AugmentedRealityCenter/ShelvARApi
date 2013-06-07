@@ -85,6 +85,7 @@ class OAuthProviderWrapper
 		  $uristring .= '://'.$_SERVER['HTTP_HOST'];
 		  // Get path to script
 		  $uristring .= $_SERVER['REQUEST_URI'];
+		  error_log($uristring);
 			$this->Provider->checkOAuthRequest($uristring);
 		} catch (Exception $Exception) {
 			return OAuthProvider::reportProblem($Exception);
