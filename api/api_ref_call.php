@@ -16,7 +16,6 @@ foreach($_SERVER as $key => $value){
      && strpos($key,"REDIRECT_URL") === FALSE){
     $newkey = substr($key,9);
     $_GET[$newkey] = $value;
-    error_log("added $newkey");
   }
 }
 
