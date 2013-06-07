@@ -20,7 +20,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_tags/([^/]+)\.json api/lc2bin/book_tags.php [L,E=B64:$1]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^lc_numbers/(.+)\.json api/lc2bin/lc_numbers.php [L,E=call_numbers:$1]
+RewriteRule ^lc_numbers/(.+)\.json api/lc2bin/lc_numbers.php [L,E=call_number:$1]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings/count api/book_pings/get_ping_count_book.php [L]
