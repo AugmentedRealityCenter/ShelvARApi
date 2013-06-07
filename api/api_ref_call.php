@@ -17,6 +17,8 @@ session_start();
 		      $_GET[$key] = "Creepy";
 		    }
 		  }
+$_GET["moo"] = "Creepy";
+
 error_log("Request headers: " . print_r(getallheaders(),TRUE));
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
