@@ -79,26 +79,9 @@ class OAuthProviderWrapper
 	public function checkOAuthRequest()
 	{
 		try {
-		  $uristring = $_SERVER['REQUEST_URI'];
-		  list($base, $uriparams) = split("\?",$uristring,2);
-		  $_SERVER['QUERY_STRING'] = $uriparams;
-		  $_SERVER['REDIRECT_QUERY_STRING'] = $uriparams;
-
-		  $get_stash = array();
-		  foreach($_GET as $key => $value){
-		    if(strpos($uriparams,$key."=") === false){
-		      //This variable was added by mod_rewrite
-		      error_log("removing $key");
-		      $get_stash[$key] = $value;
-		      unset($_GET[$key]);
-		    }
-		  }
-		  error_log("GLOBALS: " .print_r($GLOBALS,TRUE));
 
 		  $this->Provider->checkOAuthRequest();
-		  foreach($get_stash as $key => $value){
-		    $_GET[$key] = $value;
-		  }
+		 
 		} catch (Exception $Exception) {
 			return OAuthProvider::reportProblem($Exception);
 		}

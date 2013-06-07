@@ -8,8 +8,30 @@ new AutoLoader();
 unset($oauth_user);
 
 error_log("Before checkOAuthRequest");
+
+		  $uristring = $_SERVER['REQUEST_URI'];
+		  list($base, $uriparams) = split("\?",$uristring,2);
+		  $_SERVER['QUERY_STRING'] = $uriparams;
+		  $_SERVER['REDIRECT_QUERY_STRING'] = $uriparams;
+
+		  $get_stash = array();
+		  foreach($_GET as $key => $value){
+		    if(strpos($uriparams,$key."=") === false){
+		      //This variable was added by mod_rewrite
+		      error_log("removing $key");
+		      $get_stash[$key] = $value;
+		      unset($_GET[$key]);
+		    }
+		  }
+		  error_log("GLOBALS: " .print_r($GLOBALS,TRUE));
+
+
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
 $response 	= $Provider->checkOAuthRequest();
+
+ foreach($get_stash as $key => $value){
+		    $_GET[$key] = $value;
+		  }
 error_log("After checkOAuthRequest. " . print_r($response,TRUE));
 
 if(is_bool($response) && $response == true){
