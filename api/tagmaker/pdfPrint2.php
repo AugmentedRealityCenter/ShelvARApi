@@ -3,6 +3,15 @@ require_once('helper/fpdf.php');
 require_once('../lc2bin/lc_numbers_lib.php');
 include_once "../HammingCode.php";
 
+foreach($_SERVER as $key => $value){
+  if(strpos($key,"REDIRECT_") !== FALSE 
+     && strpos($key,"REDIRECT_STATUS") === FALSE
+     && strpos($key,"REDIRECT_URL") === FALSE){
+    $newkey = substr($key,9);
+    $_GET[$newkey] = $value;
+  }
+}
+
 /** GLOBAL VARS **/
 //array of callNumbers to print
 $tagsParam = json_decode($_GET['tags']);
