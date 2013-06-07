@@ -84,7 +84,7 @@ class OAuthProviderWrapper
 		  // Get domain portion
 		  $uristring .= '://'.$_SERVER['HTTP_HOST'];
 		  // Get path to script
-		  $uristring .= $_SERVER['REQUEST_URI'];
+		  //$uristring .= $_SERVER['REQUEST_URI'];
 		  error_log("uristring: " . $uristring);
 
 		  $this->Provider->checkOAuthRequest($uristring,$_SERVER['REQUEST_METHOD']);
