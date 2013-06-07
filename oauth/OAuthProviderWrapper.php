@@ -81,7 +81,7 @@ class OAuthProviderWrapper
 		try {
 		  $uristring = $_SERVER['REQUEST_URI'];
 		  list($base, $uriparams) = split("\?",$uristring,2);
-		  error_log("uriparams: ",$uriparams);
+		  error_log("uriparams: ".$uriparams);
 		  $get_stash = array();
 		  
 		  $this->Provider->checkOAuthRequest();
