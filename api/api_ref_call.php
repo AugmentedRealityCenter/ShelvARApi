@@ -38,9 +38,9 @@ error_log("Before checkOAuthRequest");
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
 $response 	= $Provider->checkOAuthRequest();
 
- foreach($get_stash as $key => $value){
-		    $_GET[$key] = $value;
-		  }
+// foreach($get_stash as $key => $value){
+//		    $_GET[$key] = $value;
+//		  }
 error_log("After checkOAuthRequest. " . print_r($response,TRUE));
 
 if(is_bool($response) && $response == true){
