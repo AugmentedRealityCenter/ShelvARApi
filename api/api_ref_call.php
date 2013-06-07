@@ -1,9 +1,5 @@
 <?php
 
-session_start();
-
-error_log("GLOBALS: " . print_r($GLOBALS,TRUE));
-
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
@@ -11,19 +7,18 @@ new AutoLoader();
 
 unset($oauth_user);
 
-error_log("Before checkOAuthRequest");
-
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
 $response 	= $Provider->checkOAuthRequest();
 
 foreach($_SERVER as $key => $value){
-  if(strpos($key,"REDIRECT_") !== FALSE && strpos($key,"REDIRECT_STATUS") === FALSE){
+  if(strpos($key,"REDIRECT_") !== FALSE 
+     && strpos($key,"REDIRECT_STATUS") === FALSE
+     && strpos($key,"REDIRECT_URL") === FALSE){
     $newkey = substr($key,9);
     $_GET[$newkey] = $value;
     error_log("added $newkey");
   }
 }
-error_log("After checkOAuthRequest. " . print_r($response,TRUE));
 
 if(is_bool($response) && $response == true){
   //Do nothing
