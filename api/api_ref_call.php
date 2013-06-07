@@ -7,8 +7,10 @@ new AutoLoader();
 
 unset($oauth_user);
 
+error_log("Before checkOAuthRequest");
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
 $response 	= $Provider->checkOAuthRequest();
+error_log("After checkOAuthRequest. " . print_r($response,TRUE));
 
 if(is_bool($response) && $response == true){
   //Do nothing
@@ -43,8 +45,6 @@ if(!isset($oauth_user)){
   try {
     $user_num = $Provider->getUserId();
     $exp_date = $Provider->getAccessTokenDate();
-
-    error_log("user_num: " . $user_num);
 
     $db = new database();
     $db->query = "SELECT inst_id, name, user_id, is_admin, email_verified, can_submit_inv, can_read_inv, user_num FROM users WHERE user_num = ?";
