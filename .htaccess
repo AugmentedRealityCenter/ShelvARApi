@@ -15,9 +15,8 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 ### API ###
 ###########
 
-#RewriteCond %{QUERY_STRING}	!^orig_uri
-RewriteCond %{QUERY_STRING}   ^(.*)$
-RewriteRule ^(.*)$ $1?orig_uri=$1&%1
+RewriteCond %{QUERY_STRING}	!^orig_uri$
+RewriteRule ^(.*)$ $1?orig_uri=$1 [QSA]
 
 #TODO: Update the regular expression to only accept valid base64 characters
 RewriteCond %{THE_REQUEST} GET
