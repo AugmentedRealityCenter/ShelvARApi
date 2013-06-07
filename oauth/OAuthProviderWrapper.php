@@ -80,7 +80,7 @@ class OAuthProviderWrapper
 	{
 		try {
 
-		  $this->Provider->checkOAuthRequest();
+		  $this->Provider->checkOAuthRequest("http://dev.shelvar.com/api_call.php?api_call=book_pings/1841.json");
 		 
 		} catch (Exception $Exception) {
 			return OAuthProvider::reportProblem($Exception);
