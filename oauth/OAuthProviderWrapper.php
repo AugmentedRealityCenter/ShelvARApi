@@ -87,7 +87,7 @@ class OAuthProviderWrapper
 		  $uristring .= $_SERVER['REQUEST_URI'];
 		  error_log("uristring: " . $uristring);
 
-			$this->Provider->checkOAuthRequest($uristring);
+		  $this->Provider->checkOAuthRequest($uristring,$_SERVER['HTTP_METHOD']);
 		} catch (Exception $Exception) {
 			return OAuthProvider::reportProblem($Exception);
 		}
