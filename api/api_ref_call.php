@@ -13,7 +13,7 @@ session_start();
 		      //This variable was added by mod_rewrite
 		      error_log("removing $key");
 		      $get_stash[$key] = $value;
-		      unset($_GET[$key]);
+		      //unset($_GET[$key]);
 		      $_GET[$key] = "Creepy";
 		    }
 		  }
