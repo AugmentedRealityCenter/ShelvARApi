@@ -4,8 +4,8 @@ session_start();
 
 	  $uristring = $_SERVER['REQUEST_URI'];
 		  list($base, $uriparams) = split("\?",$uristring,2);
-		  $_SERVER['QUERY_STRING'] = $uriparams;
-		  $_SERVER['REDIRECT_QUERY_STRING'] = $uriparams;
+$_SERVER['QUERY_STRING'] = "" ;//$uriparams;
+$_SERVER['REDIRECT_QUERY_STRING'] = "";//$uriparams;
 
 		  $get_stash = array();
 		  foreach($_GET as $key => $value){
@@ -19,7 +19,8 @@ session_start();
 		  }
 $_GET["moo"] = "Creepy";
 
-error_log("Request headers: " . print_r(getallheaders(),TRUE));
+//error_log("Request headers: " . print_r(getallheaders(),TRUE));
+error_log("GLOBALS: " . print_r($GLOBALS,TRUE));
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
