@@ -83,7 +83,7 @@ class OAuthProviderWrapper
 		  list($base, $uriparams) = split("\?",$uristring,2);
 		  $get_stash = array();
 		  foreach($_GET as $key => $value){
-		    if(strpos($uriparam,$key."=") === false){
+		    if(strpos($uriparams,$key."=") === false){
 		      //This variable was added by mod_rewrite
 		      $get_stash[$key] = $value;
 		      unset($_GET[$key]);
