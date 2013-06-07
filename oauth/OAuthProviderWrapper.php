@@ -80,7 +80,7 @@ class OAuthProviderWrapper
 	{
 		try {
 		  $uristring = $_SERVER['REQUEST_URI'];
-		  list($base, $uriparams) = split("?",$uristring,2);
+		  list($base, $uriparams) = split("\?",$uristring,2);
 		  error_log("uriparams: ",$uriparams);
 		  $get_stash = array();
 		  
