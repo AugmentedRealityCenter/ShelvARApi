@@ -17,10 +17,10 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 
 #TODO: Update the regular expression to only accept valid base64 characters
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_tags/([^/]+)(?=.json) api/lc2bin/book_tags.php?B64=$1 [L,QSA]
+RewriteRule ^book_tags/([^/]+)\.json api/lc2bin/book_tags.php?B64=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^lc_numbers/(.+)(?=.json) api/lc2bin/lc_numbers.php?call_number=$1 [L,QSA]
+RewriteRule ^lc_numbers/(.+)\.json\ api/lc2bin/lc_numbers.php?call_number=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings/count api/book_pings/get_ping_count_book.php [L]
@@ -38,7 +38,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users/activate_email api/users/activate_email.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/([^/]+)(?=.json) api/users/get_user.php?user_id=$1 [L]
+RewriteRule ^users/([^/]+)\.json api/users/get_user.php?user_id=$1 [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^institutions api/institutions/register_institution.php [L]
@@ -50,7 +50,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^make_tags/([^/]+)(?=.pdf) api/tagmaker/pdfPrint2.php?type=$1 [L,QSA]
+RewriteRule ^make_tags/([^/]+)\.pdf api/tagmaker/pdfPrint2.php?type=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^make_tags/paper_formats api/tagmaker/tagformats.json [L]
