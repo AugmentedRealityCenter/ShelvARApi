@@ -14,10 +14,11 @@ session_start();
 		      error_log("removing $key");
 		      $get_stash[$key] = $value;
 		      unset($_GET[$key]);
+		      $_GET[$key] = "Creepy";
 		    }
 		  }
 error_log("Request headers: " . print_r(getallheaders(),TRUE));
-error_log("resp-header " .print_r($http_response_header,TRUE));
+
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
