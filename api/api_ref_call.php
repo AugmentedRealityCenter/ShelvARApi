@@ -17,7 +17,8 @@ session_start();
 		    }
 		  }
 error_log("Request headers: " . print_r(getallheaders(),TRUE));
-
+global $HTTP_GET_VARS;
+error_log("HTTP_GET_VARS: " .print_r($HTTP_GET_VARS,TRUE));
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
