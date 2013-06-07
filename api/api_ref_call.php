@@ -17,7 +17,7 @@ session_start();
 		    }
 		  }
 		  error_log("GLOBALS: " .print_r($GLOBALS,TRUE));
-
+error_log("Session: " . $_SESSION);
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
