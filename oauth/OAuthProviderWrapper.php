@@ -81,10 +81,18 @@ class OAuthProviderWrapper
 		try {
 		  $uristring = $_SERVER['REQUEST_URI'];
 		  list($base, $uriparams) = split("\?",$uristring,2);
-		  error_log("uriparams: ".$uriparams);
 		  $get_stash = array();
-		  
+		  foreach($_GET as $key => $value){
+		    if(strpos($uriparam,$key."=") === false){
+		      //This variable was added by mod_rewrite
+		      $get_stash[$key] = $value;
+		      unset($_GET[$key]);
+		    }
+		  }
 		  $this->Provider->checkOAuthRequest();
+		  foreach($get_stash as $key => $value){
+		    $_GET[$key] = $value;
+		  }
 		} catch (Exception $Exception) {
 			return OAuthProvider::reportProblem($Exception);
 		}
