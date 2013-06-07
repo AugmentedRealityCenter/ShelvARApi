@@ -10,6 +10,7 @@ unset($oauth_user);
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
 $response 	= $Provider->checkOAuthRequest();
 
+error_log("SERVER: " . print_r($_SERVER,TRUE));
 foreach($_SERVER as $key => $value){
   if(strpos($key,"REDIRECT_") !== FALSE 
      && strpos($key,"REDIRECT_STATUS") === FALSE
