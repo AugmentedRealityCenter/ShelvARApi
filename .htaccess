@@ -15,7 +15,7 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 ### API ###
 ###########
 
-RewriteCond %{QUERY_STRING}	!^orig_uri
+#RewriteCond %{QUERY_STRING}	!^orig_uri
 RewriteCond %{QUERY_STRING}   ^(.*)$
 RewriteRule ^(.*)$ $1?orig_uri=$1&%1
 
