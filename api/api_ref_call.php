@@ -44,6 +44,8 @@ if(!isset($oauth_user)){
     $user_num = $Provider->getUserId();
     $exp_date = $Provider->getAccessTokenDate();
 
+    error_log("user_num: " . $user_num);
+
     $db = new database();
     $db->query = "SELECT inst_id, name, user_id, is_admin, email_verified, can_submit_inv, can_read_inv, user_num FROM users WHERE user_num = ?";
     $db->params = array($user_num);
