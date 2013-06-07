@@ -1,15 +1,6 @@
 <?php
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
-
-new AutoLoader();
-
-unset($oauth_user);
-
-error_log("Before checkOAuthRequest");
-
-		  $uristring = $_SERVER['REQUEST_URI'];
+	  $uristring = $_SERVER['REQUEST_URI'];
 		  list($base, $uriparams) = split("\?",$uristring,2);
 		  $_SERVER['QUERY_STRING'] = $uriparams;
 		  $_SERVER['REDIRECT_QUERY_STRING'] = $uriparams;
@@ -24,6 +15,17 @@ error_log("Before checkOAuthRequest");
 		    }
 		  }
 		  error_log("GLOBALS: " .print_r($GLOBALS,TRUE));
+
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
+
+new AutoLoader();
+
+unset($oauth_user);
+
+error_log("Before checkOAuthRequest");
+
+	
 
 
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
