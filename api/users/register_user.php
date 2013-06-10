@@ -50,6 +50,8 @@
 			$db->type = 's';
 
 			$result = $db->fetch();
+			
+			// TODO error handling
 			if($result[0]['admin_contact'] == $email) {
 				$is_admin = 1;
 			}

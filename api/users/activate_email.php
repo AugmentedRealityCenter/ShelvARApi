@@ -43,6 +43,7 @@
 				}
 				header('Location: '.$frontend.'registration-complete.php');
 			}
+			else $err[] = "SQL Error";
 		}
 	}
 	if($err) {
