@@ -76,7 +76,7 @@
 		$params[] = $user_id;
 		
 		$db = new database();
-		$db->query = "UPDATE users SET name = ?, email = ?, password = ? WHERE user_id = ?";
+		$db->query = $query;
 		$db->params = $params;
 		error_log($type);
 		$db->type = $type;
