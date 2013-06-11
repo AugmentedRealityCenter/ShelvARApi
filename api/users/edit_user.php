@@ -71,7 +71,7 @@
 		}	
 		
 		$query = substr($query,0,-1); // removing trailing comma
-		$query .= "WHERE user_id = ?";
+		$query .= " WHERE user_id = ?";
 		$type .= "s";
 		$params[] = $user_id;
 		
