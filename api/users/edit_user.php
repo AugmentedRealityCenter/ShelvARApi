@@ -42,7 +42,7 @@
 		if(isset($_POST['password'])) {
 			$password = $_POST['password'];
 		}
-		else if(isset($_GET['password']) {
+		else if(isset($_GET['password'])) {
 			$password = $_GET['password'];
 		}
 		
