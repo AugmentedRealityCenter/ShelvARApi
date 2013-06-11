@@ -20,6 +20,7 @@
 	if(!count($err)) {
 		$query = "UPDATE users SET ";
 		$params = array();
+		$type = "";
 		
 		if(isset($_POST['name']) && $_POST['name'] != "") {
 			$query += "name = ?,";
