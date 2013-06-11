@@ -21,28 +21,28 @@
 		$query = "UPDATE users SET ";
 		$params = array();
 		
-		if(isset($_POST['name'])) {
+		if(isset($_POST['name']) && $_POST['name'] != "") {
 			$query += "name = ?,";
 			$params[] = $_POST['name'];
 		}
-		else if(isset($_GET['name'])) {
+		else if(isset($_GET['name']) && $_GET['name'] != "") {
 			$query += "name = ?,";
 			$params[] = $_GET['name'];
 		}
 		
-		if(isset($_POST['email'])) {
+		if(isset($_POST['email']) && $_POST['email'] != "") {
 			$query += "email = ?,";
 			$params[] = $_POST['email'];
 		}
-		else if(isset($_GET['email'])) {
+		else if(isset($_GET['email']) && $_GET['email'] != "") {
 			$query += "email = ?,";
 			$params[] = $_GET['email'];
 		}
 		
-		if(isset($_POST['password'])) {
+		if(isset($_POST['password']) && $_POST['password'] != "") {
 			$password = $_POST['password'];
 		}
-		else if(isset($_GET['password'])) {
+		else if(isset($_GET['password']) && $_GET['password'] != "") {
 			$password = $_GET['password'];
 		}
 		
