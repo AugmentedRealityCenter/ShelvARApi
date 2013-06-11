@@ -5,25 +5,25 @@
 	
 	$err = array();
 	
-	if(!$_GET['user_id']) {
+	if(!$_POST['user_id']) {
 		$err[] = "No user_id supplied";
 	}
-	if($_GET['user_id'] != $oauth_user['user_id']) {
+	if($_POST['user_id'] != $oauth_user['user_id']) {
 		$err[] = "Invalid access to user account";
 	}
 	if(!count($err)) {
 		$query = "UPDATE users SET ";
 		$params = array();
-		$user_id = $_GET['user_id'];
-		if(isset($_GET['name'])) {
+		$user_id = $_POST['user_id'];
+		if(isset($_POST['name'])) {
 			$query += "name = ?,";
-			$params[] = $_GET['name'];
+			$params[] = $_POST['name'];
 		}
-		if(isset($_GET['email'])) {
+		if(isset($_POST['email'])) {
 			$query += "email = ?,";
-			$params[] = $_GET['email'];
+			$params[] = $_POST['email'];
 		}
-		if(isset($_GET['password'])) {
+		if(isset($_POST['password'])) {
 			$db = new database();
 			$db->query = "SELECT encrip_salt FROM users WHERE user_id = ?";
 			$db->params = array($user_id);
@@ -34,7 +34,7 @@
 			// TODO error handling
 			
 			$query += "password = ?,";
-			$password = $_GET['password'];
+			$password = $_POST['password'];
 			$password = hash('sha256', $password . $salt);
 			$params[] = $password;
 		}
