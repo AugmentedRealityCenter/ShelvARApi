@@ -76,6 +76,7 @@
 		$params[] = $user_id;
 		
 		$db = new database();
+		error_log($query);
 		$db->query = $query;
 		$db->params = $params;
 		error_log($type);
