@@ -39,14 +39,17 @@
 			$params[] = $_GET['email'];
 		}
 		
+		$editPass = false;
 		if(isset($_POST['password']) && $_POST['password'] != "") {
 			$password = $_POST['password'];
+			$editPass = true;
 		}
 		else if(isset($_GET['password']) && $_GET['password'] != "") {
 			$password = $_GET['password'];
+			$editPass = true;
 		}
 		
-		if(isset($_POST['password']) || isset($_GET['password'])) {
+		if($editPass) {
 			$db = new database();
 			$db->query = "SELECT encrip_salt FROM users WHERE user_id = ?";
 			$db->params = array($user_id);
