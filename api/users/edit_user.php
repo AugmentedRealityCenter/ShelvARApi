@@ -60,9 +60,7 @@
 			$db->params = array($user_id);
 			$db->type = 's';
 			$result = $db->fetch();
-			$salt = $result[0]['salt'];
-			
-			// TODO error handling
+			$salt = $result[0]['encrip_salt'];
 			
 			$query .= "password = ?,";
 			$type .= "s";
@@ -76,10 +74,8 @@
 		$params[] = $user_id;
 		
 		$db = new database();
-		error_log($query);
 		$db->query = $query;
 		$db->params = $params;
-		error_log($type);
 		$db->type = $type;
 		
 		if($db->update()) {
