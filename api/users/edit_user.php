@@ -24,23 +24,23 @@
 		
 		if(isset($_POST['name']) && $_POST['name'] != "") {
 			$query += "name = ?,";
-			$type += "s";
+			$type .= "s";
 			$params[] = $_POST['name'];
 		}
 		else if(isset($_GET['name']) && $_GET['name'] != "") {
 			$query += "name = ?,";
-			$type += "s";
+			$type .= "s";
 			$params[] = $_GET['name'];
 		}
 		
 		if(isset($_POST['email']) && $_POST['email'] != "") {
 			$query += "email = ?,";
-			$type += "s";
+			$type .= "s";
 			$params[] = $_POST['email'];
 		}
 		else if(isset($_GET['email']) && $_GET['email'] != "") {
 			$query += "email = ?,";
-			$type += "s";
+			$type .= "s";
 			$params[] = $_GET['email'];
 		}
 		
@@ -65,14 +65,14 @@
 			// TODO error handling
 			
 			$query += "password = ?,";
-			$type += "s";
+			$type .= "s";
 			$password = hash('sha256', $password . $salt);
 			$params[] = $password;
 		}	
 		
 		$query = substr($query,0,-1); // removing trailing comma
 		$query += "WHERE user_id = ?";
-		$type += "s";
+		$type .= "s";
 		$params[] = $user_id;
 		
 		$db = new database();
