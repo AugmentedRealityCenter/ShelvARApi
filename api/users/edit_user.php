@@ -39,7 +39,7 @@
 			$params[] = $_GET['email'];
 		}
 		
-		if(isset($_POST['password']) {
+		if(isset($_POST['password'])) {
 			$password = $_POST['password'];
 		}
 		else if(isset($_GET['password']) {
