@@ -37,10 +37,12 @@
 		
 		if(isset($_POST['email']) && $_POST['email'] != "") {
 			$params[] = $_POST['email'];
+			$pending_email = $_POST['email'];
 			$editEmail = true;
 		}
 		else if(isset($_GET['email']) && $_GET['email'] != "") {
 			$params[] = $_GET['email'];
+			$pending_email = $_GET['email'];
 			$editEmail = true;
 		}
 
