@@ -147,7 +147,7 @@
                 {
                     "httpMethod": "POST",
                     "summary": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required.",
-                    "notes": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required."
+                    "notes": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required.",
                     "responseClass": "string",
                     "nickname": "user",
                     "parameters": [
