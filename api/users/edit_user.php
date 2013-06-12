@@ -22,29 +22,28 @@
 		$params = array();
 		$type = "";
 		
+		$editName = false;
+		$editEmail = false;
+		$editPass = false;
+		
 		if(isset($_POST['name']) && $_POST['name'] != "") {
-			$query .= "name = ?,";
-			$type .= "s";
 			$params[] = $_POST['name'];
+			$editName = true;
 		}
 		else if(isset($_GET['name']) && $_GET['name'] != "") {
-			$query .= "name = ?,";
-			$type .= "s";
 			$params[] = $_GET['name'];
+			$editName = true;
 		}
 		
 		if(isset($_POST['email']) && $_POST['email'] != "") {
-			$query .= "email = ?,";
-			$type .= "s";
 			$params[] = $_POST['email'];
+			$editEmail = true;
 		}
 		else if(isset($_GET['email']) && $_GET['email'] != "") {
-			$query .= "email = ?,";
-			$type .= "s";
 			$params[] = $_GET['email'];
+			$editEmail = true;
 		}
-		
-		$editPass = false;
+
 		if(isset($_POST['password']) && $_POST['password'] != "") {
 			$password = $_POST['password'];
 			$editPass = true;
@@ -54,6 +53,14 @@
 			$editPass = true;
 		}
 		
+		if($editName) {
+			$query .= "name = ?,";
+			$type .= "s";
+		}
+		if($editEmail) {
+			$query .= "pending_email = ?,";
+			$type .= "s";
+		}
 		if($editPass) {
 			$db = new database();
 			$db->query = "SELECT encrip_salt FROM users WHERE user_id = ?";
@@ -79,7 +86,12 @@
 		$db->type = $type;
 		
 		if($db->update()) {
-			echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$params, 'errors'=>""));
+			if($editEmail) {
+				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
+			}
+			if(!$err) {
+				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
+			}
 		}
 		else $err[] = "SQL Error";
 	}

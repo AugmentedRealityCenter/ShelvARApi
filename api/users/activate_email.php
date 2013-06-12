@@ -4,12 +4,12 @@
 	
 	$err = array();
 	
-	if(!$_SERVER['QUERY_STRING']) {
+	if(!$_GET['key']) {
 		$err[] = 'No activation key supplied';
 	}
 	
 	if(!count($err)) {
-		$key = $_SERVER['QUERY_STRING'];
+		$key = $_GET['key'];
 		
 		$db = new database();
 		$db->query = "SELECT user_id, pending_email, email, email_verified, activation_key FROM users WHERE activation_key = ?";
@@ -41,7 +41,10 @@
 				if($_SERVER['SERVER_NAME'] == "devapi.shelvar.com") {
 					$frontend = "http://dev.shelvar.com/";
 				}
-				header('Location: '.$frontend.'registration-complete.php');
+				if(isset($_GET['edit'])) {
+					header('Location: '.$frontend.'edit-email-complete.php');
+				}
+				else header('Location: '.$frontend.'registration-complete.php');
 			}
 			else $err[] = "SQL Error";
 		}
