@@ -2,11 +2,10 @@
 	if(!isset($pending_email)) {
 		$err[] = "No email address provided";
 	}
+	else $to = $pending_email;
 	if(!isset($name)) {
 		$name = "New ShelvAR User";
 	}
-	else $to = $pending_email;
-	
 	$api = "https://api.shelvar.com/";
 	if($_SERVER['SERVER_NAME'] == "devapi.shelvar.com") {
 		$api = "http://devapi.shelvar.com/";
