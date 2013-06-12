@@ -65,7 +65,7 @@
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "summary": "Get information about a registered ShelvAR user. Set user id and authentication token in user context.",
+                    "summary": "Get information about a registered ShelvAR user. Returns a json object with the user_id, email and name Authentication required.",
                     "notes": "Get information about a registered ShelvAR user",
                     "responseClass": "string",
                     "nickname": "user",
@@ -156,7 +156,7 @@
                 {
                     "httpMethod": "POST",
                     "summary": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required.",
-                    "notes": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required.",
+                    "notes": "Register a user with ShelvAR",
                     "responseClass": "string",
                     "nickname": "user",
                     "parameters": [
