@@ -16,6 +16,7 @@
 
 	if(!count($err)) {
 		$user_id = $_POST['user_id'];
+		$user_id = strtolower($user_id);
 		$inst_id = $_POST['inst_id'];
 		$password = $_POST['password'];
 		$name = $_POST['name'];

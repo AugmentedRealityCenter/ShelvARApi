@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
   }
   if(!count($err)) {
     $user_id = $_POST['user_id'];
+    $user_id = strtolower($user_id);
     $password = $_POST['password'];
 
     include_once("../db_info.php");
