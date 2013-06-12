@@ -73,7 +73,7 @@
                     	{
                             "name": "user_id",
                             "description": "User ID of a registered ShelvAR user",
-                            "paramType": "query",
+                            "paramType": "path",
                             "required": false,
                             "allowMultiple": false,
                             "dataType": "string"
