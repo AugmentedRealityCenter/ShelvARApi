@@ -60,7 +60,19 @@
 			$type .= "s";
 		}
 		if($editEmail) {
-			$query .= "pending_email = ?,";
+			do {
+				$activation_key = md5(uniqid(rand(), true));
+				$activation_key = substr($activation_key, 0, 64);
+		
+				$db = new database();
+				$db->query = "SELECT user_id FROM users WHERE activation_key = ?";
+				$db->params = array($activation_key);
+				$db->type = 's';
+		
+				$result = $db->fetch();
+			} while(!empty($result));
+			$params[] = $activation_key;
+			$query .= "pending_email = ?, activation_key = ?,";
 			$type .= "s";
 		}
 		if($editPass) {
@@ -89,17 +101,6 @@
 		
 		if($db->update()) {
 			if($editEmail) {
-				do {
-					$activation_key = md5(uniqid(rand(), true));
-					$activation_key = substr($activation_key, 0, 64);
-			
-					$db = new database();
-					$db->query = "SELECT user_id FROM users WHERE activation_key = ?";
-					$db->params = array($activation_key);
-					$db->type = 's';
-			
-					$result = $db->fetch();
-				} while(!empty($result));
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
 			}
 			if(!$err) {
