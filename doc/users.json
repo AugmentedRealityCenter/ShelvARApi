@@ -69,7 +69,16 @@
                     "notes": "Get information about a registered ShelvAR user",
                     "responseClass": "string",
                     "nickname": "user",
-                    "parameters": [],
+                    "parameters": [ 
+                    	{
+                            "name": "user_id",
+                            "description": "User ID of a registered ShelvAR user",
+                            "paramType": "body",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
                     "errorResponses": [
                         {
                             "code": 400,
