@@ -73,7 +73,7 @@
 			} while(!empty($result));
 			$params[] = $activation_key;
 			$query .= "pending_email = ?, activation_key = ?,";
-			$type .= "s";
+			$type .= "ss";
 		}
 		if($editPass) {
 			$db = new database();
