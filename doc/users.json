@@ -146,14 +146,22 @@
             "operations": [
                 {
                     "httpMethod": "POST",
-                    "summary": "Register a user with ShelvAR",
-                    "notes": "Register a user with ShelvAR",
+                    "summary": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required.",
+                    "notes": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required."
                     "responseClass": "string",
                     "nickname": "user",
                     "parameters": [
                         {
                             "name": "user_id",
-                            "description": "The users ID",
+                            "description": "The user's username",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "name",
+                            "description": "The user's name",
                             "paramType": "query",
                             "required": true,
                             "allowMultiple": false,
@@ -161,7 +169,7 @@
                         },
                         {
                             "name": "password",
-                            "description": "The users password",
+                            "description": "The user's password",
                             "paramType": "query",
                             "required": true,
                             "allowMultiple": false,
