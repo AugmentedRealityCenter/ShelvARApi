@@ -72,8 +72,10 @@
 				$result = $db->fetch();
 			} while(!empty($result));
 			$params[] = $activation_key;
-			$query .= "pending_email = ?, activation_key = ?,";
-			$type .= "ss";
+			$params[] = "";
+			$params[] = 0;
+			$query .= "pending_email = ?, activation_key = ?, email = ?, email_verified = ?";
+			$type .= "sssi";
 		}
 		if($editPass) {
 			$db = new database();
