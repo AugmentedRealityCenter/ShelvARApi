@@ -75,7 +75,7 @@
 			$email = "";
 			$params[] = $email;
 			$params[] = 0;
-			$query .= "pending_email = ?, activation_key = ?, email = ?, email_verified = ?";
+			$query .= "pending_email = ?, activation_key = ?, email = ?, email_verified = ?,";
 			$type .= "sssi";
 		}
 		if($editPass) {
