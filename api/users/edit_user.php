@@ -72,8 +72,7 @@
 				$result = $db->fetch();
 			} while(!empty($result));
 			$params[] = $activation_key;
-			$email = "";
-			$params[] = $email;
+			$params[] = "";
 			$params[] = 0;
 			$query .= "pending_email = ?, activation_key = ?, email = ?, email_verified = ?,";
 			$type .= "sssi";
