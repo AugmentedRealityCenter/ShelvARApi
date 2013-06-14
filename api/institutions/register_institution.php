@@ -4,7 +4,7 @@
 	
 	$err = array();
 	
-	if(!$_POST['inst_id'] || !$_POST['name'] || !$_POST['admin_contact'] || !$_POST['alt_contact'] || !$_POST['inst_type'] || !$_POST['inst_size']) {
+	if(!$_POST['inst_id'] || !$_POST['inst_name'] || !$_POST['admin_contact'] || !$_POST['alt_contact'] || !$_POST['inst_type'] || !$_POST['inst_size']) {
 		$err[] = 'Please fill in all fields';
 	}
 	if(strlen($_POST['inst_id'])<5 || strlen($_POST['inst_id'])>20) {
