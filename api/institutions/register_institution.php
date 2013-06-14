@@ -1,7 +1,6 @@
 <?php 
 	include "../../database.php";
 	include_once "../../header_include.php";
-	include_once "../api_ref_call.php";
 	
 	$err = array();
 	
