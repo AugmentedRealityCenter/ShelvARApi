@@ -4,8 +4,23 @@
 	
 	$err = array();
 	
-	if(!$_POST['inst_id'] || !$_POST['inst_name'] || !$_POST['admin_contact'] || !$_POST['alt_contact'] || !$_POST['inst_type'] || !$_POST['inst_size']) {
-		$err[] = 'Please fill in all fields';
+	if(!$_POST['inst_id']) {
+		$err[] = 'Please fill in inst_id';
+	}
+	if(!$_POST['inst_name']) {
+		$err[] = 'Please fill in inst_name';
+	}
+	if(!$_POST['admin_contact']) {
+		$err[] = 'Please fill in admin_contact';
+	}
+	if(!$_POST['alt_contact']) {
+		$err[] = 'Please fill in alt_contact';
+	}
+	if(!$_POST['inst_type']) {
+		$err[] = 'Please fill in inst_type';
+	}
+	if(!$_POST['inst_size']) {
+		$err[] = 'Please fill in inst_size';
 	}
 	if(strlen($_POST['inst_id'])<5 || strlen($_POST['inst_id'])>20) {
 		$err[]='Institution ID must be between 5-20 characters';
