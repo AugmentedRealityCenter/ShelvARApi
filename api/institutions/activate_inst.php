@@ -32,7 +32,7 @@
 			
 			$db = new database();
 			$db->query = "UPDATE institutions SET pending_email = ?, admin_contact = ?, email_verified = ?, activation_key = ? WHERE inst_id = ?";
-			$db->params = array($pending_email, $admin_contact, $email_verified, $activation_key, $user_id);
+			$db->params = array($pending_email, $admin_contact, $email_verified, $activation_key, $inst_id);
 			$db->type = 'ssiss';
 			
 			if($db->update()) {
