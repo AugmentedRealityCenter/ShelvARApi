@@ -16,10 +16,10 @@
 	if(!$_POST['alt_contact']) {
 		$err[] = 'Please fill in alt_contact';
 	}
-	if(!$_POST['inst_type']) {
+	if(!isset($_POST['inst_type'])) {
 		$err[] = 'Please fill in inst_type';
 	}
-	if(!$_POST['inst_size']) {
+	if(!isset($_POST['inst_size'])) {
 		$err[] = 'Please fill in inst_size';
 	}
 	if(strlen($_POST['inst_id'])<5 || strlen($_POST['inst_id'])>20) {
