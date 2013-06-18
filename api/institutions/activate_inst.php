@@ -29,19 +29,43 @@
 			$email_verified = 1;
 			$pending_email = "";
 			$activation_key = "";
-			
+						
 			$db = new database();
 			$db->query = "UPDATE institutions SET pending_email = ?, admin_contact = ?, email_verified = ?, activation_key = ? WHERE inst_id = ?";
 			$db->params = array($pending_email, $admin_contact, $email_verified, $activation_key, $inst_id);
 			$db->type = 'ssiss';
 			
 			if($db->update()) {
-				echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'errors'=>""));
+				// attempt to activate admin account
+				$db = new database();
+				$db->query = "SELECT user_id WHERE (email = ? OR pending_email = ?) AND inst_id = ?";
+				$db->params = array($admin_contact, $admin_contact, $inst_id);
+				$db->type = 'sss';
+				$result = $db->fetch();
+				
 				$frontend = "http://shelvar.com/";
 				if($_SERVER['SERVER_NAME'] == "devapi.shelvar.com") {
 					$frontend = "http://dev.shelvar.com/";
 				}
-				header('Location: '.$frontend.'inst-registration-complete.php');
+				
+				if(count($result) < 1) {  
+					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'user_id'=>"", 'errors'=>"", 'warnings'=>'No admin registered for this institution'));
+					header('Location: '.$frontend.'register-user.php');
+				}
+				else {
+					$email = $admin_contact;
+					$is_admin = 1;
+					$user_id = $result[0]['user_id'];
+					$pending_email = "";
+					$activation_key = "";
+					$db = new database();
+					$db->query = "UPDATE users SET pending_email = ?, email = ?, email_verified = ?, activation_key = ? WHERE user_id = ?";
+					$db->params = array($pending_email, $email, $email_verified, $activation_key, $user_id);
+					$db->type = 'ssiss';
+					if($db->update()) {
+						header('Location: '.$frontend.'inst-registration-complete.php');
+					}
+				}
 			}
 			else $err[] = "SQL Error";
 		}
