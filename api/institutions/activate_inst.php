@@ -38,7 +38,7 @@
 			if($db->update()) {
 				// attempt to activate admin account
 				$db = new database();
-				$db->query = "SELECT user_id WHERE (email = ? OR pending_email = ?) AND inst_id = ?";
+				$db->query = "SELECT user_id FROM users WHERE (email = ? OR pending_email = ?) AND inst_id = ?";
 				$db->params = array($admin_contact, $admin_contact, $inst_id);
 				$db->type = 'sss';
 				$result = $db->fetch();
