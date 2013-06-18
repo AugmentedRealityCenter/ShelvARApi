@@ -60,17 +60,20 @@
 			
 			// Generate random activation key
 			// Check if key has already been generated
-			do {
-				$activation_key = md5(uniqid(rand(), true));
-				$activation_key = substr($activation_key, 0, 64);
-			
-				$db = new database();
-				$db->query = "SELECT user_id FROM users WHERE activation_key = ?";
-				$db->params = array($activation_key);
-				$db->type = 's';
-			
-				$result = $db->fetch();
-			} while(!empty($result));
+			if(!$_POST['withhold_email']) {
+				do {
+					$activation_key = md5(uniqid(rand(), true));
+					$activation_key = substr($activation_key, 0, 64);
+				
+					$db = new database();
+					$db->query = "SELECT user_id FROM users WHERE activation_key = ?";
+					$db->params = array($activation_key);
+					$db->type = 's';
+				
+					$result = $db->fetch();
+				} while(!empty($result));
+			}
+			else $activation_key = "";
 			
 			$pending_email = $email;
 
