@@ -61,7 +61,7 @@
 					$db = new database();
 					$db->query = "UPDATE users SET pending_email = ?, email = ?, email_verified = ?, activation_key = ?, is_admin = ? WHERE user_id = ?";
 					$db->params = array($pending_email, $email, $email_verified, $activation_key, $is_admin, $user_id);
-					$db->type = 'ssiss';
+					$db->type = 'ssisis';
 					if($db->update()) {
 						header('Location: '.$frontend.'inst-registration-complete.php');
 					}
