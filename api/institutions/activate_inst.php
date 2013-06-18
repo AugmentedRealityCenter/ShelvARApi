@@ -4,12 +4,12 @@
 	
 	$err = array();
 	
-	if(!$_GET['key']) {
+	if(!$_GET['inst_key']) {
 		$err[] = 'No activation key supplied';
 	}
 	
 	if(!count($err)) {
-		$key = $_GET['key'];
+		$key = $_GET['inst_key'];
 		
 		$db = new database();
 		$db->query = "SELECT inst_id, pending_email, admin_contact, email_verified, activation_key FROM institutions WHERE activation_key = ?";
@@ -22,7 +22,7 @@
 			$err[] = "No institution associated with supplied activation key";
 		}
 		else {
-			$user_id = $result[0]['inst_id'];
+			$inst_id = $result[0]['inst_id'];
 			$pending_email = $result[0]['pending_email'];
 		
 			$admin_contact = $pending_email;

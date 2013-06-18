@@ -87,7 +87,9 @@
 			*/
 
 			if($db->insert()) {
-				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
+				if($_POST['send_email']) {
+					include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
+				}
 				if(!$err) {
 					echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
 				}	
