@@ -59,8 +59,8 @@
 					$pending_email = "";
 					$activation_key = "";
 					$db = new database();
-					$db->query = "UPDATE users SET pending_email = ?, email = ?, email_verified = ?, activation_key = ? WHERE user_id = ?";
-					$db->params = array($pending_email, $email, $email_verified, $activation_key, $user_id);
+					$db->query = "UPDATE users SET pending_email = ?, email = ?, email_verified = ?, activation_key = ?, is_admin = ? WHERE user_id = ?";
+					$db->params = array($pending_email, $email, $email_verified, $activation_key, $is_admin, $user_id);
 					$db->type = 'ssiss';
 					if($db->update()) {
 						header('Location: '.$frontend.'inst-registration-complete.php');
