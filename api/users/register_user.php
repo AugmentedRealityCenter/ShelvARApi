@@ -87,7 +87,7 @@
 			*/
 
 			if($db->insert()) {
-				if($_POST['send_email']) {
+				if(!$_POST['withhold_email']) {
 					include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
 				}
 				if(!$err) {
