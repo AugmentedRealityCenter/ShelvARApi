@@ -3,7 +3,7 @@
 	include_once "../../header_include.php";
 	                                  
 	if(isset($_GET['user_id'])) {                                                               
-		$user_id = $_GET['user_id']);                                  
+		$user_id = $_GET['user_id'];                                  
 		$db = new database();
 		$db->query = "SELECT user_id FROM users WHERE user_id = ?";
 		$db->params = array($user_id);
