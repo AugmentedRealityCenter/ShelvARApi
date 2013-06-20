@@ -53,6 +53,9 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^institutions/activate_inst api/institutions/activate_inst.php [L]
 
 RewriteCond %{THE_REQUEST} GET
+RewriteRule ^institutions/available/([^/]+)\.json api/institutions/inst_available.php?inst_id=$1 [L,QSA]
+
+RewriteCond %{THE_REQUEST} GET
 RewriteRule ^institutions api/institutions/get_institutions.php [L]
 
 RewriteCond %{THE_REQUEST} GET
