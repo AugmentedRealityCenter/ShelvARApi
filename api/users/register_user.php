@@ -39,11 +39,7 @@
 
 			// Hash the password with the salt
 			$password = hash('sha256', $password . $salt); 
-
-			/*for($i = 0; $i < 1000; $i++) { 
-				$password = hash('sha256', $password . $salt); 
-				}*/ 
-
+			
 			// check if email matches admin email in institutions to give admin rights
 			$db = new database();
 			$db->query = "SELECT admin_contact FROM institutions WHERE inst_id = ?";
@@ -58,9 +54,9 @@
 			}
 			else $is_admin = 0;
 			
-			// Generate random activation key
-			// Check if key has already been generated
 			if(!$_POST['withhold_email']) {
+				// Generate random activation key
+				// Check if key has already been generated
 				do {
 					$activation_key = md5(uniqid(rand(), true));
 					$activation_key = substr($activation_key, 0, 64);
