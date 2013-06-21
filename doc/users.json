@@ -219,6 +219,14 @@
                     "responseClass": "string",
                     "nickname": "edit_user",
                     "parameters": [ 
+						 {
+                            "name": "user_id",
+                            "description": "The user's username",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
                     	{
                             "name": "name",
                             "description": "The user's name",
