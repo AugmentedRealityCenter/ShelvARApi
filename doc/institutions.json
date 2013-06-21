@@ -15,15 +15,23 @@
                     "nickname": "institutions",
                     "parameters": [
                         {
-                            "name": "institution_id",
-                            "description": "The official name of the institution",
-                            "paramType": "body",
+                            "name": "inst_id",
+                            "description": "Unique ID for the institution",
+                            "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
                         },
 						{
-                            "name": "admin_email",
+                            "name": "inst_name",
+                            "description": "The official name of the institution",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "admin_contact",
                             "description": "The email address of the user who will be the administrator of the account.",
                             "paramType": "path",
                             "required": true,
@@ -39,21 +47,21 @@
                             "dataType": "string"
                         },
                         {
-                            "name": "institution_type",
-                            "description": "The enumerated type of your institution. TODO: docuemnt these.",
-                            "paramType": "body",
+                            "name": "inst_type",
+                            "description": "The enumerated type of your institution.",
+                            "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
-                            "dataType": "string"
+                            "dataType": "int"
                         },
                         {
-                            "name": "short_code",
-                            "description": "2 - 10 character string that represents your institution.",
-                            "paramType": "body",
+                            "name": "inst_size",
+                            "description": "The enumerated size of your institution.",
+                            "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
-                            "dataType": "string"
-                        }
+                            "dataType": "int"
+                        },
                     ],
 		    "errorResponses": [
                         {
@@ -95,7 +103,7 @@
                     "summary": "Update information about an institution",
                     "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
-                    "nickname": "institution",
+                    "nickname": "edit_institution",
                     "parameters": [
                         {
                             "name": "inst_id",
@@ -126,7 +134,7 @@
                     "summary": "Get all information about an institution",
                     "notes": "Retrieves standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
-                    "nickname": "institution",
+                    "nickname": "get_institution_by_id",
                     "parameters": [
                         {
                             "name": "inst_id",
