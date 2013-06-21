@@ -240,7 +240,7 @@
                         {
                             "name": "user_id",
                             "description": "The user's username",
-                            "paramType": "query",
+                            "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
