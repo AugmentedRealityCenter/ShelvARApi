@@ -225,6 +225,43 @@
                     ]
                 }
             ]
+        },
+		{
+            "path": "/users/available/{user_id}.json",
+            "description": "Determines if an user ID is available",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Determines if an user ID is available",
+                    "notes": "Returns a json encoded object with the user_id field set to either TAKEN or AVAILABLE. No authentication required.",
+                    "responseClass": "string",
+                    "nickname": "user_id_available",
+                    "parameters": [
+                        {
+                            "name": "user_id",
+                            "description": "The user's username",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Invalid user ID"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

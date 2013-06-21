@@ -164,12 +164,12 @@
         },
 		{
             "path": "/institutions/available/{inst_id}.json",
-            "description": "Institution Information",
+            "description": "Determines if an institution ID is available",
             "operations": [                      
 		{
                     "httpMethod": "GET",
                     "summary": "Determines if an institution ID is available",
-                    "notes": "Returns a json encoded object with the inst_id field set to either TAKEN or AVAILABLE",
+                    "notes": "Returns a json encoded object with the inst_id field set to either TAKEN or AVAILABLE. No authentication required.",
                     "responseClass": "string",
                     "nickname": "institution_id_available",
                     "parameters": [
