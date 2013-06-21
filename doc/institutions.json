@@ -95,7 +95,7 @@
             ]
         },
 	{
-            "path": "/institutions/{inst_id}",
+            "path": "/institutions/{inst_id}.json",
             "description": "Institution Information",
             "operations": [
 		{
@@ -163,7 +163,7 @@
             ]
         },
 		{
-            "path": "/institutions/available{inst_id}",
+            "path": "/institutions/available/{inst_id}.json",
             "description": "Institution Information",
             "operations": [                      
 		{
