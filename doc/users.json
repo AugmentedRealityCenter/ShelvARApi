@@ -12,7 +12,7 @@
                     "summary": "Get all users at your institutions", 
                     "notes": "Retrieves all users at your institution currently registered with ShelvAR. Set user id and authentication token in user context.", 
                     "responseClass": "string", 
-                    "nickname": "user", 
+                    "nickname": "users", 
                     "parameters": [], 
                     "errorResponses": [
                         {
@@ -40,7 +40,7 @@
                     "summary": "Retrieve permissions for a user. Set user id and authentication token in user context.",
                     "notes": "Retrieve permissions for a user",
                     "responseClass": "string",
-                    "nickname": "user",
+                    "nickname": "permissions",
                     "parameters": [],
 		    "errorResponses": [
                         {
@@ -68,7 +68,7 @@
                     "summary": "Get information about a registered ShelvAR user",
                     "notes": "Get information about a registered ShelvAR user. Returns a json object with the user_id, email and name. Authentication required.",
                     "responseClass": "string",
-                    "nickname": "user",
+                    "nickname": "user_by_id",
                     "parameters": [ 
                     	{
                             "name": "user_id",
@@ -105,7 +105,7 @@
                     "summary": "Set permissions for a user. Set user id and authentication token in user context.",
                     "notes": "Set permissions for a user. Set user id and authentication token in user context.",
                     "responseClass": "string",
-                    "nickname": "user",
+                    "nickname": "permissions",
                     "parameters": [
                         {
                             "name": "admin",
@@ -150,7 +150,7 @@
             ]
         },
         {
-            "path": "/users/register",
+            "path": "/users/",
             "description": "Register a user with ShelvAR",
             "operations": [
                 {
@@ -158,7 +158,7 @@
                     "summary": "Register a user with ShelvAR",
                     "notes": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required.",
                     "responseClass": "string",
-                    "nickname": "user",
+                    "nickname": "register_user",
                     "parameters": [
                         {
                             "name": "user_id",
@@ -199,6 +199,14 @@
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
+                        },
+						{
+                            "name": "withhold_email",
+                            "description": "Whether or not to send a confirmation email to the user. 0 to send confirmation, 1 to withhold confirmation",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
                         }
                     ],
                     "errorResponses": [
