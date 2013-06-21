@@ -61,7 +61,7 @@
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "int"
-                        },
+                        }
                     ],
 		    "errorResponses": [
                         {
@@ -135,6 +135,43 @@
                     "notes": "Retrieves standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
                     "nickname": "get_institution_by_id",
+                    "parameters": [
+                        {
+                            "name": "inst_id",
+                            "description": "The shortname for your institution.",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "path": "/institutions/available{inst_id}",
+            "description": "Institution Information",
+            "operations": [                      
+		{
+                    "httpMethod": "GET",
+                    "summary": "Determines if an institution ID is available",
+                    "notes": "Returns a json encoded object with the inst_id field set to either TAKEN or AVAILABLE",
+                    "responseClass": "string",
+                    "nickname": "institution_id_available",
                     "parameters": [
                         {
                             "name": "inst_id",
