@@ -11,10 +11,11 @@ $arr = array('user_id' => $oauth_user['user_id'],
 	     'can_submit_inv' => $oauth_user['can_submit_inv'],
 	     'can_read_inv' => $oauth_user['can_read_inv'],
 	     'user_num' => $oauth_user['user_num'],
-	     'is_superadmin' => '0', //TODO
+	     'is_superadmin' => $oauth_user['is_superadmin'],
 	     'exp_date'=> $oauth_user['exp_date'],
 	     'inst_name'=> $oauth_user['inst_name'],
 	     'inst_activated'=> $oauth_user['inst_activated'],
+		 'inst_email_activated' => $oauth_user['inst_email_activated'],
 	     'inst_has_inv'=> $oauth_user['inst_has_inv'],
 	     'result'=>'SUCCESS');
     print(json_encode($arr));
