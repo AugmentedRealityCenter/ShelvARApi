@@ -99,7 +99,7 @@
 		$query .= " WHERE inst_id = ?";
 		$type .= "s";
 		$params[] = $inst_id;
-		
+		error_log("Query: ".$query);
 		$db = new database();
 		$db->query = $query;
 		$db->params = $params;
