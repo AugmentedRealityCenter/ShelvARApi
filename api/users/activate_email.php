@@ -24,7 +24,7 @@
 		else {
 			$user_id = $result[0]['user_id'];
 			$pending_email = $result[0]['pending_email'];
-			$inst_id = $result[0]['inst_id']
+			$inst_id = $result[0]['inst_id'];
 		
 			$email = $pending_email;
 			$email_verified = 1;
