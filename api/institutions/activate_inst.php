@@ -63,7 +63,10 @@
 					$db->params = array($pending_email, $email, $email_verified, $activation_key, $is_admin, $user_id);
 					$db->type = 'ssisis';
 					if($db->update()) {
-						header('Location: '.$frontend.'registration-complete.php');
+						if(isset($_GET['edit'])) {
+							header('Location: '.$frontend.'edit-email-complete.php');
+						}
+						else header('Location: '.$frontend.'registration-complete.php');
 					}
 				}
 			}

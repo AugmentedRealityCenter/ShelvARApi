@@ -75,7 +75,7 @@
 				$activation_key = substr($activation_key, 0, 64);
 		
 				$db = new database();
-				$db->query = "SELECT user_id FROM users WHERE activation_key = ?";
+				$db->query = "SELECT inst_id FROM institutions WHERE activation_key = ?";
 				$db->params = array($activation_key);
 				$db->type = 's';
 		
@@ -86,24 +86,19 @@
 			$query .= "pending_email = ?, activation_key = ?, email_verified = ?,";
 			$type .= "ssi";
 		}
-		if($editPass) {
-			$db = new database();
-			$db->query = "SELECT encrip_salt FROM users WHERE user_id = ?";
-			$db->params = array($user_id);
-			$db->type = 's';
-			$result = $db->fetch();
-			$salt = $result[0]['encrip_salt'];
-			
-			$query .= "password = ?,";
+		if($editURL) {
+			$query .= "inst_url = ?,";
 			$type .= "s";
-			$password = hash('sha256', $password . $salt);
-			$params[] = $password;
-		}	
+		}
+		if($editAltContact) {
+			$query .= "alt_contact = ?,";
+			$type .= "s";
+		}
 		
 		$query = substr($query,0,-1); // removing trailing comma
-		$query .= " WHERE user_id = ?";
+		$query .= " WHERE inst_id = ?";
 		$type .= "s";
-		$params[] = $user_id;
+		$params[] = $inst_id;
 		
 		$db = new database();
 		$db->query = $query;
@@ -111,16 +106,16 @@
 		$db->type = $type;
 		
 		if($db->update()) {
-			if($editEmail) {
-				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
+			if($editAdmin) {
+				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 			}
 			if(!$err) {
-				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
+				echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$user_id, 'errors'=>"")); 
 			}
 		}
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'user'=>"", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'inst_id'=>"", 'errors'=>$err)); 
 	}
 ?>

@@ -111,6 +111,6 @@
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'user'=>"", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'user_id'=>"", 'errors'=>$err)); 
 	}
 ?>

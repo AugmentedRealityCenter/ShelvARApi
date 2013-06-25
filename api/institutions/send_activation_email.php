@@ -11,9 +11,9 @@
 		$api = "http://devapi.shelvar.com/";
 	}
 	
-	if($editEmail) {
+	if($editAdmin) {
 		$subject = "ShelvAR.com Email Change";
-		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR User,<br/><br/>This email is to confirm that you have changed your email address. You can confirm this email address by clicking the following link:<br/><br/>".$api."institutions/activate_inst?inst_key=$activation_key&edit=1<br/><br/>If this message was sent as a mistake you can safely ignore it.";
+		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Institution,<br/><br/>This email is to confirm that you have changed your admin contact email address. You can confirm this email address by clicking the following link:<br/><br/>".$api."institutions/activate_inst?inst_key=$activation_key&edit=1<br/><br/>If this message was sent as a mistake you can safely ignore it.";
 	}
 	else {
 		$subject = "ShelvAR.com Institution Registration";
