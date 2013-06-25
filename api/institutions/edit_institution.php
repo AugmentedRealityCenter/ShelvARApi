@@ -100,7 +100,7 @@
 		$type .= "s";
 		$params[] = $inst_id;
 		error_log("Query: ".$query);
-		error_log("Params: ".$params);
+		error_log("Type: ".$type);
 		$db = new database();
 		$db->query = $query;
 		$db->params = $params;
