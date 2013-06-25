@@ -48,23 +48,19 @@
 		}
 
 		if(isset($_POST['inst_url']) && $_POST['inst_url'] != "") {
-			$params[] = $_POST['inst_url'];
 			$inst_url = $_POST['inst_url'];
 			$editURL = true;
 		}
 		else if(isset($_GET['inst_url']) && $_GET['inst_url'] != "") {
-			$params[] = $_GET['inst_url'];
 			$inst_url = $_GET['inst_url'];
 			$editURL = true;
 		}
 		
 		if(isset($_POST['alt_contact']) && $_POST['alt_contact'] != "") {
-			$params[] = $_POST['alt_contact'];
 			$alt_contact = $_POST['alt_contact'];
 			$editAltContact = true;
 		}
 		else if(isset($_GET['alt_contact']) && $_GET['alt_contact'] != "") {
-			$params[] = $_GET['alt_contact'];
 			$alt_contact = $_GET['alt_contact'];
 			$editAltContact = true;
 		}
@@ -91,10 +87,12 @@
 			$type .= "ssi";
 		}
 		if($editURL) {
+			$params[] = $inst_url;
 			$query .= "inst_url = ?,";
 			$type .= "s";
 		}
 		if($editAltContact) {
+			$params[] = $alt_contact;
 			$query .= "alt_contact = ?,";
 			$type .= "s";
 		}
