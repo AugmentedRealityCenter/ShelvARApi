@@ -64,7 +64,7 @@
 					$db->type = 'ssisis';
 					if($db->update()) {
 						if(isset($_GET['edit'])) {
-							header('Location: '.$frontend.'edit-email-complete.php');
+							header('Location: '.$frontend.'logout.php?edit-email-complete.php');
 						}
 						else header('Location: '.$frontend.'registration-complete.php');
 					}
