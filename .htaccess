@@ -32,7 +32,7 @@ RewriteCond %{THE_REQUEST} POST
 RewriteRule ^book_pings api/book_pings/book_ping.php [L]
 
 RewriteCond %{THE_REQUEST} POST
-RewriteRule ^users/([^/]+)\.json api/users/edit_user.php?user_id=$1 [L, QSA]
+RewriteRule ^users/edit api/users/edit_user.php [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^users api/users/register_user.php [L]
