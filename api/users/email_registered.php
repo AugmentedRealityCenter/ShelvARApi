@@ -11,9 +11,9 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"REGISTERED", 'message'=>"Email address registered with user", 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'email'=>"REGISTERED", 'message'=>"Email address registered with user", 'errors'=>""));
 		}
-		else echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"NOT REGISTERED", 'message'=>"", 'errors'=>""));
+		else echo json_encode(array('result'=>"SUCCESS", 'email'=>"NOT REGISTERED", 'message'=>"", 'errors'=>""));
 	}
 	else echo json_encode(array('result'=>"ERROR", 'errors'=>"No email address supplied"));
 ?>
