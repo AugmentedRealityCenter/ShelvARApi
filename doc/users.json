@@ -103,7 +103,7 @@
             ]
         },
 		{
-		"path": "/users/edit,
+		"path": "/users/edit",
 		"description": "Update information about a ShelvAR user",
 		"operations": [
                 {
