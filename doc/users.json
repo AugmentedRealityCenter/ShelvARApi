@@ -116,7 +116,7 @@
 						 {
                             "name": "user_id",
                             "description": "The user's username",
-                            "paramType": "path",
+                            "paramType": "query",
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
