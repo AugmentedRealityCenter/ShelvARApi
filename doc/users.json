@@ -103,6 +103,67 @@
             ]
         },
 		{
+		"path": "/users/edit,
+		"description": "Update information about a ShelvAR user",
+		"operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Update information about a ShelvAR user",
+                    "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "responseClass": "string",
+                    "nickname": "edit_user",
+                    "parameters": [ 
+						 {
+                            "name": "user_id",
+                            "description": "The user's username",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                    	{
+                            "name": "name",
+                            "description": "The user's name",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "password",
+                            "description": "The user's password",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "email",
+                            "description": "The email address of the user",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Invalid institution ID"
+                        }
+                    ]
+                }
+            ]
+        },
+		{
             "path": "/users/{user_id}/permissions",
             "description": "Get permissions for a user",
             "operations": [
@@ -211,64 +272,9 @@
                             "reason": "Invalid institution ID"
                         }
                     ]
-                },
-				 {
-                    "httpMethod": "POST",
-                    "summary": "Update information about a ShelvAR user",
-                    "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
-                    "responseClass": "string",
-                    "nickname": "edit_user",
-                    "parameters": [ 
-						 {
-                            "name": "user_id",
-                            "description": "The user's username",
-                            "paramType": "path",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                    	{
-                            "name": "name",
-                            "description": "The user's name",
-                            "paramType": "query",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "password",
-                            "description": "The user's password",
-                            "paramType": "query",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "email",
-                            "description": "The email address of the user",
-                            "paramType": "query",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "code": 400,
-                            "reason": "Invalid ID supplied"
-                        },
-                        { 
-                            "code": 404,
-                            "reason": "Data not found"
-                        },
-                        {
-                            "code": 403,
-                            "reason": "Invalid institution ID"
-                        }
-                    ]
                 }
-            ]
-        },
+			]
+		},
 		{
             "path": "/users/available/{user_id}.json",
             "description": "Determines if an user ID is available",
