@@ -5,7 +5,7 @@
     "apis": [
 		{
             "path": "/institutions/",
-            "description": "List of enrolled institutions",
+            "description": "Registers an institution with ShelvAR",
             "operations": [
                 {
                     "httpMethod": "POST",
@@ -94,9 +94,9 @@
                 }
             ]
         },
-	{
-            "path": "/institutions/{inst_id}.json",
-            "description": "Institution Information",
+		{
+            "path": "/institutions/edit",
+            "description": "Update information about an institution",
             "operations": [
 		{
                     "httpMethod": "POST",
@@ -107,11 +107,51 @@
                     "parameters": [
                         {
                             "name": "inst_id",
-                            "description": "The shortname for your institution.",
+                            "description": "Unique ID for the institution",
                             "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
+                        },
+						{
+                            "name": "inst_name",
+                            "description": "The official name of the institution",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "admin_contact",
+                            "description": "The email address of the user who will be the administrator of the account.",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "alt_contact",
+                            "description": "The name of another person at the institution that should be contacted if the admin contact is unavailable.",
+                            "paramType": "body",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "inst_type",
+                            "description": "The enumerated type of your institution.",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "inst_size",
+                            "description": "The enumerated size of your institution.",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
                         }
                     ],
                     "errorResponses": [
@@ -128,7 +168,12 @@
                             "reason": "Access denied. Authorization not provided."
                         }
                     ]
-                },                
+                }
+	},
+	{
+            "path": "/institutions/{inst_id}.json",
+            "description": "Institution Information",
+            "operations": [               
 		{
                     "httpMethod": "GET",
                     "summary": "Get all information about an institution",
