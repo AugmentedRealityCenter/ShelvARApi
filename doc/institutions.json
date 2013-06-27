@@ -98,7 +98,7 @@
             "path": "/institutions/edit",
             "description": "Update information about an institution",
             "operations": [
-		{
+			{
                     "httpMethod": "POST",
                     "summary": "Update information about an institution",
                     "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
@@ -168,7 +168,8 @@
                             "reason": "Access denied. Authorization not provided."
                         }
                     ]
-                }
+            }
+			]
 	},
 	{
             "path": "/institutions/{inst_id}.json",
