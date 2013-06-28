@@ -21,6 +21,9 @@
 		if(empty($result)) {
 			$err[] = "No institution associated with supplied activation key";
 		}
+		if($result[0]['email_verified'] == 1) {
+			$err[] = "Institution already verified";
+		}
 		else {
 			$inst_id = $result[0]['inst_id'];
 			$pending_email = $result[0]['pending_email'];
