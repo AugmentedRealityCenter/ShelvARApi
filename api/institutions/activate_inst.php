@@ -31,12 +31,11 @@
 			$admin_contact = $pending_email;
 			$email_verified = 1;
 			$pending_email = "";
-			$activation_key = "";
 						
 			$db = new database();
-			$db->query = "UPDATE institutions SET pending_email = ?, admin_contact = ?, email_verified = ?, activation_key = ? WHERE inst_id = ?";
-			$db->params = array($pending_email, $admin_contact, $email_verified, $activation_key, $inst_id);
-			$db->type = 'ssiss';
+			$db->query = "UPDATE institutions SET pending_email = ?, admin_contact = ?, email_verified = ? WHERE inst_id = ?";
+			$db->params = array($pending_email, $admin_contact, $email_verified, $inst_id);
+			$db->type = 'ssis';
 			
 			if($db->update()) {
 				// attempt to activate admin account
