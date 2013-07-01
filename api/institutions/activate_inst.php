@@ -59,11 +59,10 @@
 					$is_admin = 1;
 					$user_id = $result[0]['user_id'];
 					$pending_email = "";
-					$activation_key = "";
 					$db = new database();
-					$db->query = "UPDATE users SET pending_email = ?, email = ?, email_verified = ?, activation_key = ?, is_admin = ? WHERE user_id = ?";
-					$db->params = array($pending_email, $email, $email_verified, $activation_key, $is_admin, $user_id);
-					$db->type = 'ssisis';
+					$db->query = "UPDATE users SET pending_email = ?, email = ?, email_verified = ?, is_admin = ? WHERE user_id = ?";
+					$db->params = array($pending_email, $email, $email_verified, $is_admin, $user_id);
+					$db->type = 'ssiis';
 					if($db->update()) {
 						if(isset($_GET['edit'])) {
 							header('Location: '.$frontend.'logout.php?edit-email-complete.php');
