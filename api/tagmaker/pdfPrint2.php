@@ -60,9 +60,9 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 
   //This is just for debugging alignment issues
   $pdf->SetDrawColor(250);
-  /*$pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
+  $pdf->Rect($x+$paper_format->padding,$y+$paper_format->padding,
 	     $paper_format->label_width-2*$paper_format->padding,
-	     $paper_format->label_height-2*$paper_format->padding);*/
+	     $paper_format->label_height-2*$paper_format->padding);
 
   $safety_buffer = $paper_format->padding;
 
