@@ -161,6 +161,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   $lines_tall = count($processed_parts);
   $new_top = $bottom - ($paper_format->font_size/72.0)*$lines_tall;
+  //TODO: Is this off by 1 line?
   if($new_top < $top) {
     //Oops, not enough room
     return -1;
@@ -168,7 +169,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   $lc_toprint = implode("\n",$processed_parts);
   $multi_shift = 3.0/72;
-  $pdf->SetXY($left-$multi_shift,$top);
+  $pdf->SetXY($left-$multi_shift,$top + ($paper_format->font_size/72.0));
   $pdf->MultiCell(0,($paper_format->font_size/72.0),$lc_toprint,0);
 
   return $new_top;
