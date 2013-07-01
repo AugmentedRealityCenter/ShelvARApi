@@ -75,10 +75,10 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
   if($code_top >= 0){
     //TODO This 2.0/72 is to make some space between the tag and the lc. Should make
     // it unit independent. This assumes inches.
-    $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
+    $num_top = make_num($code_x, $code_top-(2.0/72), $y+$paper_format->font_size/72.0, $pdf, $paper_format, $tag);
     $temp_format = clone $paper_format;
     while($num_top < 0 && $temp_format->font_size > 0){
-      $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $temp_format, $tag);
+      $num_top = make_num($code_x, $code_top-(2.0/72), $y+$paper_format->font_size/72.0, $pdf, $temp_format, $tag);
       $temp_format->font_size--;
     }
   }
@@ -169,7 +169,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   $lc_toprint = implode("\n",$processed_parts);
   $multi_shift = 3.0/72;
-  $pdf->SetXY($left-$multi_shift,$top + ($paper_format->font_size/72.0));
+  $pdf->SetXY($left-$multi_shift,$top);
   $pdf->MultiCell(0,($paper_format->font_size/72.0),$lc_toprint,0);
 
   return $new_top;
