@@ -89,7 +89,7 @@ if(isset($oauth_user)){
   $oauth_user['exp_date'] = "0";
   if(count($ret)>0) {
     $oauth_user['is_superadmin'] = 0;
-	if($oauth_user['is_admin'] == 1 && $email == $ret[0]['admin_contact']) {
+	if($email == $ret[0]['admin_contact']) {
 		$oauth_user['is_superadmin'] = 1;
 	}
     $date = new DateTime($ret[0]['exp_date'], new DateTimeZone("UTC"));
