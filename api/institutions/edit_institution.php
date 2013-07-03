@@ -101,8 +101,17 @@
 		$query .= " WHERE inst_id = ?";
 		$type .= "s";
 		$params[] = $inst_id;
-		error_log("Query: ".$query);
-		error_log("Type: ".$type);
+		
+		$db = new database();
+		$db->query = "SELECT name, admin_contact FROM institutions WHERE inst_id = ?";
+		$db->params = array($inst_id);
+		$db->type = 's';
+
+		$result = $db->fetch();
+		
+		$previous_admin = $result[0]['admin_contact'];
+		$previous_name = $result[0]['name'];
+
 		$db = new database();
 		$db->query = $query;
 		$db->params = $params;
@@ -113,7 +122,7 @@
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 			}
 			if(!$err) {
-				echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$user_id, 'errors'=>"")); 
+				echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'errors'=>"")); 
 			}
 		}
 		else $err[] = "SQL Error";
