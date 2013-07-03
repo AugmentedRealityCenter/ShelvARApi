@@ -14,7 +14,7 @@
 	}
 	else $inst_id = $_POST['inst_id'];
 	
-	if($inst_id != $oauth_user['inst_id']) {
+	if($inst_id != $oauth_user['inst_id'] || $oauth_user['is_superadmin'] == 0) {
 		$err[] = "Invalid access to institution account";
 	}
 	if(!count($err)) {
