@@ -5,6 +5,10 @@
 	
 	$err = array();
 	
+	if(stripos($oauth_user['scope'],"acctmod") === false) {
+		exit(json_encode(array('result'=>'ERROR No permission to modify account.')));
+	}
+	
 	$inst_id = "";
 	if(!$_POST['inst_id']) {
 		if(!$_GET['inst_id']) {

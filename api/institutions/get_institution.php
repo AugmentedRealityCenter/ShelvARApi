@@ -4,18 +4,24 @@
 	include_once "../api_ref_call.php";
 	
 	$err = array();
-	
+	$contactread = true;
 	if(!$_GET['inst_id']) {
 		$err[] = "No inst_id supplied";
 	}
 	if($_GET['inst_id'] != $oauth_user['inst_id']) {
 		$err[] = "Invalid access to institution information";
 	}
+	if(stripos($oauth_user['scope'],"contactread") === false) {
+		$contactread = false;
+	}
 	if(!count($err)) {
 		$inst_id = $_GET['inst_id'];
 		
 		$db = new database();
-		$db->query = "SELECT inst_id, name, admin_contact, alt_contact, inst_url, inst_type, inst_size FROM institutions WHERE inst_id = ?";
+		if(!$contactread) {
+			$db->query = "SELECT inst_id, name, inst_url, inst_type, inst_size FROM institutions WHERE inst_id = ?";
+		}
+		else $db->query = "SELECT inst_id, name, admin_contact, alt_contact, inst_url, inst_type, inst_size FROM institutions WHERE inst_id = ?";
 		$db->params = array($inst_id);
 		$db->type = 's';
 		
