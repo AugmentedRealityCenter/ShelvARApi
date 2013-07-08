@@ -3,6 +3,10 @@
 	include_once "../../header_include.php";
 	include_once "../api_ref_call.php";
 	
+	if(stripos($oauth_user['scope'],"acctmod") === false) {
+		exit(json_encode(array('result'=>'ERROR No permission to modify account.')));
+	}
+	
 	$err = array();
 	
 	$user_id = "";

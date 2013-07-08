@@ -4,18 +4,24 @@
 	include_once "../api_ref_call.php";
 	
 	$err = array();
-	
+	$contactread = true;
 	if(!$_GET['user_id']) {
 		$err[] = "No user_id supplied";
 	}
 	if($_GET['user_id'] != $oauth_user['user_id']) {
 		$err[] = "Invalid access to user account";
 	}
+	if(stripos($oauth_user['scope'],"contactread") === false) {
+		$contactread = false;
+	}
 	if(!count($err)) {
 		$user_id = $_GET['user_id'];
 		
 		$db = new database();
-		$db->query = "SELECT user_id, name, email FROM users WHERE user_id = ?";
+		if(!$contactread) {
+			$db->query = "SELECT user_id, name FROM users WHERE user_id = ?";
+		}
+		else $db->query = "SELECT user_id, name, email FROM users WHERE user_id = ?";
 		$db->params = array($user_id);
 		$db->type = 's';
 		
