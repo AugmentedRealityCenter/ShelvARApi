@@ -54,7 +54,8 @@ if(!isset($oauth_user)){
   try {
     $user_num = $Provider->getUserId();
     $exp_date = $Provider->getAccessTokenDate();
-
+	$scope = $Provider->getAccessTokenScope();
+	error_log("Scope ".$scope);
     $db = new database();
     $db->query = "SELECT inst_id, name, user_id, is_admin, email_verified, can_submit_inv, can_read_inv, can_shelf_read, user_num, email FROM users WHERE user_num = ?";
     $db->params = array($user_num);
@@ -65,6 +66,7 @@ if(!isset($oauth_user)){
 	  $email = $the_rec[0]['email'];
 	  unset($the_rec[0]['email']);
       $oauth_user = $the_rec[0];
+	  $oauth_user['scope'] = $scope;
       $user_id = $oauth_user['user_id'];
       $inst_id = $oauth_user['inst_id'];
     } else {

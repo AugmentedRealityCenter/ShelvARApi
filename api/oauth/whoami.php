@@ -18,6 +18,7 @@ $arr = array('user_id' => $oauth_user['user_id'],
 	     'inst_activated'=> $oauth_user['inst_activated'],
 		 'inst_email_activated' => $oauth_user['inst_email_activated'],
 	     'inst_has_inv'=> $oauth_user['inst_has_inv'],
+		 'scope' => $oauth_user['scope'],
 	     'result'=>'SUCCESS');
     print(json_encode($arr));
 
