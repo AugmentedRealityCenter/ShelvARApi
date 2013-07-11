@@ -130,7 +130,8 @@ echo(
 				  <div class="control-group">
 					<input type="password" name="password" placeholder="Password">
 				  </div>
-				  <button name="login" class="btn btn-primary" type="submit">Log in</button>
+				  <input type="hidden" id="login" name="login" value="login" />
+				  <button class="btn btn-primary" type="submit">Log in</button>
 				</fieldset>
 			  </form>
 			</div>
