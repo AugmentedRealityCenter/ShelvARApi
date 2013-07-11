@@ -77,7 +77,7 @@ echo(
 			}
 			
 			.container {
-				width: 300px;
+				width: 400px;
 			}
 
 			.container > .content {
