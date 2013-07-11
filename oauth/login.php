@@ -19,14 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
     include_once("../db_info.php");
     include_once("../database.php");
 
-    /******************* Prepared Statement ******************************/
     $db = new database();
     $db->query = "SELECT user_id, inst_id, password, encrip_salt, user_num
 						  FROM users
 						  WHERE user_id = ?";
     $db->params = array($user_id);
     $db->type = 's';
-    /********************************************************************/
 		
     $result = $db->fetch();
 			
@@ -141,21 +139,5 @@ echo(
 	</body>
 	</html>'
 ); 
-
-/*
-echo(
-		"<html>
-			<body>
-				<img src=\"../ShelvARLogo_Big.png\" />
-				<br/>
-				Please log in your ShelvAR account.
-				<form method='POST' action='?oauth_token=".$_GET['oauth_token']."'>
-					Username <input name='user_id' type='input'><br />
-					Password <input name='password' type='password'><br />
-					<input name='login' type='submit' value='Log in'>
-				</form>
-			</body>
-		</html>"
-	); */
 
 ?>
