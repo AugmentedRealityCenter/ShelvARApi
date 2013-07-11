@@ -107,7 +107,7 @@ echo(
 	  <div class="container">
 		<div class="content">
 		  <div class="row">
-			<img src=\"../ShelvARLogo_Big.png\" />
+			<img src="../ShelvARLogo_Big.png" />
 			<div class="login-form">
 			  <h2>Login</h2>
 			  <br/>
