@@ -105,7 +105,7 @@ echo(
 	</head>
 	<body>
 	  <div class="container">
-		<img src="../ShelvARLogo_Big.png" style="text-align: left"/>
+		<img src="../ShelvARLogo_Big.png" align="left"/>
 		<br/>
 		<div class="content">
 		  <div class="row">
