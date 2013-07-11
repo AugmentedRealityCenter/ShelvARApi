@@ -125,10 +125,10 @@ echo(
 			  <form method="POST" action="?oauth_token='.$_GET["oauth_token"].'">
 				<fieldset>
 				  <div class="control-group">
-					<input type="text" name="user_id" placeholder="Username">
+					<input type="text" class="input-xlarge" name="user_id" placeholder="Username">
 				  </div>
 				  <div class="control-group">
-					<input type="password" name="password" placeholder="Password">
+					<input type="password" class="input-xlarge" name="password" placeholder="Password">
 				  </div>
 				  <input type="hidden" id="login" name="login" value="login" />
 				  <button class="btn btn-primary" type="submit">Log in</button>
