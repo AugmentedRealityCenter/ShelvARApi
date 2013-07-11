@@ -91,6 +91,15 @@ echo(
 				   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
 						box-shadow: 0 1px 2px rgba(0,0,0,.15);
 			}
+			
+			img {
+				max-width: 100%;
+				width: auto	9;
+				height: auto;
+				border: 0;
+				-ms-interpolation-mode: bicubic;
+				margin-left: -6%;
+			}
 
 			.login-form {
 				margin-left: 65px;
@@ -105,7 +114,7 @@ echo(
 	</head>
 	<body>
 	  <div class="container">
-		<img src="../ShelvARLogo_Big.png" align="left"/>
+		<img src="../ShelvARLogo_Big.png"/>
 		<br/>
 		<div class="content">
 		  <div class="row">
