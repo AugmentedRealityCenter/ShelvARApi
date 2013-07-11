@@ -122,7 +122,6 @@ echo(
 			<div class="login-form">
 			  <h3>An application would like to connect to your ShelvAR account</h3>
 			  <p>Please log in to access this application</p>
-			  <br/>
 			  <form method="POST" action="?oauth_token='.$_GET["oauth_token"].'">
 				<fieldset>
 				  <div class="control-group">
