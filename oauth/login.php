@@ -70,7 +70,7 @@ echo(
 		<link href="bootstrap.css" rel="stylesheet">
 		<style type="text/css">
 			html, body {
-				background-color: #eee;
+				background-color: #C60C30;
 			}
 			body {
 				padding-top: 40px; 
