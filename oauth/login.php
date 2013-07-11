@@ -114,7 +114,7 @@ echo(
 	</head>
 	<body>
 	  <div class="container">
-		<img src="../ShelvARLogo_Big.png"/>
+		<img src="../ShelvARLogo_Big.png" width="200"/>
 		<br/>
 		<div class="content">
 		  <div class="row">
