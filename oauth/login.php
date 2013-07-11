@@ -102,7 +102,7 @@ echo(
 			}
 
 			.login-form {
-				margin-left: 65px;
+				margin-left: 25px;
 			}
 
 			legend {
