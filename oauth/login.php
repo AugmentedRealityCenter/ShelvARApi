@@ -77,7 +77,7 @@ echo(
 			}
 			
 			.container {
-				width: 400px;
+				width: 600px;
 			}
 
 			.container > .content {
@@ -98,7 +98,7 @@ echo(
 				height: auto;
 				border: 0;
 				-ms-interpolation-mode: bicubic;
-				margin-left: -6%;
+				margin-left: -3%;
 			}
 
 			.login-form {
@@ -120,7 +120,7 @@ echo(
 		<div class="content">
 		  <div class="row">
 			<div class="login-form">
-			  <h2>An application would like to connect to your ShelvAR account</h2>
+			  <h3>An application would like to connect to your ShelvAR account</h3>
 			  <p>Please log in to your ShelvAR account</p>
 			  <br/>
 			  <form method="POST" action="?oauth_token='.$_GET["oauth_token"].'">
