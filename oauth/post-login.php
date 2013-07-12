@@ -131,6 +131,9 @@ echo(
 	  </div>
 	</body>
 	</html>'
+);
+
+/*
 
 echo("<html><body>"
      ."<img src=\"../ShelvARLogo_Big.png\" /><br/>"
@@ -140,6 +143,6 @@ echo("<html><body>"
      $RequestToken->getToken(). "'>" .
 	"<input name='allow' type='submit' value='Allow'>
 	<input name='deny' type='submit' value='Deny'>
-      </form></body></html>");
+      </form></body></html>"); */
 
 ?>
