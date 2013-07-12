@@ -133,6 +133,7 @@ echo(
 			  <h3>An application is requesting access to your ShelvAR account</h3>
 			  <p>This application <b>will be able to</b>: </p>
 			  '.$scope.'
+			  <p>Allow access to your account?</p>
 			  <form method="POST" action="?oauth_token='.$RequestToken->getToken().'">
 				<fieldset>
 				  <button name="allow" class="btn" value="Allow" type="submit">Allow</button>
