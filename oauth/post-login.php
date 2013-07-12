@@ -121,7 +121,7 @@ echo(
 			  <p>It will be allowed to <b>'.$RequestToken->getTokenScope().'</b> on your behalf</p>
 			  <form method="POST" action="?oauth_token='.$RequestToken->getToken().'">
 				<fieldset>
-				  <button class="btn btn-primary" value="Allow" type="submit">Allow</button>
+				  <button class="btn" value="Allow" type="submit">Allow</button>
 				  <button class="btn btn-danger" value="Deny" type="submit">Deny</button>
 				</fieldset>
 			  </form>
