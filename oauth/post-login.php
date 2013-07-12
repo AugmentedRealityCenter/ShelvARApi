@@ -59,16 +59,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
  }
  
 if(stripos($RequestToken->getTokenScope(),"invread") !== false) {
-	$scope .= '<dd><p>Read inventory on your behalf</p>';
+	$scope .= '<dd><p>&#149; Read inventory on your behalf</p>';
 }
 if(stripos($RequestToken->getTokenScope(),"invsubmit") !== false) {
-	$scope .= '<dd><p>Submit inventory on your behalf</p>';
+	$scope .= '<dd><p>&#149; Submit inventory on your behalf</p>';
 }
 if(stripos($RequestToken->getTokenScope(),"contactread") !== false) {
-	$scope .= '<dd><p>Read your contact information</p>';
+	$scope .= '<dd><p>&#149; Read your contact information</p>';
 }
 if(stripos($RequestToken->getTokenScope(),"acctmod") !== false) {
-	$scope .= '<dd><p>Modify account information on your behalf</p>';
+	$scope .= '<dd><p>&#149; Modify account information on your behalf</p>';
 }
 
 echo(
