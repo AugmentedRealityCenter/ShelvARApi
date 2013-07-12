@@ -58,6 +58,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
    }
  }
  
+if(stripos($RequestToken->getTokenScope(),"invread") === true) {
+	$scope .= '<p>Read inventory on your behalf</p>';
+}
+if(stripos($RequestToken->getTokenScope(),"invsubmit") === true) {
+	$scope .= '<p>Submit inventory on your behalf</p>';
+}
+if(stripos($RequestToken->getTokenScope(),"contactread") === true) {
+	$scope .= '<p>Read your contact information</p>';
+}
+if(stripos($RequestToken->getTokenScope(),"acctmod") === true) {
+	$scope .= '<p>Modify account information on your behalf</p>';
+}
+
 echo(
 	'<!DOCTYPE html>
 	<html lang="en">
@@ -117,8 +130,9 @@ echo(
 		<div class="content">
 		  <div class="row">
 			<div class="login-form">
-			  <h3>This application is requesting access to your ShelvAR account</h3>
-			  <p>It will be allowed to <b>'.$RequestToken->getTokenScope().'</b> on your behalf</p>
+			  <h3>An application is requesting access to your ShelvAR account</h3>
+			  <p>This application <b>will be able to</b>: </p>
+			  '.$scope.'
 			  <form method="POST" action="?oauth_token='.$RequestToken->getToken().'">
 				<fieldset>
 				  <button name="allow" class="btn" value="Allow" type="submit">Allow</button>
