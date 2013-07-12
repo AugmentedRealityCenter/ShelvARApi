@@ -133,14 +133,16 @@ echo(
 			  <h3>An application is requesting access to your ShelvAR account</h3>
 			  <p>This application <b>will be able to</b>: </p>
 			  '.$scope.'</dd>
-			  <h4>Allow access to your account?</h4>
-			  <br/>
-			  <form method="POST" action="?oauth_token='.$RequestToken->getToken().'">
-				<fieldset>
-				  <button name="allow" class="btn" value="Allow" type="submit">Allow</button>
-				  <button name="deny" class="btn btn-danger" value="Deny" type="submit">Deny</button>
-				</fieldset>
-			  </form>
+			  <div align="center">
+				  <h4>Allow access to your account?</h4>
+				  <br/>
+				  <form method="POST" action="?oauth_token='.$RequestToken->getToken().'">
+					<fieldset>
+					  <button name="allow" class="btn" value="Allow" type="submit">Allow</button>
+					  <button name="deny" class="btn btn-danger" value="Deny" type="submit">Deny</button>
+					</fieldset>
+				  </form>
+			  </div>
 			</div>
 		  </div>
 		</div>
