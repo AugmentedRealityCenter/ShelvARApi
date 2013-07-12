@@ -4,7 +4,7 @@
 	include_once "../api_ref_call.php";
 	
 	if(stripos($oauth_user['scope'],"acctmod") === false) {
-		exit(json_encode(array('result'=>'ERROR No permission to modify account.')));
+		exit(json_encode(array('result'=>"ERROR", 'errors'=> "No permission to modify account")));
 	}
 	
 	$err = array();
