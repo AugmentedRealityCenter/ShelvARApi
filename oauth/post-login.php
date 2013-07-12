@@ -134,8 +134,7 @@ echo(
 			  <p>This application <b>will be able to</b>: </p>
 			  '.$scope.'</dd>
 			  <div align="center">
-				  <h4 style="margin-top: 2%">Allow access to your account?</h4>
-				  <br/>
+				  <h4 style="margin-top: 2%; margin-bottom: 4%">Allow access to your account?</h4>
 				  <form method="POST" action="?oauth_token='.$RequestToken->getToken().'">
 					<fieldset>
 					  <button name="allow" class="btn" value="Allow" type="submit">Allow</button>
