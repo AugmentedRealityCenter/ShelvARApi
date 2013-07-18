@@ -75,7 +75,7 @@
 
 			$db = new database();
 			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,pending_email,activation_key,encrip_salt,can_submit_inv,can_read_inv,can_shelf_read)
-							VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+							VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, "", 0, $pending_email, $activation_key, $salt, 0, 0, 0);
 			$db->type = 'ssssisisssiii';
 			/*
