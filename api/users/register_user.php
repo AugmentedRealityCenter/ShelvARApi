@@ -49,8 +49,7 @@
 			$result = $db->fetch();
 			
 			// TODO error handling
-			error_log("admin=".$result[0]['admin_contact']." user=$email");
-			if($result[0]['admin_contact'] == $email) {
+			if($result[0]['admin_contact'] === $email) {
 				$is_admin = 1;
 	
 			}
