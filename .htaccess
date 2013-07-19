@@ -46,6 +46,9 @@ RewriteRule ^users/available/([^/]+)\.json api/users/user_available.php?user_id=
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users/email_registered/([^/]+)\.json api/users/email_registered.php [L,E=email:$1]
 
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^users/([^/]+)/permissions api/users/edit_permissions.php [L,E=user_id:$1]
+
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users/([^/]+)\.json api/users/get_user.php [L,E=user_id:$1]
 
