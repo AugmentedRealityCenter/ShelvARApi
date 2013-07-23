@@ -15,7 +15,9 @@
 	else $user_id = $_POST['user_id'];
 	
 	if($oauth_user['is_admin'] == 0) {
-		$err[] = "Invalid access to user account";
+		if($oauth_user['is_superadmin'] == 0) {
+			$err[] = "Invalid access to user account";
+		}
 	}
 	if(!count($err)) {
 		$query = "UPDATE users SET ";
