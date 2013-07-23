@@ -197,25 +197,33 @@
                     "nickname": "permissions",
                     "parameters": [
                         {
-                            "name": "admin",
+                            "name": "is_admin",
                             "description": "Value that determines whether the user is an administrator",
-                            "paramType": "body",
+                            "paramType": "query",
                             "required": false,
                             "allowMultiple": false,
                             "dataType": "string"
                         },
                         {
-                            "name": "post",
-                            "description": "Value that determines whether the user has post permissions",
-                            "paramType": "body",
+                            "name": "can_submit_inv",
+                            "description": "Value that determines whether the user has submit inventory permissions",
+                            "paramType": "query",
                             "required": false,
                             "allowMultiple": false,
                             "dataType": "string"
                         },
                         {
-                            "name": "get",
-                            "description": "Value that determines whether the user has get permissions",
-                            "paramType": "body",
+                            "name": "can_read_inv",
+                            "description": "Value that determines whether the user has read inventory permissions",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "can_shelf_read",
+                            "description": "Value that determines whether the user has shelf read permissions",
+                            "paramType": "query",
                             "required": false,
                             "allowMultiple": false,
                             "dataType": "string"
