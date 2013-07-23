@@ -5,7 +5,7 @@
 	
 	$err = array();
 	
-	if($oauth_user['is_admin'] == 1) {
+	if($oauth_user['is_admin'] == 1 || $oauth_user['is_superadmin'] == 1) {
 		$query = "SELECT inst_id, name, user_id, is_admin, email, email_verified, can_submit_inv, can_read_inv, can_shelf_read FROM users WHERE inst_id = ?";
 		$param = array($oauth_user['inst_id']);
 	}
