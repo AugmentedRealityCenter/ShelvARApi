@@ -41,6 +41,9 @@ RewriteCond %{THE_REQUEST} POST
 RewriteRule ^users api/users/register_user.php [L]
 
 RewriteCond %{THE_REQUEST} GET
+RewriteRule ^users/([^/]+)/permissions api/users/get_permissions.php [L,E=user_id:$1]
+
+RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users/activate_email api/users/activate_email.php [L]
 
 RewriteCond %{THE_REQUEST} GET
