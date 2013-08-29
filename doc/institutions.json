@@ -5,7 +5,7 @@
     "apis": [
 		{
             "path": "/institutions/",
-            "description": "List of enrolled institutions",
+            "description": "Registers an institution with ShelvAR",
             "operations": [
                 {
                     "httpMethod": "POST",
@@ -15,15 +15,23 @@
                     "nickname": "institutions",
                     "parameters": [
                         {
-                            "name": "institution_id",
-                            "description": "The official name of the institution",
-                            "paramType": "body",
+                            "name": "inst_id",
+                            "description": "Unique ID for the institution",
+                            "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
                         },
 						{
-                            "name": "admin_email",
+                            "name": "inst_name",
+                            "description": "The official name of the institution",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "admin_contact",
                             "description": "The email address of the user who will be the administrator of the account.",
                             "paramType": "path",
                             "required": true,
@@ -39,20 +47,20 @@
                             "dataType": "string"
                         },
                         {
-                            "name": "institution_type",
-                            "description": "The enumerated type of your institution. TODO: docuemnt these.",
-                            "paramType": "body",
+                            "name": "inst_type",
+                            "description": "The enumerated type of your institution.",
+                            "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
-                            "dataType": "string"
+                            "dataType": "int"
                         },
                         {
-                            "name": "short_code",
-                            "description": "2 - 10 character string that represents your institution.",
-                            "paramType": "body",
+                            "name": "inst_size",
+                            "description": "The enumerated size of your institution.",
+                            "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
-                            "dataType": "string"
+                            "dataType": "int"
                         }
                     ],
 		    "errorResponses": [
@@ -86,16 +94,93 @@
                 }
             ]
         },
-	{
-            "path": "/institutions/{inst_id}",
-            "description": "Institution Information",
-            "operations": [
 		{
+            "path": "/institutions/edit",
+            "description": "Update information about an institution",
+            "operations": [
+			{
                     "httpMethod": "POST",
                     "summary": "Update information about an institution",
                     "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
-                    "nickname": "institution",
+                    "nickname": "edit_institution",
+                    "parameters": [
+                        {
+                            "name": "inst_id",
+                            "description": "Unique ID for the institution",
+                            "paramType": "path",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "inst_name",
+                            "description": "The official name of the institution",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "admin_contact",
+                            "description": "The email address of the user who will be the administrator of the account.",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "alt_contact",
+                            "description": "The name of another person at the institution that should be contacted if the admin contact is unavailable.",
+                            "paramType": "body",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "inst_type",
+                            "description": "The enumerated type of your institution.",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        },
+                        {
+                            "name": "inst_size",
+                            "description": "The enumerated size of your institution.",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+            }
+			]
+	},
+	{
+            "path": "/institutions/{inst_id}.json",
+            "description": "Institution Information",
+            "operations": [               
+		{
+                    "httpMethod": "GET",
+                    "summary": "Get all information about an institution",
+                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "responseClass": "string",
+                    "nickname": "get_institution_by_id",
                     "parameters": [
                         {
                             "name": "inst_id",
@@ -120,13 +205,19 @@
                             "reason": "Access denied. Authorization not provided."
                         }
                     ]
-                },                
+                }
+            ]
+        },
+		{
+            "path": "/institutions/available/{inst_id}.json",
+            "description": "Determines if an institution ID is available",
+            "operations": [                      
 		{
                     "httpMethod": "GET",
-                    "summary": "Get all information about an institution",
-                    "notes": "Retrieves standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "summary": "Determines if an institution ID is available",
+                    "notes": "Returns a json encoded object with the inst_id field set to either TAKEN or AVAILABLE. No authentication required.",
                     "responseClass": "string",
-                    "nickname": "institution",
+                    "nickname": "institution_id_available",
                     "parameters": [
                         {
                             "name": "inst_id",

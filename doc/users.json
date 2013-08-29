@@ -12,7 +12,7 @@
                     "summary": "Get all users at your institutions", 
                     "notes": "Retrieves all users at your institution currently registered with ShelvAR. Set user id and authentication token in user context.", 
                     "responseClass": "string", 
-                    "nickname": "user", 
+                    "nickname": "users", 
                     "parameters": [], 
                     "errorResponses": [
                         {
@@ -28,6 +28,138 @@
 			    "reason": "Access denied. Authorization not provided."
 			}	
                     ]
+                },
+				{
+                    "httpMethod": "POST",
+                    "summary": "Register a user with ShelvAR",
+                    "notes": "Register a new user with ShelvAR. An email is sent to provided email address to confirm the registration. Authorization not required.",
+                    "responseClass": "string",
+                    "nickname": "register_user",
+                    "parameters": [
+                        {
+                            "name": "user_id",
+                            "description": "The user's username",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "name",
+                            "description": "The user's name",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "password",
+                            "description": "The user's password",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "inst_id",
+                            "description": "The ID of the institution that the user wants to register with",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "email",
+                            "description": "The email address of the user",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "withhold_email",
+                            "description": "Whether or not to send a confirmation email to the user. 0 to send confirmation, 1 to withhold confirmation",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "int"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Invalid institution ID"
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+		"path": "/users/edit",
+		"description": "Update information about a ShelvAR user",
+		"operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Update information about a ShelvAR user",
+                    "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "responseClass": "string",
+                    "nickname": "edit_user",
+                    "parameters": [ 
+						 {
+                            "name": "user_id",
+                            "description": "The user's username",
+                            "paramType": "query",
+                            "required": true,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                    	{
+                            "name": "name",
+                            "description": "The user's name",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "password",
+                            "description": "The user's password",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "email",
+                            "description": "The email address of the user",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Invalid institution ID"
+                        }
+                    ]
                 }
             ]
         },
@@ -40,8 +172,63 @@
                     "summary": "Retrieve permissions for a user. Set user id and authentication token in user context.",
                     "notes": "Retrieve permissions for a user",
                     "responseClass": "string",
-                    "nickname": "user",
+                    "nickname": "permissions",
                     "parameters": [],
+		    "errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        {
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+                },
+				{
+                    "httpMethod": "POST",
+                    "summary": "Set permissions for a user. Set user id and authentication token in user context.",
+                    "notes": "Set permissions for a user. Set user id and authentication token in user context.",
+                    "responseClass": "string",
+                    "nickname": "permissions",
+                    "parameters": [
+                        {
+                            "name": "is_admin",
+                            "description": "Value that determines whether the user is an administrator",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "can_submit_inv",
+                            "description": "Value that determines whether the user has submit inventory permissions",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "can_read_inv",
+                            "description": "Value that determines whether the user has read inventory permissions",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        },
+						{
+                            "name": "can_shelf_read",
+                            "description": "Value that determines whether the user has shelf read permissions",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
 		    "errorResponses": [
                         {
                             "code": 400,
@@ -65,11 +252,20 @@
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "summary": "Get information about a registered ShelvAR user. Set user id and authentication token in user context.",
-                    "notes": "Get information about a registered ShelvAR user",
+                    "summary": "Get information about a registered ShelvAR user",
+                    "notes": "Get information about a registered ShelvAR user. Returns a json object with the user_id, email and name. Authentication required.",
                     "responseClass": "string",
-                    "nickname": "user",
-                    "parameters": [],
+                    "nickname": "user_by_id",
+                    "parameters": [ 
+                    	{
+                            "name": "user_id",
+                            "description": "User ID of a registered ShelvAR user",
+                            "paramType": "path",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": "string"
+                        }
+                    ],
                     "errorResponses": [
                         {
                             "code": 400,
@@ -85,100 +281,23 @@
                         }
                     ]
                 }
-            ]
-        },
-        {
-            "path": "/users/{user_id}/permissions",
-            "description": "Set permissions for a user",
+			]
+		},
+		{
+            "path": "/users/available/{user_id}.json",
+            "description": "Determines if an user ID is available",
             "operations": [
                 {
-                    "httpMethod": "POST",
-                    "summary": "Set permissions for a user. Set user id and authentication token in user context.",
-                    "notes": "Set permissions for a user. Set user id and authentication token in user context.",
+                    "httpMethod": "GET",
+                    "summary": "Determines if an user ID is available",
+                    "notes": "Returns a json encoded object with the user_id field set to either TAKEN or AVAILABLE. No authentication required.",
                     "responseClass": "string",
-                    "nickname": "user",
-                    "parameters": [
-                        {
-                            "name": "admin",
-                            "description": "Value that determines whether the user is an administrator",
-                            "paramType": "body",
-                            "required": false,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "post",
-                            "description": "Value that determines whether the user has post permissions",
-                            "paramType": "body",
-                            "required": false,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "get",
-                            "description": "Value that determines whether the user has get permissions",
-                            "paramType": "body",
-                            "required": false,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        }
-                    ],
-		    "errorResponses": [
-                        {
-                            "code": 400,
-                            "reason": "Invalid ID supplied"
-                        },
-                        {
-                            "code": 404,
-                            "reason": "Data not found"
-                        },
-                        {
-                            "code": 403,
-                            "reason": "Access denied. Authorization not provided."
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "path": "/users/register",
-            "description": "Register a user with ShelvAR",
-            "operations": [
-                {
-                    "httpMethod": "POST",
-                    "summary": "Register a user with ShelvAR",
-                    "notes": "Register a user with ShelvAR",
-                    "responseClass": "string",
-                    "nickname": "user",
+                    "nickname": "user_id_available",
                     "parameters": [
                         {
                             "name": "user_id",
-                            "description": "The users ID",
-                            "paramType": "query",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "password",
-                            "description": "The users password",
-                            "paramType": "query",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "institution_id",
-                            "description": "The ID of the institution that the user wants to register with",
-                            "paramType": "query",
-                            "required": true,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        },
-                        {
-                            "name": "user_email",
-                            "description": "The email address of the user",
-                            "paramType": "query",
+                            "description": "The user's username",
+                            "paramType": "path",
                             "required": true,
                             "allowMultiple": false,
                             "dataType": "string"
@@ -195,7 +314,7 @@
                         },
                         {
                             "code": 403,
-                            "reason": "Invalid institution ID"
+                            "reason": "Invalid user ID"
                         }
                     ]
                 }

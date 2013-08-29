@@ -18,6 +18,9 @@ if($oauth_user['email_verified'] != 1){
 if($oauth_user['can_read_inv'] != 1){
   exit(json_encode(array('result'=>'ERROR No permission to read data.')));
  }
+if(stripos($oauth_user['scope'],"invread") === false) {
+	exit(json_encode(array('result'=>'ERROR No permission to read data.')));
+}
  
 $qArray = array();
 

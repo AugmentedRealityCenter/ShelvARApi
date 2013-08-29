@@ -3,6 +3,15 @@ require_once('helper/fpdf.php');
 require_once('../lc2bin/lc_numbers_lib.php');
 include_once "../HammingCode.php";
 
+foreach($_SERVER as $key => $value){
+  if(strpos($key,"REDIRECT_") !== FALSE 
+     && strpos($key,"REDIRECT_STATUS") === FALSE
+     && strpos($key,"REDIRECT_URL") === FALSE){
+    $newkey = substr($key,9);
+    $_GET[$newkey] = $value;
+  }
+}
+
 /** GLOBAL VARS **/
 //array of callNumbers to print
 $tagsParam = json_decode($_GET['tags']);
@@ -66,10 +75,10 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
   if($code_top >= 0){
     //TODO This 2.0/72 is to make some space between the tag and the lc. Should make
     // it unit independent. This assumes inches.
-    $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $paper_format, $tag);
+    $num_top = make_num($code_x, $code_top-(2.0/72), $y+$paper_format->font_size/72.0, $pdf, $paper_format, $tag);
     $temp_format = clone $paper_format;
     while($num_top < 0 && $temp_format->font_size > 0){
-      $num_top = make_num($code_x, $code_top-(2.0/72), $y, $pdf, $temp_format, $tag);
+      $num_top = make_num($code_x, $code_top-(2.0/72), $y+$paper_format->font_size/72.0, $pdf, $temp_format, $tag);
       $temp_format->font_size--;
     }
   }
@@ -152,6 +161,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   $lines_tall = count($processed_parts);
   $new_top = $bottom - ($paper_format->font_size/72.0)*$lines_tall;
+  //TODO: Is this off by 1 line?
   if($new_top < $top) {
     //Oops, not enough room
     return -1;
@@ -159,7 +169,7 @@ function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
 
   $lc_toprint = implode("\n",$processed_parts);
   $multi_shift = 3.0/72;
-  $pdf->SetXY($left-$multi_shift,$new_top);
+  $pdf->SetXY($left-$multi_shift,$top);
   $pdf->MultiCell(0,($paper_format->font_size/72.0),$lc_toprint,0);
 
   return $new_top;

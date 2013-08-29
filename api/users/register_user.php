@@ -16,6 +16,7 @@
 
 	if(!count($err)) {
 		$user_id = $_POST['user_id'];
+		$user_id = strtolower($user_id);
 		$inst_id = $_POST['inst_id'];
 		$password = $_POST['password'];
 		$name = $_POST['name'];
@@ -38,11 +39,7 @@
 
 			// Hash the password with the salt
 			$password = hash('sha256', $password . $salt); 
-
-			/*for($i = 0; $i < 1000; $i++) { 
-				$password = hash('sha256', $password . $salt); 
-				}*/ 
-
+			
 			// check if email matches admin email in institutions to give admin rights
 			$db = new database();
 			$db->query = "SELECT admin_contact FROM institutions WHERE inst_id = ?";
@@ -50,32 +47,38 @@
 			$db->type = 's';
 
 			$result = $db->fetch();
-			if($result[0]['admin_contact'] == $email) {
+			
+			// TODO error handling
+			if($result[0]['admin_contact'] === $email) {
 				$is_admin = 1;
+	
 			}
 			else $is_admin = 0;
 			
-			// Generate random activation key
-			// Check if key has already been generated
-			do {
-				$activation_key = md5(uniqid(rand(), true));
-				$activation_key = substr($activation_key, 0, 64);
-			
-				$db = new database();
-				$db->query = "SELECT user_id FROM users WHERE activation_key = ?";
-				$db->params = array($activation_key);
-				$db->type = 's';
-			
-				$result = $db->fetch();
-			} while(!empty($result));
+			if(!$_POST['withhold_email']) {
+				// Generate random activation key
+				// Check if key has already been generated
+				do {
+					$activation_key = md5(uniqid(rand(), true));
+					$activation_key = substr($activation_key, 0, 64);
+				
+					$db = new database();
+					$db->query = "SELECT user_id FROM users WHERE activation_key = ?";
+					$db->params = array($activation_key);
+					$db->type = 's';
+				
+					$result = $db->fetch();
+				} while(!empty($result));
+			}
+			else $activation_key = "";
 			
 			$pending_email = $email;
 
 			$db = new database();
-			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,pending_email,activation_key,encrip_salt,can_submit_inv,can_read_inv)
-							VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
-			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, "", 0, $pending_email, $activation_key, $salt, 0, 0);
-			$db->type = 'ssssisisssii';
+			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,pending_email,activation_key,encrip_salt,can_submit_inv,can_read_inv,can_shelf_read)
+							VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			$db->params = array($inst_id, $password, $name, $user_id, $is_admin, "", 0, $pending_email, $activation_key, $salt, 0, 0, 0);
+			$db->type = 'ssssisisssiii';
 			/*
 			$db->query = "INSERT INTO users(inst_id,password,name,user_id,is_admin,email,email_verified,encrip_salt,can_submit_inv,can_read_inv)
 							VALUES(?,?,?,?,?,?,?,?,?,?)";
@@ -84,7 +87,9 @@
 			*/
 
 			if($db->insert()) {
-				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
+				if(!$_POST['withhold_email']) {
+					include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
+				}
 				if(!$err) {
 					echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
 				}	

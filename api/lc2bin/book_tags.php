@@ -11,6 +11,15 @@ include_once "../../header_include.php";
 include_once "lc_numbers_lib.php";
 //include_once "../api_ref_call.php";
 
+foreach($_SERVER as $key => $value){
+  if(strpos($key,"REDIRECT_") !== FALSE 
+     && strpos($key,"REDIRECT_STATUS") === FALSE
+     && strpos($key,"REDIRECT_URL") === FALSE){
+    $newkey = substr($key,9);
+    $_GET[$newkey] = $value;
+  }
+}
+
 $b64_in = stripslashes($_GET["B64"]);
 $decoded = tag_to_lc($b64_in);
 

@@ -79,7 +79,9 @@ class OAuthProviderWrapper
 	public function checkOAuthRequest()
 	{
 		try {
-			$this->Provider->checkOAuthRequest();
+
+		  $this->Provider->checkOAuthRequest();
+		 
 		} catch (Exception $Exception) {
 			return OAuthProvider::reportProblem($Exception);
 		}
@@ -248,7 +250,16 @@ class OAuthProviderWrapper
 		return $AccessToken->getAccessTokenDate();
 	}
 
-
+	public function getAccessTokenScope()
+	{
+		try {
+			$AccessToken = OAuthAccessTokenModel::loadFromToken($this->Provider->token, Configuration::getDataStore());
+		} catch (DataStoreReadException $Exception) {
+			throw new ProviderException("Couldn't find a user id corresponding with current token information");
+		}
+		return $AccessToken->getAccessTokenScope();
+	}
+	
 	/**
 	 * Checks if the nonce is valid and, if so, stores it in the DataStore.
 	 * Used as a callback function

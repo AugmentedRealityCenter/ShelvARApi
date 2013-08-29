@@ -4,7 +4,7 @@
 	include_once "../api_ref_call.php";
 	
 	$err = array();
-	$contactread = true;
+	
 	if(!$_GET['user_id']) {
 		$err[] = "No user_id supplied";
 	}
@@ -15,23 +15,17 @@
 			}
 		}
 	}
-	if(stripos($oauth_user['scope'],"contactread") === false) {
-		$contactread = false;
-	}
 	if(!count($err)) {
 		$user_id = $_GET['user_id'];
 		
 		$db = new database();
-		if(!$contactread) {
-			$db->query = "SELECT user_id, name FROM users WHERE user_id = ?";
-		}
-		else $db->query = "SELECT user_id, name, email FROM users WHERE user_id = ?";
+		$db->query = "SELECT can_submit_inv, can_read_inv, can_shelf_read, is_admin FROM users WHERE user_id = ?";
 		$db->params = array($user_id);
 		$db->type = 's';
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'user'=>$result, 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'user'=>$user_id, 'permissions'=>$result, 'errors'=>""));
 		}
 		else $err[] = "SQL Error";
 	}

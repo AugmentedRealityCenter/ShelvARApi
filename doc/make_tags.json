@@ -54,7 +54,7 @@
                     "summary": "Get a list of supported paper formats", 
                     "notes": "Most apps will only need to use the \"name\" field. Does not require authentication.", 
                     "responseClass": "void", 
-                    "nickname": "make_tags", 
+                    "nickname": "paper_formats", 
                     "parameters": [],
 		    "errorResponses": []
                 }
