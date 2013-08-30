@@ -33,11 +33,11 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
       $check_password = hash('sha256', trim($password) . $salt );
 
       if($check_password != $result[0]['password']) { 
-	$err[] = 'Incorrect password';
+	$err[] = 'Incorrect username or password';
       } 
     }
     else {
-      $err = 'No record of username';
+      $err[] = 'Incorrect username or password';
     }
 
     if(!count($err)){
@@ -136,7 +136,7 @@ echo(
 if(count($err)){
   echo('<div class="row"><div class="login-form">');
   echo('<h3>Errors</h3>');
-  print_r($err);
+  //print_r($err);
   foreach($err as $key => $value){
     echo("<p>" . $value . "</p>");
   }
