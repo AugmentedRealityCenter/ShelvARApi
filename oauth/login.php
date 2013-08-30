@@ -136,7 +136,7 @@ echo(
 if(count($err)){
   echo('<div class="row"><div class="login-form">');
   echo('<h3>Errors</h3>');
-  foreach($err as $errmsg){
+  foreach($err as $key => $errmsg){
     echo("<p>$errmsg</p>");
   }
   echo('</div></div>');
