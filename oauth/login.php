@@ -1,15 +1,13 @@
-<?php	
+<?php
+
+$err = array();	
 if(!isset($_GET['oauth_token'])) {
-  echo "No token supplied";
-  exit;
+  $err[] = "Application is broken: No token supplied";
  }
 	
-$err = array();
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
+if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
   if(!$_POST['user_id']) {
     $err[] = 'No username supplied';	
-    exit;
   }
   if(!count($err)) {
     $user_id = $_POST['user_id'];
@@ -35,27 +33,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
       $check_password = hash('sha256', trim($password) . $salt );
 
       if($check_password != $result[0]['password']) { 
-	echo 'Incorrect password';
-	exit;
+	$err[] = 'Incorrect password';
       } 
     }
     else {
-      echo 'No record of username';
-      exit;
+      $err = 'No record of username';
     }
 
-    $db = new database();
-    $db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
-    $inst_id = $result[0]['inst_id'];
-    $db->params = array($inst_id);
-    $db->type = 's';
-    $res2 = $db->fetch();
+    if(!count($err)){
+      $db = new database();
+      $db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
+      $inst_id = $result[0]['inst_id'];
+      $db->params = array($inst_id);
+      $db->type = 's';
+      $res2 = $db->fetch();
 
-    session_start();
-    $_SESSION['user_num'] = $result[0]['user_num'];
+      session_start();
+      $_SESSION['user_num'] = $result[0]['user_num'];
 
-    echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
-    exit(200);
+      echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
+      exit(200);
+    }
   }
  }
 
@@ -132,10 +130,21 @@ echo(
 				  <button class="btn btn-primary" type="submit">Log in</button>
 				</fieldset>
 			  </form>
-			</div>
-		  </div>
-		</div>
-	  </div>
+			</div> <!-- form -->
+		  </div> <!-- row -->');
+
+if(count($err)){
+  echo('<div class="row"><div class="login-form">');
+  echo('<h3>Errors</h3>');
+  foreach($err as $errmsg){
+    echo("<p>$errmsg</p>");
+  }
+  echo('</div></div>');
+ }
+
+echo ('
+		</div> <!-- content -->
+	  </div> <!-- container -->
 	</body>
 	</html>'
 ); 
