@@ -89,7 +89,7 @@ function make_tag($x, $y, $pdf, $paper_format, $tag){
 	       $paper_format->label_width-2*$paper_format->padding,
 	       $paper_format->label_height-2*$paper_format->padding,"F");
     $pdf->SetFont($paper_format->font,$paper_format->font_style,$paper_format->font_size);
-    $pdf->SetTextColor(208);
+    $pdf->SetTextColor(128);
     $pdf->SetXY($x+$paper_format->padding,$y+$paper_format->padding);
     $pdf->MultiCell($paper_format->label_width-2*$paper_format->padding,
 		    ($paper_format->font_size/72.0),"The call number will not fit on the tag",0,"C");
@@ -132,7 +132,7 @@ function split_class($cur){
 // error code instead. Any negative value is an error.
 function make_num($left, $bottom, $top, $pdf, $paper_format, $tag){
   $pdf->SetFont($paper_format->font,$paper_format->font_style,$paper_format->font_size);
-  $pdf->SetTextColor(208);
+  $pdf->SetTextColor(128);
   
   $lc_string = tag_to_lc($tag);
   $lc_parts = array_filter(explode(" ",$lc_string), 'strlen');
