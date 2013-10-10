@@ -28,7 +28,12 @@ $cond = false;
 $query = "SELECT * FROM book_pings";
 $qArray = array();
 $paramsList = array();
-$types = array("s", "ss", "sss", "ssss", "sssss");
+$types = array(
+		0 => "s",
+		1 => "ss",
+		2 => "sss",
+		3 => "ssss",
+		4 => "sssss");
 $numParams = -1;
 
 if(isset($_GET["book_tag"])){
