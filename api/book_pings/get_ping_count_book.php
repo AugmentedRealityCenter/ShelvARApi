@@ -25,10 +25,9 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 }
  
 $db = new database();
-$db->query = "SELECT * FROM book_pings ".
-		"WHERE inst_id = ? ";
-$db->params = array(urldecode($inst_id));
-$db->type = "s";
+$db->query = "SELECT * FROM book_pings ";
+$db->params = array();
+$db->type = "";
 
 /*
 $db = new database();
@@ -43,11 +42,6 @@ $db->type = "sssss";
 $result = $db->fetch();
 
 $count = count($result);
-/*
-while($row = mysql_fetch_array($result))
-{
-	$count++;
-} */
 
 print(json_encode(array('book_ping_count'=>$count,'result'=>"SUCCESS")));
 
