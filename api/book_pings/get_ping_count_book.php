@@ -62,7 +62,7 @@ if(isset($inst_id)){
 	$numParams ++;
 }
 
-if (!cond) {
+if (!$cond) {
 	$db = new database();
 	$db->query = $query;
 	$db->params = $paramsList;
@@ -76,7 +76,7 @@ else {
 	$db = new database();
 	$db->query = $query;
 	$db->params = $paramsList;
-	$db->type = types[$numParams];
+	$db->type = $types[$numParams];
 }
 
 /*
