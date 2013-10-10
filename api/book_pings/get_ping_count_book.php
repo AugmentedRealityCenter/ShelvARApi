@@ -1,5 +1,6 @@
 <?php
 include_once ("../../db_info.php");
+include_once "../../database.php";
 include_once "../../header_include.php";
 
 include_once "../api_ref_call.php";
