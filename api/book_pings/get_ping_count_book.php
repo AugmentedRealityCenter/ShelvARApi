@@ -24,7 +24,13 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR No permission to read data.')));
 }
  
+$db = new database();
+$db->query = "SELECT * FROM book_pings ".
+		"WHERE inst_id = ? ";
+$db->params = array(urldecode($inst_id));
+$db->type = "s";
 
+/*
 $db = new database();
 $db->query = "SELECT * FROM book_pings ".
 		"WHERE book_tag = ? AND book_call = ? AND ping_time >= ? ".
@@ -32,6 +38,7 @@ $db->query = "SELECT * FROM book_pings ".
 $db->params = array(urldecode($_GET["book_tag"]), urldecode($_GET["call_number"]), urldecode($_GET["start_date"]),
 				urldecode($_GET["end_date"]), urldecode($inst_id));
 $db->type = "sssss";
+*/
 
 $result = $db->fetch();
 
