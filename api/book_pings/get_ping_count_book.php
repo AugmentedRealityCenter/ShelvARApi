@@ -42,11 +42,12 @@ $db->type = "sssss";
 
 $result = $db->fetch();
 
-$count = 0;
+$count = count($result);
+/*
 while($row = mysql_fetch_array($result))
 {
 	$count++;
-}
+} */
 
 print(json_encode(array('book_ping_count'=>$count,'result'=>"SUCCESS")));
 
