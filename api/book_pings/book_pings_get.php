@@ -24,46 +24,82 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 }
 
 
-$db = new database();
-$db->query = "SELECT * FROM book_pings ".
-	"WHERE book_tag = ? AND book_call = ? AND ping_time >= ? ".
-	"AND ping_time < ? AND inst_id = ? ".
-	"ORDER by id DESC ".
-	"LIMIT 0,?";
+$cond = false;
+$limSet = false;
+$query = "SELECT * FROM book_pings";
+$qArray = array();
+$paramsList = array();
+$types = array(
+		0 => "s",
+		1 => "ss",
+		2 => "sss",
+		3 => "ssss",
+		4 => "sssss",
+		5 => "ssssss");
+$numParams = -1;
 
-$lim = "20";
+if(isset($_GET["book_tag"])){
+	$qArray[] = "book_tag = ?";
+	$paramsList[] = urldecode($_GET["book_tag"]);
+	$cond = true;
+	$numParams ++;
+}
+if(isset($_GET["call_number"])){
+	$qArray[] = "book_call = ?";
+	$paramsList[] = urldecode($_GET["call_number"]);
+	$cond = true;
+	$numParams ++;
+}
+if(isset($_GET["start_date"])){
+	$qArray[] = "ping_time >= ?";
+	$paramsList[] = urldecode($_GET["start_date"]);
+	$cond = true;
+	$numParams ++;
+}
+if(isset($_GET["end_date"])){
+	$qArray[] = "ping_time < ?";
+	$paramsList[] = urldecode($_GET["end_date"]);
+	$cond = true;
+	$numParams ++;
+}
+if(isset($inst_id)){
+	$qArray[] = "inst_id = ?";
+	$paramsList[] = urldecode($inst_id);
+	$cond = true;
+	$numParams ++;
+}
 if(isset($_GET["num_limit"]) && (is_int($_GET["num_limit"]) || ctype_digit($_GET["num_limit"]))){
-	$lim = $_GET["num_limit"];
+	$paramsList[] = $_GET["num_limit"];
+	$cond = true;
+	$limSet = true;
+	numParams++;
 }
 
-$db->params = array(urldecode($_GET["book_tag"]), urldecode($_GET["call_number"]), urldecode($_GET["start_date"]),
-				urldecode($_GET["end_date"]), urldecode($inst_id), $lim);
-$db->type = "ssssss";
+if (!$cond) {
+	$db = new database();
+	$db->query = $query . "LIMIT 0,20";
+	$db->params = $paramsList;
+	$db->type = "";
+}
+else {
+	$query = $query . " WHERE ";
+	
+	$query .= implode(" AND ", $qArray);
+	if ($limSet)
+		$query . " LIMIT 0,?";
+	
+	
+	$db = new database();
+	$db->query = $query;
+	$db->params = $paramsList;
+	$db->type = $types[$numParams];
+}
+
 
 $result = $db->fetch();
 
-$ret = array();
-
-while($row = $result->fetch_row())
-{
-	$row['book_ping_id'] = $row['id'];
-	unset($row['id']);
-	//unset($row['institution']);
-	unset($row[0]);
-	unset($row[1]);
-	unset($row[2]);
-	unset($row[3]);
-	unset($row[4]);
-	unset($row[5]);
-	unset($row[6]);
-	unset($row[7]);
-	unset($row[8]);
-	unset($row[9]);
-	$ret[] = $row;
-}
-
-if (!empty($ret)) 
-	print(json_encode(array("book_pings"=>$ret,"result"=>"SUCCESS")));
+if (!empty($result)) 
+	print(json_encode(array("book_pings"=>$result,"result"=>"SUCCESS")));
 else 
 	print json_encode(array("book_pings"=>array(),"result"=>'ERROR Could not connect: ' . mysql_error()));
 
