@@ -84,16 +84,6 @@ else {
 	$db->type = $types[$numParams];
 }
 
-/*
-$db = new database();
-$db->query = "SELECT * FROM book_pings ".
-		"WHERE book_tag = ? AND book_call = ? AND ping_time >= ? ".
-		"AND ping_time < ? AND inst_id = ? ";
-$db->params = array(urldecode($_GET["book_tag"]), urldecode($_GET["call_number"]), urldecode($_GET["start_date"]),
-				urldecode($_GET["end_date"]), urldecode($inst_id));
-$db->type = "sssss";
-*/
-
 $result = $db->fetch();
 
 $count = count($result);
