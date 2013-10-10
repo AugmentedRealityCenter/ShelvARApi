@@ -23,6 +23,27 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR No permission to read data.')));
 }
  
+
+$db = new database();
+$db->query = "SELECT * FROM book_pings ".
+		"WHERE book_tag = ? AND book_call = ? AND ping_time >= ? ".
+		"AND ping_time < ? AND inst_id = ? ";
+$db->params = array(urldecode($_GET["book_tag"]), urldecode($_GET["call_number"]), urldecode($_GET["start_date"]),
+				urldecode($_GET["end_date"]), urldecode($inst_id));
+$db->type = "sssss";
+
+$result = $db->fetch();
+
+$count = 0;
+while($row = mysql_fetch_array($result))
+{
+	$count++;
+}
+
+print(json_encode(array('book_ping_count'=>$count,'result'=>"SUCCESS")));
+
+//////////////////////////////////////////////////////
+/*
 $qArray = array();
 
 
@@ -74,5 +95,6 @@ while($row = mysql_fetch_array($result))
 }
 
 print(json_encode(array('book_ping_count'=>$count,'result'=>"SUCCESS")));
+*/
 	
 ?>

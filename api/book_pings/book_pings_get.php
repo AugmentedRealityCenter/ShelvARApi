@@ -1,5 +1,6 @@
 <?php
 include_once ("../../db_info.php");
+include_once "../../database.php";
 include_once "../../header_include.php";
 
 include_once "../api_ref_call.php";
@@ -21,7 +22,54 @@ if($oauth_user['can_read_inv'] != 1){
 if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR No permission to read data.')));
 }
- 
+
+
+$db = new database();
+$db->query = "SELECT * FROM book_pings ".
+	"WHERE book_tag = ? AND book_call = ? AND ping_time >= ? ".
+	"AND ping_time < ? AND inst_id = ? ".
+	"ORDER by id DESC ".
+	"LIMIT 0,?";
+
+$lim = "20";
+if(isset($_GET["num_limit"]) && (is_int($_GET["num_limit"]) || ctype_digit($_GET["num_limit"]))){
+	$lim = $_GET["num_limit"];
+}
+
+$db->params = array(urldecode($_GET["book_tag"]), urldecode($_GET["call_number"]), urldecode($_GET["start_date"]),
+				urldecode($_GET["end_date"]), urldecode($inst_id), $lim);
+$db->type = "ssssss";
+
+$result = $db->fetch();
+
+$ret = array();
+
+while($row = $result->fetch_row())
+{
+	$row['book_ping_id'] = $row['id'];
+	unset($row['id']);
+	//unset($row['institution']);
+	unset($row[0]);
+	unset($row[1]);
+	unset($row[2]);
+	unset($row[3]);
+	unset($row[4]);
+	unset($row[5]);
+	unset($row[6]);
+	unset($row[7]);
+	unset($row[8]);
+	unset($row[9]);
+	$ret[] = $row;
+}
+
+if (!empty($ret)) 
+	print(json_encode(array("book_pings"=>$ret,"result"=>"SUCCESS")));
+else 
+	print json_encode(array("book_pings"=>array(),"result"=>'ERROR Could not connect: ' . mysql_error()));
+
+
+//////////////////////////////////////////////// 
+/*
 $qArray = array();
 
 
@@ -96,4 +144,5 @@ if (!$con){
   
   print(json_encode(array("book_pings"=>$ret,"result"=>"SUCCESS")));
  }
+ */
 ?>
