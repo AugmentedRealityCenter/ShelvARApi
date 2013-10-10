@@ -72,7 +72,7 @@ if(isset($_GET["num_limit"]) && (is_int($_GET["num_limit"]) || ctype_digit($_GET
 	$paramsList[] = $_GET["num_limit"];
 	$cond = true;
 	$limSet = true;
-	numParams++;
+	$numParams++;
 }
 
 if (!$cond) {
