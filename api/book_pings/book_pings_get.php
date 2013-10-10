@@ -26,7 +26,7 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 
 $cond = false;
 $limSet = false;
-$query = "SELECT * FROM book_pings";
+$query = "SELECT * FROM book_pings ";
 $qArray = array();
 $paramsList = array();
 $types = array(
@@ -89,6 +89,8 @@ else {
 	$query .= implode(" AND ", $qArray);
 	if ($limSet)
 		$query = $query . " LIMIT 0,?";
+	else 
+		$query = $query . " LIMIT 0,20";
 	
 	
 	$db = new database();
