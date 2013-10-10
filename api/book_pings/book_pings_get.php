@@ -77,7 +77,7 @@ if(isset($_GET["num_limit"]) && (is_int($_GET["num_limit"]) || ctype_digit($_GET
 
 if (!$cond) {
 	$db = new database();
-	$db->query = $query . "LIMIT 0,20";
+	$db->query = $query . " LIMIT 0,20";
 	$db->params = $paramsList;
 	$db->type = "";
 }
@@ -86,7 +86,7 @@ else {
 	
 	$query .= implode(" AND ", $qArray);
 	if ($limSet)
-		$query . " LIMIT 0,?";
+		$query = $query . " LIMIT 0,?";
 	
 	
 	$db = new database();
