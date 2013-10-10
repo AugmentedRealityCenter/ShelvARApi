@@ -76,8 +76,10 @@ if(isset($_GET["num_limit"]) && (is_int($_GET["num_limit"]) || ctype_digit($_GET
 }
 
 if (!$cond) {
+	$query = $query . " LIMIT 0,20";
+	
 	$db = new database();
-	$db->query = $query . " LIMIT 0,20";
+	$db->query = $query;
 	$db->params = $paramsList;
 	$db->type = "";
 }
