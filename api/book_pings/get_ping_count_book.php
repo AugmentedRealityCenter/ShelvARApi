@@ -63,7 +63,7 @@ if(isset($_GET["end_date"])){
 if(isset($inst_id)){
 	$qArray[] = "inst_id = ?";
 	$paramsList[] = urldecode($inst_id);
-	$cond = true;
+	$cond = false;
 	$numParams ++;
 }
 
