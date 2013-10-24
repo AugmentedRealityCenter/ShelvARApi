@@ -31,20 +31,20 @@
 	
 	// If there are no errors
 	if(!count($err)) {
-		$inst_id = $_POST['inst_id'];
-		$name = $_POST['inst_name'];
+		$inst_id = htmlspecialchars($_POST['inst_id'], ENT_HTML401);
+		$name = htmlspecialchars($_POST['inst_name'], ENT_HTML401);
 		$admin_contact = "";
-		$inst_type = $_POST['inst_type'];
-		$inst_size = $_POST['inst_size'];
+		$inst_type = htmlspecialchars($_POST['inst_type'], ENT_HTML401);
+		$inst_size = htmlspecialchars($_POST['inst_size'], ENT_HTML401);
 		$is_activated = 0;
 		$has_inv = 0;
 		// set initial exp_date to 1 month after registering
 		$today = date("Y-m-d H:i:s");
 		$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 month");
 		$num_api_calls = 0;
-		$alt_contact = $_POST['alt_contact'];
-		$inst_url = $_POST['inst_url'];
-		$pending_email = $_POST['admin_contact'];
+		$alt_contact = htmlspecialchars($_POST['alt_contact'], ENT_HTML401);
+		$inst_url = htmlspecialchars($_POST['inst_url'], ENT_HTML401);
+		$pending_email = htmlspecialchars($_POST['admin_contact'], ENT_HTML401);
 		$email_verified = 0;
 		
 		$db = new database();
