@@ -14,9 +14,9 @@
 		if(!$_GET['user_id']) {
 			$err[] = "No user_id supplied";
 		}
-		else $user_id = $_GET['user_id'];
+		else $user_id = htmlspecialchars($_GET['user_id'], ENT_HTML401);
 	}
-	else $user_id = $_POST['user_id'];
+	else $user_id = htmlspecialchars($_POST['user_id'], ENT_HTML401);
 	
 	if($user_id != $oauth_user['user_id']) {
 		$err[] = "Invalid access to user account";
@@ -31,22 +31,22 @@
 		$editPass = false;
 		
 		if(isset($_POST['name']) && $_POST['name'] != "") {
-			$params[] = $_POST['name'];
+			$params[] = htmlspecialchars($_POST['name'], ENT_HTML401);
 			$editName = true;
 		}
 		else if(isset($_GET['name']) && $_GET['name'] != "") {
-			$params[] = $_GET['name'];
+			$params[] = htmlspecialchars($_GET['name'], ENT_HTML401);
 			$editName = true;
 		}
 		
 		if(isset($_POST['email']) && $_POST['email'] != "") {
-			$params[] = $_POST['email'];
-			$pending_email = $_POST['email'];
+			$params[] = htmlspecialchars($_POST['email'], ENT_HTML401);
+			$pending_email = htmlspecialchars($_POST['email'], ENT_HTML401);
 			$editEmail = true;
 		}
 		else if(isset($_GET['email']) && $_GET['email'] != "") {
-			$params[] = $_GET['email'];
-			$pending_email = $_GET['email'];
+			$params[] = htmlspecialchars($_GET['email'], ENT_HTML401);
+			$pending_email = htmlspecialchars($_GET['email'], ENT_HTML401);
 			$editEmail = true;
 		}
 

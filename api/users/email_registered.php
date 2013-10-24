@@ -13,7 +13,7 @@
 	}
 	                                  
 	if(!count($err)) {                                                               
-		$email = $_GET['email']; 
+		$email = htmlspecialchars($_GET['email'], ENT_HTML401); 
 		$inst_id = $oauth_user['inst_id'];
 		$db = new database();
 		$db->query = "SELECT user_id FROM users WHERE email = ? AND inst_id = ?";
