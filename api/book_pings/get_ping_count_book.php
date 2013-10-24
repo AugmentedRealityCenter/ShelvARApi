@@ -1,5 +1,6 @@
 <?php
 include_once ("../../db_info.php");
+include_once "../../database.php";
 include_once "../../header_include.php";
 
 include_once "../api_ref_call.php";
@@ -22,7 +23,75 @@ if($oauth_user['can_read_inv'] != 1){
 if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR No permission to read data.')));
 }
- 
+
+$cond = false;
+$query = "SELECT * FROM book_pings";
+$qArray = array();
+$paramsList = array();
+$types = array(
+		0 => "s",
+		1 => "ss",
+		2 => "sss",
+		3 => "ssss",
+		4 => "sssss");
+$numParams = -1;
+
+if(isset($_GET["book_tag"])){
+	$qArray[] = "book_tag = ?";
+	$paramsList[] = urldecode($_GET["book_tag"]);
+	$cond = true;
+	$numParams ++;
+}
+if(isset($_GET["call_number"])){
+	$qArray[] = "book_call = ?";
+	$paramsList[] = urldecode($_GET["call_number"]);
+	$cond = true;
+	$numParams ++;
+}
+if(isset($_GET["start_date"])){
+	$qArray[] = "ping_time >= ?";
+	$paramsList[] = urldecode($_GET["start_date"]); 
+	$cond = true;
+	$numParams ++;
+}
+if(isset($_GET["end_date"])){
+	$qArray[] = "ping_time < ?";
+	$paramsList[] = urldecode($_GET["end_date"]);
+	$cond = true;
+	$numParams ++;
+}
+if(isset($inst_id)){
+	$qArray[] = "inst_id = ?";
+	$paramsList[] = urldecode($inst_id);
+	$cond = true;
+	$numParams ++;
+}
+
+if (!$cond) {
+	$db = new database();
+	$db->query = $query;
+	$db->params = $paramsList;
+	$db->type = "";
+}
+else {
+	$query = $query . " WHERE ";
+	
+	$query .= implode(" AND ", $qArray);
+	
+	$db = new database();
+	$db->query = $query;
+	$db->params = $paramsList;
+	$db->type = $types[$numParams];
+}
+
+$result = $db->fetch();
+
+$count = count($result);
+
+print(json_encode(array('book_ping_count'=>$count,'result'=>"SUCCESS")));
+
+//////////////////////////////////////////////////////
+/*
 $qArray = array();
 
 
@@ -74,5 +143,6 @@ while($row = mysql_fetch_array($result))
 }
 
 print(json_encode(array('book_ping_count'=>$count,'result'=>"SUCCESS")));
+*/
 	
 ?>
