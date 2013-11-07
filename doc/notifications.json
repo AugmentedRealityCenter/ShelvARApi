@@ -1,0 +1,173 @@
+{
+    "apiVersion": "0.2", 
+    "swaggerVersion": "1.1", 
+    "resourcePath": "/notifications", 
+    "apis": [
+		{
+            "path": "/notifications/", 
+            "description": "List of book pings", 
+            "operations": [
+                {
+                    "httpMethod": "POST", 
+                    "summary": "Insert book pings into database", 
+                    "notes": "Uploads notifications to the database. Data should be a JSON array of entries. On call, returns a string, named result, with the value 'SUCCESS' on success and 'ERROR' otherwise. If the value is 'ERROR', information about the error follows. Requires authentication via OAuth, to an account that has \"submit inventory\" permission.",
+                    "responseClass": "string", 
+                    "nickname": "notifications", 
+                    "parameters": [
+                        {
+                            "name": "notifications", 
+                            "description": "json formatted array of book_ping entries.", 
+                            "paramType": "body", 
+                            "required": true, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ping"
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get recent book pings", 
+                    "notes": "Retrieves a list of the most recent notifications, which it returns as a json array called notifications. By default, returns the 20 most recent. Search can be limited using the optional parameters: Will return the 20 most recent pings that match all parameters. Also returns a string named result which will be 'SUCCESS' if everything worked. If not, it will be 'ERROR' followed by an explanatory message. Requires authentication via OAuth, to an account that has \"read inventory\" permission.",
+                    "responseClass": "void", 
+                    "nickname": "notifications", 
+                    "parameters": [
+                        {
+                            "name": "book_tag", 
+                            "description": "Base-64 representation of the book tag. Example: 00bQu5M2JJDVmHB7__OM00040", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+						{
+                            "name": "call_number", 
+                            "description": "Call number, in human-readable format. Example: NX543 .c38 2000", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "start_date", 
+                            "description": "Return only pings that come on or after this date. \"0000-00-00 00:00:00\" format.",
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "end_date", 
+                            "description": "Return only pings that come before this date. \"0000-00-00 00:00:00\" format.",
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+						{
+                            "name": "num_limit", 
+                            "description": "Number of items to return, between 1 and 1000. Default is 20.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "int"
+                        } 
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid status value"
+                        }
+                    ]
+                }
+            ]
+        }, 
+        {
+            "path": "/notifications/count", 
+            "description": "Count the number of book pings", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Count the number of book pings in the database", 
+                    "notes": "Returns an integer, book_ping_count, representing the number of notifications in the database. This count may be limited using the optional parameters. Note that this method does not return a result. If there is an error, it simply returns a book_ping_count of 0. Requires authentication via OAuth, to an account that has \"read inventory\" permission.",
+                    "responseClass": "string", 
+                    "nickname": "count", 
+                    "parameters": [
+                        {
+                            "name": "book_tag", 
+                            "description": "Base-64 representation of a book_tag. Limit the count to only count pings with this book_tag. Example: 00bQu5M2JJDVmHB7__OM00040", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+						{
+                            "name": "call_number", 
+                            "description": "Human-readable call number. Limit the count to only count pings with this call_number. Example: NX543 .c38 2000", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        },
+                        {
+                            "name": "start_date", 
+                            "description": "Human-readable date, in \"0000-00-00 00:00:00\" format. Limit count to only notifications that occur on or after this date.",
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }, 
+                        {
+                            "name": "end_date", 
+                            "description": "Human-readable date, in \"0000-00-00 00:00:00\" format. Limit count to only notifications that occur before this date.", 
+                            "paramType": "query", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "string"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid tag value"
+                        }
+                    ]
+                }
+            ]
+        },
+		{
+            "path": "/notifications/{book_ping_id}.json", 
+            "description": "Ping retrieval from database", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Retrieve a book ping", 
+                    "notes": "Returns the book ping with the database id that is entered, in a variable named book_ping. Also returns result, which contains SUCCESS if the call succeeded. If it failed, result will be ERROR, followed by an explanatory message. Requires authentication via OAuth, to an account that has \"read inventory\" permission.",
+                    "responseClass": "string", 
+                    "nickname": "book_ping_by_id", 
+                    "parameters": [
+                        {
+                            "name": "book_ping_id", 
+                            "description": "An integer, which is the database id of the book ping. These id values can be obtained using GET /notifications/", 
+                            "paramType": "path", 
+                            "required": false, 
+                            "allowMultiple": false, 
+                            "dataType": "int"
+                        }
+                    ], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ping"
+                        }
+                    ]
+                }
+            ]
+        }
+    ] 
+}
