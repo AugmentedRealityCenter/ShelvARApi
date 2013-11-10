@@ -103,7 +103,7 @@
             ]
         },
 		{
-			"path": "/users/{user_id}/notifications", 
+			"path": "/users/notifications", 
             "description": "List notifications for a user", 
             "operations": [
                 {

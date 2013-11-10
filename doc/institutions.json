@@ -98,7 +98,7 @@
             "path": "/institutions/edit",
             "description": "Update information about an institution",
             "operations": [
-			{
+				{
                     "httpMethod": "POST",
                     "summary": "Update information about an institution",
                     "notes": "Sets standard information about any institution currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.",
@@ -168,9 +168,59 @@
                             "reason": "Access denied. Authorization not provided."
                         }
                     ]
-            }
+				}
 			]
 	},
+	{
+			"path": "/institutions/notifications",
+            "description": "Gets or registers notifications for an institution",
+            "operations": [
+				{
+					"httpMethod": "GET",
+                    "summary": "Gets notification(s) for an institution",
+                    "notes": "Gets the notification(s) for a particular institution. Requires {authorization type here}",
+                    "responseClass": "string",
+                    "nickname": "get_institution_notification",
+					"params": [],
+					"errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+				},
+				{
+                    "httpMethod": "POST",
+                    "summary": "Adds notification(s) for an institution",
+                    "notes": "Pushes the notification to the admin of the institution. Requires {authorization type here}",
+                    "responseClass": "string",
+                    "nickname": "set_institution_notification",
+					"params": [],
+					"errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+				}
+			]
+	},					
 	{
             "path": "/institutions/{inst_id}.json",
             "description": "Institution Information",
