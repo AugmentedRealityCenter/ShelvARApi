@@ -23,10 +23,10 @@
                             "code": 404, 
                             "reason": "Data not found"
                         },
-			{
-			    "code": 403,
-			    "reason": "Access denied. Authorization not provided."
-			}	
+						{
+							"code": 403,
+							"reason": "Access denied. Authorization not provided."
+						}	
                     ]
                 },
 				{
@@ -102,6 +102,56 @@
                 }
             ]
         },
+		{
+			"path": "/users/{user_id}/notifications", 
+            "description": "List notifications for a user", 
+            "operations": [
+                {
+                    "httpMethod": "GET", 
+                    "summary": "Get all notifications for a specified user", 
+                    "notes": "Retrieves all notifications for a user registered with ShelvAR. Set user id and authentication token in user context.", 
+                    "responseClass": "string", 
+                    "nickname": "get_user_notifications", 
+                    "parameters": [], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ID supplied"
+                        }, 
+                        {
+                            "code": 404, 
+                            "reason": "Data not found"
+                        },
+						{
+							"code": 403,
+							"reason": "Access denied. Authorization not provided."
+						}	
+                    ]
+                },
+				{
+					"httpMethod": "POST", 
+                    "summary": "Set a notification for a user", 
+                    "notes": "Sets a notification for a user at your institution currently registered with ShelvAR. Set user id and authentication token in user context.", 
+                    "responseClass": "string", 
+                    "nickname": "set_user_notifications", 
+                    "parameters": [], 
+                    "errorResponses": [
+                        {
+                            "code": 400, 
+                            "reason": "Invalid ID supplied"
+                        }, 
+                        {
+                            "code": 404, 
+                            "reason": "Data not found"
+                        },
+						{
+							"code": 403,
+							"reason": "Access denied. Authorization not provided."
+						}	
+                    ]
+				}
+			]
+		},
 		{
 		"path": "/users/edit",
 		"description": "Update information about a ShelvAR user",
