@@ -29,10 +29,5 @@
 		{
                     	"path":"oauth.{format}",
 			"description":"OAuth 1.0a utilities for app developers"
-		},
-		{
-			"path":"notifications.{format}",
-			"description":"Notifications for superadmin and library admin"
-		}
-		]
+		}]
 }
