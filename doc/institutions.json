@@ -200,7 +200,7 @@
 						},
 						{
 							"name": "end_date",
-							"description": "Return notifications that come on or before this date. \"YYYY-MM-DD HH:MM:SS\" format.",
+							"description": "Return notifications that before this date. \"YYYY-MM-DD HH:MM:SS\" format.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
@@ -232,11 +232,20 @@
 				},
 				{
                     "httpMethod": "POST",
-                    "summary": "Adds notification(s) for an institution",
-                    "notes": "Pushes the notification to the admin of the institution. Requires {authorization type here}",
+                    "summary": "Add or clear institution notifications",
+                    "notes": "Pushes the notification to the admin of the institution. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
                     "nickname": "set_institution_notification",
-					"params": [],
+					"parameters": [
+						{
+							"name": "inst_id",
+							"description": "The institution id.",
+							"paramType": "query",
+							"required": true,
+							"allowMultiple": false,
+							"dataType": "string"
+						}
+					],
 					"errorResponses": [
                         {
                             "code": 400,
