@@ -181,7 +181,7 @@
                     "notes": "Retrievess the most recent notifications for your institution. By default, will return the 20 most recent notifications. Notifications can be specified using the optional parameters. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
                     "nickname": "get_institution_notification",
-					"params": [
+					"parameters": [
 						{
 							"name": "inst_id",
 							"description": "The institution id.",
