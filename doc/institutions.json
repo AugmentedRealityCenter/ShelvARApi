@@ -177,11 +177,44 @@
             "operations": [
 				{
 					"httpMethod": "GET",
-                    "summary": "Gets notification(s) for an institution",
-                    "notes": "Gets the notification(s) for a particular institution. Requires {authorization type here}",
+                    "summary": "Get recent institution notifications",
+                    "notes": "Retrievess the most recent notifications for your institution. By default, will return the 20 most recent notifications. Notifications can be specified using the optional parameters. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
                     "nickname": "get_institution_notification",
-					"params": [],
+					"params": [
+						{
+							"name": "inst_id",
+							"description": "The institution id.",
+							"paramType": "query",
+							"required": true,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "start_date",
+							"description": "Return notifications that come on or after this date. \"YYYY-MM-DD HH:MM:SS\" format.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "end_date",
+							"description": "Return notifications that come on or before this date. \"YYYY-MM-DD HH:MM:SS\" format.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "num_limit",
+							"description": "Number of items to return, between 1 and 250. Default is 20.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "int"
+						}
+					],
 					"errorResponses": [
                         {
                             "code": 400,
