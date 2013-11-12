@@ -8,6 +8,7 @@ RewriteEngine On
 
 RewriteRule ^$ https://api.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
+RewriteRule ^error_log - [L]
 
 RewriteRule ^deploy - [L]
 RewriteRule ^ShelvARLogo_Big.png - [L]
