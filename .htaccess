@@ -100,6 +100,21 @@ RewriteRule ^oauth/login$ oauth/login.php [L]
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^oauth/login$ oauth/login.php [L]
 
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^notifications/institutions$ api/notifications/get_notification.php [L]
+
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^notifications/users$ api/notifications/get_notification.php [L]
+
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^notifications/institutions$ api/notifications/notification.php [L]
+
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^notifications/users$ api/notifications/notification.php [L]
+
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^notifications/edit$ api/notifications/edit_notification.php [L]
+
 RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
 
 RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
