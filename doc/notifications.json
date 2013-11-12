@@ -1,16 +1,16 @@
 {
     "apiVersion": "0.2",
     "swaggerVersion": "1.1",
-    "resourcePath": "/institutions",
+    "resourcePath": "/notifications",
     "apis": [
 		{
-			"path": "/institutions/notifications",
+			"path": "/notifications/instutions",
             "description": "Gets or registers notifications for an institution",
             "operations": [
 				{
 					"httpMethod": "GET",
                     "summary": "Get recent institution notifications",
-                    "notes": "Retrievess the most recent notifications for your institution. By default, will return the 20 most recent notifications. Notifications can be specified using the optional parameters. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "notes": "Retrieves the most recent notifications for your institution. By default, will return the 20 most recent notifications. Notifications can be specified using the optional parameters. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
                     "nickname": "get_institution_notification",
 					"parameters": [
@@ -64,7 +64,7 @@
 				},
 				{
                     "httpMethod": "POST",
-                    "summary": "Add or clear institution notifications",
+                    "summary": "Add institution notifications",
                     "notes": "Pushes the notification to the admin of the institution. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
                     "nickname": "set_institution_notification",
@@ -72,6 +72,14 @@
 						{
 							"name": "inst_id",
 							"description": "The institution id.",
+							"paramType": "query",
+							"required": true,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "text",
+							"description": "The notification text.",
 							"paramType": "query",
 							"required": true,
 							"allowMultiple": false,
@@ -96,7 +104,7 @@
 			]
 		},
 		{
-			"path": "/users/notifications", 
+			"path": "/notifications/users", 
             "description": "List notifications for a user", 
             "operations": [
                 {
@@ -105,7 +113,40 @@
                     "notes": "Retrieves all notifications for a user registered with ShelvAR. Set user id and authentication token in user context.", 
                     "responseClass": "string", 
                     "nickname": "get_user_notifications", 
-                    "parameters": [], 
+                    "parameters": [
+						{
+							"name": "user_id",
+							"description": "The user id.",
+							"paramType": "query",
+							"required": true,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "start_date",
+							"description": "Return notifications that come on or after this date. \"YYYY-MM-DD HH:MM:SS\" format.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "end_date",
+							"description": "Return notifications that before this date. \"YYYY-MM-DD HH:MM:SS\" format.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "num_limit",
+							"description": "Number of items to return, between 1 and 250. Default is 20.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "int"
+						}
+					], 
                     "errorResponses": [
                         {
                             "code": 400, 
@@ -124,10 +165,27 @@
 				{
 					"httpMethod": "POST", 
                     "summary": "Set a notification for a user", 
-                    "notes": "Sets a notification for a user at your institution currently registered with ShelvAR. Set user id and authentication token in user context.", 
+                    "notes": "Sets a notification for a user currently registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.", 
                     "responseClass": "string", 
                     "nickname": "set_user_notifications", 
-                    "parameters": [], 
+                    "parameters": [
+						{
+							"name": "user_id",
+							"description": "The user id.",
+							"paramType": "query",
+							"required": true,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "text",
+							"description": "The notification text.",
+							"paramType": "query",
+							"required": true,
+							"allowMultiple": false,
+							"dataType": "string"
+						}
+					], 
                     "errorResponses": [
                         {
                             "code": 400, 
@@ -144,6 +202,59 @@
                     ]
 				}
 			]
-		}
+		},
+		{
+			"path": "/notifications/edit",
+			"description": "Update notification information for a particular notification",
+			"operations": [
+				{
+					"httpMethod": "POST",
+                    "summary": "Update information for a particular notification",
+                    "notes": "Set the information for a notification. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "responseClass": "string",
+                    "nickname": "edit_notification",
+					"parameters": [
+						{
+							"name": "notif_id",
+							"description": "The notification id.",
+							"paramType": "query",
+							"required": true,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "read",
+							"description": "Set whether or not the notification has been read. Set to 0 for unread, 1 for read.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "int"
+						},
+						{
+							"name": "text",
+							"description": "Set the notification text.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						}
+					],
+					"errorResponses": [
+						{
+							"code": 400,
+							"reason": "Invalid ID supplied"
+						},
+						{ 
+							"code": 404,
+							"reason": "Data not found"
+						},
+						{
+							"code": 403,
+							"reason": "Access denied. Authorization not provided."
+						}
+					]
+				}
+			]
+		}				
 	]
 }
