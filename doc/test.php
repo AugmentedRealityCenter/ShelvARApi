@@ -4,6 +4,10 @@
 	
 	echo "Creating notifications table...";
 	$db = new mysqli($sql_server, $sql_user, $sql_password, $sql_database);
+	if ($db->connect_errno) {
+		echo "Connect failed: ".$db->connect_error);
+		exit();
+	}
 	$query = "CREATE TABLE IF NOT EXISTS `notifications` (".
 				"`notif_id` int(11) NOT NULL AUTO_INCREMENT,".
 				"`text` varchar(240) NOT NULL,".
