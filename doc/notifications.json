@@ -65,7 +65,7 @@
 				{
                     "httpMethod": "POST",
                     "summary": "Add institution notifications",
-                    "notes": "Pushes the notification to the admin of the institution. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "notes": "Adds a notification for the institution. Requires authentication via OAuth, to an account that has \"admin\" permission.",
                     "responseClass": "string",
                     "nickname": "set_institution_notification",
 					"parameters": [
@@ -110,7 +110,7 @@
                 {
                     "httpMethod": "GET", 
                     "summary": "Get all notifications for a specified user", 
-                    "notes": "Retrieves all notifications for a user registered with ShelvAR. Set user id and authentication token in user context.", 
+                    "notes": "Retrieves all notifications for a user registered with ShelvAR. Requires authentication via OAuth, to an account that has \"admin\" permission.", 
                     "responseClass": "string", 
                     "nickname": "get_user_notifications", 
                     "parameters": [
