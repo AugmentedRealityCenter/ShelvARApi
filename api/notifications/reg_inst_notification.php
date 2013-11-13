@@ -4,6 +4,7 @@
 	include_once "../api_ref_call.php";
 	
 	// need to check user permissions here
+	var_dump($_POST);
 	
 	$err = array();
 	
