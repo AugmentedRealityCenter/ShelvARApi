@@ -7,10 +7,10 @@
 	
 	$err = array();
 	
-	if (!$_POST['inst_id']) {
+	if (!isset($_POST['inst_id'])) {
 		$err[] = 'Please fill in inst_id';
 	}
-	if (!$_POST['text']) {
+	if (!isset($_POST['text'])) {
 		$err[] = 'Please fill in the notification text';
 	}
 	
