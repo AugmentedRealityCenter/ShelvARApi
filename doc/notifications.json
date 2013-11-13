@@ -17,7 +17,7 @@
 						{
 							"name": "inst_id",
 							"description": "The institution id.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": true,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -25,7 +25,7 @@
 						{
 							"name": "start_date",
 							"description": "Return notifications that come on or after this date. \"YYYY-MM-DD HH:MM:SS\" format.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -33,7 +33,7 @@
 						{
 							"name": "end_date",
 							"description": "Return notifications that before this date. \"YYYY-MM-DD HH:MM:SS\" format.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -41,7 +41,7 @@
 						{
 							"name": "num_limit",
 							"description": "Number of items to return, between 1 and 250. Default is 20.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "int"
@@ -72,7 +72,7 @@
 						{
 							"name": "inst_id",
 							"description": "The institution id.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": true,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -80,7 +80,7 @@
 						{
 							"name": "text",
 							"description": "The notification text.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": true,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -117,7 +117,7 @@
 						{
 							"name": "user_id",
 							"description": "The user id.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": true,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -125,7 +125,7 @@
 						{
 							"name": "start_date",
 							"description": "Return notifications that come on or after this date. \"YYYY-MM-DD HH:MM:SS\" format.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -133,7 +133,7 @@
 						{
 							"name": "end_date",
 							"description": "Return notifications that before this date. \"YYYY-MM-DD HH:MM:SS\" format.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -141,7 +141,7 @@
 						{
 							"name": "num_limit",
 							"description": "Number of items to return, between 1 and 250. Default is 20.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "int"
@@ -172,7 +172,7 @@
 						{
 							"name": "user_id",
 							"description": "The user id.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": true,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -180,7 +180,7 @@
 						{
 							"name": "text",
 							"description": "The notification text.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": true,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -217,7 +217,7 @@
 						{
 							"name": "notif_id",
 							"description": "The notification id.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": true,
 							"allowMultiple": false,
 							"dataType": "string"
@@ -225,7 +225,7 @@
 						{
 							"name": "read",
 							"description": "Set whether or not the notification has been read. Set to 0 for unread, 1 for read.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "int"
@@ -233,7 +233,7 @@
 						{
 							"name": "text",
 							"description": "Set the notification text.",
-							"paramType": "query",
+							"paramType": "form",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
