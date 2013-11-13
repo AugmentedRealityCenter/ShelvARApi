@@ -4,8 +4,10 @@
 	include_once "../api_ref_call.php";
 	
 	// need to check user permissions here
+	echo "Dumping POST\n";
 	var_dump($_POST);
-	
+	echo "Dumping GET\n";
+	var_dump($_GET);
 	$err = array();
 	
 	if (!isset($_POST['inst_id'])) {
