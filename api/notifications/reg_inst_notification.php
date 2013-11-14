@@ -22,7 +22,7 @@
 		$db = new database();
 		$db->query = "INSERT INTO notifications(text,read,create_time,user_id,inst_id)
 						VALUES(?,?,?,?,?)";
-		$db->params = array($text,0,$today,NULL,$inst_id);
+		$db->params = array($text,0,$today,"",$inst_id);
 		$db->type = 'sisss';
 		
 		if ($db->insert()) {
