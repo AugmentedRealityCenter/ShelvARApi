@@ -73,6 +73,10 @@
 			$db->type = $types;
 		}
 		$result = $db->fetch();
+		
+		if (!empty($result)) 
+			echo json_encode(array("notifications"=>$result,"result"=>"SUCCESS")));
+		else echo json_encode(array("result"=>"no notifications found"));
 	}
 	if($err) {
 		echo json_encode(array('result'=>"ERROR", 'errors'=>$err)); 
