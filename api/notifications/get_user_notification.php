@@ -19,7 +19,7 @@
 	else $user_id = $_POST['user_id'];
 	
 	if($user_id != $oauth_user['user_id'] || $oauth_user['is_superadmin'] == 0) {
-		$err[] = "Invalid access to institution account";
+		$err[] = "Invalid access to user account";
 	}
 
 	// if all preliminary checks passed
