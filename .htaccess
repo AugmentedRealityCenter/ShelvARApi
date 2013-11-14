@@ -114,7 +114,7 @@ RewriteCond %{THE_REQUEST} POST
 RewriteRule ^notifications/users/([^/]+)$ api/notifications/reg_user_notification.php [L,E=user_id:$1]
 
 RewriteCond %{THE_REQUEST} POST
-RewriteRule ^notifications/edit$ api/notifications/edit_notification.php [L]
+RewriteRule ^notifications/([^/]+)/edit$ api/notifications/edit_notification.php [L,E=notif_id:$1]
 
 RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
 
