@@ -4,23 +4,19 @@
 	include_once "../api_ref_call.php";
 	
 	// need to check user permissions here
-	echo "Dumping POST\n";
-	var_dump($_POST);
-	echo "Dumping GET\n";
-	var_dump($_GET);
 	$err = array();
 	
-	if (!isset($_POST['inst_id'])) {
+	if (!isset($_GET['inst_id'])) {
 		$err[] = 'Please fill in inst_id';
 	}
-	if (!isset($_POST['text'])) {
+	if (!isset($_GET['text'])) {
 		$err[] = 'Please fill in the notification text';
 	}
 	
 	// if no errors
 	if (!count($err)) {
-		$inst_id = $_POST['inst_id'];
-		$text = htmlspecialchars($_POST['text'], ENT_HTML401);
+		$inst_id = $_GET['inst_id'];
+		$text = htmlspecialchars($_GET['text'], ENT_HTML401);
 		$today = date("Y-m-d H:i:s");
 		// TODO: insert this notification for all users who are admins of specified institution
 		$db = new database();
