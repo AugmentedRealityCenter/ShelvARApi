@@ -20,10 +20,10 @@
 		$today = date("Y-m-d H:i:s");
 		// TODO: insert this notification for all users who are admins of specified institution
 		$db = new database();
-		$db->query = "INSERT INTO notifications(notif_id,text,read,create_time,user_id,inst_id)
-						VALUES(?,?,?,?,?,?)";
-		$db->params = array(NULL,$text,0,$today,NULL,$inst_id);
-		$db->type = 'isisss';
+		$db->query = "INSERT INTO notifications(text,read,create_time,user_id,inst_id)
+						VALUES(?,?,?,?,?)";
+		$db->params = array($text,0,$today,NULL,$inst_id);
+		$db->type = 'sisss';
 		
 		if ($db->insert()) {
 			if (!$err) {
