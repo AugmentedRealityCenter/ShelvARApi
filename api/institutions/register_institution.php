@@ -79,8 +79,7 @@
 			if($db->insert()) {
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 				if(!$err) {
-					echo $exp_date . "\n";
-					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id));
+					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'exp_date'=>$exp_date));
 				}
 			}
 			else {
