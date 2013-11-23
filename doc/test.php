@@ -4,7 +4,7 @@
 	
 	$db = new database();
 	$db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
-	$db->params = array("Steven");
+	$db->params = array("steven");
 	$db->type = 's';
 	
 	$result = $db->fetch();
