@@ -14,7 +14,7 @@
 		else 
 		{
 			// Check for the existence of that email address.
-			$query = “SELECT user_id FROM users WHERE user_id=’”.  escape_data($_POST['user_id']) . “‘”;
+			$query = “SELECT user_id FROM users WHERE user_id=?”.  escape_data($_POST['user_id']) . “‘”;
 			$result = mysql_query ($query) or trigger_error(“Query: $query\n<br />MySQL Error: ” . mysql_error());
 			
 			if (mysql_num_rows($result) == 1)
