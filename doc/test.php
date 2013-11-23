@@ -1,11 +1,16 @@
 <?php 
-	// include_once $_SERVER['DOCUMENT_ROOT'] . "/database.php";
-	// include_once $_SERVER['DOCUMENT_ROOT'] . "/header_include.php";
-	include_once "../db_info.php";
+	include_once $_SERVER['DOCUMENT_ROOT'] . "/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT'] . "/header_include.php";
 	
-	echo "Creating notifications table...";
-	$db = new mysqli($sql_server, $sql_user, $sql_password, $sql_database);
-	if ($db->connect_errno) {
+	$db = new database();
+	$db->query = "SELECT exp_date FROM institutions WHERE inst_id = ?";
+	$db->params = array("Nanda");
+	$db->type = 's';
+	
+	$result = $db->fetch();
+	
+	echo json_encode($result);
+	/*if ($db->connect_errno) {
 		echo "Connect failed: ".$db->connect_error;
 		exit();
 	}
@@ -23,5 +28,5 @@
 	} else {
 		echo "\nError ".$db->errno.": ".$db->error;
 	}
-	$db->close();
+	$db->close();*/
 ?>
