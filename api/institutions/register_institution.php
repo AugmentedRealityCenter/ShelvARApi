@@ -80,9 +80,9 @@
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 				if(!$err) {
 					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'exp_date'=>$exp_date));
-					$to = "kesanan@miamioh.edu";
+					$to = "bo.brinkman@miamioh.edu";
 					$subject = "New Shelvar Institution Registered";
-					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR User,<br/><br/>This email is to notify that a new institution has been registered on ShelVar.<br/><br/>If this message was sent as a mistake you can safely ignore it.";
+					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Admin,<br/><br/>This email is to notify that a new institution has been registered on ShelVar.<br/><br/>If this message was sent as a mistake you can safely ignore it.";
 					$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
 							   'Reply-To: noreply@shelvar.com' . "\r\n" .
 							   'Content-type: text/html' . "\r\n" .
