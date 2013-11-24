@@ -4,7 +4,7 @@
 	
 	$err = array();	
 
-	if (isset($_POST['submitted'])) // Handle the form.
+	if (isset($_POST['Username'])) // Handle the form.
 	{
 		if (empty($_POST['user_id'])) // Validate the email address.
 		{	
