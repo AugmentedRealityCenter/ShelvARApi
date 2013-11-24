@@ -1,10 +1,60 @@
 <?php
-	include_once $_SERVER['DOCUMENT_ROOT'] . "/database.php";
-	include_once $_SERVER['DOCUMENT_ROOT'] . "/header_include.php";
-	
 	$err = array();	
+	if(!isset($_GET['oauth_token'])) {
+		$err[] = "Application is broken: No token supplied";
+	
+	if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['Forgot password'])) {
+		if(!$_POST['user_id']) {
+			$err[] = 'No username supplied';
+		}
+		if(!count($err)) {
+			include_once("../db_info.php");
+			include_once("../database.php");
+			
+			$db = new database();
+			$db->query = "SELECT user_id From users WHERE user_id = ?";
+			$db->params = array($user_id);
+			$db->type = 's';
+			
+			$result = $db->fetch();
+			
+			//If there is a username that matches
+			if(count($result) > 0){
+				$p = substr ( md5(uniqid(rand(),1)), 3, 10);
+				
+				$db = new database();
+				$db->query = "UPDATE users SET pass=SHA('$p') WHERE user_id = ?";
+				$db->params = array($user_id);
+				$db->type = 's';
+				$res2 = $db->fetch();
+				
+				if (count($res2) > 0)  // If it ran ok
+				{
+					//Send an email
+					$body = “Your password to log into ShelvAR has been temporarily changed to ‘$p’. Please log in using this password and your username. At that time you may change your password to something more familiar.”;
+					mail ($_POST['email'], ‘Your temporary password.’, $body, ‘From: admin@shelvar.com’);
+					echo ‘<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the “Change Password” link.</h3>’;
+				
+					session_start();
+					$_SESSION['user_id' = $result[0]['user_id'];
+				
+					echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
+					exit(200);
+				}
+				else  //Failed the Validation test
+				{
+					echo ‘<p><font color=”red” size=”+1″>Please try again.</font></p>’;
+				}
+			}
+		}
+	}
+	 else 
+	{
+		$err[] = 'Incorrect username or password';
+	}
+}
 
-	if (isset($_POST['Username'])) // Handle the form.
+	/*if (isset($_POST['Username'])) // Handle the form.
 	{
 		if (empty($_POST['user_id'])) // Validate the email address.
 		{	
@@ -52,7 +102,7 @@
 				echo ‘<p><font color=”red” size=”+1″>Please try again.</font></p>’;
 			}
 		}
-	}
+	}*/
 
 echo(
 	'<!DOCTYPE html>
