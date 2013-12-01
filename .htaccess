@@ -6,7 +6,7 @@ Header set Access-Control-Allow-Origin *
 
 RewriteEngine On
 
-RewriteRule ^$ https://api.shelvar.com/doc [R=301,L]
+RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 RewriteRule ^error_log - [L]
 
