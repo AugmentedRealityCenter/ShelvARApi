@@ -128,8 +128,6 @@ echo(
 				  </div>
 				  <input type="hidden" id="login" name="login" value="login" />
 				  <button class="btn btn-primary" type="submit">Log in</button>
-				  <input type="hidden" id="forgot password" name="forgot password" value="forgot password" />
-				  <button class="btn btn-primary" type="submit">Forgot Password</button>
 				</fieldset>
 			  </form>
 			</div> <!-- form -->
