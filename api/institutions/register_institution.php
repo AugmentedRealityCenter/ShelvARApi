@@ -39,12 +39,12 @@
 		$is_activated = 0;
 		$has_inv = 0;
 		// set initial exp_date to 1 month after registering
-		//$today = date("Y-m-d H:i:s");
-		//$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 year");
-		$today = strtotime(date("Y-m-d H:i:s"));
-		$exp_date = strtotime(date("Y-m-d H:i:s", mktime(date('H',$today),
-    		date('i',$today), date('s',$today), date('m',$today),
-  			date('d',$today), date('Y',$today)+1)));
+		$today = date("Y-m-d H:i:s");
+		$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 year");
+		//$today = strtotime(date("Y-m-d H:i:s"));
+		//$exp_date = strtotime(date("Y-m-d H:i:s", mktime(date('H',$today),
+    			//date('i',$today), date('s',$today), date('m',$today),
+  			//date('d',$today), date('Y',$today)+1)));
 		$num_api_calls = 0;
 		$alt_contact = htmlspecialchars($_POST['alt_contact'], ENT_HTML401);
 		$inst_url = htmlspecialchars($_POST['inst_url'], ENT_HTML401);
