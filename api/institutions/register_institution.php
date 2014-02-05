@@ -41,10 +41,6 @@
 		// set initial exp_date to 1 month after registering
 		$today = date("Y-m-d H:i:s");
 		$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 year");
-		//$today = strtotime(date("Y-m-d H:i:s"));
-		//$exp_date = strtotime(date("Y-m-d H:i:s", mktime(date('H',$today),
-    			//date('i',$today), date('s',$today), date('m',$today),
-  			//date('d',$today), date('Y',$today)+1)));
 		$num_api_calls = 0;
 		$alt_contact = htmlspecialchars($_POST['alt_contact'], ENT_HTML401);
 		$inst_url = htmlspecialchars($_POST['inst_url'], ENT_HTML401);
@@ -86,7 +82,7 @@
 					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'exp_date'=>$exp_date));
 					$to = "marti109@miamioh.edu";
 					$subject = "New Shelvar Institution Registered";
-					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Admin,<br/><br/>This email is to notify that a new institution has been registered on ShelVar.<br/><br/>If this message was sent as a mistake you can safely ignore it. " .$today ." " .$exp_date;
+					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Admin,<br/><br/>This email is to notify that a new institution has been registered on ShelVar.<br/><br/>If this message was sent as a mistake you can safely ignore it.";
 					$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
 							   'Reply-To: noreply@shelvar.com' . "\r\n" .
 							   'Content-type: text/html' . "\r\n" .
