@@ -38,7 +38,7 @@
 		$inst_size = htmlspecialchars($_POST['inst_size'], ENT_HTML401);
 		$is_activated = 0;
 		$has_inv = 0;
-		// set initial exp_date to 1 month after registering
+		// set initial exp_date to 1 year after registering
 		$today = date("Y-m-d H:i:s");
 		$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 year");
 		$num_api_calls = 0;
