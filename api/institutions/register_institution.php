@@ -80,7 +80,8 @@
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 				if(!$err) {
 					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'exp_date'=>$exp_date));
-					$to = "bo.brinkman@miamioh.edu";
+					//$to = "bo.brinkman@miamioh.edu";
+					$to = "marti109@miamioh.edu";
 					$subject = "New Shelvar Institution Registered";
 					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Admin,<br/><br/>This email is to notify that a new institution has been registered on ShelvAR.<br/>
 																										   <br/>Institution Name: ".$name.
