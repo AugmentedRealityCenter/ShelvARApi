@@ -32,11 +32,11 @@
 		$editAltContact = false;
 		
 		if(isset($_POST['inst_name']) && $_POST['inst_name'] != "") {
-			$params[] = $_POST['inst_name'];
+			$params[] = htmlspecialchars($_POST['inst_name'], ENT_HTML401);
 			$editName = true;
 		}
 		else if(isset($_GET['inst_name']) && $_GET['inst_name'] != "") {
-			$params[] = $_GET['inst_name'];
+			$params[] = htmlspecialchars($_GET['inst_name'], ENT_HTML401);
 			$editName = true;
 		}
 		
