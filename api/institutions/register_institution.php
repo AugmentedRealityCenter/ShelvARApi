@@ -85,7 +85,7 @@
 					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Admin,<br/><br/>This email is to notify that a new institution has been registered on ShelvAR.<br/>
 																										   <br/>Institution Name: ".$name.
 																										   "<br/>Institution ID: ".$inst_id."<br/>".
-																										   "<br/>Sincerely,"."<br/>".
+																										   "<br/>Sincerely,".
 																										   "<br/>ShelvAR Team"."<br/>";
 					$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
 							   'Reply-To: noreply@shelvar.com' . "\r\n" .
