@@ -41,31 +41,31 @@
 		}
 		
 		if(isset($_POST['admin_contact']) && $_POST['admin_contact'] != "") {
-			$params[] = $_POST['admin_contact'];
-			$pending_email = $_POST['admin_contact'];
+			$params[] = htmlspecialchars($_POST['admin_contact'], ENT_HTML401);
+			$pending_email = htmlspecialchars($_POST['admin_contact'], ENT_HTML401);
 			$editAdmin = true;
 		}
 		else if(isset($_GET['admin_contact']) && $_GET['admin_contact'] != "") {
-			$params[] = $_GET['admin_contact'];
-			$pending_email = $_GET['admin_contact'];
+			$params[] = htmlspecialchars($_GET['admin_contact'], ENT_HTML401);
+			$pending_email = htmlspecialchars($_GET['admin_contact'], ENT_HTML401);
 			$editAdmin = true;
 		}
 
 		if(isset($_POST['inst_url']) && $_POST['inst_url'] != "") {
-			$inst_url = $_POST['inst_url'];
+			$inst_url = htmlspecialchars($_POST['inst_url'], ENT_HTML401);
 			$editURL = true;
 		}
 		else if(isset($_GET['inst_url']) && $_GET['inst_url'] != "") {
-			$inst_url = $_GET['inst_url'];
+			$inst_url = htmlspecialchars($_GET['inst_url'], ENT_HTML401);
 			$editURL = true;
 		}
 		
 		if(isset($_POST['alt_contact']) && $_POST['alt_contact'] != "") {
-			$alt_contact = $_POST['alt_contact'];
+			$alt_contact = htmlspecialchars($_POST['alt_contact'], ENT_HTML401);
 			$editAltContact = true;
 		}
 		else if(isset($_GET['alt_contact']) && $_GET['alt_contact'] != "") {
-			$alt_contact = $_GET['alt_contact'];
+			$alt_contact = htmlspecialchars($_GET['alt_contact'], ENT_HTML401);
 			$editAltContact = true;
 		}
 		
