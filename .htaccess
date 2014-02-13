@@ -18,16 +18,16 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 
 #TODO: Update the regular expression to only accept valid base64 characters
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_tags/([^/]+)\$ api/lc2bin/book_tags.php [L,E=B64:$1]
+RewriteRule ^book_tags/([^/]+)\.json$ api/lc2bin/book_tags.php [L,E=B64:$1]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^lc_numbers/(.+)\$ api/lc2bin/lc_numbers.php [L,E=call_number:$1]
+RewriteRule ^lc_numbers/(.+)\.json$ api/lc2bin/lc_numbers.php [L,E=call_number:$1]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^book_pings/count$ api/book_pings/get_ping_count_book.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_pings/([0-9]+)\$ api/book_pings/get_by_id.php [L,E=book_ping_id:$1]
+RewriteRule ^book_pings/([0-9]+)\.json$ api/book_pings/get_by_id.php [L,E=book_ping_id:$1]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^book_pings api/book_pings/book_ping.php [L]
@@ -48,13 +48,13 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users/activate_email$ api/users/activate_email.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/available/([^/]+)\$ api/users/user_available.php?user_id=$1 [L,QSA]
+RewriteRule ^users/available/([^/]+)\.json$ api/users/user_available.php?user_id=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/email_registered/([^/]+)\$ api/users/email_registered.php [L,E=email:$1]
+RewriteRule ^users/email_registered/([^/]+)\.json$ api/users/email_registered.php [L,E=email:$1]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/([^/]+)\$ api/users/get_user.php [L,E=user_id:$1]
+RewriteRule ^users/([^/]+)\.json$ api/users/get_user.php [L,E=user_id:$1]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users api/users/get_users.php [L]
@@ -69,10 +69,10 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^institutions/activate_inst$ api/institutions/activate_inst.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^institutions/available/([^/]+)\$ api/institutions/inst_available.php?inst_id=$1 [L,QSA]
+RewriteRule ^institutions/available/([^/]+)\.json$ api/institutions/inst_available.php?inst_id=$1 [L,QSA]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^institutions/([^/]+)\$ api/institutions/get_institution.php [L,E=inst_id:$1]
+RewriteRule ^institutions/([^/]+)\.json$ api/institutions/get_institution.php [L,E=inst_id:$1]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^institutions api/institutions/get_institutions.php [L]
