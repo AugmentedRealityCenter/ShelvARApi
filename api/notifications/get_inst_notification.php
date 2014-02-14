@@ -57,8 +57,7 @@
 			$db->query = $query;
 			$db->params = $paramsList;
 			$db->type = "";
-		}
-		else {
+		} else {
 			$query = $query . " WHERE ";
 			
 			$query .= implode(" AND ", $qArray);
