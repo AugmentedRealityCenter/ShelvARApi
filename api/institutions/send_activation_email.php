@@ -26,7 +26,7 @@
 	}
 	else {
 		$db = new database();
-		$db->query = "SELECT name FROM users WHERE admin_name =?";
+		$db->query = "SELECT name FROM users WHERE email =?";
 		$db->params = array($to);
 		$db->type = 's';
 		
