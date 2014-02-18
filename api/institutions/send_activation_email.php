@@ -1,4 +1,7 @@
 <?php
+	if(!isset($admin_name)) {
+		$err[] = "No admin_name provided";
+	}
 	if(!isset($pending_email)) {
 		$err[] = "No email address provided";
 	}

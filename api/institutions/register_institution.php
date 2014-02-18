@@ -10,6 +10,9 @@
 	if(!$_POST['inst_name']) {
 		$err[] = 'Please fill in inst_name';
 	}
+	if(!isset($_POST['admin_name'])) {
+		$err[] = 'Please fill in admin_name';
+	}
 	if(!$_POST['admin_contact']) {
 		$err[] = 'Please fill in admin_contact';
 	}
