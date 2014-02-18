@@ -13,6 +13,9 @@
 	if(preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['user_id'])) {
 		$err[] = 'Your username contains invalid characters';
 	}
+	if(($_POST['password']) !== ($_POST['password2'])) {
+		$err[] = 'Your passwords do not match';
+	}
 
 	if(!count($err)) {
 		$user_id = $_POST['user_id'];
