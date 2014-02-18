@@ -23,10 +23,10 @@
                             "code": 404, 
                             "reason": "Data not found"
                         },
-			{
-			    "code": 403,
-			    "reason": "Access denied. Authorization not provided."
-			}	
+						{
+							"code": 403,
+							"reason": "Access denied. Authorization not provided."
+						}	
                     ]
                 },
 				{

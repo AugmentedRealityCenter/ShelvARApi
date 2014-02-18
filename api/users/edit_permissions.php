@@ -10,9 +10,9 @@
 		if(!$_GET['user_id']) {
 			$err[] = "No user_id supplied";
 		}
-		else $user_id = $_GET['user_id'];
+		else $user_id = htmlspecialchars($_GET['user_id'], ENT_HTML401);
 	}
-	else $user_id = $_POST['user_id'];
+	else $user_id = htmlspecialchars($_POST['user_id'], ENT_HTML401);
 	
 	if($oauth_user['is_admin'] == 0) {
 		if($oauth_user['is_superadmin'] == 0) {

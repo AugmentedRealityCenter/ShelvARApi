@@ -16,11 +16,11 @@
 
 	if(!count($err)) {
 		$user_id = $_POST['user_id'];
-		$user_id = strtolower($user_id);
-		$inst_id = $_POST['inst_id'];
+		$user_id = htmlspecialchars(strtolower($user_id), ENT_HTML401);
+		$inst_id = htmlspecialchars($_POST['inst_id'], ENT_HTML401);
 		$password = $_POST['password'];
-		$name = $_POST['name'];
-		$email = $_POST['email'];
+		$name = htmlspecialchars($_POST['name'], ENT_HTML401);
+		$email = htmlspecialchars($_POST['email'], ENT_HTML401);
 
 		$db = new database();
 		$db->query = "SELECT * FROM users WHERE user_id = ?";

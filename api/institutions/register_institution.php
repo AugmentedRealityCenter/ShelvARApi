@@ -31,20 +31,20 @@
 	
 	// If there are no errors
 	if(!count($err)) {
-		$inst_id = $_POST['inst_id'];
-		$name = $_POST['inst_name'];
+		$inst_id = htmlspecialchars($_POST['inst_id'], ENT_HTML401);
+		$name = htmlspecialchars($_POST['inst_name'], ENT_HTML401);
 		$admin_contact = "";
-		$inst_type = $_POST['inst_type'];
-		$inst_size = $_POST['inst_size'];
+		$inst_type = htmlspecialchars($_POST['inst_type'], ENT_HTML401);
+		$inst_size = htmlspecialchars($_POST['inst_size'], ENT_HTML401);
 		$is_activated = 0;
 		$has_inv = 0;
-		// set initial exp_date to 1 month after registering
+		// set initial exp_date to 1 year after registering
 		$today = date("Y-m-d H:i:s");
-		$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 month");
+		$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 year");
 		$num_api_calls = 0;
-		$alt_contact = $_POST['alt_contact'];
-		$inst_url = $_POST['inst_url'];
-		$pending_email = $_POST['admin_contact'];
+		$alt_contact = htmlspecialchars($_POST['alt_contact'], ENT_HTML401);
+		$inst_url = htmlspecialchars($_POST['inst_url'], ENT_HTML401);
+		$pending_email = htmlspecialchars($_POST['admin_contact'], ENT_HTML401);
 		$email_verified = 0;
 		
 		$db = new database();
@@ -79,7 +79,21 @@
 			if($db->insert()) {
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 				if(!$err) {
-					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id));
+					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'exp_date'=>$exp_date));
+					$to = "kesanan@miamioh.edu";
+					$subject = "New Shelvar Institution Registered";
+					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Admin,<br/><br/>This email is to notify that a new institution has been registered on ShelvAR.<br/>
+																										   <br/>Institution Name: ".$name.
+																										   "<br/>Institution ID: ".$inst_id."<br/>".
+																										   "<br/>Sincerely,".
+																										   "<br/>The ShelvAR Team"."<br/>";
+					$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
+							   'Reply-To: noreply@shelvar.com' . "\r\n" .
+							   'Content-type: text/html' . "\r\n" .
+							    'X-Mailer: PHP/' . phpversion();
+					if(!mail($to, $subject, $message, $headers)) {
+						$err[] = "Error sending confirmation email";
+					}
 				}
 			}
 			else {
