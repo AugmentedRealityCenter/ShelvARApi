@@ -30,7 +30,7 @@
 		$db->params = array($to);
 		$db->type = 's';
 		
-		$name = current($db->fetch());
+		$name = reset($db->fetch());
 		
 		$subject = "ShelvAR.com Institution Registration";
 		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ".$name.",<br/><br/>Welcome to ShelvAR!<br/><br/>You, or someone using your email address, has registered this institution at ShelvAR.com. <b>ShelvAR is still in its alpha testing phase meaning we are not and won't be ready for commercial use any time in the near future.</b> Use at your own discretion. <br/><br/>You can complete registration by clicking the following link:<br/><br/>".$api."institutions/activate_inst?inst_key=$activation_key<br/><br/>If this message was sent as a mistake you can safely ignore it.";

@@ -33,7 +33,7 @@
 	if(!count($err)) {
 		$inst_id = htmlspecialchars($_POST['inst_id'], ENT_HTML401);
 		$name = htmlspecialchars($_POST['inst_name'], ENT_HTML401);
-		$admin_contact = "";
+		$admin_contact = htmlspecialchars($_POST['admin_name'], ENT_HTML401);
 		$inst_type = htmlspecialchars($_POST['inst_type'], ENT_HTML401);
 		$inst_size = htmlspecialchars($_POST['inst_size'], ENT_HTML401);
 		$is_activated = 0;
