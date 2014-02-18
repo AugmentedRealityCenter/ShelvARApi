@@ -10,6 +10,9 @@
 	if(!$_POST['inst_name']) {
 		$err[] = 'Please fill in inst_name';
 	}
+	if(!isset($_POST['admin_name'])) {
+		$err[] = 'Please fill in admin_name';
+	}
 	if(!$_POST['admin_contact']) {
 		$err[] = 'Please fill in admin_contact';
 	}
@@ -33,7 +36,7 @@
 	if(!count($err)) {
 		$inst_id = htmlspecialchars($_POST['inst_id'], ENT_HTML401);
 		$name = htmlspecialchars($_POST['inst_name'], ENT_HTML401);
-		$admin_contact = "";
+		$admin_contact = htmlspecialchars($_POST['admin_name'], ENT_HTML401);
 		$inst_type = htmlspecialchars($_POST['inst_type'], ENT_HTML401);
 		$inst_size = htmlspecialchars($_POST['inst_size'], ENT_HTML401);
 		$is_activated = 0;
@@ -80,7 +83,7 @@
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 				if(!$err) {
 					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'exp_date'=>$exp_date));
-					$to = "kesanan@miamioh.edu";
+					$to = "brinkmwj@miamioh.edu";
 					$subject = "New Shelvar Institution Registered";
 					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Admin,<br/><br/>This email is to notify that a new institution has been registered on ShelvAR.<br/>
 																										   <br/>Institution Name: ".$name.
