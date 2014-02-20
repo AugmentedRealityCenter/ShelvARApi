@@ -58,7 +58,7 @@
 			}
 			else $is_admin = 0;
 			
-			if(!$_POST['withhold_email']) {
+			if(!isset($_POST['withhold_email'])) {
 				// Generate random activation key
 				// Check if key has already been generated
 				do {
@@ -90,7 +90,7 @@
 			*/
 
 			if($db->insert()) {
-				if(!$_POST['withhold_email']) {
+				if(!isset($_POST['withhold_email'])) {
 					include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
 				}
 				if(!$err) {

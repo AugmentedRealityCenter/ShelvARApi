@@ -16,7 +16,7 @@
 		   'Content-type: text/html' . "\r\n" .
 		   'X-Mailer: PHP/' . phpversion();
 	
-	if($editAdmin) {
+	if(isset($editAdmin)) {
 		$subject = "ShelvAR.com Admin Change";
 		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name,<br/><br/>This email is to confirm that you have changed the admin contact email address.<br/><br/>If you did not intend to change the admin of this institution, please contact support@shelvar.com.";
 		if(!mail($previous_admin, $subject, $message, $headers)) {
