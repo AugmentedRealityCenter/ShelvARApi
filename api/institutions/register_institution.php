@@ -49,7 +49,7 @@
 		$has_inv = 0;
 		// set initial exp_date to 1 year after registering
 		$today = date("Y-m-d H:i:s");
-		$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 year");
+		$exp_date = strtotime(date("Y-m-d H:i:s", strtotime($today)) . "+1 month");
 		$num_api_calls = 0;
 		$alt_contact = htmlspecialchars($_POST['alt_contact'], ENT_HTML401);
 		$inst_url = htmlspecialchars($_POST['inst_url'], ENT_HTML401);
@@ -89,13 +89,13 @@
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 				if(!$err) {
 					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'exp_date'=>$exp_date));
-					$to = "brinkmwj@miamioh.edu";
+					$to = "marti109@miamioh.edu";
 					$subject = "New Shelvar Institution Registered";
 					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear ShelvAR Admin,<br/><br/>This email is to notify that a new institution has been registered on ShelvAR.<br/>
 																										   <br/>Institution Name: ".$name.
 																										   "<br/>Institution ID: ".$inst_id."<br/>".
 																										   "<br/>Sincerely,".
-																										   "<br/>The ShelvAR Team"."<br/>";
+																										   "<br/>The ShelvAR Team". " " .$exp_date."<br/>";
 					$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
 							   'Reply-To: noreply@shelvar.com' . "\r\n" .
 							   'Content-type: text/html' . "\r\n" .
