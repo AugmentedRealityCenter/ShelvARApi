@@ -31,9 +31,6 @@
 	if(preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['inst_id'])) {
 		$err[]='Institution ID contains invalid characters';
 	}
-	if(($_POST['password']) !== ($_POST['password2'])) {
-		$err[] = 'Your passwords do not match';
-	}
 	if(($_POST['admin_contact']) !== ($_POST['admin_contact2'])) {
 		$err[] = 'Your admin emails do not match';
 	}
