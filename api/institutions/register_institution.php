@@ -91,7 +91,7 @@
 																										   <br/>Institution Name: ".$name.
 																										   "<br/>Institution ID: ".$inst_id."<br/>".
 																										   "<br/>Sincerely,".
-																										   "<br/>The ShelvAR Team". " " .$exp_date."<br/>";
+																										   "<br/>The ShelvAR Team"."<br/>";
 					$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
 							   'Reply-To: noreply@shelvar.com' . "\r\n" .
 							   'Content-type: text/html' . "\r\n" .
