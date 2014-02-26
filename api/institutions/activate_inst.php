@@ -32,12 +32,14 @@
 			$email_verified = 1;
 			$pending_email = "";
 
+            // activation flags
             $is_activated = 1;
+            $has_inv = 1;
 
 			$db = new database();
-			$db->query = "UPDATE institutions SET pending_email = ?, admin_contact = ?, email_verified = ?, is_activated = ? WHERE inst_id = ?";
-			$db->params = array($pending_email, $admin_contact, $email_verified, $is_activated, $inst_id);
-			$db->type = 'ssiis';
+			$db->query = "UPDATE institutions SET pending_email = ?, admin_contact = ?, email_verified = ?, is_activated = ?, has_inv = ? WHERE inst_id = ?";
+			$db->params = array($pending_email, $admin_contact, $email_verified, $is_activated, $has_inv, $inst_id);
+			$db->type = 'ssiiis';
 			
 			if($db->update()) {
 				// attempt to activate admin account
