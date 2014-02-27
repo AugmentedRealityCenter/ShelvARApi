@@ -105,7 +105,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/get_inst_notification.php [L,E=inst_id:$1]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^notifications/users/([^/]+)$ api/notifications/get_user_notification.php [L,E=user_id:$1]
+RewriteRule ^notifications/users/([^/]+)$ apiwrapper.php?q=$1 [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/reg_inst_notification.php [L,E=inst_id:$1]
