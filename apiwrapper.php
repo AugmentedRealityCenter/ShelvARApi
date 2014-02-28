@@ -38,7 +38,6 @@
     // request handler variables
     $root = $_SERVER['DOCUMENT_ROOT']."/";
     $path = $_GET['path'];
-    echo $path."\n";
     $req_type = $_GET['type'];
 
     if ($req_type === 'GET') {
