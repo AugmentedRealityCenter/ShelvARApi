@@ -123,6 +123,9 @@ RewriteRule ^oauth_test/register$ oauth_test/register.html [L]
 
 RewriteRule ^oauth/bootstrap.css$ oauth/bootstrap.css [L]
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*+)$ index.php?q=$1 [L]
+
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
 #If you don't use L, then we will get here.

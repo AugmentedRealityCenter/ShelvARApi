@@ -1,4 +1,6 @@
 <?php
-    include $_SERVER['DOCUMENT_ROOT']."/api/institutions/get_institutions.php";
+    $root = $_SERVER['DOCUMENT_ROOT'];
+    $path = $_GET['path'];
+    echo $path;
 ?>
 
