@@ -109,6 +109,14 @@ RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
 RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 RewriteRule ^oauth_test/register$ oauth_test/register.html [L]
 
+# Condition for GET requests that are also API calls
+# An API call is defined as a URI request that is not
+# a file. Note: chaining RewriteConds is equivalent to
+# cond1 && cond2, which is what we want in this case.
+# The following lines make calls to the api wrapper
+# and specify whether or not they were GET or POST while
+# also specifying the URI. An errant URI specification
+# results in a 404 being thrown by the apiwrapper.
 RewriteCond %{THE_REQUEST} GET
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=GET [L]
