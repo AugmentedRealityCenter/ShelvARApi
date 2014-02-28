@@ -1,5 +1,4 @@
 <?php
-    echo $_REQUEST['q'];
-    echo print_r($_POST);
-    echo print_r($_GET);
+    include $_SERVER['DOCUMENT_ROOT']."/api/institutions/get_institutions.php";
 ?>
+
