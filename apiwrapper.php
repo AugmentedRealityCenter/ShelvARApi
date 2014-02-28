@@ -43,7 +43,7 @@
 
     if ($req_type === 'GET') {
         switch ($path) {
-        case "make_tags/paper_formats": include $root.$get_tags; break;
+        case "make_tags/paper_formats": include $root.$get_formats; break;
         }
     } else if ($req_type === 'POST') {
         switch ($path) {
