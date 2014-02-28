@@ -83,8 +83,8 @@ RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^make_tags/([^/]+)\.pdf$ api/tagmaker/pdfPrint2.php [L,E=type:$1]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^make_tags/paper_formats$ api/tagmaker/tagformats.json [L]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^make_tags/paper_formats$ api/tagmaker/tagformats.json [L]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]
@@ -104,27 +104,13 @@ RewriteRule ^oauth/login$ oauth/login.php [L]
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/get_inst_notification.php [L,E=inst_id:$1]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^notifications/users/([^/]+)$ apiwrapper.php?path=$1&type=GET [L]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^notifications/institutions/([^/]+)$ apiwrapper.php?path=$1&type=POST [L]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^notifications/users/([^/]+)$ api/notifications/reg_user_notification.php [L,E=user_id:$1]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^notifications/([^/]+)/edit$ api/notifications/edit_notification.php [L,E=notif_id:$1]
-
 RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
 
 RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 RewriteRule ^oauth_test/register$ oauth_test/register.html [L]
 
-RewriteRule ^oauth/bootstrap.css$ oauth/bootstrap.css [L]
-
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*+)$ index.php?q=$1 [L]
+RewriteRule ^(.*+)$ apiwrapper.php?q=$1 [L]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
