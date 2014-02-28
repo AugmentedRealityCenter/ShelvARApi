@@ -1,6 +1,8 @@
 <?php
     $root = $_SERVER['DOCUMENT_ROOT'];
-    $path = $_GET['path'];
-    echo $path;
+    $get_path = $_GET['path'];
+    $post_path = $_POST['path'];
+    echo "get path: ".$get_path;
+    echo "post path: ".$post_path;
 ?>
 
