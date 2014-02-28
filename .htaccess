@@ -109,8 +109,13 @@ RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
 RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 RewriteRule ^oauth_test/register$ oauth_test/register.html [L]
 
+RewriteCond %{THE_REQUEST} GET
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*+)$ apiwrapper.php?q=$1 [L]
+RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=GET [L]
+
+RewriteCond %{THE_REQUEST} POST 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=POST [L]
 
 #Catch-all error message when someone tries to use non-existing API
 #Note that there are TWO ways to get here!
