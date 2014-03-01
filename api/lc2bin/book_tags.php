@@ -6,10 +6,9 @@
  *
  * A function set used to convert a base64 number to a LC call number.
  */
-
-include_once "../../header_include.php";
-include_once "lc_numbers_lib.php";
-//include_once "../api_ref_call.php";
+$root = $_SERVER['DOCUMENT ROOT']."/";
+include_once $root."header_include.php";
+include_once $root."api/lc2bin/lc_numbers_lib.php";
 
 foreach($_SERVER as $key => $value){
   if(strpos($key,"REDIRECT_") !== FALSE 

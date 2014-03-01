@@ -8,11 +8,11 @@
    * Retrieves a book_ping with the database id that is entered
    * The id entered, according to the db format, should be an 11 character integer
    */
+$root = $_SERVER['DOCUMENT_ROOT']."/";
+include $root."database.php";
+include_once $root."header_include.php";
 
-include "../../database.php";
-include_once "../../header_include.php";
-
-include_once "../api_ref_call.php";
+include_once $root."api/api_ref_call.php";
 if($oauth_user['inst_activated'] != 1){
   exit(json_encode(array('result'=>'ERROR Your institution\'s account has not yet been activated.')));
  }

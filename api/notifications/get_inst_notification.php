@@ -1,7 +1,8 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
-	include_once "../api_ref_call.php";
+    $root = $_SERVER['DOCUMENT ROOT']."/";
+	include_once $root."database.php";
+	include_once $root."header_include.php";
+	include_once $root."api/api_ref_call.php";
 	
 	$err = array();
 	

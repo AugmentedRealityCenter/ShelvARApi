@@ -12,11 +12,11 @@
  * @version Sept 13, 2011
  * @author Bo Brinkman
  */
+$root = $_SERVER['DOCUMENT_ROOT']."/";
+include_once $root."api/book_pings/book_ping_lib.php";
+include_once $root."header_include.php";
+include_once $root."api/api_ref_call.php";
 
-include_once "book_ping_lib.php";
-include_once "../../header_include.php";
-
-include_once "../api_ref_call.php";
 if($oauth_user['inst_activated'] != 1){
   exit(json_encode(array('result'=>'ERROR Your institution\'s account has not yet been activated.')));
  }
