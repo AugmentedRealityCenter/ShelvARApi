@@ -59,6 +59,7 @@
         global $root, $get_book_tags;
         if (count($path_arr) === 2) {
             if ($req_type === "GET") {
+                $_GET['B64'] = $path_arr[1];
                 include $root.$get_book_tags;
             } else {
                 throw_error(405, "405 - method not allowed");
@@ -72,6 +73,7 @@
         global $root, $get_lc_numbers; 
         if (count($path_arr) === 2) {
             if ($req_type === "GET") {
+                $_GET['call_number'] = $path_arr[1];
                 include $root.$get_lc_numbers;
             } else {
                 throw_error(405, "405 - method not allowed");
@@ -129,6 +131,7 @@
         global $root, $get_notif;
         if (count($path_arr) === 2) {
             if ($req_type === "GET") {
+                $_GET['inst_id'] = $path_arr[1];
                 include $root.$get_notif;
             } else {
                 throw_error(405, "405 - method not allowed");
