@@ -57,6 +57,7 @@
     }
 
     function handle_bp($path_arr, $req_type) {
+        global $root, $post_bp, $get_bp, $get_bp_count, $get_bp_id;
         if (count($path_arr) === 1) {
             if ($req_type === "POST") {
                 include $root.$post_bp;
