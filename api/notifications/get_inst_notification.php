@@ -1,5 +1,5 @@
 <?php
-    $root = $_SERVER['DOCUMENT ROOT']."/";
+    $root = $_SERVER['DOCUMENT_ROOT']."/";
 	include_once $root."database.php";
 	include_once $root."header_include.php";
 	include_once $root."api/api_ref_call.php";

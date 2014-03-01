@@ -1,6 +1,7 @@
 <?php
   //Include the associative array that contains the Huffman code
-require("huffman-v1.php");
+$root = $_SERVER['DOCUMENT_ROOT']."/";
+require($root."api/huffman-v1.php");
 
 function huffman_encode($input){
   global $huffman1;
