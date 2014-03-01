@@ -6,7 +6,7 @@
  *
  * A function set used to convert a base64 number to a LC call number.
  */
-$root = $_SERVER['DOCUMENT ROOT']."/";
+$root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."header_include.php";
 include_once $root."api/lc2bin/lc_numbers_lib.php";
 
