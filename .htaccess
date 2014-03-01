@@ -26,11 +26,11 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 #RewriteCond %{THE_REQUEST} GET
 #RewriteRule ^book_pings/count$ api/book_pings/get_ping_count_book.php [L]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_pings/([0-9]+)\.json$ api/book_pings/get_by_id.php [L,E=book_ping_id:$1]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^book_pings/([0-9]+)\.json$ api/book_pings/get_by_id.php [L,E=book_ping_id:$1]
 
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^book_pings api/book_pings/book_ping.php [L]
+#RewriteCond %{THE_REQUEST} POST
+#RewriteRule ^book_pings api/book_pings/book_ping.php [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^users/edit$ api/users/edit_user.php [L]
@@ -77,8 +77,8 @@ RewriteRule ^institutions/([^/]+)\.json$ api/institutions/get_institution.php [L
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^institutions api/institutions/get_institutions.php [L]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^make_tags/([^/]+)\.pdf$ api/tagmaker/pdfPrint2.php [L,E=type:$1]
