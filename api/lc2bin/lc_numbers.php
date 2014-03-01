@@ -8,8 +8,8 @@
  * a base-64 string, used in a ShelvAR tag.
  *
  */
-
-include_once "lc_numbers_lib.php";
+$root = $_SERVER['DOCUMENT_ROOT']."/";
+include_once $root."api/lc2bin/lc_numbers_lib.php";
 
 foreach($_SERVER as $key => $value){
   if(strpos($key,"REDIRECT_") !== FALSE 

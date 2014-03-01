@@ -8,10 +8,10 @@
  * a base-64 string, used in a ShelvAR tag.
  *
  */
-
-include_once "../base64_lib.php";
-include_once "../HuffmanEncoder.php";
-include_once "../HammingCode.php";
+$root = $_SERVER['DOCUMENT_ROOT']."/";
+include_once $root."api/base64_lib.php";
+include_once $root."api/HuffmanEncoder.php";
+include_once $root."api/HammingCode.php";
 //include_once "../api_ref_call.php";
 
 function lc_to_tag($call_number_in){
