@@ -88,6 +88,7 @@
                 if ($path_arr[1] === "count") {
                     include $root.$get_bp_count;
                 } else if ($path_arr[1] !== "") {
+                    $_GET['book_ping_id'] = $path_arr[1];
                     include $root.$get_bp_id;
                 } else if ($path_arr[1] === "") {
                     include $root.$get_bp;
