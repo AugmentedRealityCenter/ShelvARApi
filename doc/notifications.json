@@ -4,7 +4,7 @@
     "resourcePath": "/notifications",
     "apis": [
 		{
-			"path": "/notifications/institutions/{inst_id}",
+			"path": "/notifications/{inst_id}",
             "description": "Gets or registers notifications for an institution",
             "operations": [
 				{

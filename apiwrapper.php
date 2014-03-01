@@ -83,20 +83,22 @@
 
     function handle_bp($path_arr, $req_type) {
         global $root, $post_bp, $get_bp, $get_bp_count, $get_bp_id;
-        if (count($path_arr) === 1) {
-            if ($req_type === "POST") {
-                include $root.$post_bp;
-            } else if($req_type === "GET") {
-                include $root.$get_bp;
-            } else {
-                throw_error(405, "405 - method not allowed");
-            }
-        } else if (count($path_arr) === 2) {
+        if (count($path_arr) === 2) {
             if ($req_type === "GET") {
                 if ($path_arr[1] === "count") {
                     include $root.$get_bp_count;
-                } else {
+                } else if ($path_arr[1] !== "") {
                     include $root.$get_bp_id;
+                } else if ($path_arr[1] === "") {
+                    include $root.$get_bp;
+                } else {
+                    throw (404, "404 - not found");
+                }
+            } else if ($req_type === "POST") {
+                if ($path_arr[1] === "") {
+                    include $root.$post_bp;
+                } else {
+                    throw_error(404, "404 - not found");
                 }
             } else {
                 throw_error(405, "405 - method not allowed");
