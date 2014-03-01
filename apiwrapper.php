@@ -92,7 +92,7 @@
                 } else if ($path_arr[1] === "") {
                     include $root.$get_bp;
                 } else {
-                    throw (404, "404 - not found");
+                    throw_error(404, "404 - not found");
                 }
             } else if ($req_type === "POST") {
                 if ($path_arr[1] === "") {
