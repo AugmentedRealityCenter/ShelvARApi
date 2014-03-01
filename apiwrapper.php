@@ -70,6 +70,7 @@
             if ($req_type === "GET") {
                 if ($path_arr[1] === "count") {
                     print_r($_POST);
+                    print_r($_GET);
                     include $root.$get_bp_count;
                 } else {
                     include $root.$get_bp_id;
