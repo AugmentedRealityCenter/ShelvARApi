@@ -1,9 +1,10 @@
 <?php
-include_once ("../../db_info.php");
-include_once "../../database.php";
-include_once "../../header_include.php";
+$root = $_SERVER['DOCUMENT_ROOT']."/";
+include_once $root."db_info.php";
+include_once $root."database.php";
+include_once $root."header_include.php";
+include_once $root."api/api_ref_call.php";
 
-include_once "../api_ref_call.php";
 if($oauth_user['inst_activated'] != 1){
   exit(json_encode(array('result'=>'ERROR Your institution\'s account has not yet been activated.')));
  }
