@@ -30,6 +30,7 @@ echo "post-server:\n";
 print_r($_SERVER);
 
 $b64_in = stripslashes($_GET["B64"]);
+echo "b64_in: ".$b64_in."\n";
 $decoded = tag_to_lc($b64_in);
 
 if(strlen($decoded) == 0){
