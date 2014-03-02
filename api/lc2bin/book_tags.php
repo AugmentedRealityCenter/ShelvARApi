@@ -10,15 +10,25 @@ $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."header_include.php";
 include_once $root."api/lc2bin/lc_numbers_lib.php";
 
-/*foreach($_SERVER as $key => $value){
+echo "Pre-get: \n";
+print_r($_GET);
+echo "Pre-server:\n";
+print_r($_SERVER);
+
+foreach($_SERVER as $key => $value){
   if(strpos($key,"REDIRECT_") !== FALSE 
      && strpos($key,"REDIRECT_STATUS") === FALSE
      && strpos($key,"REDIRECT_URL") === FALSE){
     $newkey = substr($key,9);
     $_GET[$newkey] = $value;
   }
-}*/
+}
+
+echo "post-get:\n";
+print_r($_GET);
+echo "post-server:\n";
 print_r($_SERVER);
+
 $b64_in = stripslashes($_GET["B64"]);
 $decoded = tag_to_lc($b64_in);
 
