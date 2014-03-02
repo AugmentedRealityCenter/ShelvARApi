@@ -18,7 +18,7 @@ include_once $root."api/lc2bin/lc_numbers_lib.php";
     $_GET[$newkey] = $value;
   }
 }*/
-
+print_r($_SERVER);
 $b64_in = stripslashes($_GET["B64"]);
 $decoded = tag_to_lc($b64_in);
 
