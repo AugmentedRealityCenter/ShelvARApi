@@ -60,7 +60,7 @@
         if (count($path_arr) === 2) {
             if ($req_type === "GET") {
                 echo "path_arr[1]: ".$path_arr[1]."\n";
-                $_GET['B64'] = $path_arr[1];
+                $_GET["B64"] = $path_arr[1];
                 include $root.$get_book_tags;
             } else {
                 throw_error(405, "405 - method not allowed");
