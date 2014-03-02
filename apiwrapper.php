@@ -41,6 +41,7 @@
     $root       = $_SERVER['DOCUMENT_ROOT']."/";
     $path       = $_GET['path'];
     $path_arr   = explode('/', $path);
+    print_r($path_arr);
     $req_type   = $_GET['type'];
 
     switch ($path_arr[0]) {
