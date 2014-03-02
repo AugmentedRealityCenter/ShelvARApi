@@ -52,7 +52,7 @@
         case "make_tags":       handle_mt($path_arr, $req_type); break;
         case "oauth":           handle_oauth($path_arr, $req_type); break;
         case "notifications":   handle_notif($path_arr, $req_type); break;
-        default:                throw_404(); break;
+        default:                throw_error(404, "404 - not found"); break;
     }
 
     function handle_bt($path_arr, $req_type) {

@@ -20,7 +20,9 @@ foreach($_SERVER as $key => $value){
 }
 
 $b64_in = stripslashes($_GET["B64"]);
+echo $b64_in."\n";
 $decoded = tag_to_lc($b64_in);
+echo $decoded."\n";
 
 if(strlen($decoded) == 0){
   $result = array('call_number' => "", 
