@@ -18,7 +18,7 @@ foreach($_SERVER as $key => $value){
     $_GET[$newkey] = $value;
   }
 }
-
+print_r($_GET);
 $b64_in = stripslashes($_GET["B64"]);
 echo $b64_in."\n";
 $decoded = tag_to_lc($b64_in);
