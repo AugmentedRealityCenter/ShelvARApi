@@ -59,6 +59,7 @@
         global $root, $get_book_tags;
         if (count($path_arr) === 2) {
             if ($req_type === "GET") {
+                echo "path_arr[1]: ".$path_arr[1];
                 $_GET['B64'] = $path_arr[1];
                 include $root.$get_book_tags;
             } else {
