@@ -29,9 +29,9 @@ print_r($_GET);
 echo "post-server:\n";
 print_r($_SERVER);
 
-$b64_in = stripslashes($_GET["B64"]);
-var_dump($b64_in);
-$decoded = tag_to_lc($b64_in);
+// $b64_in = stripslashes($_GET["B64"]);
+// var_dump($b64_in);
+$decoded = tag_to_lc("00bQu5M2JJDVmHB7__OM00040");
 
 if(strlen($decoded) == 0){
   $result = array('call_number' => "", 
