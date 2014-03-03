@@ -120,6 +120,7 @@ function tag_to_lc($b64Tag){
     $huffman_string .= decode_32_26(substr($binaryTag,0,32));
     $binaryTag = substr($binaryTag,32);
   }
+  var_dump($huffman_string);
   if(strlen($huffman_string) != 26*$num_blocks){
     return "";
   }
