@@ -125,7 +125,7 @@ RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 # results in a 404 being thrown by the apiwrapper.
 RewriteCond %{THE_REQUEST} GET
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=GET [L]
+RewriteRule ^(.*+)$ api/lc2bin/apiwrapper.php?path=$1&type=GET [L]
 
 RewriteCond %{THE_REQUEST} POST 
 RewriteCond %{REQUEST_FILENAME} !-f
