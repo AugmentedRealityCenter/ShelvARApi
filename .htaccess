@@ -136,5 +136,5 @@ RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=POST [L]
 #If you don't use L, then we will get here.
 #Also, if you do any substitution, then it will get here
 # via a re-direct...
-RewriteCond %{ENV:REDIRECT_STATUS} !=200
-RewriteRule ^(.*) sorry-api.php?api_info=/$1 [NS,QSA]
+#RewriteCond %{ENV:REDIRECT_STATUS} !=200
+#RewriteRule ^(.*) sorry-api.php?api_info=/$1 [NS,QSA]
