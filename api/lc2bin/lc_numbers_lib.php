@@ -83,6 +83,7 @@ function tag_to_lc($b64Tag){
   if(strlen($type_and_size) != 4){
     return "";
   }
+  echo "1\n";
 
   $binaryTag = substr($binaryTag,7);
   $encoding = decode_7_4(substr($binaryTag,0,7));
@@ -91,11 +92,13 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
+  echo "2\n";
   $binaryTag = substr($binaryTag,7);
   if(strcmp(substr($type_and_size,0,2),"00") != 0){
     return "";
   }
 
+  echo "3\n";
   $num_blocks = 4;
   if(strcmp(substr($type_and_size,2,2),"01") == 0){
     $num_blocks = 6;
@@ -109,6 +112,7 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
+  echo "4\n";
   $huffman_string = "";
   for($i=0;$i<$num_blocks;$i++){
     $huffman_string .= decode_32_26(substr($binaryTag,0,32));
@@ -118,6 +122,7 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
+  echo "5\n";
   return huffman_decode($huffman_string);
 }
 
