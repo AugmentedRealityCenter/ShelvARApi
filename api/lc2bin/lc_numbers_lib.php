@@ -110,7 +110,7 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
-  echo $binaryTag."\n";
+  var_dump($binaryTag);
   echo "num blocks: ".$num_blocks."\n";
   $huffman_string = "";
   for($i=0;$i<$num_blocks;$i++){

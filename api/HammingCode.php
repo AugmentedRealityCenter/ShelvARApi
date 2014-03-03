@@ -190,7 +190,7 @@ function encode_32_26($input){
 
 function decode_32_26($input){
   if(strlen($input) != 32) return "";
-
+    echo "hc: 1\n";
   $parity = 0;
   if(substr($input,31,1) == "0"){
     $parity = 0;
@@ -200,9 +200,11 @@ function decode_32_26($input){
 
   $dec = decode_31_26(substr($input,0,31));
   if(strlen($dec) != 26) return "";
+  echo "hc: 2\n";
 
   $enc = encode_31_26($dec);
   if(strlen($enc) != 31) return "";
+  echo "hc: 3\n";
 
   for($i=0; $i<31;$i++){
     if(substr($enc,$i,1) == "1"){
