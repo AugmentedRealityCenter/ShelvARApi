@@ -10,7 +10,6 @@ $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."header_include.php";
 include_once $root."api/lc2bin/lc_numbers_lib.php";
 
-$_SERVER['REDIRECT_B64'] = $_GET['B64'];
 echo "Pre-get: \n";
 print_r($_GET);
 echo "Pre-server:\n";
