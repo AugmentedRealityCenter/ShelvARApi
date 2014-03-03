@@ -77,13 +77,13 @@ function lc_to_tag($call_number_in){
 
 function tag_to_lc($b64Tag){
   $binaryTag = base642bin($b64Tag);
-  echo "bintag: ".$binaryTag."\n";
+  echo "bintag: \n";
+  var_dump($binaryTag);
   $type_and_size = decode_7_4(substr($binaryTag,0,7));
   echo "type_and_size: ".$type_and_size."\n";
   if(strlen($type_and_size) != 4){
     return "";
   }
-  echo "1\n";
 
   $binaryTag = substr($binaryTag,7);
   $encoding = decode_7_4(substr($binaryTag,0,7));
@@ -92,13 +92,11 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
-  echo "2\n";
   $binaryTag = substr($binaryTag,7);
   if(strcmp(substr($type_and_size,0,2),"00") != 0){
     return "";
   }
 
-  echo "3\n";
   $num_blocks = 4;
   if(strcmp(substr($type_and_size,2,2),"01") == 0){
     $num_blocks = 6;
@@ -112,7 +110,6 @@ function tag_to_lc($b64Tag){
     return "";
   }
 
-  echo "4\n";
   echo $binaryTag."\n";
   echo "num blocks: ".$num_blocks."\n";
   $huffman_string = "";
