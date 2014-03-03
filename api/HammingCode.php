@@ -111,6 +111,7 @@ function decode_7_4($input){
 
 function encode_31_26($input){
   global $G_31_26;
+  echo $G_31_26."\n";
   if(strlen($input) != 26) return "";
 
   $ret="";
@@ -119,6 +120,7 @@ function encode_31_26($input){
     for($y=0;$y<26;$y++){
       if(substr($input,$y,1)=="1" && substr($G_31_26,$y*31+$x,1) == "1"){
 	$parity = ($parity+1)%2;
+    echo "hc-parityloop: ".$parity."\n";
       }
     }
     if($parity == 0){
