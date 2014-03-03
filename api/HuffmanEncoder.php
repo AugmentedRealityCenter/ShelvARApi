@@ -42,7 +42,7 @@ function huffman_decode($input){
     $whichchr = $huffman2[substr($input,0,$prefixLen)];
     //Reached the null terminator, so we can return the result.
     if($whichchr == chr(0)) return $ret;
-
+    echo "not null terminated";
     $ret .= $whichchr;
     $input = substr($input,$prefixLen);
   }
