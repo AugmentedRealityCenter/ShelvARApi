@@ -15,14 +15,14 @@ print_r($_GET);
 echo "Pre-server:\n";
 print_r($_SERVER);
 
-foreach($_SERVER as $key => $value){
+/*foreach($_SERVER as $key => $value){
   if(strpos($key,"REDIRECT_") !== FALSE 
      && strpos($key,"REDIRECT_STATUS") === FALSE
      && strpos($key,"REDIRECT_URL") === FALSE){
     $newkey = substr($key,9);
     $_GET[$newkey] = $value;
   }
-}
+}*/
 
 echo "post-get:\n";
 print_r($_GET);
