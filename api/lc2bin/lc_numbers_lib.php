@@ -114,6 +114,7 @@ function tag_to_lc($b64Tag){
 
   echo "4\n";
   echo $binaryTag."\n";
+  echo "num blocks: ".$num_blocks."\n";
   $huffman_string = "";
   for($i=0;$i<$num_blocks;$i++){
     $huffman_string .= decode_32_26(substr($binaryTag,0,32));
