@@ -77,7 +77,9 @@ function lc_to_tag($call_number_in){
 
 function tag_to_lc($b64Tag){
   $binaryTag = base642bin($b64Tag);
+  echo "bintag: ".$binaryTag."\n";
   $type_and_size = decode_7_4(substr($binaryTag,0,7));
+  echo "type_and_size: ".$type_and_size."\n";
   if(strlen($type_and_size) != 4){
     return "";
   }

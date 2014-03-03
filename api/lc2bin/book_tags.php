@@ -32,7 +32,7 @@ print_r($_SERVER);
 // $b64_in = stripslashes($_GET["B64"]);
 // var_dump($b64_in);
 $decoded = tag_to_lc("00bQu5M2JJDVmHB7__OM00040");
-echo $decoded."\n";
+
 if(strlen($decoded) == 0){
   $result = array('call_number' => "", 
 		  'result' => "ERROR. Tag decode failed.");
