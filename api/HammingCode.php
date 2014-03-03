@@ -189,6 +189,7 @@ function encode_32_26($input){
 }
 
 function decode_32_26($input){
+    echo "hc-input: ".$input."\n";
   if(strlen($input) != 32) return "";
     echo "hc: 1\n";
   $parity = 0;
@@ -198,11 +199,14 @@ function decode_32_26($input){
     $parity = 1;
   }
 
+  echo "hc-parity1: ".$parity."\n";
   $dec = decode_31_26(substr($input,0,31));
+  echo "hc-dec: ".$dec."\n";
   if(strlen($dec) != 26) return "";
   echo "hc: 2\n";
 
   $enc = encode_31_26($dec);
+  echo "hc-enc: ".$enc."\n";
   if(strlen($enc) != 31) return "";
   echo "hc: 3\n";
 
