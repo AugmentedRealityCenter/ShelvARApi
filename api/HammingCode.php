@@ -212,6 +212,7 @@ function decode_32_26($input){
     }
   }
 
+  echo "parity: ".$parity."\n";
   if($parity == 0){
     return $dec;
   }else if(strcmp($enc,substr($input,0,31)) == 0){
