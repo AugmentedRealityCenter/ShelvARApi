@@ -111,6 +111,7 @@ function decode_7_4($input){
 
 function encode_31_26($input){
   global $G_31_26;
+  var_dump($G_31_26);
   echo $G_31_26."\n";
   if(strlen($input) != 26) return "";
 
