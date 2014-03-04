@@ -23,7 +23,6 @@
 
     function handle_bt($path_arr, $req_type) {
         global $root, $get_book_tags;
-        echo $get_book_tags."\n";
         if (count($path_arr) === 2) {
             if ($req_type === "GET") {
                 $_GET["B64"] = $path_arr[1];
