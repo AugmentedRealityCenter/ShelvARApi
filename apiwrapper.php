@@ -50,6 +50,7 @@
     }
 
     function handle_bp($path_arr, $req_type) {
+        var_dump($_GET);
         global $root, $post_bp, $get_bp, $get_bp_count, $get_bp_id;
         if (count($path_arr) === 2) {
             if ($req_type === "GET") {
