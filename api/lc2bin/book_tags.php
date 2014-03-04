@@ -10,18 +10,8 @@ $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."header_include.php";
 include_once $root."api/lc2bin/lc_numbers_lib.php";
 
-/*foreach($_SERVER as $key => $value){
-  if(strpos($key,"REDIRECT_") !== FALSE 
-     && strpos($key,"REDIRECT_STATUS") === FALSE
-     && strpos($key,"REDIRECT_URL") === FALSE){
-    $newkey = substr($key,9);
-    $_GET[$newkey] = $value;
-  }
-}*/
-
-// $b64_in = stripslashes($_GET["B64"]);
-// var_dump($b64_in);
-$decoded = tag_to_lc("00bQu5M2JJDVmHB7__OM00040");
+$b64_in = stripslashes($_GET["B64"]);
+$decoded = tag_to_lc($b64_in);
 
 if(strlen($decoded) == 0){
   $result = array('call_number' => "", 
