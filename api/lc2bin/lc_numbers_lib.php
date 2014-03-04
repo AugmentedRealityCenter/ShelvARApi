@@ -12,7 +12,6 @@ $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."api/base64_lib.php";
 include_once $root."api/HuffmanEncoder.php";
 include_once $root."api/HammingCode.php";
-//include_once "../api_ref_call.php";
 
 function lc_to_tag($call_number_in){
   //TODO: Use result for something...
