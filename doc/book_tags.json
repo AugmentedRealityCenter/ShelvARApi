@@ -4,7 +4,7 @@
       "resourcePath": "/book_tags", 
       "apis": [
             {
-                  "path": "/book_tags/{book_tag}.json", 
+                  "path": "/book_tags/{book_tag}", 
                   "description": "Operations on book_tags", 
                   "operations": [
                         {

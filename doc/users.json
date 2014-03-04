@@ -247,7 +247,7 @@
             ]
         },
         {
-            "path": "/users/{user_id}.json",
+            "path": "/users/{user_id}",
             "description": "Get information about a registered ShelvAR user",
             "operations": [
                 {
@@ -284,7 +284,7 @@
 			]
 		},
 		{
-            "path": "/users/available/{user_id}.json",
+            "path": "/users/available/{user_id}",
             "description": "Determines if an user ID is available",
             "operations": [
                 {
