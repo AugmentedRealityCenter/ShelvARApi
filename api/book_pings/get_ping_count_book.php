@@ -4,6 +4,7 @@ include_once $root."db_info.php";
 include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
+include_once $root."api_count.php";
 
 if($oauth_user['inst_activated'] != 1){
   exit(json_encode(array('result'=>'ERROR Your institution\'s account has not yet been activated.')));
@@ -24,6 +25,8 @@ if($oauth_user['can_read_inv'] != 1){
 if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR No permission to read data.')));
 }
+
+$spaceAvailable = is_incrementable("/book_pings/count" , "GET");
 
 $cond = false;
 $query = "SELECT * FROM book_pings";
