@@ -497,7 +497,7 @@ function setFreeLastReset() {
  * @return unknown $numCalls    The number of calls for that API (within 15 min window)
  */
  function getCountNotFreeCall($column) {
-	$queryNumCalls = "SELECT " . $column . " "
+	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
 			"WHERE user_id = ?";
 	$user_id = $_GET['user_id'];
