@@ -360,7 +360,8 @@ function grabLastResetNotFree() {
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	$user_id = $oauth_user['user_id'];
+	//$user_id = $oauth_user['user_id'];
+	$user_id = "sandy";
 	$params = array($user_id);
 	$type = "s";
 	
@@ -446,7 +447,8 @@ function setToZeroNotFreeHelper($column) {
 	$query = "UPDATE users " .
 			"SET " . $column . " = 0 " .
 			"WHERE user_id = ?";
-	$user_id = $oauth_user['user_id'];
+	//$user_id = $oauth_user['user_id'];
+	$user_id = "sandy";
 	$params = array($user_id);
 	$type = "s";
 	
@@ -504,7 +506,8 @@ function setFreeLastReset() {
 	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	$user_id = $oauth_user['user_id'];
+	//$user_id = $oauth_user['user_id'];
+	$user_id = "sandy";
 	$paramsNumCalls = array($user_id);
 	$typeNumCalls = "s";
 	
