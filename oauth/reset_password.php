@@ -7,7 +7,7 @@
 	{
 		if (empty($_POST['user_id'])) // Validate the user.
 		{	
-			echo '<p><font color=”red” size=”+1″>You forgot to enter your user name!</font></p>';
+			echo '<p><font color=\"red\" size=\"+1\">You forgot to enter your user name!</font></p>';
 		} 
 		if(!count($err)) {
 			include_once("../db_info.php");
