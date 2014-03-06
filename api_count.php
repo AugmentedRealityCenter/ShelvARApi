@@ -516,7 +516,7 @@ function setFreeLastReset() {
 }
 
 function getCountFreeCall($column) {
-	$queryNumCalls = "SELECT " . $column . " "
+	$queryNumCalls = "SELECT " . $column . " " .
 	"FROM unknown_users ".
 	"WHERE ip_address = ?";
 	$ip_address = $_SERVER["REMOTE_ADDR"];
