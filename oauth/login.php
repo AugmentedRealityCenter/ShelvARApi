@@ -128,7 +128,7 @@ echo(
 				  </div>
 				  <input type="hidden" id="login" name="login" value="login" />
 				  <button class="btn btn-primary" type="submit">Log in</button>
-				  <a href="oauth/reset_password.php" target="_blank">Forgot Password?</a>
+				  <a href="reset_password.php" target="_blank">Forgot Password?</a>
 				</fieldset>
 			  </form>
 			</div> <!-- form -->
