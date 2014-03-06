@@ -56,7 +56,7 @@
 				}
 				else  //Failed the Validation test
 				{
-					echo ‘<p><font color=”red” size=”+1″>Please try again.</font></p>’;
+					echo '<p><font color=/”red/” size=/”+1/″>Please try again.</font></p>';
 				}
 			}
 		}
