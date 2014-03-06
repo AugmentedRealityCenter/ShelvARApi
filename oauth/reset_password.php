@@ -49,7 +49,7 @@
 					echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h3>';
 				
 					session_start();
-					$_SESSION['user_id' = $result[0]['user_id'];
+					$_SESSION['user_id' = $result[0]['user_id']];
 				
 					echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
 					exit(200);
