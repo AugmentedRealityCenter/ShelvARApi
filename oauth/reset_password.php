@@ -1,7 +1,5 @@
 <?php
 	$err = array();	
-	if(!isset($_GET['oauth_token'])) {
-		$err[] = "Application is broken: No token supplied";
 	
 	if (isset($_POST['Username'])) // Handle the form.
 	{
@@ -127,6 +125,7 @@ echo(
 		  <div class="row">
 			<div class="password-form">
 			  <h3>Please enter user name and select forgot password</h3>
+			  <form method="POST" action="?oauth_token='.$_GET["oauth_token"].'">
 				<fieldset>
 				  <div class="control-group">
 					<input type="text" class="input-xlarge" name="user_id" placeholder="Username">
