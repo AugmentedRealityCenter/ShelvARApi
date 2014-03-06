@@ -42,7 +42,7 @@
 							   'Content-type: text/html' . "\r\n" .
 							    'X-Mailer: PHP/' . phpversion();
 					
-					if(!mail ($_POST['email'], $subject, $message, $headers){
+					if(!mail ($_POST['email'], $subject, $message, $headers)){
 						$err[] = "Error sending confirmation email";
 					}
 					
