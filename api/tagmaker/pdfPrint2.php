@@ -9,7 +9,6 @@ include_once $root."api/HammingCode.php";
 $tagsParam = json_decode($_GET['tags']);
 //requested sheet type
 $sheetTypeParam = $_GET['type'];
-var_dump($_GET);
 		
 //grab the different label options and put them in $sheetValues
 $paper_format = fetchOptions(urldecode($sheetTypeParam));
@@ -233,7 +232,7 @@ function how_many_per_page($paper_format){
 function fetchOptions($paper_type){
   $tempValues = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/api/tagmaker/tagformats.json');
   $json_arr = json_decode($tempValues);
-
+    var_dump($paper_type);
   foreach($json_arr as $options){
     if($options->name === $paper_type){
       if($options->orientation === "L"){
