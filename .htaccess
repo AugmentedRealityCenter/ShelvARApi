@@ -80,11 +80,11 @@ RewriteRule ^institutions api/institutions/get_institutions.php [L]
 #RewriteCond %{THE_REQUEST} GET
 #RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^make_tags/([^/]+)\.pdf$ api/tagmaker/pdfPrint2.php [L,E=type:$1]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^make_tags/([^/]+)\.pdf$ api/tagmaker/pdfPrint2.php [L,E=type:$1]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^make_tags/paper_formats$ api/tagmaker/tagformats.json [L]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^make_tags/paper_formats$ api/tagmaker/tagformats.json [L]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]

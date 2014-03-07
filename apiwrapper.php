@@ -23,8 +23,8 @@
 
     function handle_bt($path_arr, $req_type) {
         global $root, $get_book_tags;
-        if (count($path_arr) === 2) {
-            if ($req_type === "GET") {
+        if (count($path_arr) === 2) { // valid request
+            if ($req_type === "GET") { // GET book_tags/{id}
                 $_GET["B64"] = $path_arr[1];
                 include $root.$get_book_tags;
             } else {
@@ -37,11 +37,11 @@
 
     function handle_lc($path_arr, $req_type) {
         global $root, $get_lc_numbers; 
-        if (count($path_arr) === 2) {
-            if ($req_type === "GET") {
+        if (count($path_arr) === 2) { // valid request
+            if ($req_type === "GET") { // GET lc_numbers/{call_number}
                 $_GET['call_number'] = $path_arr[1];
                 include $root.$get_lc_numbers;
-            } else {
+            } else {                    // some method that's not a GET
                 throw_error(405, "405 - method not allowed");
             }
         } else {
@@ -51,20 +51,20 @@
 
     function handle_bp($path_arr, $req_type) {
         global $root, $post_bp, $get_bp, $get_bp_count, $get_bp_id;
-        if (count($path_arr) === 2) {
-            if ($req_type === "GET") {
-                if ($path_arr[1] === "count") {
+        if (count($path_arr) === 2) { // valid request 
+            if ($req_type === "GET") {  
+                if ($path_arr[1] === "count") { // GET book_pings/count
                     include $root.$get_bp_count;
-                } else if ($path_arr[1] !== "") {
+                } else if ($path_arr[1] !== "") { // GET book_pings/{id}
                     $_GET['book_ping_id'] = $path_arr[1];
                     include $root.$get_bp_id;
-                } else if ($path_arr[1] === "") {
+                } else if ($path_arr[1] === "") { // GET book_pings/
                     include $root.$get_bp;
-                } else {
+                } else {                            // some other path, so throw error
                     throw_error(404, "404 - not found");
                 }
             } else if ($req_type === "POST") {
-                if ($path_arr[1] === "") {
+                if ($path_arr[1] === "") { // POST book_pings/
                     include $root.$post_bp;
                 } else {
                     throw_error(404, "404 - not found");
@@ -86,7 +86,20 @@
     }
 
     function handle_mt($path_arr, $req_type) {
-
+        if (count($path_arr) === 2) { // valid request
+            if ($req_type === "GET") { // GET make_tags/something_here
+                if ($path_arr[1] === "paper_formats") { // GET make_tags/paper_formats
+                    include $root.$get_formats;
+                } else {                                // GET make_tags/something_else
+                    $_GET['type'] = $path_arr[1];       // set type in $_GET
+                    include $root.$get_tags;
+                }
+            } else {
+                throw_error(405, "405 - method not allowed");
+            }
+        } else {
+            throw_error(404, "404 - method not allowed");
+        }
     }
 
     function handle_oauth($path_arr, $req_type) {
@@ -95,11 +108,11 @@
 
     function handle_notif($path_arr, $req_type) {
         global $root, $get_notif;
-        if (count($path_arr) === 2) {
-            if ($req_type === "GET") {
+        if (count($path_arr) === 2) { // valid request
+            if ($req_type === "GET") { // GET notifications/{inst_id}
                 $_GET['inst_id'] = $path_arr[1];
                 include $root.$get_notif;
-            } else {
+            } else {                    // some method that's not a GET
                 throw_error(405, "405 - method not allowed");
             }
         } else {
