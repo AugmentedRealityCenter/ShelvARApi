@@ -230,7 +230,7 @@ function how_many_per_page($paper_format){
  * Grab the available label sheet options
  **/
 function fetchOptions($paper_type){
-  $tempValues = file_get_contents('tagformats.json');
+  $tempValues = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/api/tagmaker/tagformats.json');
   $json_arr = json_decode($tempValues);
 
   foreach($json_arr as $options){
