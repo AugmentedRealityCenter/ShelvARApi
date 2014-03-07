@@ -12,7 +12,7 @@ $sheetTypeParam = $_GET['type'];
 		
 //grab the different label options and put them in $sheetValues
 $paper_format = fetchOptions(urldecode($sheetTypeParam));
-
+var_dump($paper_format);
 $pdf = new FPDF($paper_format->orientation,$paper_format->units,array($paper_format->width,$paper_format->height));
 
 $tags_per_page = how_many_per_page($paper_format);
