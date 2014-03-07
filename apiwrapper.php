@@ -86,6 +86,7 @@
     }
 
     function handle_mt($path_arr, $req_type) {
+        global $get_formats, $get_tags, $root;
         if (count($path_arr) === 2) { // valid request
             if ($req_type === "GET") { // GET make_tags/something_here
                 if ($path_arr[1] === "paper_formats") { // GET make_tags/paper_formats

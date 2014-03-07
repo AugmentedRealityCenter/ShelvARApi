@@ -1,16 +1,8 @@
 <?php
-require_once('helper/fpdf.php');
-require_once('../lc2bin/lc_numbers_lib.php');
-include_once "../HammingCode.php";
-
-foreach($_SERVER as $key => $value){
-  if(strpos($key,"REDIRECT_") !== FALSE 
-     && strpos($key,"REDIRECT_STATUS") === FALSE
-     && strpos($key,"REDIRECT_URL") === FALSE){
-    $newkey = substr($key,9);
-    $_GET[$newkey] = $value;
-  }
-}
+$root = $_SERVER['DOCUMENT_ROOT']."/";
+require_once($root.'api/tagmaker/helper/fpdf.php');
+require_once($root.'api/lc2bin/lc_numbers_lib.php');
+include_once $root."api/HammingCode.php";
 
 /** GLOBAL VARS **/
 //array of callNumbers to print
