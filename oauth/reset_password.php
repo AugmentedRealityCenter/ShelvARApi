@@ -2,63 +2,67 @@
 
 $err = array();	
 	
-if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) { // Handle the form.
+if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
 
-	if(!$_POST['user_id']) 
-		$err[] = 'No username supplied';	
-	
-
-	if(!count($err)) 
+	if (isset($_POST['Username'])) // Handle the form.
 	{
-		include_once("../db_info.php");
-		include_once("../database.php");
-		
-		$db = new database();
-		$db->query = "SELECT user_id From users WHERE user_id = ?";
-		$db->params = array($user_id);
-		$db->type = 's';
-		
-		$result = $db->fetch();
-		
-		//If there is a username that matches
-		if(count($result) > 0){
-			$p = substr ( md5(uniqid(rand(),1)), 3, 10);
-			
-			$db = new database();
-			$db->query = "UPDATE users SET pass=SHA('$p') WHERE user_id = ?";
-			$db->params = array($user_id);
-			$db->type = 's';
-			$res2 = $db->fetch();
-			
-			if (count($res2) > 0)  // If it ran ok
-			{
-				//Send an email
-				$subject = "Your temporary password";
-				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear <br/>".$user_id."<br/>Your password to log into ShelvAR has been temporarily changed to ". $p. 
-																									"Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>";
-				
-				$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
-						   'Reply-To: noreply@shelvar.com' . "\r\n" .
-						   'Content-type: text/html' . "\r\n" .
-							'X-Mailer: PHP/' . phpversion();
-				
-				if(!mail ($_POST['email'], $subject, $message, $headers)){
-					$err[] = "Error sending confirmation email";
-				}
-				
-				echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h3>';
-			
-				session_start();
-				$_SESSION['user_id'] = $result[0]['user_id'];
-			
-				echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
-				exit(200);
-			}
-			else  //Failed the Validation test
-			{
-				$err[] = 'Please try again!';
-			}
+		if (empty($_POST['user_id'])) // Validate the user.
+		{
+			$err[] = 'No username supplied';
 		}
+			
+			if(!count($err)) 
+			{
+				include_once("../db_info.php");
+				include_once("../database.php");
+				
+				$db = new database();
+				$db->query = "SELECT user_id From users WHERE user_id = ?";
+				$db->params = array($user_id);
+				$db->type = 's';
+				
+				$result = $db->fetch();
+				
+				//If there is a username that matches
+				if(count($result) > 0){
+					$p = substr ( md5(uniqid(rand(),1)), 3, 10);
+					
+					$db = new database();
+					$db->query = "UPDATE users SET pass=SHA('$p') WHERE user_id = ?";
+					$db->params = array($user_id);
+					$db->type = 's';
+					$res2 = $db->fetch();
+					
+					if (count($res2) > 0)  // If it ran ok
+					{
+						//Send an email
+						$subject = "Your temporary password";
+						$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear <br/>".$user_id."<br/>Your password to log into ShelvAR has been temporarily changed to ". $p. 
+																											"Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>";
+						
+						$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
+								   'Reply-To: noreply@shelvar.com' . "\r\n" .
+								   'Content-type: text/html' . "\r\n" .
+									'X-Mailer: PHP/' . phpversion();
+						
+						if(!mail ($_POST['email'], $subject, $message, $headers)){
+							$err[] = "Error sending confirmation email";
+						}
+						
+						echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h3>';
+					
+						session_start();
+						$_SESSION['user_id'] = $result[0]['user_id'];
+					
+						echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
+						exit(200);
+					}
+					else  //Failed the Validation test
+					{
+						$err[] = 'Please try again!';
+					}
+				}
+			}
 	}
 }
 
