@@ -90,22 +90,18 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]
 
 #RewriteCond %{THE_REQUEST} GET
+# This should just use mod_alias
 RewriteRule ^oauth/get_access_token$ oauth/access_token.php [L]
 
 #RewriteCond %{THE_REQUEST} GET
+# This should use mod_alias as well
 RewriteRule ^oauth/get_request_token$ oauth/request_token.php [L]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/login$ oauth/login.php [L]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^oauth/login$ oauth/login.php [L]
 
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^oauth/login$ oauth/login.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/login$ oauth/reset_password.php [L]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^oauth/login$ oauth/reset_password.php [L]
+#RewriteCond %{THE_REQUEST} POST
+#RewriteRule ^oauth/login$ oauth/login.php [L]
 
 #RewriteCond %{THE_REQUEST} GET
 #RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/get_inst_notification.php [L,E=inst_id:$1]

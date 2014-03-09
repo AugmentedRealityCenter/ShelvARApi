@@ -9,7 +9,7 @@ include_once $root."api/HammingCode.php";
 $tagsParam = json_decode($_GET['tags']);
 //requested sheet type
 $sheetTypeParam = $_GET['type'];
-		
+var_dump($_GET);		
 //grab the different label options and put them in $sheetValues
 $paper_format = fetchOptions(urldecode($sheetTypeParam));
 
