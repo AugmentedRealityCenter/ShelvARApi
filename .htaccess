@@ -1,4 +1,4 @@
-Header set Access-Control-Allow-Origin *
+der set Access-Control-Allow-Origin *
 
 #This htaccess file implements site-based
 # licensing for ShelvAR. Each supported site needs
@@ -90,11 +90,9 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]
 
 #RewriteCond %{THE_REQUEST} GET
-# This should just use mod_alias
 RewriteRule ^oauth/get_access_token$ oauth/access_token.php [L]
 
 #RewriteCond %{THE_REQUEST} GET
-# This should use mod_alias as well
 RewriteRule ^oauth/get_request_token$ oauth/request_token.php [L]
 
 RewriteCond %{THE_REQUEST} GET
@@ -103,13 +101,17 @@ RewriteRule ^oauth/login$ oauth/login.php [L]
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^oauth/login$ oauth/login.php [L]
 
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^oauth/login$ oauth/reset_password.php [L]
+
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^oauth/login$ oauth/reset_password.php [L]
+
 #RewriteCond %{THE_REQUEST} GET
 #RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/get_inst_notification.php [L,E=inst_id:$1]
 
-# Use mod_alias
 RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
 
-# Use mod_alias
 RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 #RewriteRule ^oauth_test/register$ oauth_test/register.html [L]
 
@@ -125,7 +127,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=GET [L,QSA]
 
-RewriteCond %{THE_REQUEST} POST 
+RewriteCond %{THE_REQUEST} POST
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=POST [L,QSA]
 
