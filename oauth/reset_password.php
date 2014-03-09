@@ -58,7 +58,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 			}
 			else  //Failed the Validation test
 			{
-				echo '<p><font color=/”red/” size=/”+1/″>Please try again.</font></p>';
+				$err[] = 'Please try again!';
 			}
 		}
 	}
