@@ -1,4 +1,4 @@
-der set Access-Control-Allow-Origin *
+Header set Access-Control-Allow-Origin *
 
 #This htaccess file implements site-based
 # licensing for ShelvAR. Each supported site needs
