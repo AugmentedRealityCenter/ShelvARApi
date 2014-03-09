@@ -4,9 +4,9 @@ $err = array();
 	
 if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
 
-	if (isset($_POST['Username']) && isset($_POST['E-Mail'])) // Handle the form.
+	if (isset($_POST['Username'])) // Handle the form.
 	{
-		if (empty($_POST['user_id']) && empty($_POST['email'])) // Validate the user.
+		if (empty($_POST['user_id'])) // Validate the user.
 		{
 			$err[] = 'No Username/E-Mail supplied';
 		}
@@ -143,9 +143,6 @@ echo(
 				<fieldset>
 				  <div class="control-group">
 					<input type="text" class="input-xlarge" name="user_id" placeholder="Username">
-				  </div>
-				  <div class="control-group">
-					<input type="text" class="input-xlarge" name="mail" placeholder="E-Mail">
 				  </div>
 				  <input type="hidden" id="login" name="login" value="login" />
 				  <button class="btn btn-primary" type="submit">Forgot Password</button>
