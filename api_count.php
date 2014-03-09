@@ -411,16 +411,15 @@ function handleIPAddress() {
 	$results = $db->fetch();
 	
 	if ($results == NULL || count($results) == 0) {
-		error_log($ip_address);
 		$query = "INSERT INTO unknown_users(ip_address) " .
 			"VALUES (?)" ;
 		$params = array($ip_address);
 		$type = "s";
 	
-		$db = new database();
 		$db->query = $query;
 		$db->params = $params;
 		$db->type = $type;
+		$db->insert();
 	}
 }
 
