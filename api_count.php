@@ -371,7 +371,7 @@ function grabLastResetNotFree() {
 	$db->type = $type;
 	
 	$results = $db->fetch();
-	error_log("Results => " .$results);
+	error_log("Results => " .$results[0]);
 	return strtotime( $results[0] );
 }
 
