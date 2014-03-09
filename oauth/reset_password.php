@@ -6,7 +6,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 
 	if(!$_POST['user_id']) 
 		$err[] = 'No username supplied';	
-	}
+	
 
 	if(!count($err)) 
 	{
@@ -62,7 +62,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 			}
 		}
 	}
-	
+}
 
 
 echo(
