@@ -378,6 +378,7 @@ function grabLastResetNotFree() {
  * Grabs the last reset field from the unknown users table
  */
 function grabLastResetFree() {
+	handleIPAddress();
 	$query = "SELECT last_reset " .
 			"FROM unknown_users ".
 			"WHERE ip_address = ?";
@@ -392,6 +393,34 @@ function grabLastResetFree() {
 	
 	$results = $db->fetch();
 	return strtotime( implode($results[0]) );
+}
+
+function handleIPAddress() {
+	$query = "SELECT * " .
+			"FROM unknown_users ".
+			"WHERE ip_address = ?";
+	$ip_address = $_SERVER["REMOTE_ADDR"];
+	$params = array($ip_address);
+	$type = "s";
+	
+	$db = new database();
+	$db->query = $query;
+	$db->params = $params;
+	$db->type = $type;
+	
+	$results = $db->fetch();
+	
+	if ($result == NULL || count($result) == 0) {
+		$query = "INSERT INTO unknown_users(ip_address) " .
+			"VALUES (?)" ;
+		$params = array($ip_address);
+		$type = "s";
+	
+		$db = new database();
+		$db->query = $query;
+		$db->params = $params;
+		$db->type = $type;
+	}
 }
 
 /**
