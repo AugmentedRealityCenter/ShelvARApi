@@ -10,8 +10,6 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 
 	if(!count($err)) 
 	{
-		$user_id = $_POST['user_id'];
-		
 		include_once("../db_info.php");
 		include_once("../database.php");
 		
