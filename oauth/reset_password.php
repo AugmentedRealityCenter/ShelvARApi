@@ -7,11 +7,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 	if(!$_POST['user_id']) 
 		$err[] = 'No username supplied';	
 	}
-	
-	if (empty($_POST['user_id'])) // Validate the user.
-	{	
-		echo '<p><font color=\"red\" size=\"+1\">You forgot to enter your user name!</font></p>';
-	} 
+
 	if(!count($err)) {
 		include_once("../db_info.php");
 		include_once("../database.php");
