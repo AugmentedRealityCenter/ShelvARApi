@@ -411,7 +411,7 @@ function handleIPAddress() {
 	$results = $db->fetch();
 	
 	if ($results == NULL || count($results) == 0) {
-		error_log("Got here");
+		error_log($ip_address);
 		$query = "INSERT INTO unknown_users(ip_address) " .
 			"VALUES (?)" ;
 		$params = array($ip_address);
