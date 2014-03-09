@@ -63,7 +63,6 @@
 	{
 		$err[] = 'Incorrect username or password';
 	}
-}
 
 echo(
 	'<!DOCTYPE html>
