@@ -127,7 +127,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=GET [L,QSA]
 
-RewriteCond %{THE_REQUEST} POST
+RewriteCond %{THE_REQUEST} POST 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=POST [L,QSA]
 
@@ -138,3 +138,4 @@ RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=POST [L,QSA]
 # via a re-direct...
 #RewriteCond %{ENV:REDIRECT_STATUS} !=200
 #RewriteRule ^(.*) sorry-api.php?api_info=/$1 [NS,QSA]
+
