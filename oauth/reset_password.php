@@ -138,6 +138,8 @@ echo(
 				<fieldset>
 				  <div class="control-group">
 					<input type="text" class="input-xlarge" name="user_id" placeholder="Username">
+				  </div>
+				  <div class="control-group">
 					<input type="text" class="input-xlarge" name="mail" placeholder="E-Mail">
 				  </div>
 				  <input type="hidden" id="login" name="login" value="login" />
