@@ -97,18 +97,20 @@ RewriteRule ^oauth/get_access_token$ oauth/access_token.php [L]
 # This should use mod_alias as well
 RewriteRule ^oauth/get_request_token$ oauth/request_token.php [L]
 
-#RewriteCond %{THE_REQUEST} GET
-#RewriteRule ^oauth/login$ oauth/login.php [L]
+RewriteCond %{THE_REQUEST} GET
+RewriteRule ^oauth/login$ oauth/login.php [L]
 
-#RewriteCond %{THE_REQUEST} POST
-#RewriteRule ^oauth/login$ oauth/login.php [L]
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^oauth/login$ oauth/login.php [L]
 
 #RewriteCond %{THE_REQUEST} GET
 #RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/get_inst_notification.php [L,E=inst_id:$1]
 
-RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
+# Use mod_alias
+AliasMatch ^oauth/post_login$ oauth/post-login.php
 
-RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
+# Use mod_alias
+AliasMatch ^oauth/register_user$ oauth/register_user.php
 #RewriteRule ^oauth_test/register$ oauth_test/register.html [L]
 
 # Condition for GET/POST requests that are also API calls.
