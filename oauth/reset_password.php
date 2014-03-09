@@ -35,13 +35,22 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 				$p = substr ( md5(uniqid(rand(),1)), 3, 10);
 				
 				$db = new database();
+				$db->query = "INSERT INTO users(password) VALUES(?)";
+				$db->params = array($p);
+				$db->type = 's';
+				
+				if($db->insert()) 		// If it ran ok
+				{
+					echo json_encode(array('result'=>"SUCCESS", 'password'=>$password)); 
+			
+				
+				/*
+				$db = new database();
 				$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
 				$db->params = array($user_id);
 				$db->type = 's';
-				$res2 = $db->fetch();
+				$res2 = $db->fetch();*/
 				
-				if (count($res2) > 0)  // If it ran ok
-				{
 					//Send an email
 					$to = "kesanan@miamioh.edu";
 					$subject = "Your temporary password";
@@ -58,17 +67,12 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 					}
 					
 					echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h3>';
-				
-					session_start();
-					$_SESSION['user_id'] = $result[0]['user_id'];
-				
-					echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
-					exit(200);
+
 				}
-				else  //Failed the Validation test
+				else 		//Failed the Validation test
 				{
-					$err[] = 'Please try again!';
-				}
+					$err[] = 'MySQL Error';
+				}	
 			}
 		}
 	}
