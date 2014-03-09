@@ -52,7 +52,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 							   'Content-type: text/html' . "\r\n" .
 								'X-Mailer: PHP/' . phpversion();
 					
-					if(!mail ($result2, $subject, $message, $headers)){
+					if(!mail ($_POST['email'], $subject, $message, $headers)){
 						$err[] = "Error sending confirmation email";
 					}
 					
@@ -138,6 +138,7 @@ echo(
 				<fieldset>
 				  <div class="control-group">
 					<input type="text" class="input-xlarge" name="user_id" placeholder="Username">
+					<input type="text" class="input-xlarge" name="mail" placeholder="E-Mail">
 				  </div>
 				  <input type="hidden" id="login" name="login" value="login" />
 				  <button class="btn btn-primary" type="submit">Forgot Password</button>
