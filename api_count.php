@@ -391,7 +391,7 @@ function grabLastResetFree() {
 	$db->type = $type;
 	
 	$results = $db->fetch();
-	return strtotime( $results[0] );
+	return strtotime( implode($results[0]) );
 }
 
 /**
@@ -466,8 +466,8 @@ function setNotFreeLastReset() {
 	$query = "UPDATE users " .
 			"SET last_reset = ? ".
 			"WHERE user_id = ?";
-	$time = date("Y-m-d H:i:s", strtotime());
-	$user_id = $_GET['user_id'];
+	$time = date("Y-m-d H:i:s", strtotime("now"));
+	$user_id = "sandy";
 	$params = array($time, $user_id);
 	$type = "ss";
 	
@@ -485,7 +485,7 @@ function setFreeLastReset() {
 	$query = "UPDATE unknown_users " .
 			"SET last_reset = ? ".
 			"WHERE ip_address = ?";
-	$time = date("Y-m-d H:i:s", strtotime());
+	$time = date("Y-m-d H:i:s", strtotime("now"));
 	$ip_address = $_SERVER["REMOTE_ADDR"]; // Gets user IP address ??
 	$params = array($time, $ip_address);
 	$type = "ss";
