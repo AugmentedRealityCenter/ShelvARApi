@@ -9,6 +9,8 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 	}
 
 	if(!count($err)) {
+		echo '<p><font color=/”red/” size=/”+1/″>I have entered the loop</font></p>';
+		
 		include_once("../db_info.php");
 		include_once("../database.php");
 		
