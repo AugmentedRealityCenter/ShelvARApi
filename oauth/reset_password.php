@@ -43,6 +43,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 				if (count($res2) > 0)  // If it ran ok
 				{
 					//Send an email
+					$to = "kesanan@miamioh.edu";
 					$subject = "Your temporary password";
 					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear <br/>".$user_id."<br/>Your password to log into ShelvAR has been temporarily changed to ". $p. 
 																										"Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>";
@@ -52,7 +53,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 							   'Content-type: text/html' . "\r\n" .
 								'X-Mailer: PHP/' . phpversion();
 					
-					if(!mail ($email, $subject, $message, $headers)){
+					if(!mail ($to, $subject, $message, $headers)){
 						$err[] = "Error sending confirmation email";
 					}
 					
