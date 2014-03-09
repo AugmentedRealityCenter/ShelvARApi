@@ -107,10 +107,10 @@ RewriteRule ^oauth/login$ oauth/login.php [L]
 #RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/get_inst_notification.php [L,E=inst_id:$1]
 
 # Use mod_alias
-AliasMatch ^oauth/post_login$ oauth/post-login.php
+RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
 
 # Use mod_alias
-AliasMatch ^oauth/register_user$ oauth/register_user.php
+RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 #RewriteRule ^oauth_test/register$ oauth_test/register.html [L]
 
 # Condition for GET/POST requests that are also API calls.
