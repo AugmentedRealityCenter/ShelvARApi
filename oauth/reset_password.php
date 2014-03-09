@@ -23,6 +23,13 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 			
 			$result = $db->fetch();
 			
+			$db = new database();
+			$db->query = "SELECT email From users WHERE user_id = ?";
+			$db->params = array($email);
+			$db->type = 's';
+			
+			$result2 = $db->fetch();
+			
 			//If there is a username that matches
 			if(count($result) > 0){
 				$p = substr ( md5(uniqid(rand(),1)), 3, 10);
@@ -45,7 +52,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 							   'Content-type: text/html' . "\r\n" .
 								'X-Mailer: PHP/' . phpversion();
 					
-					if(!mail ($_POST['email'], $subject, $message, $headers)){
+					if(!mail ($result2, $subject, $message, $headers)){
 						$err[] = "Error sending confirmation email";
 					}
 					
