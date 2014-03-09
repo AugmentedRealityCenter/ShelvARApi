@@ -4,11 +4,11 @@ $err = array();
 	
 if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
 
-	if (isset($_POST['Username'])) // Handle the form.
+	if (isset($_POST['Username']) && isset($_POST['E-Mail')) // Handle the form.
 	{
-		if (empty($_POST['user_id'])) // Validate the user.
+		if (empty($_POST['user_id']) && empty($_POST['email')) // Validate the user.
 		{
-			$err[] = 'No username supplied';
+			$err[] = 'No Username/E-Mail supplied';
 		}
 			
 		if(!count($err)) 
@@ -22,13 +22,6 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 			$db->type = 's';
 			
 			$result = $db->fetch();
-			
-			$db = new database();
-			$db->query = "SELECT email From users WHERE user_id = ?";
-			$db->params = array($email);
-			$db->type = 's';
-			
-			$result2 = $db->fetch();
 			
 			//If there is a username that matches
 			if(count($result) > 0){
