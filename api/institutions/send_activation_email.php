@@ -17,8 +17,19 @@
 		   'X-Mailer: PHP/' . phpversion();
 	
 	if(isset($editAdmin)) {
+	
+		include_once("../db_info.php");
+		include_once("../database.php");
+			
+		$db = new database();
+		$db->query = "SELECT name From institutions WHERE inst_id = ?";
+		$db->params = array($inst_name);
+		$db->type = 's';
+		
+		$result = db->fetch();
+			
 		$subject = "ShelvAR.com Admin Change";
-		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name,<br/><br/>This email is to confirm that you have changed the admin contact email address.<br/><br/>If you did not intend to change the admin of this institution, please contact support@shelvar.com.";
+		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name,<br/><br/>This email is to confirm that you are no longer the administrator of the the ShelvAR account for <br/>".$result."<br/>If you did not intend to change the admin of this institution, please contact support@shelvar.com.";
 		if(!mail($previous_admin, $subject, $message, $headers)) {
 			$err[] = "Error sending confirmation email";
 		}
