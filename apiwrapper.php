@@ -50,7 +50,6 @@
     }
 
     function handle_bp($path_arr, $req_type) {
-        echo "DOES IT WORK?";
         global $root, $post_bp, $get_bp, $get_bp_count, $get_bp_id;
         if (count($path_arr) === 2) { // valid request 
             if ($req_type === "GET") {  
