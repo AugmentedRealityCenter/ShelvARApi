@@ -17,18 +17,11 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 			include_once("../database.php");
 			
 			$db = new database();
-			$db->query = "SELECT user_id From users WHERE user_id = ?";
+			$db->query = "SELECT user_id,email From users WHERE user_id = ?";
 			$db->params = array($user_id);
-			$db->type = 's';
+			$db->type = 'ss';
 			
 			$result = $db->fetch();
-			
-			$db = new database();
-			$db->query = "SELECT email From users WHERE user_id = ?";
-			$db->params = array($email);
-			$db->type = 's';
-			
-			$result2 = $db->fetch();
 			
 			//If there is a username that matches
 			if(count($result) > 0){
