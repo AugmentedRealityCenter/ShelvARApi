@@ -4,7 +4,7 @@ $err = array();
 	
 if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
 
-	if (isset($_POST['Username'])) // Handle the form.
+	if (isset($_POST['user_id'])) // Handle the form.
 	{
 		if (empty($_POST['user_id'])) // Validate the user.
 		{
