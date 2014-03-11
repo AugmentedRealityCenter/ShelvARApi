@@ -139,7 +139,7 @@ echo(
 		  <div class="row">
 			<div class="password-form">
 			  <h3>Please enter user name and select forgot password</h3>
-			  <form method="POST" action="reset_password.php">
+			  <form method="POST" action="">
 				<fieldset>
 				  <div class="control-group">
 					<input type="text" class="input-xlarge" name="user_id" placeholder="Username">
