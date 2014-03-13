@@ -422,7 +422,7 @@ function handleIPAddress() {
 		$db->query = $query;
 		$db->params = $params;
 		$db->type = $type;
-		$db->insert();
+		//$db->insert();
 	}
 }
 
