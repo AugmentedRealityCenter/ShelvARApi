@@ -31,11 +31,12 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 				$p = substr ( md5(uniqid(rand(),1)), 3, 10);
 				
 				$db = new database();
-				$db->query = "INSERT INTO users(password) VALUES(?)";
-				$db->params = array($p);
+				$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
+				$db->params = array($user_id);
 				$db->type = 's';
+				$res2 = $db->fetch();
 				
-				if($db->insert()) 		// If it ran ok
+				if($db->fetch()) 		// If it ran ok
 				{
 					echo json_encode(array('result'=>"SUCCESS", 'password'=>$password)); 
 			
