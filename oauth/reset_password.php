@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			$db->type = 's';
 			$res2 = $db->fetch();
 			
-			if($db->fetch()) 		// If it ran ok
+			if(count($res2) > 0) 		// If it ran ok
 			{
 				echo json_encode(array('result'=>"SUCCESS", 'password'=>$password)); 
 		
@@ -45,22 +45,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			$db->type = 's';
 			$res2 = $db->fetch();*/
 			
-				//Send an email
-				$to = "kesanan@miamioh.edu";
-				$subject = "Your temporary password";
-				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear <br/>".$user_id."<br/>Your password to log into ShelvAR has been temporarily changed to ". $p. 
-																									"Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>";
-				
-				$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
-						   'Reply-To: noreply@shelvar.com' . "\r\n" .
-						   'Content-type: text/html' . "\r\n" .
-							'X-Mailer: PHP/' . phpversion();
-				
-				if(!mail ($to, $subject, $message, $headers)){
-					$err[] = "Error sending confirmation email";
-				}
-				
-				echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h3>';
+			//Send an email
+			$to = "kesanan@miamioh.edu";
+			$subject = "Your temporary password";
+			$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear <br/>".$user_id."<br/>Your password to log into ShelvAR has been temporarily changed to ". $p. 
+																								"Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>";
+			
+			$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
+					   'Reply-To: noreply@shelvar.com' . "\r\n" .
+					   'Content-type: text/html' . "\r\n" .
+						'X-Mailer: PHP/' . phpversion();
+			
+			if(!mail ($to, $subject, $message, $headers)){
+				$err[] = "Error sending confirmation email";
+			}
+			
+			echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h3>';
 
 			}
 			else 		//Failed the Validation test
