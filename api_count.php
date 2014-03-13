@@ -413,16 +413,16 @@ function handleIPAddress() {
 	$results = $db->fetch();
 	
 	if ($results == NULL || count($results) == 0) {
-		error_log("made it to insert case");
 		$query = "INSERT INTO unknown_users(ip_address) " .
 			"VALUES (?)" ;
 		$params = array("test");
 		$type = "s";
 	
-		$db->query = $query;
-		$db->params = $params;
-		$db->type = $type;
-		$db->insert();
+		$db2 = new database();
+		$db2->query = $query;
+		$db2->params = $params;
+		$db2->type = $type;
+		$db2->insert();
 	}
 }
 
