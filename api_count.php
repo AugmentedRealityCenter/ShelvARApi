@@ -402,8 +402,8 @@ function handleIPAddress() {
 			"FROM unknown_users ". "";
 			//"WHERE ip_address = ?";
 	$ip_address = $_SERVER["REMOTE_ADDR"];
-	$params = array($ip_address);
-	$type = "s";
+	$params = array();
+	$type = "";
 	
 	$db = new database();
 	$db->query = $query;
