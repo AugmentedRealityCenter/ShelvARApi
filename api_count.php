@@ -411,7 +411,6 @@ function handleIPAddress() {
 	$db->type = $type;
 	
 	$results = $db->fetch();
-	error_log(var_dump($results));
 	
 	if ($results == NULL || count($results) == 0) {
 		error_log("made it to insert case");
