@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
 			$db->params = array($user_id);
 			$db->type = 's';
-			$res2 = $db->fetch();
+			$res2 = $db->update();
 			
 			if(count($res2) > 0) 		// If it ran ok
 			{
