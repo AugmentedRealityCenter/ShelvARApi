@@ -399,7 +399,7 @@ function grabLastResetFree() {
 
 function handleIPAddress() {
 	$query = "SELECT * " .
-			"FROM unknown_users ".;
+			"FROM unknown_users ". "";
 			//"WHERE ip_address = ?";
 	$ip_address = $_SERVER["REMOTE_ADDR"];
 	$params = array($ip_address);
