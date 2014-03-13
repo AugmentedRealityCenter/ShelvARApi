@@ -399,8 +399,8 @@ function grabLastResetFree() {
 
 function handleIPAddress() {
 	$query = "SELECT * " .
-			"FROM unknown_users ". "";
-			//"WHERE ip_address = ?";
+			"FROM unknown_users ". 
+			"WHERE ip_address = ?";
 	$ip_address = $_SERVER["REMOTE_ADDR"];
 	$params = array($ip_address);
 	$type = "s";
@@ -411,7 +411,6 @@ function handleIPAddress() {
 	$db->type = $type;
 	
 	$results = $db->fetch();
-	error_log(var_dump($results));
 	
 	if ($results == NULL || count($results) == 0) {
 		error_log("made it to insert case");
