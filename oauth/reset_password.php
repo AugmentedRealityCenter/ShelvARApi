@@ -22,7 +22,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
 			$db = new database();
 			$db->query = "SELECT user_id,email From users WHERE user_id = ?";
 			$db->params = array($user_id);
-			$db->type = 'ss';
+			$db->type = 's';
 			
 			$result = $db->fetch();
 			
