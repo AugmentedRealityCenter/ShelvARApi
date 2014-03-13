@@ -26,7 +26,8 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR No permission to read data.')));
 }
 
-error_log($spaceAvailable = is_incrementable("/book_pings/count" , "GET"));
+$spaceAvailable = is_incrementable("/book_pings/count" , "GET");
+increment_count("/book_pings/count" , "GET", 47);
 
 $cond = false;
 $query = "SELECT * FROM book_pings";
