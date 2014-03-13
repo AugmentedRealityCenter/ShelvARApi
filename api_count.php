@@ -416,7 +416,7 @@ function handleIPAddress() {
 		error_log("made it to insert case");
 		$query = "INSERT INTO unknown_users(ip_address) " .
 			"VALUES (?)" ;
-		$params = array($ip_address);
+		$params = array("test");
 		$type = "s";
 	
 		$db->query = $query;
