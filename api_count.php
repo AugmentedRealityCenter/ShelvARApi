@@ -2,6 +2,7 @@
 $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."db_info.php";
 include_once $root."database.php";
+include_once $root."api/api_ref_call.php";
 
 // Wrapper class to increment the count for a specified API call
 
@@ -419,7 +420,7 @@ function handleIPAddress() {
 		$db->query = $query;
 		$db->params = $params;
 		$db->type = $type;
-		//$db->insert();
+		$db->insert();
 	}
 }
 
@@ -467,6 +468,7 @@ function setToZeroFreeHelper($column) {
 	$db->query = $query;
 	$db->params = $params;
 	$db->type = $type;
+	$db->update();
 }
 
 /**
@@ -485,6 +487,7 @@ function setToZeroNotFreeHelper($column) {
 	$db->query = $query;
 	$db->params = $params;
 	$db->type = $type;
+	$db->update();
 }
 
 /**
@@ -504,6 +507,7 @@ function setNotFreeLastReset() {
 	$db->query = $query;
 	$db->params = $params;
 	$db->type = $type;
+	$db->update();
 }
 
 /**
@@ -523,6 +527,7 @@ function setFreeLastReset() {
 	$db->query = $query;
 	$db->params = $params;
 	$db->type = $type;
+	$db->update();
 }
 
 /**
@@ -587,6 +592,7 @@ function updateCountNotFreeCall ($column, $count) {
 	$db->query = $query;
 	$db->params = $params;
 	$db->type = $type;
+	$db->update();
 }
 
 function updateCountFreeCall($column, $count) {
@@ -601,6 +607,7 @@ function updateCountFreeCall($column, $count) {
 	$db->query = $query;
 	$db->params = $params;
 	$db->type = $type;
+	$db->update();
 }
 
 /**
