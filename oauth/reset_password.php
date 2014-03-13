@@ -2,78 +2,75 @@
 
 $err = array();	
 	
-if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
-
-	if (isset($_POST['user_id'])) // Handle the form.
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) 
+{
+	if (empty($_POST['user_id'])) // Validate the user.
 	{
-		if (empty($_POST['user_id'])) // Validate the user.
-		{
-			$err[] = 'No Username/E-Mail supplied';
-		}
-			
-		if(!count($err)) 
-		{
-			$user_id = $_POST['user_id'];
-			
-			
-			include_once("../db_info.php");
-			include_once("../database.php");
+		$err[] = 'No Username supplied';
+	}
+		
+	if(!count($err)) 
+	{
+		$user_id = $_POST['user_id'];
+				
+		include_once("../db_info.php");
+		include_once("../database.php");
+		
+		$db = new database();
+		$db->query = "SELECT user_id,email From users WHERE user_id = ?";
+		$db->params = array($user_id);
+		$db->type = 's';
+		
+		$result = $db->fetch();
+		
+		//If there is a username that matches
+		if(count($result) > 0){
+			$p = substr ( md5(uniqid(rand(),1)), 3, 10);
 			
 			$db = new database();
-			$db->query = "SELECT user_id,email From users WHERE user_id = ?";
+			$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
 			$db->params = array($user_id);
 			$db->type = 's';
+			$res2 = $db->fetch();
 			
-			$result = $db->fetch();
+			if($db->fetch()) 		// If it ran ok
+			{
+				echo json_encode(array('result'=>"SUCCESS", 'password'=>$password)); 
+		
 			
-			//If there is a username that matches
-			if(count($result) > 0){
-				$p = substr ( md5(uniqid(rand(),1)), 3, 10);
-				
-				$db = new database();
-				$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
-				$db->params = array($user_id);
-				$db->type = 's';
-				$res2 = $db->fetch();
-				
-				if($db->fetch()) 		// If it ran ok
-				{
-					echo json_encode(array('result'=>"SUCCESS", 'password'=>$password)); 
+			/*
+			$db = new database();
+			$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
+			$db->params = array($user_id);
+			$db->type = 's';
+			$res2 = $db->fetch();*/
 			
+				//Send an email
+				$to = "kesanan@miamioh.edu";
+				$subject = "Your temporary password";
+				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear <br/>".$user_id."<br/>Your password to log into ShelvAR has been temporarily changed to ". $p. 
+																									"Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>";
 				
-				/*
-				$db = new database();
-				$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
-				$db->params = array($user_id);
-				$db->type = 's';
-				$res2 = $db->fetch();*/
+				$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
+						   'Reply-To: noreply@shelvar.com' . "\r\n" .
+						   'Content-type: text/html' . "\r\n" .
+							'X-Mailer: PHP/' . phpversion();
 				
-					//Send an email
-					$to = "kesanan@miamioh.edu";
-					$subject = "Your temporary password";
-					$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear <br/>".$user_id."<br/>Your password to log into ShelvAR has been temporarily changed to ". $p. 
-																										"Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>";
-					
-					$headers = 'From: ShelvAR.com <noreply@shelvar.com>' . "\r\n" .
-							   'Reply-To: noreply@shelvar.com' . "\r\n" .
-							   'Content-type: text/html' . "\r\n" .
-								'X-Mailer: PHP/' . phpversion();
-					
-					if(!mail ($to, $subject, $message, $headers)){
-						$err[] = "Error sending confirmation email";
-					}
-					
-					echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h3>';
-
+				if(!mail ($to, $subject, $message, $headers)){
+					$err[] = "Error sending confirmation email";
 				}
-				else 		//Failed the Validation test
-				{
-					$err[] = 'MySQL Error';
-				}	
+				
+				echo '<h3>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h3>';
+
 			}
+			else 		//Failed the Validation test
+			{
+				$err[] = 'MySQL Error';
+			}	
 		}
 	}
 }
+
 
 
 echo(
