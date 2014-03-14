@@ -138,4 +138,3 @@ RewriteRule ^(.*+)$ apiwrapper.php?path=$1&type=POST [L,QSA]
 # via a re-direct...
 #RewriteCond %{ENV:REDIRECT_STATUS} !=200
 #RewriteRule ^(.*) sorry-api.php?api_info=/$1 [NS,QSA]
-

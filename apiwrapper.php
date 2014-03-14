@@ -25,7 +25,10 @@
         global $root, $get_book_tags;
         if (count($path_arr) === 2) { // valid request
             if ($req_type === "GET") { // GET book_tags/{id}
-                $_GET["B64"] = $path_arr[1];
+                $str = $path_arr[1];
+                // strip off .json ext and store it in $_GET
+                $_GET['B64'] = substr($str, 0, strrpos($str, "."));
+                error_log($_GET['B64']);
                 include $root.$get_book_tags;
             } else {
                 throw_error(405, "405 - method not allowed");
