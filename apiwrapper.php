@@ -21,14 +21,27 @@
         default:                throw_error(404, "404 - not found"); break;
     }
 
+    /*
+     * Function to strip an extension from a string
+     * $id is the string with the extension
+     * $ext is the extension to strip from the string
+     * $ext should include the "."
+     * returns the string without the extension
+     * (and everything following it), if it is
+     * found, otherwise the original string
+     */
+    function strip_ext($id, $ext) {
+        // if no extension, return string
+        if (!strrpos($id, $ext)) return $id;
+        // return stripped string
+        return substr($id, 0, strrpos($id, $ext));
+    }
+
     function handle_bt($path_arr, $req_type) {
         global $root, $get_book_tags;
         if (count($path_arr) === 2) { // valid request
             if ($req_type === "GET") { // GET book_tags/{id}
-                $str = $path_arr[1];
-                // strip off .json ext and store it in $_GET
-                $_GET['B64'] = substr($str, 0, strrpos($str, "."));
-                error_log($_GET['B64']);
+                $_GET['B64'] = strip_ext($path_arr[1], ".json");
                 include $root.$get_book_tags;
             } else {
                 throw_error(405, "405 - method not allowed");
@@ -42,7 +55,7 @@
         global $root, $get_lc_numbers; 
         if (count($path_arr) === 2) { // valid request
             if ($req_type === "GET") { // GET lc_numbers/{call_number}
-                $_GET['call_number'] = $path_arr[1];
+                $_GET['call_number'] = strip_ext($path_arr[1], ".json");
                 include $root.$get_lc_numbers;
             } else {                    // some method that's not a GET
                 throw_error(405, "405 - method not allowed");
@@ -59,7 +72,7 @@
                 if ($path_arr[1] === "count") { // GET book_pings/count
                     include $root.$get_bp_count;
                 } else if ($path_arr[1] !== "") { // GET book_pings/{id}
-                    $_GET['book_ping_id'] = $path_arr[1];
+                    $_GET['book_ping_id'] = strip_ext($path_arr[1], ".json");
                     include $root.$get_bp_id;
                 } else if ($path_arr[1] === "") { // GET book_pings/
                     include $root.$get_bp;
@@ -95,7 +108,7 @@
                 if ($path_arr[1] === "paper_formats") { // GET make_tags/paper_formats
                     include $root.$get_formats;
                 } else {                                // GET make_tags/something_else
-                    $_GET['type'] = $path_arr[1];       // set type in $_GET
+                    $_GET['type'] = strip_ext($path_arr[1], ".pdf");
                     include $root.$get_tags;
                 }
             } else {
