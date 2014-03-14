@@ -101,11 +101,11 @@ RewriteRule ^oauth/login$ oauth/login.php [L]
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^oauth/login$ oauth/login.php [L]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/login$ oauth/reset_password.php [L]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^oauth/login$ oauth/reset_password.php [L]
 
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^oauth/login$ oauth/reset_password.php [L]
+#RewriteCond %{THE_REQUEST} POST
+#RewriteRule ^oauth/login$ oauth/reset_password.php [L]
 
 #RewriteCond %{THE_REQUEST} GET
 #RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/get_inst_notification.php [L,E=inst_id:$1]
