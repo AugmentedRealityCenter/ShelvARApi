@@ -125,6 +125,7 @@
             if ($req_type === "GET") { // GET oauth/something_here
                 switch($path_arr[1]) {    // determine the path and dispatch
                 case "get_request_token": // necessary file
+                    var_dump($_GET);
                     include $root."oauth/request_token.php";
                     break;
                 case "login": include $root."oauth/login.php"; break;
