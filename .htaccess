@@ -93,10 +93,10 @@ RewriteRule ^institutions api/institutions/get_institutions.php [L]
 #RewriteRule ^oauth/get_access_token$ oauth/access_token.php [L]
 
 #RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/get_request_token$ oauth/request_token.php [L]
+#RewriteRule ^oauth/get_request_token$ oauth/request_token.php [L]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/login$ oauth/login.php [L]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^oauth/login$ oauth/login.php [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^oauth/login$ oauth/login.php [L]
