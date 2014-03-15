@@ -14,8 +14,9 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
     $user_id = strtolower($user_id);
     $password = $_POST['password'];
 
-    include_once("../db_info.php");
-    include_once("../database.php");
+    $root = $_SERVER['DOCUMENT_ROOT']."/";
+    include_once($root."db_info.php");
+    include_once($root."database.php");
 
     $db = new database();
     $db->query = "SELECT user_id, inst_id, password, encrip_salt, user_num
