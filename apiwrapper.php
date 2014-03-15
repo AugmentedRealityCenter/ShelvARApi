@@ -125,14 +125,13 @@
             if ($req_type === "GET") { // GET oauth/something_here
                 switch($path_arr[1]) {    // determine the path and dispatch
                 case "get_request_token": // necessary file
-                    var_dump($_GET);
                     include $root."oauth/request_token.php";
                     break;
                 case "login": include $root."oauth/login.php"; break;
                 case "get_access_token":
                     include $root."oauth/access_token.php";
                     break;
-                case "whoami": include $root."oauth/whoami.php"; break;
+                case "whoami": include $root."api/oauth/whoami.php"; break;
                 default: throw_error(404, "404 - not found"); break;
                 }
             } else {
