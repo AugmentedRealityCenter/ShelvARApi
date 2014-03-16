@@ -100,7 +100,6 @@
 		$params[] = $user_id;
 		
 		$db = new database();
-        error_log(var_dump($db));
 		$db->query = $query;
 		$db->params = $params;
 		$db->type = $type;
@@ -113,7 +112,7 @@
 				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
 			}
 		}
-		else $err[] = "SQL Error";
+		else { $err[] = "SQL Error"; var_dump($user_id); }
 	}
 	if($err) {
 		echo json_encode(array('result'=>"ERROR", 'user_id'=>"", 'errors'=>$err)); 
