@@ -39,7 +39,7 @@ RewriteCond %{THE_REQUEST} POST
 RewriteRule ^users/([^/]+)/permissions$ api/users/edit_permissions.php [L,E=user_id:$1]
 
 RewriteCond %{THE_REQUEST} POST
-RewriteRule ^users api/users/register_user.php [L]
+RewriteRule ^users$ api/users/register_user.php [L]
 
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users/([^/]+)/permissions$ api/users/get_permissions.php [L,E=user_id:$1]
@@ -57,7 +57,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users/([^/]+).json$ api/users/get_user.php [L,E=user_id:$1]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users api/users/get_users.php [L]
+RewriteRule ^users$ api/users/get_users.php [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^institutions/edit$ api/institutions/edit_institution.php [L]
