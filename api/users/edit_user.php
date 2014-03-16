@@ -100,6 +100,7 @@
 		$params[] = $user_id;
 		
 		$db = new database();
+        error_log(var_dump($db));
 		$db->query = $query;
 		$db->params = $params;
 		$db->type = $type;
