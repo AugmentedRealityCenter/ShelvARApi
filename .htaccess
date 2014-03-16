@@ -32,8 +32,8 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 #RewriteCond %{THE_REQUEST} POST
 #RewriteRule ^book_pings api/book_pings/book_ping.php [L]
 
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^users/edit$ api/users/edit_user.php [L]
+#RewriteCond %{THE_REQUEST} POST
+#RewriteRule ^users/edit$ api/users/edit_user.php [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^users/([^/]+)/permissions$ api/users/edit_permissions.php [L,E=user_id:$1]
