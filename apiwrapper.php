@@ -116,6 +116,7 @@
                 }
             } else if ($method === 'POST') { // POST users/something_here
                 if ($path_arr[1] === 'edit') { // POST users/edit
+                    error_log('edit user');
                     include $root.'api/users/edit_user.php';
                 } else {
                     throw_error(404, '404 - not found');
