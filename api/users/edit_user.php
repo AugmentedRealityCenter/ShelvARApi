@@ -112,7 +112,7 @@
 				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
 			}
 		}
-		else { $err[] = "SQL Error".mysql_error(); }
+		else $err[] = "SQL Error";
 	}
 	if($err) {
 		echo json_encode(array('result'=>"ERROR", 'user_id'=>"", 'errors'=>$err)); 
