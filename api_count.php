@@ -365,6 +365,7 @@ function grabLastResetNotFree($user_id) {
 			"WHERE user_id = ?";
 	global $ouath_user;
 	$user = $ouath_user['user_id'];
+	error_log($user);
 	$params = array($user);
 	$type = "s";
 	
