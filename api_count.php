@@ -413,7 +413,6 @@ function handleIPAddress() {
 	$results = $db->fetch();
 	
 	if ($results == NULL || count($results) == 0) {
-		error_log("got to the insert case");
 		$query = "INSERT INTO unknown_users(ip_address) " .
 			"VALUES (?)" ;
 		$params = array($ip_address);
@@ -585,9 +584,10 @@ function getCountFreeCall($column) {
  */
 function updateCountNotFreeCall ($column, $count) {
 	$query = "UPDATE users " .
-			"SET " . $column . " = " . $column . " + " . $count . " " .
+			"SET " . $column . " = (" . $column . " + " . $count . ") " .
 			"WHERE user_id = ?";
-	$user_id = $_GET['user_id'];
+	//$user_id = $_GET['user_id'];
+	$user_id = "sandy";
 	$params = array($user_id);
 	$type = "s";
 	
