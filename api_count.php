@@ -365,7 +365,7 @@ function grabLastResetNotFree($user_id) {
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	//global $oauth_user;
+	global $oauth_user;
 	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
