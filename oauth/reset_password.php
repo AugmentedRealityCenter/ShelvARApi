@@ -13,8 +13,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 	{
 		$user_id = $_POST['user_id'];
 				
-		include_once("../db_info.php");
-		include_once("../database.php");
+		$root = $_SERVER['DOCUMENT_ROOT']."/";
+		include_once($root."db_info.php");
+		include_once($root."database.php");
+
 		
 		$db = new database();
 		$db->query = "SELECT user_id,email From users WHERE user_id = ?";
