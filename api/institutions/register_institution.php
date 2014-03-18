@@ -104,6 +104,6 @@
 		}
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR",'message'=>$err));
+		echo json_encode(array('result'=>"ERROR", 'inst_id'=>"", 'errors'=>$err));
 	}
 ?>
