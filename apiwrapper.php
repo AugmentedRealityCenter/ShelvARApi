@@ -163,8 +163,6 @@ function handle_inst($path_arr) {
         if ($method === 'GET') {
             if ($path_arr[1] === '') {
                 include $root.'api/institutions/get_institutions.php';
-            } else if ($path_arr[1] === 'edit') {
-                include $root.'api/institutions/edit_institution.php';
             } else if ($path_arr[1] === 'activate_inst') {
                 include $root.'api/institutions/activate_inst.php';
             } else {
@@ -173,8 +171,9 @@ function handle_inst($path_arr) {
             }
         } else if ($method === 'POST') {
             if ($path_arr[1] === '') {
-                error_log('hit POST institutions');
                 include $root.'api/institutions/register_institution.php';
+            } else if ($path_arr[1] === 'edit') {
+                include $root.'api/institutions/edit_institution.php';
             } else {
                 throw_error(404, '404 - not found');
             }
