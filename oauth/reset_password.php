@@ -25,7 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		$result = $db->fetch();
 		
 		//If there is a username that matches
-		if(count($result) > 0){
+		if(count($result) > 0)
+		{
 			
 			define("MAX_LENGTH", 6);
 			
@@ -49,9 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 				$salt = substr($intermediateSalt, 0, MAX_LENGTH);
 				return hash("sha256", $password . $salt);
 			}
-}
+		
 			generateHashWithSalt($p);
-			
+		
 			$db = new database();
 			$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
 			$db->params = array($user_id);
