@@ -1,6 +1,7 @@
 <?php
 
 $err = array();	
+$success = array();
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) 
 {
@@ -54,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			generateHashWithSalt($p);
 		
 			$db = new database();
-			$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
-			$db->params = array($user_id);
+			$db->query = "UPDATE users SET password= ? WHERE user_id = ?";
+			$db->params = array($p);
 			$db->type = 's';
 			$res2 = $db->update();
 			
@@ -80,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 					$err[] = "Error sending confirmation email";
 				}
 				
-				echo $err[] = "Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.";
+				echo $success[] = "Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.";
 
 			}
 			else 		//Failed the Validation test
