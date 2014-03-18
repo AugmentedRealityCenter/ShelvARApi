@@ -4,6 +4,8 @@ include_once $root."db_info.php";
 include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
 // Wrapper class to increment the count for a specified API call
 
