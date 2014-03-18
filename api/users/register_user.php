@@ -94,7 +94,7 @@
 					include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
 				}
 				if(!$err) {
-					echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
+					echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id)); 
 				}	
 			}
 			else {
@@ -103,6 +103,6 @@
 		}
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'user_id'=>"", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
 ?>

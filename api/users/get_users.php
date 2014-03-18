@@ -30,6 +30,6 @@
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR ".$err, 'users'=>"")); 
+		echo json_encode(array('result'=>"ERROR ", 'message'=>$err)); 
 	}
 ?>

@@ -22,9 +22,9 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'email'=>"REGISTERED", 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'email'=>"REGISTERED"));
 		}
-		else echo json_encode(array('result'=>"SUCCESS", 'email'=>"NOT REGISTERED", 'errors'=>""));
+		else echo json_encode(array('result'=>"SUCCESS", 'email'=>"NOT REGISTERED"));
 	}
-	else echo json_encode(array('result'=>"ERROR", 'email'=>"", 'errors'=>$err));
+	else echo json_encode(array('result'=>"ERROR", 'message'=>$err));
 ?>
