@@ -14,7 +14,7 @@ include_once $root."api/api_ref_call.php";
  * returns false if it is over the limit
  */
 function is_incrementable($apiCall, $httpMethod, $user) {
-	checkLastReset();
+	checkLastReset($user);
 
 	switch ($apiCall) {
 		case "/book_pings/":
