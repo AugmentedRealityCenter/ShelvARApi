@@ -11,9 +11,9 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"TAKEN"));
+			echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"TAKEN", 'message'=>"Username already in use", 'errors'=>""));
 		}
-		else echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"AVAILABLE"));
+		else echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"AVAILABLE", 'message'=>"", 'errors'=>""));
 	}
-	else echo json_encode(array('result'=>"ERROR", 'message'=>"No user ID supplied"));
+	else echo json_encode(array('result'=>"ERROR", 'errors'=>"No user ID supplied"));
 ?>

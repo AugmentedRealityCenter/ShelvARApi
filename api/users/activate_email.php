@@ -59,7 +59,7 @@
 			$db->type = 'ssiiiiis';
 			
 			if($db->update()) {
-				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id));
+				echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>""));
 				$frontend = "http://shelvar.com/";
 				if($_SERVER['SERVER_NAME'] == "devapi.shelvar.com") {
 					$frontend = "http://dev.shelvar.com/";
@@ -73,6 +73,6 @@
 		}
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'errors'=>$err)); 
 	}
 ?>

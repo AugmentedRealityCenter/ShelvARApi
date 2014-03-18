@@ -25,7 +25,7 @@ $decoded = tag_to_lc($b64_in);
 
 if(strlen($decoded) == 0){
   $result = array('call_number' => "", 
-		  'result' => 'ERROR', 'message'=>'Tag decode failed.');
+		  'result' => "ERROR. Tag decode failed.");
   echo json_encode($result);
  } else {
   $result = array('call_number' => $decoded, 

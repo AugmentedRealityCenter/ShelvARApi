@@ -13,9 +13,6 @@
 	if(preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['user_id'])) {
 		$err[] = 'Your username contains invalid characters';
 	}
-	if(($_POST['password']) !== ($_POST['password2'])) {
-		$err[] = 'Your passwords do not match';
-	}
 
 	if(!count($err)) {
 		$user_id = $_POST['user_id'];
@@ -58,7 +55,7 @@
 			}
 			else $is_admin = 0;
 			
-			if(!isset($_POST['withhold_email'])) {
+			if(!$_POST['withhold_email']) {
 				// Generate random activation key
 				// Check if key has already been generated
 				do {
@@ -90,11 +87,11 @@
 			*/
 
 			if($db->insert()) {
-				if(!isset($_POST['withhold_email'])) {
+				if(!$_POST['withhold_email']) {
 					include_once($_SERVER['DOCUMENT_ROOT'] . "/api/users/send_activation_email.php");
 				}
 				if(!$err) {
-					echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id)); 
+					echo json_encode(array('result'=>"SUCCESS", 'user_id'=>$user_id, 'errors'=>"")); 
 				}	
 			}
 			else {
@@ -103,6 +100,6 @@
 		}
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'user_id'=>"", 'errors'=>$err)); 
 	}
 ?>

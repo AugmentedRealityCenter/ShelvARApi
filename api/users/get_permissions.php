@@ -25,11 +25,11 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'user'=>$user_id, 'permissions'=>$result));
+			echo json_encode(array('result'=>"SUCCESS", 'user'=>$user_id, 'permissions'=>$result, 'errors'=>""));
 		}
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'user'=>"", 'errors'=>$err)); 
 	}
 ?>
