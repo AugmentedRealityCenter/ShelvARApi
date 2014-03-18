@@ -37,7 +37,6 @@ function strip_ext($id, $ext) {
 }
 
 function handle_bt($path_arr, $req_type) {
-    var_dump($oauth);
     global $root, $get_book_tags;
     if (count($path_arr) === 2) { // valid request
         if ($req_type === "GET") { // GET book_tags/{id}
@@ -75,6 +74,7 @@ function handle_bp($path_arr, $req_type) {
                 $_GET['book_ping_id'] = strip_ext($path_arr[1], ".json");
                 include $root.$get_bp_id;
             } else if ($path_arr[1] === "") { // GET book_pings/
+                var_dump($oauth);
                 include $root.$get_bp;
             } else {                            // some other path, so throw error
                 throw_error(404, "404 - not found");
