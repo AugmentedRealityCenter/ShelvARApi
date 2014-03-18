@@ -5,7 +5,7 @@ include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
-//global $oauth_user;
+global $oauth_user;
 
 
 // Wrapper class to increment the count for a specified API call
