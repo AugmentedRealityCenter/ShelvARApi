@@ -15,7 +15,7 @@ include_once $root."api/HammingCode.php";
 
 function lc_to_tag($call_number_in){
   //TODO: Use result for something...
-  $result = "SUCCESS";
+  //$result = "SUCCESS";
 
   $huffman_code = huffman_encode($call_number_in);
   
@@ -45,7 +45,7 @@ function lc_to_tag($call_number_in){
     $num_tag_bits = 336;
   }
   if($num_tag_rows > 48){
-    $result = "ERROR. Call number is too long to be represented as a tag.";
+    //$result = "ERROR. Call number is too long to be represented as a tag.";
     return "";
   }
   
