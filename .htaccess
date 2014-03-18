@@ -59,8 +59,8 @@ RewriteRule ^users/([^/]+).json$ api/users/get_user.php [L,E=user_id:$1]
 RewriteCond %{THE_REQUEST} GET
 RewriteRule ^users$ api/users/get_users.php [L]
 
-#RewriteCond %{THE_REQUEST} POST
-#RewriteRule ^institutions/edit$ api/institutions/edit_institution.php [L]
+RewriteCond %{THE_REQUEST} POST
+RewriteRule ^institutions/edit$ api/institutions/edit_institution.php [L]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^institutions$ api/institutions/register_institution.php [L]
