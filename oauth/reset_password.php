@@ -55,9 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			generateHashWithSalt($p);
 		
 			$db = new database();
-			$db->query = "UPDATE users SET password= ? WHERE user_id = ?";
-			$db->params = array($p);
-			$db->type = 's';
+			$db->query = "UPDATE users SET password = ? WHERE user_id = ?";
+			$db->params = array($p,$user_id);
+			$db->type = 'ss';
 			$res2 = $db->update();
 			
 			if(count($res2) > 0) 		// If it ran ok
