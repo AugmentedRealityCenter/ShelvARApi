@@ -5,7 +5,7 @@ include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
-global $ouath_user;
+global $oauth_user;
 
 
 // Wrapper class to increment the count for a specified API call
@@ -365,8 +365,8 @@ function grabLastResetNotFree($user_id) {
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	global $ouath_user;
-	$user = $ouath_user['user_id'];
+	global $oauth_user;
+	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
 	
