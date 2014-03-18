@@ -155,16 +155,15 @@ function do_book_ping($jsoninput,$inst_id,$user_id){
 			$success = false;
 		}
 	}
+	//Close connection to database
+	$con -> close();
   
-  if($success){
-    return 'SUCCESS Added '.count($decoded).' book_pings';
-  } 
-  else {
-    return 'ERROR';
-  }
-  
-  /* Close connection */
-  $con -> close();
+	if($success){
+		return array('result'=>'SUCCESS', 'countAdded'=>'Added '.count($decoded).' book_pings');
+	} 
+	else {
+		return array('result'=>'ERROR', 'message'=>'See error log.');
+	}
 }
 
 ?>

@@ -27,11 +27,11 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'institution'=>$result, 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'institution'=>$result));//'errors'=>""));
 		}
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'institution'=>"", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
 ?>

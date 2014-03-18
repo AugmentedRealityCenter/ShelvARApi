@@ -13,8 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 	{
 		$user_id = $_POST['user_id'];
 				
-		include_once("../db_info.php");
-		include_once("../database.php");
+		$root = $_SERVER['DOCUMENT_ROOT']."/";
+		include_once($root."db_info.php");
+		include_once($root."database.php");
 		
 		$db = new database();
 		$db->query = "SELECT user_id,email From users WHERE user_id = ?";
@@ -25,7 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		
 		//If there is a username that matches
 		if(count($result) > 0){
-			$p = substr ( md5(uniqid(rand(),1)), 3, 10);
+			$chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvqxyz01234567890";
+			$chars=str_shuffle($chars);
+			$char_len=rand("8",strlen($chars) - "1");
+			$p = substr ( hash('sha256',($time.$chars)),"8",$char_len);
 			
 			$db = new database();
 			$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";

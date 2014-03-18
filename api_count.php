@@ -4,6 +4,8 @@ include_once $root."db_info.php";
 include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/OAuthProviderWrapper.php');
 
 // Wrapper class to increment the count for a specified API call
 
@@ -413,7 +415,6 @@ function handleIPAddress() {
 	$results = $db->fetch();
 	
 	if ($results == NULL || count($results) == 0) {
-		error_log("got to the insert case");
 		$query = "INSERT INTO unknown_users(ip_address) " .
 			"VALUES (?)" ;
 		$params = array($ip_address);
@@ -585,9 +586,9 @@ function getCountFreeCall($column) {
  */
 function updateCountNotFreeCall ($column, $count) {
 	$query = "UPDATE users " .
-			"SET " . $column . " = " . $column . " + " . $count . " " .
+			"SET " . $column . " = (" . $column . " + " . $count . ") " .
 			"WHERE user_id = ?";
-	$user_id = $_GET['user_id'];
+	$user_id = $oauth_user['user_id'];
 	$params = array($user_id);
 	$type = "s";
 	
