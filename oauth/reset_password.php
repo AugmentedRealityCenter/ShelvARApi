@@ -62,7 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			
 			if(count($res2) > 0) 		// If it ran ok
 			{
-				include_once($_SERVER['DOCUMENT_ROOT'] . "/ShelvARLogo_Big.png");
+				$api = "https://api.shelvar.com/";
+				if($_SERVER['SERVER_NAME'] == "devapi.shelvar.com") {
+					$api = "http://devapi.shelvar.com/";
+				}
 				
 				//Send an email
 				$to = "kesanan@miamioh.edu";
