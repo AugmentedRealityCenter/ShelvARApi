@@ -3,6 +3,7 @@
 	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
 	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
 	
+    error_log('hit edit file');
 	$err = array();
 	
 	if(stripos($oauth_user['scope'],"acctmod") === false) {
