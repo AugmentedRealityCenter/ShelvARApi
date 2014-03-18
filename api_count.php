@@ -363,10 +363,8 @@ function grabLastResetNotFree($user_id) {
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	global $ouath_user;
 	$user = $ouath_user['user_id'];
-	error_log(var_dump($ouath_user));
-	$params = array($user);
+	$params = array($user_id);
 	$type = "s";
 	
 	$db = new database();
