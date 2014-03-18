@@ -586,8 +586,7 @@ function updateCountNotFreeCall ($column, $count) {
 	$query = "UPDATE users " .
 			"SET " . $column . " = (" . $column . " + " . $count . ") " .
 			"WHERE user_id = ?";
-	//$user_id = $_GET['user_id'];
-	$user_id = "sandy";
+	$user_id = $oauth_user['user_id'];
 	$params = array($user_id);
 	$type = "s";
 	
