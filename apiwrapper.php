@@ -1,7 +1,7 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT']."/";
 include $root."wrapper_constants.php";
-
+include_once $root.'api/api_ref_call.php';
 // request path constants 
 
 // request handler variables
@@ -74,6 +74,7 @@ function handle_bp($path_arr, $req_type) {
                 $_GET['book_ping_id'] = strip_ext($path_arr[1], ".json");
                 include $root.$get_bp_id;
             } else if ($path_arr[1] === "") { // GET book_pings/
+                
                 var_dump($oauth_user);
                 include $root.$get_bp;
             } else {                            // some other path, so throw error
