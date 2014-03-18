@@ -173,6 +173,7 @@ function handle_inst($path_arr) {
             }
         } else if ($method === 'POST') {
             if ($path_arr[1] === '') {
+                error_log('hit POST institutions');
                 include $root.'api/institutions/register_institution.php';
             } else {
                 throw_error(404, '404 - not found');
