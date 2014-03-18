@@ -11,9 +11,9 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>"TAKEN", 'message'=>"Institution ID already in use", 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>"TAKEN"));
 		}
-		else echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>"AVAILABLE", 'message'=>"", 'errors'=>""));
+		else echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>"AVAILABLE"));
 	}
-	else echo json_encode(array('result'=>"ERROR", 'errors'=>"No institution ID supplied"));
+	else echo json_encode(array('result'=>"ERROR", 'message'=>"No institution ID supplied"));
 ?>
