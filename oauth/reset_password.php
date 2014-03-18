@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			
 			if(count($res2) > 0) 		// If it ran ok
 			{
-				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
+				include_once($_SERVER['DOCUMENT_ROOT'] . "/ShelvARLogo_Big.png");
 				
 				//Send an email
 				$to = "kesanan@miamioh.edu";
