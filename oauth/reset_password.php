@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			$chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvqxyz01234567890";
 			$chars=str_shuffle($chars);
 			$char_len=rand("8",strlen($chars) - "1");
-			$p = substr ( hash('sha256',($time.$chars),"8",$char_len));
+			$p = substr ( hash('sha256',($time.$chars)),"8",$char_len);
 			
 			$db = new database();
 			$db->query = "UPDATE users SET password=SHA('$p') WHERE user_id = ?";
