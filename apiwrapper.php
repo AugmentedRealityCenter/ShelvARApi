@@ -167,9 +167,11 @@ function handle_inst($path_arr) {
                 include $root.'api/institutions/activate_inst.php';
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
-                $is_web ? 
-                    header('Location: api/institutions/get_institution.php') 
-                : include $root.'api/institutions/get_institution.php';
+                if ($is_web) {
+                    error_log('is web');
+                    header('Location: api/institutions/get_institution.php'); 
+                } else
+                    include $root.'api/institutions/get_institution.php';
             }
         } else if ($method === 'POST') {
             if ($path_arr[1] === '') {
