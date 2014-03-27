@@ -5,7 +5,6 @@
 	
 	$err = array();
 	$contactread = true;
-    print_r($oauth_user);
 	if(!$_GET['inst_id']) {
 		$err[] = "No inst_id supplied";
 	}
