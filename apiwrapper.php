@@ -92,6 +92,7 @@ function handle_bp($path_arr, $req_type) {
 }
 
 function handle_users($path_arr) {
+    echo "Api wrapper";
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
