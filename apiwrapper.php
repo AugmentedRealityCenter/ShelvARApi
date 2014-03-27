@@ -166,6 +166,7 @@ function handle_inst($path_arr) {
                 include $root.'api/institutions/activate_inst.php';
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
+                error_log('get inst by name');
                     header('Location: api/institutions/get_institution.php'); 
                     // include $root.'api/institutions/get_institution.php';
             }
