@@ -167,7 +167,7 @@ function handle_inst($path_arr) {
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
                 error_log('get inst by name');
-                    header('Location: http://'.$_SERVER['HTTP_HOST'].'/api/institutions/get_institution.php'); 
+                    header('Location: http://'.$_SERVER['HTTP_HOST'].'/api/institutions/get_institution.php?inst_id='.$_GET['inst_id']); 
                     // include $root.'api/institutions/get_institution.php';
             }
         } else if ($method === 'POST') {
