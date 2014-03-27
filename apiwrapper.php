@@ -158,6 +158,7 @@ function handle_inst($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
     $is_web = isset($_SERVER['WEB']);
+    error_log($is_web);
 
     if ($cnt === 2) {
         if ($method === 'GET') {
