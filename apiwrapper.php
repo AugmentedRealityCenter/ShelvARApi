@@ -157,8 +157,6 @@ function handle_inst($path_arr) {
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
-    $is_web = isset($_SERVER['WEB']);
-    error_log($is_web);
 
     if ($cnt === 2) {
         if ($method === 'GET') {
@@ -168,11 +166,8 @@ function handle_inst($path_arr) {
                 include $root.'api/institutions/activate_inst.php';
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
-                if ($is_web) {
-                    error_log('is web');
                     header('Location: api/institutions/get_institution.php'); 
-                } else
-                    include $root.'api/institutions/get_institution.php';
+                    // include $root.'api/institutions/get_institution.php';
             }
         } else if ($method === 'POST') {
             if ($path_arr[1] === '') {
