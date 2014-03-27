@@ -154,7 +154,7 @@ function handle_users($path_arr) {
 }
 
 function handle_inst($path_arr) {
-    error_log(print_r($_SERVER, TRUE);
+    error_log(print_r($_SERVER, TRUE));
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
