@@ -5,6 +5,7 @@
 
     $oauth_user = get_oauth_user();
 
+    error_log(print_r($oauth_user, 1));
 	$err = array();
 	
 	if($oauth_user['is_admin'] == 0) {
