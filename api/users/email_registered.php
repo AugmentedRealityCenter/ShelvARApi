@@ -1,9 +1,11 @@
 <?php
     error_log('hit email registered');
+    error_log('oauth_user before: '.print_r($oauth_user, 1));
 	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
 	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
 	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
-	
+    error_log('oauth_user after: '.print_r($oauth_user, 1));
+
 	$err = array();
 	
 	if($oauth_user['is_admin'] == 0) {
