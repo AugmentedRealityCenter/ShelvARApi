@@ -1,6 +1,6 @@
 <?php 
-	include "../../database.php";
-	include_once "../../header_include.php";
+	include $_SERVER['DOCUMENT_ROOT']."/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
 	
 	$err = array();
 	
