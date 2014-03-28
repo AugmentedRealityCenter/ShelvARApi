@@ -133,7 +133,7 @@ function handle_users($path_arr) {
             } else if ($path_arr[1] === 'email_registered') {
                 // GET users/email_registered/{id}
                 $_GET['email'] = $path_arr[2];
-                include $root.'api/user/email_registered.php';
+                include $root.'api/users/email_registered.php';
             } else {
                 throw_error(404, '404 - not found');
             }
