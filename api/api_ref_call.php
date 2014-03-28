@@ -109,6 +109,7 @@ if(isset($oauth_user)){
  }
 
 function get_oauth_user() {
+    error_log('outside try');
   try {
       error_log('in function');
       global $Provider;
