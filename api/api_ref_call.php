@@ -110,6 +110,7 @@ if(isset($oauth_user)){
 
 function get_oauth_user() {
   try {
+      global $Provider;
     $user_num = $Provider->getUserId();
     $exp_date = $Provider->getAccessTokenDate();
 	$scope = $Provider->getAccessTokenScope();
