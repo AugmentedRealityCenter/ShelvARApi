@@ -5,6 +5,7 @@
 	
 	$err = array();
 	
+    error_log(print_r($oauth_user, 1));
 	if($oauth_user['is_admin'] == 0) {
 		$err[] = "Invalid access to API call";
 	}
