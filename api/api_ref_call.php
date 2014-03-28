@@ -37,6 +37,7 @@ if(is_bool($response) && $response == true){
 	  $oauth_user['scope'] = "invread_invsubmit_contactread_acctmod";
       $user_id = $oauth_user['user_id'];
       $inst_id = $oauth_user['inst_id'];
+      error_log('ref call sandbox: '.print_r($oauth_user, 1));
       http_response_code(200);
     } else {
       $arr = array('result' => "ERROR Sandbox user not found.");

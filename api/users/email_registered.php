@@ -3,7 +3,7 @@
     error_log('oauth_user before: '.print_r($oauth_user, 1));
 	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
 	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
-//	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
     error_log('oauth_user after: '.print_r($oauth_user, 1));
 
 	$err = array();
@@ -15,8 +15,6 @@
 		$err[] = "No email address supplied";
 	}
 	                                  
-    error_log('email registered');
-    error_log(print_r($err, 1));
 	if(!count($err)) {                                                               
 		$email = htmlspecialchars($_GET['email'], ENT_HTML401); 
 		$inst_id = $oauth_user['inst_id'];
