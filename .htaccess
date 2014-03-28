@@ -86,7 +86,7 @@ RewriteRule ^users$ api/users/get_users.php [L]
 #RewriteCond %{THE_REQUEST} GET
 #RewriteRule ^make_tags/paper_formats$ api/tagmaker/tagformats.json [L]
 
-#RewriteCond %{THE_REQUEST} GET
+RewriteCond %{THE_REQUEST} GET
 RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]
 
 #RewriteCond %{THE_REQUEST} GET

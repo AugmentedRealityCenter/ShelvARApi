@@ -92,7 +92,6 @@ function handle_bp($path_arr, $req_type) {
 }
 
 function handle_users($path_arr) {
-    echo "Api wrapper";
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
@@ -160,18 +159,24 @@ function handle_inst($path_arr) {
     // used to determine if request came from
     // shelvar front end
     $web    = isset($_GET['web']);
+    $server = 'http://'.$_SERVER['HTTP_HOST'].'/';
 
     if ($cnt === 2) {
         if ($method === 'GET') {
             if ($path_arr[1] === '') {
-                include $root.'api/institutions/get_institutions.php';
+                if ($web) {
+                    header('Location: '.$server
+                        .'api/institutions/get_institutions.php');
+                } else {
+                    include $root.'api/institutions/get_institutions.php';
+                }
             } else if ($path_arr[1] === 'activate_inst') {
                 include $root.'api/institutions/activate_inst.php';
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
                 if ($web) {
-                    header('Location: http://'.$_SERVER['HTTP_HOST']
-                        .'/api/institutions/get_institution.php?inst_id='
+                    header('Location: '.$server
+                        .'api/institutions/get_institution.php?inst_id='
                         .$_GET['inst_id']); 
                 } else {
                     include $root.'api/institutions/get_institution.php';
@@ -181,7 +186,12 @@ function handle_inst($path_arr) {
             if ($path_arr[1] === '') {
                 include $root.'api/institutions/register_institution.php';
             } else if ($path_arr[1] === 'edit') {
-                include $root.'api/institutions/edit_institution.php';
+                if ($web) {
+                    header('Location: '.$server
+                        .'api/institutions/edit_institution.php');
+                } else {
+                    include $root.'api/institutions/edit_institution.php';
+                }
             } else {
                 throw_error(404, '404 - not found');
             }
