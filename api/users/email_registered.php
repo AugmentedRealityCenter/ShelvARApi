@@ -13,6 +13,7 @@
 		$err[] = "No email address supplied";
 	}
 	                                  
+    error_log(print_r($err, 1));
 	if(!count($err)) {                                                               
 		$email = htmlspecialchars($_GET['email'], ENT_HTML401); 
 		$inst_id = $oauth_user['inst_id'];
