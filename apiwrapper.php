@@ -92,7 +92,6 @@ function handle_bp($path_arr, $req_type) {
 }
 
 function handle_users($path_arr) {
-    error_log('hit api wrapper');
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
@@ -133,7 +132,6 @@ function handle_users($path_arr) {
                 include $root.'api/users/user_available.php';
             } else if ($path_arr[1] === 'email_registered') {
                 // GET users/email_registered/{id}
-                error_log('api wrapper: email registered');
                 $_GET['email'] = $path_arr[2];
                 include $root.'api/users/email_registered.php';
             } else {
