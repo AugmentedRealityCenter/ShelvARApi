@@ -126,6 +126,7 @@ function get_oauth_user() {
 	  $oauth_user['scope'] = $scope;
       $user_id = $oauth_user['user_id'];
       $inst_id = $oauth_user['inst_id'];
+      error_log('api_ref before return:'.print_r($oauth_user,1_));
       return $oauth_user;
     } else {
       $arr = array('result' => "ERROR User not found.");
