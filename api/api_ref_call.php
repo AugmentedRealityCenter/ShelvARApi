@@ -99,6 +99,7 @@ if(isset($oauth_user)){
     $oauth_user['inst_activated'] = $ret[0]['is_activated'];
     $oauth_user['inst_name'] = $ret[0]['name'];
 	$oauth_user['inst_email_activated'] = $ret[0]['email_verified'];
+    error_log('at institution:'.print_r($oauth_user,1));
   } else {
     $oauth_user['exp_date'] = "0";
     $oauth_user['inst_has_inv'] = "0";
@@ -109,9 +110,7 @@ if(isset($oauth_user)){
  }
 
 function get_oauth_user() {
-    error_log('outside try');
   try {
-      error_log('in function');
       global $Provider;
     $user_num = $Provider->getUserId();
     $exp_date = $Provider->getAccessTokenDate();
