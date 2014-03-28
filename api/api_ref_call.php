@@ -69,7 +69,7 @@ if(!isset($oauth_user)){
 	  $oauth_user['scope'] = $scope;
       $user_id = $oauth_user['user_id'];
       $inst_id = $oauth_user['inst_id'];
-      error_log('ref call oauth user: '.$print_r($oauth_user, 1));
+      error_log('ref call oauth user: '.print_r($oauth_user, 1));
     } else {
       $arr = array('result' => "ERROR User not found.");
       exit(json_encode($arr));
