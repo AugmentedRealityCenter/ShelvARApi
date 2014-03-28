@@ -7,7 +7,7 @@ new AutoLoader();
 
 unset($oauth_user);
 
-$Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY	);
+$Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY);
 $response 	= $Provider->checkOAuthRequest();
 
 foreach($_SERVER as $key => $value){
@@ -69,7 +69,6 @@ if(!isset($oauth_user)){
 	  $oauth_user['scope'] = $scope;
       $user_id = $oauth_user['user_id'];
       $inst_id = $oauth_user['inst_id'];
-      error_log('ref call oauth user: '.print_r($oauth_user, 1));
     } else {
       $arr = array('result' => "ERROR User not found.");
       exit(json_encode($arr));
@@ -108,4 +107,33 @@ if(isset($oauth_user)){
     exit(json_encode(array("result"=>"ERROR Could not find your institution.")));
   }
  }
+
+function get_oauth_user() {
+  try {
+    $user_num = $Provider->getUserId();
+    $exp_date = $Provider->getAccessTokenDate();
+	$scope = $Provider->getAccessTokenScope();
+    $db = new database();
+    $db->query = "SELECT inst_id, name, user_id, is_admin, email_verified, can_submit_inv, can_read_inv, can_shelf_read, user_num, email FROM users WHERE user_num = ?";
+    $db->params = array($user_num);
+    $db->type = "i";
+    $the_rec = $db->fetch();
+
+    if(count($the_rec) > 0){
+	  $email = $the_rec[0]['email'];
+	  unset($the_rec[0]['email']);
+      $oauth_user = $the_rec[0];
+	  $oauth_user['scope'] = $scope;
+      $user_id = $oauth_user['user_id'];
+      $inst_id = $oauth_user['inst_id'];
+      return $oauth_user;
+    } else {
+      $arr = array('result' => "ERROR User not found.");
+      exit(json_encode($arr));
+    }
+
+  } catch (Exception $Exception) {
+    exit(json_encode(array("result"=>"ERROR OAuth token missing or invalid.")));
+  }
+}
 ?>
