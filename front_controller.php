@@ -49,7 +49,6 @@ function get_domain() {
  */
 function redir($uri_path) {
     $server = get_domain();
-    error_log('redirect: '.$server.$uri_path);
     header('Location: '.$server.$uri_path);
 }
 
@@ -258,15 +257,19 @@ function handle_inst($path_arr) {
     include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2) {
+        // GET institutions/'something here maybe'
         if ($method === 'GET') {
+            // GET institutions/
             if ($path_arr[1] === '') {
                 if ($web) {
                     redir($get_inst_mult);
                 } else {
                     include $root.$get_inst_mult;
                 }
+            // GET institutions/activate_inst
             } else if ($path_arr[1] === 'activate_inst') {
                 include $root.$get_act_inst;
+            // GET institutions/{id}
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
                 if ($web) {
@@ -276,8 +279,10 @@ function handle_inst($path_arr) {
                 }
             }
         } else if ($method === 'POST') {
+            // POST institutions/
             if ($path_arr[1] === '') {
                 include $root.$post_inst_reg;
+            // POST institutions/edit
             } else if ($path_arr[1] === 'edit') {
                 if ($web) {
                     redir($post_inst_edit);
@@ -289,7 +294,9 @@ function handle_inst($path_arr) {
             }
         }
     } else if ($cnt === 3) {
+        // GET institutions/something/somethingelse
         if ($method === 'GET') {
+            // GET institutions/available/{id}
             if ($path_arr[1] === 'available') {
                 $_GET['inst_id'] = strip_ext($path_arr[2], '.json');
                 include $root.$get_inst_avail;
@@ -360,6 +367,9 @@ function handle_notif($path_arr) {
     }
 }
 
+/*
+ * Throws a json formatted error
+ */
 function throw_error($code, $out_string) {
     http_response_code($code);
 
