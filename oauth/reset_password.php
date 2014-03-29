@@ -25,6 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		
 		$result = $db->fetch();
 		
+		echo '$email';
+		
 		//If there is a username that matches
 		if(count($result) > 0)
 		{
