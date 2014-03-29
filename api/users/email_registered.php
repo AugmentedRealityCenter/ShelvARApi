@@ -3,7 +3,6 @@
 	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
 	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
 
-    error_log(print_r($oauth_user, 1));
 	$err = array();
 	
 	if($oauth_user['is_admin'] == 0) {
@@ -14,6 +13,7 @@
 	}
 	                                  
 	if(!count($err)) {                                                               
+        error_log('no errors');
 		$email = htmlspecialchars($_GET['email'], ENT_HTML401); 
 		$inst_id = $oauth_user['inst_id'];
 		$db = new database();
