@@ -14,22 +14,6 @@ RewriteRule ^deploy - [L]
 RewriteRule ^ShelvARLogo_Big.png - [L]
 
 ###########
-### API ###
-###########
-
-# Condition for GET/POST requests that are also API calls.
-# An API call is defined as a URI request for anything that is not
-# a file. Note: chaining RewriteConds is equivalent to:
-# (cond1 && cond2), which is what we want in this case.
-# The following lines make calls to the api wrapper
-# and specify whether or not they were GET or POST while
-# also specifying the URI. An errant URI specification
-# results in a 404 being thrown by the apiwrapper.
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
-
-###########
 ## OAuth ##
 ###########
 RewriteCond %{THE_REQUEST} GET
@@ -46,4 +30,20 @@ RewriteRule ^oauth/get_access_token$ oauth/access_token.php [L]
 RewriteRule ^oauth/get_request_token$ oauth/request_token.php [L]
 RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
 RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
+
+###########
+### API ###
+###########
+
+# Condition for GET/POST requests that are also API calls.
+# An API call is defined as a URI request for anything that is not
+# a file. Note: chaining RewriteConds is equivalent to:
+# (cond1 && cond2), which is what we want in this case.
+# The following lines make calls to the api wrapper
+# and specify whether or not they were GET or POST while
+# also specifying the URI. An errant URI specification
+# results in a 404 being thrown by the apiwrapper.
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
 
