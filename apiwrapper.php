@@ -35,6 +35,19 @@ function strip_ext($id, $ext) {
     return substr($id, 0, strrpos($id, $ext));
 }
 
+function get_domain() {
+    if (strpos($_SERVER['HTTP_HOST'], 'api.shelvar.com') === 0) {
+        return 'https://'.$_SERVER['HTTP_HOST'].'/';
+    } else {
+        return 'http://'.$_SERVER['HTTP_HOST'].'/';
+    }
+}
+
+function redir($uri_path) {
+    $server = get_domain();
+    header('Location: '.$server.$uri_path);
+}
+
 function handle_bt($path_arr, $req_type) {
     global $root, $get_book_tags;
     if (count($path_arr) === 2) { // valid request
@@ -95,10 +108,8 @@ function handle_users($path_arr) {
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
-    // used to determine if request came from
-    // shelvar front end
-    $web    = isset($_GET['web']);
-    $server = 'http://'.$_SERVER['HTTP_HOST'].'/';
+    $web    = isset($_GET['web']); // true if request came from front end
+    $server = get_domain();
 
     if ($cnt === 1) { // URI paths with a count of 1,2,3 are valid
         if ($method === 'GET') { // GET users
@@ -166,41 +177,38 @@ function handle_inst($path_arr) {
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
-    // used to determine if request came from
-    // shelvar front end
-    $web    = isset($_GET['web']);
-    $server = 'http://'.$_SERVER['HTTP_HOST'].'/';
+    $web    = isset($_GET['web']); // true if request came from front end
+    $server = get_domain();
+
+    // path names
+    include_once $_SERVER['DOCUMENT_ROOT'].'/wrapper_constants.php';
 
     if ($cnt === 2) {
         if ($method === 'GET') {
             if ($path_arr[1] === '') {
                 if ($web) {
-                    header('Location: '.$server
-                        .'api/institutions/get_institutions.php');
+                    redir($get_inst_mult);
                 } else {
-                    include $root.'api/institutions/get_institutions.php';
+                    include $root.$get_inst_mult;
                 }
             } else if ($path_arr[1] === 'activate_inst') {
-                include $root.'api/institutions/activate_inst.php';
+                include $root.$get_act_inst;
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
                 if ($web) {
-                    header('Location: '.$server
-                        .'api/institutions/get_institution.php?inst_id='
-                        .$_GET['inst_id']); 
+                    redir($get_inst.'?inst_id='.$_GET['inst_id']); 
                 } else {
-                    include $root.'api/institutions/get_institution.php';
+                    include $root.$get_inst;
                 }
             }
         } else if ($method === 'POST') {
             if ($path_arr[1] === '') {
-                include $root.'api/institutions/register_institution.php';
+                include $root.$post_inst_reg;
             } else if ($path_arr[1] === 'edit') {
                 if ($web) {
-                    header('Location: '.$server
-                        .'api/institutions/edit_institution.php');
+                    redir($post_inst_edit);
                 } else {
-                    include $root.'api/institutions/edit_institution.php';
+                    include $root.$post_inst_edit;
                 }
             } else {
                 throw_error(404, '404 - not found');
@@ -210,7 +218,7 @@ function handle_inst($path_arr) {
         if ($method === 'GET') {
             if ($path_arr[1] === 'available') {
                 $_GET['inst_id'] = strip_ext($path_arr[2], '.json');
-                include $root.'api/institutions/inst_available.php';
+                include $root.$get_inst_avail;
             } else {
                 throw_error(404, '404 - not found');
             }
