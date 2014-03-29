@@ -49,12 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			$salt = substr($salt, 0, 10);
 			
 			// Hash the password with the salt
-			$p = hash('sha256', $p . $salt); 
+			$passwordhash = hash('sha256', $p . $salt); 
 
 			$db = new database();
 			$db->query = "UPDATE users SET password = ? WHERE user_id = ?";
-			$db->params = array($p, $user_id);
-			$db->type = 'ss';
+			$db->params = array($passwordhash, $user_id, $salt);
+			$db->type = 'sss';
 			$res2 = $db->update();
 			
 			if(count($res2) > 0) 		// If it ran ok
