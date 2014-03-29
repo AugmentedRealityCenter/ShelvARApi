@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		
 		$db = new database();
 		$db->query = "SELECT user_id,email From users WHERE user_id = ?";
-		$db->params = array($user_id,email);
+		$db->params = array($user_id,$email);
 		$db->type = 'ss';
 		
 		$result = $db->fetch();
