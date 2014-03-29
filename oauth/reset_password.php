@@ -1,7 +1,6 @@
 <?php
 
 $err = array();	
-$success = array();
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) 
 {
@@ -13,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 	if(!count($err)) 
 	{
 		$user_id = $_POST['user_id'];
+		$email = $_POST['email'];
 				
 		$root = $_SERVER['DOCUMENT_ROOT']."/";
 		include_once($root."db_info.php");
@@ -20,8 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		
 		$db = new database();
 		$db->query = "SELECT user_id,email From users WHERE user_id = ?";
-		$db->params = array($user_id);
-		$db->type = 's';
+		$db->params = array($user_id,email);
+		$db->type = 'ss';
 		
 		$result = $db->fetch();
 		
@@ -45,15 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			
 			$p = getRandomPassword();
 			
-			function generateHashWithSalt($password) 
-			{
-				$intermediateSalt = md5(uniqid(rand(), true));
-				$salt = substr($intermediateSalt, 0, MAX_LENGTH);
-				return hash("sha256", $password . $salt);
-			}
-		
-			generateHashWithSalt($p);
-		
+			// Generate random salt
+			$salt = md5(uniqid(rand(), true));
+			$salt = substr($salt, 0, 10);
+			
+			// Hash the password with the salt
+			$p = hash('sha256', $password . $salt); 
+
 			$db = new database();
 			$db->query = "UPDATE users SET password = ? WHERE user_id = ?";
 			$db->params = array($p,$user_id);
@@ -68,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 				}
 				
 				//Send an email
-				$to = "kesanan@miamioh.edu";
+				$to = $email;
 				$subject = "Your temporary password";
 				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $user_id, <br/>"."<br/>Your password to log into ShelvAR has been temporarily changed to ".$p." .<br/>".
 																									"<br/>Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>".
@@ -84,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 					$err[] = "Error sending confirmation email";
 				}
 				
-				echo $success[] = "Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.";
+				echo '<script>alert(\"Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.\");</script>';
 
 			}
 			else 		//Failed the Validation test
