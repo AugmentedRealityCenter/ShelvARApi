@@ -2,7 +2,6 @@
 	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
 	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
 	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
-    $oauth_user = get_oauth_user();
 
     error_log(print_r($oauth_user, 1));
 	$err = array();
