@@ -10,6 +10,7 @@ unset($oauth_user);
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY);
 $response 	= $Provider->checkOAuthRequest();
 
+error_log(print_r($response,1));
 foreach($_SERVER as $key => $value){
     if(strpos($key,"REDIRECT_") !== FALSE 
         && strpos($key,"REDIRECT_STATUS") === FALSE
@@ -144,5 +145,4 @@ if(isset($oauth_user)){
     exit(json_encode(array("result"=>"ERROR OAuth token missing or invalid.")));
   }
 }*/
-error_log('eof api ref');
 ?>
