@@ -82,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 				}
 				
 				echo '<script>alert(\"Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.\");</script>';
-
+				redirect('oauth/reset_password', 'refresh');
+				
 			}
 			else 		//Failed the Validation test
 			{
