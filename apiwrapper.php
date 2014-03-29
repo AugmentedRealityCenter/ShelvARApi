@@ -176,8 +176,7 @@ function handle_inst($path_arr) {
     $web    = isset($_GET['web']); // true if request came from front end
     $server = get_domain();
 
-    // path names
-    include_once $_SERVER['DOCUMENT_ROOT'].'/wrapper_constants.php';
+    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2) {
         if ($method === 'GET') {
