@@ -12,15 +12,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 	if(!count($err)) 
 	{
 		$user_id = $_POST['user_id'];
+		$email = '';
 								
 		$root = $_SERVER['DOCUMENT_ROOT']."/";
 		include_once($root."db_info.php");
 		include_once($root."database.php");
 		
 		$db = new database();
-		$db->query = "SELECT user_id, email From users WHERE user_id = ?";
-		$db->params = array($user_id);
-		$db->type = 's';
+		$db->query = "SELECT user_id = ? AND email = ? From users WHERE user_id = ?";
+		$db->params = array($user_id, $email);
+		$db->type = 'ss';
 		
 		$result = $db->fetch();
 		
@@ -65,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 				}
 				
 				//Send an email
-				$to = "kesanan@miamioh.edu";
+				//$to = "kesanan@miamioh.edu";
 				$subject = "Your temporary password";
 				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $user_id, <br/>"."<br/>Your password to log into ShelvAR has been temporarily changed to ".$p." .<br/>".
 																									"<br/>Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>".
@@ -77,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 						   'Content-type: text/html' . "\r\n" .
 							'X-Mailer: PHP/' . phpversion();
 				
-				if(!mail ($to, $subject, $message, $headers)){
+				if(!mail ($email, $subject, $message, $headers)){
 					$err[] = "Error sending confirmation email";
 				}
 				
