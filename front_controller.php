@@ -349,7 +349,7 @@ function handle_notif($path_arr) {
 
     if ($cnt === 2) { // valid request
         // GET notifications/{inst_id}
-        if ($notifications === "GET") { 
+        if ($method === "GET") { 
             $_GET['inst_id'] = $path_arr[1];
             include $root.$get_notif;
         } else {                    // some method that's not a GET
