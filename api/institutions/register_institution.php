@@ -35,6 +35,7 @@
 		$err[] = 'Your admin emails do not match';
 	}
 	
+    error_log(print_r($_POST,1));
 	// If there are no errors
 	if(!count($err)) {
 		$inst_id = htmlspecialchars($_POST['inst_id'], ENT_HTML401);
