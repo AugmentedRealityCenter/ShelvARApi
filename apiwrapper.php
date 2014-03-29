@@ -1,8 +1,4 @@
 <?php
-$root = $_SERVER['DOCUMENT_ROOT']."/";
-include $root."wrapper_constants.php";
-// request path constants 
-
 // request handler variables
 $path       = $_GET['path'];
 $path_arr   = explode('/', $path);
