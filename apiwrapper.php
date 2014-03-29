@@ -95,6 +95,10 @@ function handle_users($path_arr) {
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
+    // used to determine if request came from
+    // shelvar front end
+    $web    = isset($_GET['web']);
+    $server = 'http://'.$_SERVER['HTTP_HOST'].'/';
 
     if ($cnt === 1) { // URI paths with a count of 1,2,3 are valid
         if ($method === 'GET') { // GET users
@@ -132,8 +136,13 @@ function handle_users($path_arr) {
                 include $root.'api/users/user_available.php';
             } else if ($path_arr[1] === 'email_registered') {
                 // GET users/email_registered/{id}
-                $_GET['email'] = $path_arr[2];
-                include $root.'api/users/email_registered.php';
+                if ($web) {
+                    header('Location: '.$server
+                        .'api/users/email_registered.php?email='.$path_arr[2]);
+                } else {
+                    $_GET['email'] = $path_arr[2];
+                    include $root.'api/users/email_registered.php';
+                }
             } else {
                 throw_error(404, '404 - not found');
             }
