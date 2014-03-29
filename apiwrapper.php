@@ -138,7 +138,8 @@ function handle_users($path_arr) {
                 // GET users/email_registered/{id}
                 if ($web) {
                     header('Location: '.$server
-                        .'api/users/email_registered.php?email='.$path_arr[2]);
+                        .'api/users/email_registered.php?email='.
+                        strip_ext($path_arr[2], '.json'));
                 } else {
                     $_GET['email'] = $path_arr[2];
                     include $root.'api/users/email_registered.php';
