@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 	if(!count($err)) 
 	{
 		$user_id = $_POST['user_id'];
+		$email = '';
 						
 		$root = $_SERVER['DOCUMENT_ROOT']."/";
 		include_once($root."db_info.php");
@@ -19,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		
 		$db = new database();
 		$db->query = "SELECT user_id,email From users WHERE user_id = ?";
-		$db->params = array($user_id,$email);
+		$db->params = array($user_id, $email);
 		$db->type = 'ss';
 		
 		$result = $db->fetch();
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 
 			$db = new database();
 			$db->query = "UPDATE users SET password = ? WHERE user_id = ?";
-			$db->params = array($p,$user_id);
+			$db->params = array($p, $user_id);
 			$db->type = 'ss';
 			$res2 = $db->update();
 			
