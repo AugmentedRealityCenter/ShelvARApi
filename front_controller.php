@@ -49,6 +49,7 @@ function get_domain() {
  */
 function redir($uri_path) {
     $server = get_domain();
+    error_log('redirect: '.$server.$uri_path);
     header('Location: '.$server.$uri_path);
 }
 
