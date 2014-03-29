@@ -107,25 +107,44 @@ function handle_users($path_arr) {
     $web    = isset($_GET['web']); // true if request came from front end
     $server = get_domain();
 
+    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+
     if ($cnt === 1) { // URI paths with a count of 1,2,3 are valid
         if ($method === 'GET') { // GET users
-            include $root.'api/users/get_users.php';
+            if ($web) {
+                redir($get_user_mult);
+            } else {
+                include $root.$get_user_mult;
+            }
         } else if ($method === 'POST') { // POST users
-            include $root.'api/users/register_user.php';
+            include $root.$post_users;
         } else {
             throw_error(405, '405 - method not allowed');
         }
     } else if ($cnt === 2) {
-        if ($method === 'GET') { // GET users/something_here
-            if ($path_arr[1] === 'activate_email') { // GET users/activate_email
-                include $root.'api/users/activate_email.php';
-            } else {                                // GET users/some_user.json
+        // GET users/something_here
+        if ($method === 'GET') { 
+            // GET users/activate_email
+            if ($path_arr[1] === 'activate_email') { 
+                include $root.$get_act_email;
+            // GET users/some_user.json
+            } else {
                 $_GET['user_id'] = strip_ext($path_arr[1], '.json');
-                include $root.'api/users/get_user.php';
+                if ($web) {
+                    redir($get_user.'?user_id='.$_GET['user_id']);
+                } else {
+                    include $root.$get_user;
+                }
             }
-        } else if ($method === 'POST') { // POST users/something_here
-            if ($path_arr[1] === 'edit') { // POST users/edit
-                include $root.'api/users/edit_user.php';
+        // POST users/something_here
+        } else if ($method === 'POST') { 
+            // POST users/edit
+            if ($path_arr[1] === 'edit') { 
+                if ($web) {
+                    redir($post_users_edit);
+                } else {
+                    include $root.$post_users_edit;
+                }
             } else {
                 throw_error(404, '404 - not found');
             }
@@ -133,31 +152,35 @@ function handle_users($path_arr) {
             throw_error(405, '405 - not found');
         }
     } else if ($cnt === 3) {
-        if ($method === 'GET') { // GET users/something/something_else
-            if ($path_arr[2] === 'permissions') { // GET users/{id}/permissions
+        // GET users/something/something_else
+        if ($method === 'GET') { 
+            // GET users/{id}/permissions
+            if ($path_arr[2] === 'permissions') { 
                 $_GET['user_id'] = $path_arr[1];
-                include $root.'api/users/get_permissions.php';
-            } else if ($path_arr[1] === 'available') {
-                // GET users/available/{id}.json
-                $_GET['user_id'] = strip_ext($path_arr[2], '.json');
-                include $root.'api/users/user_available.php';
-            } else if ($path_arr[1] === 'email_registered') {
-                // GET users/email_registered/{id}
                 if ($web) {
-                    header('Location: '.$server
-                        .'api/users/email_registered.php?email='.
-                        strip_ext($path_arr[2], '.json'));
+                    redir($get_user_perm.'?user_id='.$_GET['user_id']);
                 } else {
-                    $_GET['email'] = $path_arr[2];
-                    include $root.'api/users/email_registered.php';
+                    include $root.$get_user_perm;
                 }
+
+            // GET users/available/{id}.json
+            } else if ($path_arr[1] === 'available') {
+                $_GET['user_id'] = strip_ext($path_arr[2], '.json');
+                include $root.$get_users_avail;
+            // GET users/email_registered/{id}
+            } else if ($path_arr[1] === 'email_registered') {
+                redir($get_email_reg.'?email='.strip_ext($path_arr[2], '.json'));
             } else {
                 throw_error(404, '404 - not found');
             }
         } else if ($method === 'POST') {
-            if ($path_arr[2] === 'permissions') { // POST users/{id}/permissions
-                $_POST['user_id'] = $path_arr[1];
-                include $root.'api/users/edit_permissions.php';
+            // POST users/{id}/permissions
+            if ($path_arr[2] === 'permissions') { 
+                if ($web) {
+                    redir($post_users_perm);
+                } else {
+                    include $root.$post_users_perm;
+                }
             } else {
                 throw_error(404, '404 - not found');
             }
