@@ -194,7 +194,6 @@ function handle_inst($path_arr) {
             }
         } else if ($method === 'POST') {
             if ($path_arr[1] === '') {
-                error_log('apiwrapper: reg inst');
                 include $root.'api/institutions/register_institution.php';
             } else if ($path_arr[1] === 'edit') {
                 if ($web) {
