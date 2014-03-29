@@ -176,8 +176,9 @@ function handle_users($path_arr) {
         } else if ($method === 'POST') {
             // POST users/{id}/permissions
             if ($path_arr[2] === 'permissions') { 
+                $_POST['user_id'] = $path_arr[1];
                 if ($web) {
-                    redir($post_users_perm);
+                    redir($post_users_perm.'?user_id='.$_POST['user_id']);
                 } else {
                     include $root.$post_users_perm;
                 }
