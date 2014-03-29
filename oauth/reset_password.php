@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 	if(!count($err)) 
 	{
 		$user_id = $_POST['user_id'];
-		$email = '';
+		$email = $_POST['email'];
 										
 		$root = $_SERVER['DOCUMENT_ROOT']."/";
 		include_once($root."db_info.php");
@@ -24,8 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		$db->type = 'ss';
 		
 		$result = $db->fetch();
-		
-		echo $email;
 		
 		//If there is a username that matches
 		if(count($result) > 0)
