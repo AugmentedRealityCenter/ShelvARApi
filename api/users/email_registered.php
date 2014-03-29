@@ -15,8 +15,6 @@
 	if(!count($err)) {                                                               
 		$email = htmlspecialchars($_GET['email'], ENT_HTML401); 
 		$inst_id = $oauth_user['inst_id'];
-        error_log('email:'.$email);
-        error_log('inst_id:'.$inst_id);
 		$db = new database();
 		$db->query = "SELECT user_id FROM users WHERE email = ? AND inst_id = ?";
 		$db->params = array($email, $inst_id);

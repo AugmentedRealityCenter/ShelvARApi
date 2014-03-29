@@ -51,6 +51,7 @@ if(is_bool($response) && $response == true){
 
 } else if (!is_bool($response) || $response != true) {
     error_log('oauth token missing or invalid');
+    error_log($response);
     exit(json_encode(array("result"=>"ERROR. OAuth token missing or invalid.")));
 }
 
