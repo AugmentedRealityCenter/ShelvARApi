@@ -10,8 +10,8 @@
 	}
 	
 	$inst_id = "";
-	if(!$_POST['inst_id']) {
-		if(!$_GET['inst_id']) {
+	if(!isset($_POST['inst_id'])) {
+		if(!isset($_GET['inst_id'])) {
 			$err[] = "No inst_id supplied";
 		}
 		else $inst_id = $_GET['inst_id'];

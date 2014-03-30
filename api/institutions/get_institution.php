@@ -5,10 +5,10 @@
 	
 	$err = array();
 	$contactread = true;
-	if(!$_GET['inst_id']) {
+	if(!isset($_GET['inst_id'])) {
 		$err[] = "No inst_id supplied";
 	}
-	if($_GET['inst_id'] != $oauth_user['inst_id']) {
+	if(!count($err) && $_GET['inst_id'] != $oauth_user['inst_id']) {
 		$err[] = "Invalid access to institution information";
 	}
 	if(stripos($oauth_user['scope'],"contactread") === false) {

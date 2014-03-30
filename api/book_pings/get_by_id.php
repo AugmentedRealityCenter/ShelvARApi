@@ -37,6 +37,10 @@ $db = new database();
 print($db->query . "\n\n");
 $db->query = "SELECT * FROM book_pings WHERE id = ? and inst_id = ?";
 $_GET['institution']=$inst_id;
+if (!isset($_GET['book_ping_id'])) {
+    exit(json_encode(array('result'=>'ERROR',
+       'message'=>'Please specify book ping id.')));
+}
 $db->params = array($_GET['book_ping_id'],$_GET['institution']);
 $db->type = 'is';
 $the_rec = $db->fetch();

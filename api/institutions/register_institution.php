@@ -5,19 +5,19 @@
 	
 	$err = array();
 	
-	if(!$_POST['inst_id']) {
+	if(!isset($_POST['inst_id'])) {
 		$err[] = 'Please fill in inst_id';
 	}
-	if(!$_POST['inst_name']) {
+	if(!isset($_POST['inst_name'])) {
 		$err[] = 'Please fill in inst_name';
 	}
 	if(!isset($_POST['admin_name'])) {
 		$err[] = 'Please fill in admin_name';
 	}
-	if(!$_POST['admin_contact']) {
+	if(!isset($_POST['admin_contact'])) {
 		$err[] = 'Please fill in admin_contact';
 	}
-	if(!$_POST['alt_contact']) {
+	if(!isset($_POST['alt_contact'])) {
 		$err[] = 'Please fill in alt_contact';
 	}
 	if(!isset($_POST['inst_type'])) {
@@ -26,17 +26,16 @@
 	if(!isset($_POST['inst_size'])) {
 		$err[] = 'Please fill in inst_size';
 	}
-	if(strlen($_POST['inst_id'])<5 || strlen($_POST['inst_id'])>20) {
+	if(!count($err) && (strlen($_POST['inst_id'])<5 || strlen($_POST['inst_id'])>20)) {
 		$err[]='Institution ID must be between 5-20 characters';
 	}
-	if(preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['inst_id'])) {
+	if(!count($err) && preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['inst_id'])) {
 		$err[]='Institution ID contains invalid characters';
 	}
-	if(($_POST['admin_contact']) !== ($_POST['admin_contact2'])) {
+	if(!count($err) && ($_POST['admin_contact'] !== $_POST['admin_contact2'])) {
 		$err[] = 'Your admin emails do not match';
 	}
 	
-    error_log(print_r($_POST,1));
 	// If there are no errors
 	if(!count($err)) {
 		$inst_id = htmlspecialchars($_POST['inst_id'], ENT_HTML401);
