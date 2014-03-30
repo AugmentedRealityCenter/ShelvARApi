@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 
 			$db = new database();
 			$db->query = "UPDATE users SET password = ? AND encrip_salt = ? WHERE user_id = ?";
-			$db->params = array($p, $passwordhash, $user_id);
+			$db->params = array($passwordhash, $salt, $user_id);
 			$db->type = 'sss';
 			$res2 = $db->update();
 			
