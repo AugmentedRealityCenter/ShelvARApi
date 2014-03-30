@@ -43,18 +43,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			}
 			
 			$p = getRandomPassword();
-			
+			/*
 			// Generate random salt
 			$salt = md5(uniqid(rand(), true));
 			$salt = substr($salt, 0, 10);
 			
 			// Hash the password with the salt
-			$passwordhash = hash('sha256', $p . $salt); 
+			$passwordhash = hash('sha256', $p . $salt); */
 
 			$db = new database();
-			$db->query = "UPDATE users SET password = ? AND encrip_salt = ? WHERE user_id = ?";
-			$db->params = array($passwordhash, $salt, $user_id);
-			$db->type = 'sss';
+			$db->query = "UPDATE users SET password = ? WHERE user_id = ?";
+			$db->params = array($p, $user_id);
+			$db->type = 'ss';
 			$res2 = $db->update();
 			
 			if(count($res2) > 0) 		// If it ran ok
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 				//Send an email
 				$to = "kesanan@miamioh.edu";
 				$subject = "Your temporary password";
-				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $user_id, <br/>"."<br/>Your password to log into ShelvAR has been temporarily changed to ".$passwordhash." .<br/>".
+				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $user_id, <br/>"."<br/>Your password to log into ShelvAR has been temporarily changed to ".$p." .<br/>".
 																									"<br/>Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>".
 																									"<br/>Sincerely,".
 																									"<br/>The ShelvAR Team"."<br/>";
