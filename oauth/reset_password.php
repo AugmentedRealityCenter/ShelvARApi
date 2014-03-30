@@ -1,7 +1,6 @@
 <?php
 
 $err = array();	
-$success = array();
 	
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id'])) 
 {
@@ -13,13 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 	if(!count($err)) 
 	{
 		$user_id = $_POST['user_id'];
-				
+												
 		$root = $_SERVER['DOCUMENT_ROOT']."/";
 		include_once($root."db_info.php");
 		include_once($root."database.php");
 		
 		$db = new database();
-		$db->query = "SELECT user_id,email From users WHERE user_id = ?";
+		$db->query = "SELECT user_id From users WHERE user_id = ?";
 		$db->params = array($user_id);
 		$db->type = 's';
 		
@@ -44,19 +43,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 			}
 			
 			$p = getRandomPassword();
+			/*
+			// Generate random salt
+			$salt = md5(uniqid(rand(), true));
+			$salt = substr($salt, 0, 10);
 			
-			function generateHashWithSalt($password) 
-			{
-				$intermediateSalt = md5(uniqid(rand(), true));
-				$salt = substr($intermediateSalt, 0, MAX_LENGTH);
-				return hash("sha256", $password . $salt);
-			}
-		
-			generateHashWithSalt($p);
-		
+			// Hash the password with the salt
+			$passwordhash = hash('sha256', $p . $salt); */
+
 			$db = new database();
 			$db->query = "UPDATE users SET password = ? WHERE user_id = ?";
-			$db->params = array($p,$user_id);
+			$db->params = array($p, $user_id);
 			$db->type = 'ss';
 			$res2 = $db->update();
 			
@@ -84,8 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 					$err[] = "Error sending confirmation email";
 				}
 				
-				echo $success[] = "Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.";
-
+				echo "<script type='text/javascript'>alert('Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.')</script>";
+			
+				
 			}
 			else 		//Failed the Validation test
 			{

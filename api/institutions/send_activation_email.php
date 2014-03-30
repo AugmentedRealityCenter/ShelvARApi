@@ -16,10 +16,13 @@
 		   'Content-type: text/html' . "\r\n" .
 		   'X-Mailer: PHP/' . phpversion();
 	
-	if(isset($editAdmin)) {
-	
-		/*include_once("../db_info.php");
-		include_once("../database.php");
+	if(isset($editAdmin)) 
+	{
+		$inst_name = '';
+		
+		$root = $_SERVER['DOCUMENT_ROOT']."/";
+		include_once($root."db_info.php");
+		include_once($root."database.php");
 			
 		$db = new database();
 		$db->query = "SELECT name From institutions WHERE inst_id = ?";
@@ -33,7 +36,7 @@
 		if(!mail($previous_admin, $subject, $message, $headers)) {
 			$err[] = "Error sending confirmation email";
 		}
-        $message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name,<br/><br/>This email is to confirm that you are the new admin of this institution. You can confirm this email address by clicking the following link:<br/><br/>".$api."institutions/activate_inst?inst_key=$activation_key&edit=1<br/><br/>If this message was sent as a mistake you can safely ignore it.";*/
+        $message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name,<br/><br/>This email is to confirm that you are the new admin of this institution. You can confirm this email address by clicking the following link:<br/><br/>".$api."institutions/activate_inst?inst_key=$activation_key&edit=1<br/><br/>If this message was sent as a mistake you can safely ignore it.";
 	}
 	else {
 					
