@@ -10,15 +10,6 @@ unset($oauth_user);
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY);
 $response 	= $Provider->checkOAuthRequest();
 
-foreach($_SERVER as $key => $value){
-    if(strpos($key,"REDIRECT_") !== FALSE 
-        && strpos($key,"REDIRECT_STATUS") === FALSE
-        && strpos($key,"REDIRECT_URL") === FALSE){
-            $newkey = substr($key,9);
-            $_GET[$newkey] = $value;
-        }
-}
-
 if(is_bool($response) && $response == true){
     //Do nothing
 } else if(isset($_SERVER['HTTP_REFERER']) && stripos($_SERVER['HTTP_REFERER'],"api.shelvar.com") !== false){
