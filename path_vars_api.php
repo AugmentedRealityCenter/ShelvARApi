@@ -9,7 +9,7 @@
     $get_users_avail    = "api/users/user_available.php";
     $get_email_reg      = "api/users/email_registered.php";
     $get_user           = "api/users/get_user.php";
-    $get_user_mult      = "api/users/get_users.php";
+    $get_user_mult      = "users/get_users";
     $get_act_inst       = "api/institutions/activate_inst.php";
     $get_inst_avail     = "api/institutions/inst_available.php";
     $get_inst           = "api/institutions/get_institution.php";
