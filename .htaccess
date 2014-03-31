@@ -20,7 +20,7 @@ RewriteCond %{THE_REQUEST} GET
 RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]
 
 RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/login$ oauth/login.php [L]
+RewriteRule ^oauth/login$ oauth/login.php [L,NS]
 
 RewriteCond %{THE_REQUEST} POST
 RewriteRule ^oauth/login$ oauth/login.php [L]
@@ -41,5 +41,5 @@ RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
 # results in a 404 being thrown by the front controller.
 
 #RewriteCond %{REQUEST_FILENAME} != doc
-RewriteRule ^(.*+)$ front_controller.php?path=$1 [NS,L,QSA]
+RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
 
