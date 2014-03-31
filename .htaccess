@@ -30,6 +30,7 @@ RewriteRule ^oauth/get_access_token$    oauth/access_token.php [L]
 RewriteRule ^oauth/get_request_token$   oauth/request_token.php [L]
 RewriteRule ^oauth/post_login$          oauth/post-login.php [L]
 RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
+RewriteRule ^oauth/bootstrap.css        oauth/bootstrap.css [L]
 
 ###########
 ### API ###
@@ -41,6 +42,5 @@ RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
 # results in a 404 being thrown by the front controller.
 
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
-#RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA,NS]
 
