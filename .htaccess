@@ -35,13 +35,11 @@ RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
 ### API ###
 ###########
 
-# Condition for requests that are API calls.
-# An API call is defined as a URI request for anything that is not
-# a file.
-# The following lines make calls to the front controller.
+# Rule for requests that are API calls.
+# The following line makes a call to the front controller.
 # An errant URI specification
 # results in a 404 being thrown by the front controller.
 
-#RewriteCond %{REQUEST_FILENAME} 
-#RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
+#RewriteCond %{REQUEST_FILENAME} != doc
+RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
 
