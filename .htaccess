@@ -42,5 +42,5 @@ RewriteRule ^oauth/bootstrap.css        oauth/bootstrap.css [L]
 # results in a 404 being thrown by the front controller.
 
 RewriteCond %{ENV:REDIRECT_STATUS} ^$
-RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA,NS]
+RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
 
