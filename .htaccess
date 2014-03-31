@@ -41,8 +41,7 @@ RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 # The following lines make calls to the front controller.
 # An errant URI specification
 # results in a 404 being thrown by the front controller.
-# If we get here, then treat it like an API Call
 
-#RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
 
