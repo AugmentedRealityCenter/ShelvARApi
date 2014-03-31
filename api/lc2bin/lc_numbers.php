@@ -11,6 +11,11 @@
 $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."api/lc2bin/lc_numbers_lib.php";
 
+if (!isset($_GET['call_number'])) {
+    exit(json_encode(array('result'=>'ERROR',
+       'message'=>'Please specify call_number')));
+}
+
 $call_number_in = urldecode($_GET["call_number"]);
 
 $result = "";
