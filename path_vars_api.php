@@ -4,12 +4,12 @@
     $get_lc_numbers     = "api/lc2bin/lc_numbers.php";
     $get_bp_count       = "api/book_pings/get_ping_count_book.php";
     $get_bp_id          = "api/book_pings/get_by_id.php";
-    $get_user_perm      = "users/get_permissions";
+    $get_user_perm      = "api/users/get_permissions.php";
     $get_act_email      = "api/users/activate_email.php";
     $get_users_avail    = "api/users/user_available.php";
     $get_email_reg      = "api/users/email_registered.php";
     $get_user           = "api/users/get_user.php";
-    $get_user_mult      = "users/get_users";
+    $get_user_mult      = "api/users/get_users.php";
     $get_act_inst       = "api/institutions/activate_inst.php";
     $get_inst_avail     = "api/institutions/inst_available.php";
     $get_inst           = "api/institutions/get_institution.php";
