@@ -29,7 +29,7 @@
 		$db->params = array($inst_name);
 		$db->type = 's';
 		
-		$result = db->fetch();
+		$result = $db->fetch();
 			
 		$subject = "ShelvAR.com Admin Change";
 		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name,<br/><br/>This email is to confirm that you are no longer the administrator of the the ShelvAR account for <br/>".$result."<br/>If you did not intend to change the admin of this institution, please contact support@shelvar.com.";

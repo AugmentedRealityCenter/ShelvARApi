@@ -4,7 +4,7 @@
 	
 	$err = array();
 	
-	if(!$_GET['key']) {
+	if(!isset($_GET['key'])) {
 		$err[] = 'No activation key supplied';
 	}
 	

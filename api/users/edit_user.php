@@ -10,8 +10,8 @@
 	$err = array();
 	
 	$user_id = "";
-	if(!$_POST['user_id']) {
-		if(!$_GET['user_id']) {
+	if(!isset($_POST['user_id'])) {
+		if(!isset($_GET['user_id'])) {
 			$err[] = "No user_id supplied";
 		}
 		else $user_id = htmlspecialchars($_GET['user_id'], ENT_HTML401);

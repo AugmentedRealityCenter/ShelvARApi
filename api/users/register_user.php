@@ -4,16 +4,18 @@
 
 	$err = array();
 
-	if(!$_POST['user_id'] || !$_POST['password'] || !$_POST['name'] || !$_POST['email'] || !$_POST['inst_id']) {
+    if(!isset($_POST['user_id']) || !isset($_POST['password']) ||
+        !isset($_POST['password2']) || !isset($_POST['name']) ||
+        !isset($_POST['email']) || !isset($_POST['inst_id'])) {
 		$err[] = 'Please fill in all fields';
 	}
-	if(strlen($_POST['user_id']) < 4 || strlen($_POST['user_id']) > 45) {
+	if(!count($err) && (strlen($_POST['user_id']) < 4) || (strlen($_POST['user_id']) > 45)) {
 		$err[] = 'Your username must be between 5 and 45 characters';
 	}
-	if(preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['user_id'])) {
+	if(!count($err) && preg_match('/[^a-z0-9\-\_\.]+/i',$_POST['user_id'])) {
 		$err[] = 'Your username contains invalid characters';
 	}
-	if(($_POST['password']) !== ($_POST['password2'])) {
+	if(!count($err) && ($_POST['password'] !== $_POST['password2'])) {
 		$err[] = 'Your passwords do not match';
 	}
 

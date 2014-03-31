@@ -5,10 +5,10 @@
 	
 	$err = array();
 	
-	if(!$_GET['user_id']) {
+	if(!isset($_GET['user_id'])) {
 		$err[] = "No user_id supplied";
 	}
-	if($_GET['user_id'] != $oauth_user['user_id']) {
+	if(!count($err) && ($_GET['user_id'] != $oauth_user['user_id'])) {
 		if($oauth_user['is_admin'] == 0) {
 			if($oauth_user['is_superadmin'] == 0) {
 				$err[] = "Invalid access to user account";
