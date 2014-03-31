@@ -6,13 +6,11 @@ include_once $root."api/HammingCode.php";
 
 /** GLOBAL VARS **/
 //array of callNumbers to print
-error_log('tags: '.$_GET['tags']);
-error_log('type: '.$_GET['type']);
 if (!isset($_GET['tags'])) {
     exit(json_encode(array('result'=>'ERROR',
         'message'=>'Please specify tags.')));
 }
-if (!isset($_GET['type'])) {
+if (!isset($_GET['type']) || $_GET['type'] === '') {
     exit(json_encode(array('result'=>'ERROR',
         'message'=>'Please specify paper type.')));
 }
