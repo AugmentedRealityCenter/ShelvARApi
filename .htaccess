@@ -42,6 +42,6 @@ RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 # An errant URI specification
 # results in a 404 being thrown by the front controller.
 
-RewriteCond %{REQUEST_FILENAME} (?!(doc|error_log|deploy|ShelvARLogo_Big.png))
+RewriteCond %{REQUEST_FILENAME} (?!doc|error_log|deploy|ShelvARLogo_Big.png)
 RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
 
