@@ -26,10 +26,10 @@ RewriteCond %{THE_REQUEST} POST
 RewriteRule ^oauth/login$ oauth/login.php [L]
 
 #These should probably just use AliasMatch in httpd.conf
-RewriteRule ^oauth/get_access_token$ oauth/access_token.php [L]
-RewriteRule ^oauth/get_request_token$ oauth/request_token.php [L]
-RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
-RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
+RewriteRule ^oauth/get_access_token$    oauth/access_token.php [L]
+RewriteRule ^oauth/get_request_token$   oauth/request_token.php [L]
+RewriteRule ^oauth/post_login$          oauth/post-login.php [L]
+RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
 
 ###########
 ### API ###
@@ -42,6 +42,6 @@ RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
 # An errant URI specification
 # results in a 404 being thrown by the front controller.
 
-RewriteCond %{REQUEST_FILENAME} (?!doc|error_log|deploy|ShelvARLogo_Big.png)
-RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
+#RewriteCond %{REQUEST_FILENAME} 
+#RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
 
