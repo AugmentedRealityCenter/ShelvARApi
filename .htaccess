@@ -40,7 +40,7 @@ RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
 # An errant URI specification
 # results in a 404 being thrown by the front controller.
 
-#RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA,NS]
 
