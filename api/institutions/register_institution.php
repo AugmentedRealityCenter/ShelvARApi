@@ -17,6 +17,9 @@
 	if(!isset($_POST['admin_contact'])) {
 		$err[] = 'Please fill in admin_contact';
 	}
+    if (!isset($_POST['admin_contact2'])) {
+        $err[] = 'Please verify admin_contact';
+    }
 	if(!isset($_POST['alt_contact'])) {
 		$err[] = 'Please fill in alt_contact';
 	}
