@@ -41,5 +41,6 @@ RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
 # results in a 404 being thrown by the front controller.
 
 #RewriteCond %{REQUEST_FILENAME} != doc
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
 RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
 
