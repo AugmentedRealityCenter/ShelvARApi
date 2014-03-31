@@ -1,6 +1,7 @@
 <?php
 // request handler variables
 $path       = $_GET['path'];
+error_log($path);
 $path_arr   = explode('/', $path);
 
 switch ($path_arr[0]) {
