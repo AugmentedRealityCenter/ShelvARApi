@@ -4,8 +4,7 @@ include_once $root."db_info.php";
 include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
-
-global $oauth_user;
+//redirect $root."api/api_ref_call.php";
 
 
 // Wrapper class to increment the count for a specified API call
@@ -15,14 +14,14 @@ global $oauth_user;
  * returns true if the call is under its set limit
  * returns false if it is over the limit
  */
-function is_incrementable($apiCall, $httpMethod, $user) {
-	checkLastReset($user);
+function is_incrementable($apiCall, $httpMethod) {
+	checkLastReset();
 
 	switch ($apiCall) {
 		case "/book_pings/":
 			if ($httpMethod = "GET") {
 				// Get the number of calls made from the database
-				$numCalls = getCountNotFreeCall("GET_book_pings_count", $user);
+				$numCalls = getCountNotFreeCall("GET_book_pings_count");
 				$limit = grabLimit("GET book_pings");
 
 				if ($numCalls < $limit)
@@ -31,7 +30,7 @@ function is_incrementable($apiCall, $httpMethod, $user) {
 					return false;
 			}
 			else {
-				$numCalls = getCountNotFreeCall("POST_book_pings_count", $user);
+				$numCalls = getCountNotFreeCall("POST_book_pings_count");
 				$limit = grabLimit("POST book_pings");
 
 				if ($numCalls < $limit)
@@ -41,7 +40,7 @@ function is_incrementable($apiCall, $httpMethod, $user) {
 			}
 			break;
 		case "/book_pings/count":
-			$numCalls = getCountNotFreeCall("GET_book_pings_count_count", $user);
+			$numCalls = getCountNotFreeCall("GET_book_pings_count_count");
 			$limit = grabLimit("GET book_pings_count");
 
 			if ($numCalls < $limit)
@@ -50,7 +49,7 @@ function is_incrementable($apiCall, $httpMethod, $user) {
 				return false;
 			break;
 		case "/book_pings/{book_ping_id}.json":
-			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count", $user);
+			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
 			$limit = grabLimit("GET book_pings_specific");
 
 			if ($numCalls < $limit)
@@ -251,21 +250,21 @@ function is_incrementable($apiCall, $httpMethod, $user) {
 /**
  * Increments a given API call by a provided count
  */
-function increment_count($apiCall, $httpMethod, $count, $user) {
+function increment_count($apiCall, $httpMethod, $count) {
 	switch ($apiCall) {
 		case "/book_pings/":
 			if ($httpMethod = "GET") {
-				updateCountNotFreeCall("GET_book_pings_count", $count, $user);
+				updateCountNotFreeCall("GET_book_pings_count", $count);
 			}
 			else {
-				updateCountNotFreeCall("POST_book_pings_count", $count, $user);
+				updateCountNotFreeCall("POST_book_pings_count", $count);
 			}
 			break;
 		case "/book_pings/count":
-			updateCountNotFreeCall("GET_book_pings_count_count", $count, $user);
+			updateCountNotFreeCall("GET_book_pings_count_count", $count);
 			break;
 		case "/book_pings/{book_ping_id}.json":
-			updateCountNotFreeCall("GET_book_pings_specific_count", $count, $user);
+			updateCountNotFreeCall("GET_book_pings_specific_count", $count);
 			break;
 		case "/book_tags/{book_tag}.json":
 			updateCountFreeCall("GET_book_tags_count", $count);
@@ -341,16 +340,16 @@ function increment_count($apiCall, $httpMethod, $count, $user) {
  * and the unknown user table. If there hasn't been a reset in over 15 mins
  * the counts are set to zero.
  */
-function checkLastReset($user) {
-	$lastResetNotFree = grabLastResetNotFree($user);
+function checkLastReset() {
+	$lastResetNotFree = grabLastResetNotFree();
 	$lastResetFree = grabLastResetFree();
 	
 	$currTime = time();  // http://www.php.net/manual/en/function.time.php
 	$fifteenMins = 900;
 	
 	if (($currTime - $lastResetNotFree) > $fifteenMins) {
-		setAllNotFreeCountsToZero($user);
-		setNotFreeLastReset($user);
+		setAllNotFreeCountsToZero();
+		setNotFreeLastReset();
 	}
 	if (($currTime - $lastResetFree) > $fifteenMins) {
 		setAllFreeCountsToZero();
@@ -361,11 +360,10 @@ function checkLastReset($user) {
 /**
  * Grabs the last reset field from the users table
  */
-function grabLastResetNotFree($user_id) {
+function grabLastResetNotFree() {
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	global $oauth_user;
 	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
@@ -432,12 +430,12 @@ function handleIPAddress() {
 /**
  * Sets each Non-free API call counter to zero
  */
-function setAllNotFreeCountsToZero($user) {
+function setAllNotFreeCountsToZero() {
 	$NotFreeCalls = array("POST_book_pings_count", "GET_book_pings_count", "GET_book_pings_count_count",
 			"GET_book_pings_specific_count");
 	
 	foreach($NotFreeCalls as $count) {
-		setToZeroNotFreeHelper($count, $user);
+		setToZeroNotFreeHelper($count);
 	}
 }
 
@@ -479,12 +477,12 @@ function setToZeroFreeHelper($column) {
 /**
  * Helper method to  set a column to zero
  */
-function setToZeroNotFreeHelper($column, $user_id) {
+function setToZeroNotFreeHelper($column) {
 	$query = "UPDATE users " .
 			"SET " . $column . " = 0 " .
 			"WHERE user_id = ?";
-	//$user_id = $oauth_user['user_id'];
-	$params = array($user_id);
+	$user = $oauth_user['user_id'];
+	$params = array($user);
 	$type = "s";
 	
 	$db = new database();
@@ -498,12 +496,13 @@ function setToZeroNotFreeHelper($column, $user_id) {
  * Sets the last reset field to the current time in the
  * users table
  */
-function setNotFreeLastReset($user_id) {
+function setNotFreeLastReset() {
 	$query = "UPDATE users " .
 			"SET last_reset = ? ".
 			"WHERE user_id = ?";
 	$time = date("Y-m-d H:i:s", strtotime("now"));
-	$params = array($time, $user_id);
+	$user = $oauth_user['user_id'];
+	$params = array($time, $user);
 	$type = "ss";
 	
 	$db = new database();
@@ -539,12 +538,12 @@ function setFreeLastReset() {
  * @param unknown_type $column  The count column for the intended call
  * @return unknown $numCalls    The number of calls for that API (within 15 min window)
  */
- function getCountNotFreeCall($column, $user_id) {
+ function getCountNotFreeCall($column) {
 	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	//$user_id = $oauth_user['user_id'];
-	$paramsNumCalls = array($user_id);
+	$user = $oauth_user['user_id'];
+	$paramsNumCalls = array($user);
 	$typeNumCalls = "s";
 	
 	$db = new database();
@@ -582,11 +581,12 @@ function getCountFreeCall($column) {
  * table (where the paid API calls are kept track of)
  * @param unknown_type $column  Name of the column to be incremented
  */
-function updateCountNotFreeCall ($column, $count, $user_id) {
+function updateCountNotFreeCall ($column, $count) {
 	$query = "UPDATE users " .
 			"SET " . $column . " = (" . $column . " + " . $count . ") " .
 			"WHERE user_id = ?";
-	$params = array($user_id);
+	$user = $oauth_user['user_id'];
+	$params = array($user);
 	$type = "s";
 	
 	$db = new database();
