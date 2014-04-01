@@ -354,7 +354,7 @@ function handle_oauth($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
 
     if (count($path_arr) === 2) { // valid request
-        if ($req_type === "GET") { // GET oauth/something_here
+        if ($method === "GET") { // GET oauth/something_here
             switch($path_arr[1]) { // determine the path and dispatch
             case "get_request_token": // necessary file
                 include $root."oauth/request_token.php";
