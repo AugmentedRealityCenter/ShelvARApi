@@ -363,19 +363,24 @@ function handle_oauth($path_arr) {
                 redir("oauth/login.php?oauth_token=".$_GET['oauth_token']);
                 break;
             case "get_access_token":
-                redir("oauth/access_token.php?oauth_callback=".$_GET['oauth_callback'].'&scope='.$_GET['scope']);
+                error_log('get_access_token: '.print_r($_GET,1));
+                redir("oauth/access_token.php");
                 break;
-            case "whoami": redir("oauth/whoami.php"); break;
+            case "whoami": 
+                error_log('whoami: '.print_r($_GET,1));
+                redir("oauth/whoami.php"); break;
             case "post_login":
                 redir("oauth/post-login.php?oauth_token=".$_GET['oauth_token']);
                 break;
             case "oauth/register_user":
+                error_log('register_user: '.print_r($_GET,1));
                 redir("oauth/register_user.php");
                 break;
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
             if ($path_arr[1] === "oauth/login") {
+                error_log('post login: '.print_r($_GET,1));
                 redir("oauth/login.php");
             }
         } else {
