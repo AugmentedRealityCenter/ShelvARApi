@@ -366,7 +366,10 @@ function handle_oauth($path_arr) {
                 redir("oauth/access_token.php?oauth_callback=".$_GET['oauth_callback'].'&scope='.$_GET['scope']);
                 break;
             case "whoami": redir("oauth/whoami.php"); break;
-            case "post_login": redir("oauth/post-login.php"); break;
+            case "post_login":
+                error_log('post_login: '.print_r($_GET,1));
+                redir("oauth/post-login.php");
+                break;
             case "oauth/register_user":
                 redir("oauth/register_user.php");
                 break;
