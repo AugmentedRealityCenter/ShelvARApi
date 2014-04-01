@@ -334,7 +334,7 @@ function increment_count($apiCall, $httpMethod, $count) {
 	}
 	
 	error_log("Test");
-	error_log($GLOBALS['oauth_user']);
+	error_log(print_r($GLOBALS, true));
 }
 
 /**
