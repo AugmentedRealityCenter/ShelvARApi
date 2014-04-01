@@ -359,7 +359,10 @@ function handle_oauth($path_arr) {
             case "get_request_token": // necessary file
                 redir("oauth/request_token.php?oauth_callback=".$_GET['oauth_callback'].'&scope='.$_GET['scope']);
                 break;
-            case "login":  redir("oauth/login.php"); break;
+            case "login":
+                error_log('login: '.print_r($_GET, 1));
+                redir("oauth/login.php");
+                break;
             case "get_access_token":
                 redir("oauth/access_token.php?oauth_callback=".$_GET['oauth_callback'].'&scope='.$_GET['scope']);
                 break;
