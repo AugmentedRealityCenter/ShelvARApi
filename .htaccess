@@ -16,21 +16,21 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 ###########
 ## OAuth ##
 ###########
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/login$ oauth/login.php [L]
+#RewriteCond %{THE_REQUEST} GET
+#RewriteRule ^oauth/login$ oauth/login.php [L]
 
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^oauth/login$ oauth/login.php [L]
+#RewriteCond %{THE_REQUEST} POST
+#RewriteRule ^oauth/login$ oauth/login.php [L]
 
 #These should probably just use AliasMatch in httpd.conf
-RewriteRule ^oauth/get_access_token$    oauth/access_token.php [L]
-RewriteRule ^oauth/get_request_token$   oauth/request_token.php [L]
-RewriteRule ^oauth/post_login$          oauth/post-login.php [L]
-RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
-RewriteRule ^oauth/bootstrap.css        oauth/bootstrap.css [L]
+#RewriteRule ^oauth/get_access_token$    oauth/access_token.php [L]
+#RewriteRule ^oauth/get_request_token$   oauth/request_token.php [L]
+#RewriteRule ^oauth/post_login$          oauth/post-login.php [L]
+#RewriteRule ^oauth/register_user$       oauth/register_user.php [L]
+#RewriteRule ^oauth/bootstrap.css        oauth/bootstrap.css [L]
 
 ###########
 ### API ###
