@@ -1,7 +1,6 @@
 <?php
 // request handler variables
 $path       = $_GET['path'];
-error_log($path);
 $path_arr   = explode('/', $path);
 
 switch ($path_arr[0]) {
@@ -369,10 +368,6 @@ function handle_oauth($path_arr) {
             case "whoami": redir("api/oauth/whoami.php"); break;
             case "post_login":
                 redir("oauth/post-login.php?oauth_token=".$_GET['oauth_token']);
-                break;
-            case "oauth/register_user":
-                error_log('register_user: '.print_r($_GET,1));
-                redir("oauth/register_user.php");
                 break;
             default: throw_error(404, "404 - not found"); break;
             }
