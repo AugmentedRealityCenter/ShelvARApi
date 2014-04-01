@@ -367,8 +367,7 @@ function handle_oauth($path_arr) {
                 break;
             case "whoami": redir("oauth/whoami.php"); break;
             case "post_login":
-                error_log('post_login: '.print_r($_GET,1));
-                redir("oauth/post-login.php");
+                redir("oauth/post-login.php?oauth_token=".$_GET['oauth_token']);
                 break;
             case "oauth/register_user":
                 redir("oauth/register_user.php");
