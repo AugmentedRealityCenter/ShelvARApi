@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 	if(!count($err)) 
 	{
 		$user_id = $_POST['user_id'];
-		$email = '';
 												
 		$root = $_SERVER['DOCUMENT_ROOT']."/";
 		include_once($root."db_info.php");
