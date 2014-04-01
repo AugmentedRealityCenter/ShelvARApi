@@ -360,8 +360,7 @@ function handle_oauth($path_arr) {
                 redir("oauth/request_token.php?oauth_callback=".$_GET['oauth_callback'].'&scope='.$_GET['scope']);
                 break;
             case "login":
-                error_log('login: '.print_r($_GET, 1));
-                redir("oauth/login.php");
+                redir("oauth/login.php?oauth_token=".$_GET['oauth_token']);
                 break;
             case "get_access_token":
                 redir("oauth/access_token.php?oauth_callback=".$_GET['oauth_callback'].'&scope='.$_GET['scope']);
