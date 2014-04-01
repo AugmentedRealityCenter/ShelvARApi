@@ -363,12 +363,9 @@ function handle_oauth($path_arr) {
                 redir("oauth/login.php?oauth_token=".$_GET['oauth_token']);
                 break;
             case "get_access_token":
-                error_log('get_access_token: '.print_r($_GET,1));
-                redir("oauth/access_token.php");
+                redir("oauth/access_token.php?oauth_verifier=".$_GET['oauth_verifier']);
                 break;
-            case "whoami": 
-                error_log('whoami: '.print_r($_GET,1));
-                redir("oauth/whoami.php"); break;
+            case "whoami": redir("oauth/whoami.php"); break;
             case "post_login":
                 redir("oauth/post-login.php?oauth_token=".$_GET['oauth_token']);
                 break;
@@ -380,7 +377,6 @@ function handle_oauth($path_arr) {
             }
         } else if ($method === "POST") {
             if ($path_arr[1] === "oauth/login") {
-                error_log('post login: '.print_r($_GET,1));
                 redir("oauth/login.php");
             }
         } else {
