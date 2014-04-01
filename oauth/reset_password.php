@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 						   'Content-type: text/html' . "\r\n" .
 							'X-Mailer: PHP/' . phpversion();
 				
-				if(!mail ($email, $subject, $message, $headers)){
+				if(!mail ($result[email], $subject, $message, $headers)){
 					$err[] = "Error sending confirmation email";
 				}
 				
