@@ -361,7 +361,7 @@ function handle_oauth($path_arr) {
                 break;
             case "login":  redir("oauth/login.php"); break;
             case "get_access_token":
-                include redir("oauth/access_token.php");
+                include redir("oauth/access_token.php?oauth_callback=".$_GET['oauth_callback'].'&scope='.$_GET['scope']);
                 break;
             case "whoami": redir("oauth/whoami.php"); break;
             case "post_login": redir("oauth/post-login.php"); break;
