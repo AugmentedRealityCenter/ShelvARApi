@@ -120,7 +120,8 @@ function handle_bp($path_arr) {
         if ($method === "GET") {  
             // GET book_pings/count
             if ($path_arr[1] === "count") { 
-                include $root.$get_bp_count;
+                // include $root.$get_bp_count;
+                redir($get_bp_count);
             // GET book_pings/{id}
             } else if ($path_arr[1] !== "") { 
                 $_GET['book_ping_id'] = strip_ext($path_arr[1], ".json");
