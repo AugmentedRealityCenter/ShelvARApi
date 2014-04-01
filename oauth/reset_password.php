@@ -20,10 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		
 		$db = new database();
 		$db->query = "SELECT user_id, email From users WHERE user_id = ?";
-		$db->params = array($user_id, $email);
-		$db->type = 'ss';
+		$db->params = array($user_id);
+		$db->type = 's';
 		
 		$result = $db->fetch();
+		error_log(print_r($result,1));
 		
 		//If there is a username that matches
 		if(count($result) > 0)
