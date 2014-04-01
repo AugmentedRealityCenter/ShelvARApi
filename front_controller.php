@@ -11,7 +11,6 @@ switch ($path_arr[0]) {
     case "users":           handle_users($path_arr); break;
     case "institutions":    handle_inst($path_arr); break;
     case "make_tags":       handle_mt($path_arr); break;
-    case "oauth":           handle_oauth($path_arr); break;
     case "notifications":   handle_notif($path_arr); break;
     default:                throw_error(404, "404 - not found"); break;
 }
@@ -335,44 +334,6 @@ function handle_mt($path_arr) {
             } else {
                 $_GET['type'] = strip_ext($path_arr[1], ".pdf");
                 include $root.$get_tags;
-            }
-        } else {
-            throw_error(405, "405 - method not allowed");
-        }
-    } else {
-        throw_error(404, "404 - not found");
-    }
-}
-
-/*
- * ------
- * oauth/
- * ------
- */
-function handle_oauth($path_arr) {
-    $root = $_SERVER['DOCUMENT_ROOT']."/";
-    $method = $_SERVER['REQUEST_METHOD'];
-
-    if (count($path_arr) === 2) { // valid request
-        if ($method === "GET") { // GET oauth/something_here
-            switch($path_arr[1]) { // determine the path and dispatch
-            case "get_request_token": // necessary file
-                include $root."oauth/request_token.php";
-                break;
-            case "login": include $root."oauth/login.php"; break;
-            case "get_access_token":
-                include $root."oauth/access_token.php";
-                break;
-            case "whoami": include $root."oauth/whoami.php"; break;
-            case "post_login": include $root."oauth/post-login.php"; break;
-            case "oauth/register_user":
-                include $root."oauth/register_user.php";
-                break;
-            default: throw_error(404, "404 - not found"); break;
-            }
-        } else if ($method === "POST") {
-            if ($path_arr[1] === "oauth/login") {
-                include $root."oauth/login.php";
             }
         } else {
             throw_error(405, "405 - method not allowed");
