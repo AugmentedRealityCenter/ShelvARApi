@@ -621,7 +621,7 @@ function updateCountFreeCall($column, $count) {
  * @return number limit  The limit set on that call
  */
 function grabLimit($call) {
-	$tempValues = file_get_contents('ratelimits.json');
+	$tempValues = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/ratelimits.json');
 	$json_arr = json_decode($tempValues);
 	
 	foreach($json_arr as $options){
