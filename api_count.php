@@ -4,7 +4,6 @@ include_once $root."db_info.php";
 include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
-//redirect $root."api/api_ref_call.php";
 
 
 // Wrapper class to increment the count for a specified API call
@@ -333,6 +332,9 @@ function increment_count($apiCall, $httpMethod, $count) {
 			updateCountFreeCall("GET_oauth_whoami_count", $count);
 			break;
 	}
+	
+	error_log("Test");
+	error_log($GLOBALS['oauth_user']);
 }
 
 /**
