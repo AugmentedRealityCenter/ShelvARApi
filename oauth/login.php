@@ -6,9 +6,10 @@ if(!isset($_GET['oauth_token'])) {
  }
 	
 if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
-  if(!$_POST['user_id']) {
+  if(!isset($_POST['user_id'])) {
     $err[] = 'No username supplied';	
   }
+  error_log('after error check in oauth login');
   if(!count($err)) {
     $user_id = $_POST['user_id'];
     $user_id = strtolower($user_id);
@@ -52,7 +53,6 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
       session_start();
       $_SESSION['user_num'] = $result[0]['user_num'];
 
-      error_log('before manual redirect');
       echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
       exit(200);
     }
