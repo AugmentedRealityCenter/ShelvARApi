@@ -323,24 +323,21 @@ function handle_oauth($path_arr) {
         if ($method === "GET") { // GET oauth/something_here
             switch($path_arr[1]) { // determine the path and dispatch
             case "get_request_token": // necessary file
-                error_log(print_r($_GET,1));
-                include "oauth/request_token.php";
-                break;
+                include "oauth/request_token.php"; break;
             case "login":
-                redir("oauth/login.php?oauth_token=".$_GET['oauth_token']);
-                break;
+                include "oauth/login.php" break;
             case "get_access_token":
-                redir("oauth/access_token.php?oauth_verifier=".$_GET['oauth_verifier']);
+                include "oauth/access_token.php";
                 break;
-            case "whoami": redir("api/oauth/whoami.php"); break;
+            case "whoami": include "api/oauth/whoami.php"; break;
             case "post_login":
-                redir("oauth/post-login.php?oauth_token=".$_GET['oauth_token']);
+                include "oauth/post-login.php";
                 break;
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
             if ($path_arr[1] === "oauth/login") {
-                redir("oauth/login.php");
+                include "oauth/login.php";
             }
         } else {
             throw_error(405, "405 - method not allowed");
