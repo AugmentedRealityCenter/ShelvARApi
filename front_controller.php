@@ -208,7 +208,7 @@ function handle_users($path_arr) {
             // GET users/{id}/permissions
             if ($path_arr[2] === 'permissions') { 
                 $_GET['user_id'] = $path_arr[1];
-                if ($web) {
+                if (0) {
                     redir($get_user_perm.'?user_id='.$_GET['user_id']);
                 } else {
                     include $root.$get_user_perm;
