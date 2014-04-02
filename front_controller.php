@@ -1,7 +1,7 @@
 <?php
 // request handler variables
 error_log('front_controller: '.print_r($_GET,1));
-error_log(print_r($_SERVER['path'],1));
+error_log(print_r($_SERVER,1));
 $path       = $_GET['path'];
 $path_arr   = explode('/', $path);
 
