@@ -22,6 +22,5 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 # An errant URI specification
 # results in a 404 being thrown by the front controller.
 
-RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(.*+)$ front_controller.php [L,QSA,E=path:$1]
 
