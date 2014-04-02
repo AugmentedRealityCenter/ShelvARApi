@@ -162,7 +162,7 @@ function handle_users($path_arr) {
 
     if ($cnt === 1) { // URI paths with a count of 1,2,3 are valid
         if ($method === 'GET') { // GET users
-            if ($web) {
+            if (0) {
                 redir($get_user_mult);
             } else {
                 include $root.$get_user_mult;
@@ -228,7 +228,7 @@ function handle_users($path_arr) {
             // POST users/{id}/permissions
             if ($path_arr[2] === 'permissions') { 
                 $_POST['user_id'] = $path_arr[1];
-                if ($web) {
+                if (0) {
                     redir($post_users_perm.'?user_id='.$_POST['user_id']);
                 } else {
                     include $root.$post_users_perm;
