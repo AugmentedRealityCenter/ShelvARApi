@@ -332,9 +332,6 @@ function increment_count($apiCall, $httpMethod, $count) {
 			updateCountFreeCall("GET_oauth_whoami_count", $count);
 			break;
 	}
-	
-	error_log("Test");
-	error_log(print_r($GLOBALS, true));
 }
 
 /**
@@ -366,6 +363,7 @@ function grabLastResetNotFree() {
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
+	global $oauth_user;
 	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
@@ -483,6 +481,7 @@ function setToZeroNotFreeHelper($column) {
 	$query = "UPDATE users " .
 			"SET " . $column . " = 0 " .
 			"WHERE user_id = ?";
+	global $oauth_user;
 	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
@@ -503,6 +502,7 @@ function setNotFreeLastReset() {
 			"SET last_reset = ? ".
 			"WHERE user_id = ?";
 	$time = date("Y-m-d H:i:s", strtotime("now"));
+	global $oauth_user;
 	$user = $oauth_user['user_id'];
 	$params = array($time, $user);
 	$type = "ss";
@@ -544,6 +544,7 @@ function setFreeLastReset() {
 	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
 			"WHERE user_id = ?";
+	global $oauth_user;
 	$user = $oauth_user['user_id'];
 	$paramsNumCalls = array($user);
 	$typeNumCalls = "s";
@@ -587,6 +588,7 @@ function updateCountNotFreeCall ($column, $count) {
 	$query = "UPDATE users " .
 			"SET " . $column . " = (" . $column . " + " . $count . ") " .
 			"WHERE user_id = ?";
+	global $oauth_user;
 	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
@@ -619,7 +621,7 @@ function updateCountFreeCall($column, $count) {
  * @return number limit  The limit set on that call
  */
 function grabLimit($call) {
-	$tempValues = file_get_contents('ratelimits.json');
+	$tempValues = file_get_contents($_SERVER['DOCUMENT_ROOT'].'/ratelimits.json');
 	$json_arr = json_decode($tempValues);
 	
 	foreach($json_arr as $options){
