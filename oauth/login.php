@@ -1,6 +1,4 @@
 <?php
-error_log('login debug: '.print_r($_SERVER,1));
-error_log(print_r($_POST,1));
 $err = array();	
 if(!isset($_GET['oauth_token'])) {
     $err[] = "Application is broken: No token supplied";
