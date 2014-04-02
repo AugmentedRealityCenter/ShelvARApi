@@ -1,6 +1,5 @@
 <?php
 // request handler variables
-error_log('front_controller: '.print_r($_GET,1));
 $path       = $_SERVER['REDIRECT_path'];
 $path_arr   = explode('/', $path);
 
@@ -163,13 +162,7 @@ function handle_users($path_arr) {
 
     if ($cnt === 1) { // URI paths with a count of 1,2,3 are valid
         if ($method === 'GET') { // GET users
-            if (0) {
-                redir($get_user_mult);
-            } else {
-                $_SERVER['QUERY_STRING'] = 'web=1';
-                $_SERVER['REDIRECT_QUERY_STRING'] = 'web=1';
-                include $root.$get_user_mult;
-            }
+            include $root.$get_user_mult;
         } else if ($method === 'POST') { // POST users
             include $root.$post_users;
         } else {
@@ -184,21 +177,13 @@ function handle_users($path_arr) {
             // GET users/some_user.json
             } else {
                 $_GET['user_id'] = strip_ext($path_arr[1], '.json');
-                if ($web) {
-                    redir($get_user.'?user_id='.$_GET['user_id']);
-                } else {
-                    include $root.$get_user;
-                }
+                include $root.$get_user;
             }
         // POST users/something_here
         } else if ($method === 'POST') { 
             // POST users/edit
             if ($path_arr[1] === 'edit') { 
-                if ($web) {
-                    redir($post_users_edit);
-                } else {
-                    include $root.$post_users_edit;
-                }
+                include $root.$post_users_edit;
             } else {
                 throw_error(404, '404 - not found');
             }
@@ -211,19 +196,15 @@ function handle_users($path_arr) {
             // GET users/{id}/permissions
             if ($path_arr[2] === 'permissions') { 
                 $_GET['user_id'] = $path_arr[1];
-                if (0) {
-                    redir($get_user_perm.'?user_id='.$_GET['user_id']);
-                } else {
-                    include $root.$get_user_perm;
-                }
-
+                include $root.$get_user_perm;
             // GET users/available/{id}.json
             } else if ($path_arr[1] === 'available') {
                 $_GET['user_id'] = strip_ext($path_arr[2], '.json');
                 include $root.$get_users_avail;
             // GET users/email_registered/{id}
             } else if ($path_arr[1] === 'email_registered') {
-                redir($get_email_reg.'?email='.strip_ext($path_arr[2], '.json'));
+                $_GET['email'] = strip_ext($path_arr[2], '.json');
+                include $root.$get_email_reg;
             } else {
                 throw_error(404, '404 - not found');
             }
@@ -231,11 +212,7 @@ function handle_users($path_arr) {
             // POST users/{id}/permissions
             if ($path_arr[2] === 'permissions') { 
                 $_POST['user_id'] = $path_arr[1];
-                if (0) {
-                    redir($post_users_perm.'?user_id='.$_POST['user_id']);
-                } else {
-                    include $root.$post_users_perm;
-                }
+                include $root.$post_users_perm;
             } else {
                 throw_error(404, '404 - not found');
             }
