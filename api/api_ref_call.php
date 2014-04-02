@@ -7,6 +7,8 @@ new AutoLoader();
 
 unset($oauth_user);
 
+error_log('api_ref_call: '.print_r($_GET,1));
+
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY);
 $response 	= $Provider->checkOAuthRequest();
 
