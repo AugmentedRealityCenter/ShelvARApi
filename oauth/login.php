@@ -1,4 +1,5 @@
 <?php
+error_log('hit login');
 
 $err = array();	
 if(!isset($_GET['oauth_token'])) {
@@ -9,7 +10,6 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
   if(!isset($_POST['user_id'])) {
     $err[] = 'No username supplied';	
   }
-  error_log('after error check in oauth login');
   if(!count($err)) {
     $user_id = $_POST['user_id'];
     $user_id = strtolower($user_id);
