@@ -167,6 +167,7 @@ function handle_users($path_arr) {
                 redir($get_user_mult);
             } else {
                 $_SERVER['QUERY_STRING'] = 'web=1';
+                $_SERVER['REDIRECT_QUERY_STRING'] = 'web=1';
                 include $root.$get_user_mult;
             }
         } else if ($method === 'POST') { // POST users
