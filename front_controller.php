@@ -325,7 +325,7 @@ function handle_oauth($path_arr) {
             case "get_request_token": // necessary file
                 include "oauth/request_token.php"; break;
             case "login":
-                include "oauth/login.php" break;
+                include "oauth/login.php"; break;
             case "get_access_token":
                 include "oauth/access_token.php";
                 break;
