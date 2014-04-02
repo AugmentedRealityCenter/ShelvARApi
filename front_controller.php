@@ -330,13 +330,13 @@ function handle_oauth($path_arr) {
                 break;
             case "whoami": include "api/oauth/whoami.php"; break;
             case "post_login":
-                error_log('hit post login');
                 include "oauth/post-login.php";
                 break;
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
             if ($path_arr[1] === "oauth/login") {
+                error_log('oauth postlogin:'.print_r($_POST,1));
                 include "oauth/login.php";
             }
         } else {
