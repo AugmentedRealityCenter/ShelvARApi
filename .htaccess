@@ -23,5 +23,5 @@ RewriteRule ^ShelvARLogo_Big.png - [L]
 # results in a 404 being thrown by the front controller.
 
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^(.*+)$ front_controller.php?path=$1 [L,QSA]
+RewriteRule ^(.*+)$ front_controller.php [L,QSA,E=path:$1]
 
