@@ -155,7 +155,6 @@ function handle_users($path_arr) {
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
-    $web    = isset($_GET['web']); // true if request came from front end
     $server = get_domain();
 
     include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
@@ -233,7 +232,6 @@ function handle_inst($path_arr) {
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
-    $web    = isset($_GET['web']); // true if request came from front end
     $server = get_domain();
 
     include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
@@ -243,22 +241,14 @@ function handle_inst($path_arr) {
         if ($method === 'GET') {
             // GET institutions/
             if ($path_arr[1] === '') {
-                if ($web) {
-                    redir($get_inst_mult);
-                } else {
-                    include $root.$get_inst_mult;
-                }
+                include $root.$get_inst_mult;
             // GET institutions/activate_inst
             } else if ($path_arr[1] === 'activate_inst') {
                 include $root.$get_act_inst;
             // GET institutions/{id}
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
-                if ($web) {
-                    redir($get_inst.'?inst_id='.$_GET['inst_id']); 
-                } else {
-                    include $root.$get_inst;
-                }
+                include $root.$get_inst;
             }
         } else if ($method === 'POST') {
             // POST institutions/
@@ -266,11 +256,7 @@ function handle_inst($path_arr) {
                 include $root.$post_inst_reg;
             // POST institutions/edit
             } else if ($path_arr[1] === 'edit') {
-                if ($web) {
-                    redir($post_inst_edit);
-                } else {
-                    include $root.$post_inst_edit;
-                }
+                include $root.$post_inst_edit;
             } else {
                 throw_error(404, '404 - not found');
             }
