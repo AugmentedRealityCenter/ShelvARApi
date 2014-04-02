@@ -336,7 +336,6 @@ function handle_oauth($path_arr) {
             }
         } else if ($method === "POST") {
             if ($path_arr[1] === "oauth/login") {
-                error_log('fc debug: '.print_r($_POST,1));
                 include "oauth/login.php";
             }
         } else {
