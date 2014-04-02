@@ -332,6 +332,9 @@ function handle_oauth($path_arr) {
             case "post_login":
                 include "oauth/post-login.php";
                 break;
+            case 'reset_password.php':
+                include 'oauth/reset_password.php';
+                break;
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
@@ -339,6 +342,8 @@ function handle_oauth($path_arr) {
                 include "oauth/login.php";
             } else if ($path_arr[1] === 'post_login') {
                 include 'oauth/post-login.php';
+            } else if ($path_arr[1] === 'reset_password.php') {
+                include 'oauth/reset_password.php';
             }
         } else {
             throw_error(405, "405 - method not allowed");
