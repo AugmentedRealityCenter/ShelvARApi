@@ -57,7 +57,6 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
     }
 }
 
-error_log('not a post');
 echo(
     '<!DOCTYPE html>
     <html lang="en">
