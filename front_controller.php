@@ -166,6 +166,7 @@ function handle_users($path_arr) {
             if (0) {
                 redir($get_user_mult);
             } else {
+                unset($_GET['path']);
                 include $root.$get_user_mult;
             }
         } else if ($method === 'POST') { // POST users
