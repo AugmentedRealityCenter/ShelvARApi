@@ -337,6 +337,8 @@ function handle_oauth($path_arr) {
         } else if ($method === "POST") {
             if ($path_arr[1] === "login") {
                 include "oauth/login.php";
+            } else if ($path_arr[1] === 'post_login') {
+                include 'oauth/post-login.php';
             }
         } else {
             throw_error(405, "405 - method not allowed");
