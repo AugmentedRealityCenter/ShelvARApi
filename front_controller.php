@@ -318,6 +318,7 @@ function handle_oauth($path_arr) {
     $root = $_SERVER['DOCUMENT_ROOT']."/";
     $method = $_SERVER['REQUEST_METHOD'];
 
+    error_log('oauth method: '.$method);
     if (count($path_arr) === 2) { // valid request
         if ($method === "GET") { // GET oauth/something_here
             switch($path_arr[1]) { // determine the path and dispatch
