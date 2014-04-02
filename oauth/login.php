@@ -52,6 +52,7 @@ if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login
       session_start();
       $_SESSION['user_num'] = $result[0]['user_num'];
 
+      error_log('before manual redirect');
       echo("<html><head><meta http-equiv=\"refresh\" content=\"0;post_login?oauth_token=" . $_GET['oauth_token'] . "\"></head></html>");
       exit(200);
     }
