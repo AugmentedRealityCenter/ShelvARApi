@@ -323,7 +323,8 @@ function handle_oauth($path_arr) {
         if ($method === "GET") { // GET oauth/something_here
             switch($path_arr[1]) { // determine the path and dispatch
             case "get_request_token": // necessary file
-                redir("oauth/request_token.php?oauth_callback=".$_GET['oauth_callback'].'&scope='.$_GET['scope']);
+                error_log(print_r($_GET,1));
+                include "oauth/request_token.php";
                 break;
             case "login":
                 redir("oauth/login.php?oauth_token=".$_GET['oauth_token']);
