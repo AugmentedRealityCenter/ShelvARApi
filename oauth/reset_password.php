@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 				//$to = "kesanan@miamioh.edu";
 				$to = $result[0]['email'];
 				$subject = "Your temporary password";
-				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name, <br/>"."<br/>Your password to log into ShelvAR has been temporarily changed to and here is your login information:"."<br/>"
+				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name, <br/>"."<br/>Your password to log into ShelvAR has been temporarily changed to and here is your login information:"."<br/>"." "."<br/>".
 																									."Username - ".$user_id."<br/>"
 																									."Password - ".$p."<br/>".
 																									"<br/>Please log in using this password and your username. At that time you may change your password to something more familiar.". "<br/>".
