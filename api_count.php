@@ -13,14 +13,15 @@ include_once $root."api/api_ref_call.php";
  * returns true if the call is under its set limit
  * returns false if it is over the limit
  */
-function is_incrementable($apiCall, $httpMethod) {
-	checkLastReset();
+function is_incrementable($apiCall, $httpMethod, $oauth) {
+	$user = $oauth['user_id'];
+	checkLastReset($user);
 
 	switch ($apiCall) {
 		case "/book_pings/":
 			if ($httpMethod = "GET") {
 				// Get the number of calls made from the database
-				$numCalls = getCountNotFreeCall("GET_book_pings_count");
+				$numCalls = getCountNotFreeCall("GET_book_pings_count", $user);
 				$limit = grabLimit("GET book_pings");
 
 				if ($numCalls < $limit)
@@ -29,7 +30,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return false;
 			}
 			else {
-				$numCalls = getCountNotFreeCall("POST_book_pings_count");
+				$numCalls = getCountNotFreeCall("POST_book_pings_count", $user);
 				$limit = grabLimit("POST book_pings");
 
 				if ($numCalls < $limit)
@@ -39,7 +40,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			}
 			break;
 		case "/book_pings/count":
-			$numCalls = getCountNotFreeCall("GET_book_pings_count_count");
+			$numCalls = getCountNotFreeCall("GET_book_pings_count_count", $user);
 			$limit = grabLimit("GET book_pings_count");
 
 			if ($numCalls < $limit)
@@ -48,7 +49,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return false;
 			break;
 		case "/book_pings/{book_ping_id}.json":
-			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
+			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count", $user);
 			$limit = grabLimit("GET book_pings_specific");
 
 			if ($numCalls < $limit)
@@ -249,21 +250,23 @@ function is_incrementable($apiCall, $httpMethod) {
 /**
  * Increments a given API call by a provided count
  */
-function increment_count($apiCall, $httpMethod, $count) {
+function increment_count($apiCall, $httpMethod, $count, $oauth) {
+	$user = $oauth['user_id'];
+	
 	switch ($apiCall) {
 		case "/book_pings/":
 			if ($httpMethod = "GET") {
-				updateCountNotFreeCall("GET_book_pings_count", $count);
+				updateCountNotFreeCall("GET_book_pings_count", $count, $user);
 			}
 			else {
-				updateCountNotFreeCall("POST_book_pings_count", $count);
+				updateCountNotFreeCall("POST_book_pings_count", $count, $user);
 			}
 			break;
 		case "/book_pings/count":
-			updateCountNotFreeCall("GET_book_pings_count_count", $count);
+			updateCountNotFreeCall("GET_book_pings_count_count", $count, $user);
 			break;
 		case "/book_pings/{book_ping_id}.json":
-			updateCountNotFreeCall("GET_book_pings_specific_count", $count);
+			updateCountNotFreeCall("GET_book_pings_specific_count", $count, $user);
 			break;
 		case "/book_tags/{book_tag}.json":
 			updateCountFreeCall("GET_book_tags_count", $count);
@@ -339,16 +342,16 @@ function increment_count($apiCall, $httpMethod, $count) {
  * and the unknown user table. If there hasn't been a reset in over 15 mins
  * the counts are set to zero.
  */
-function checkLastReset() {
-	$lastResetNotFree = grabLastResetNotFree();
+function checkLastReset($user) {
+	$lastResetNotFree = grabLastResetNotFree($user);
 	$lastResetFree = grabLastResetFree();
 	
 	$currTime = time();  // http://www.php.net/manual/en/function.time.php
 	$fifteenMins = 900;
 	
 	if (($currTime - $lastResetNotFree) > $fifteenMins) {
-		setAllNotFreeCountsToZero();
-		setNotFreeLastReset();
+		setAllNotFreeCountsToZero($user);
+		setNotFreeLastReset($user);
 	}
 	if (($currTime - $lastResetFree) > $fifteenMins) {
 		setAllFreeCountsToZero();
@@ -359,12 +362,10 @@ function checkLastReset() {
 /**
  * Grabs the last reset field from the users table
  */
-function grabLastResetNotFree() {
+function grabLastResetNotFree($user) {
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	global $oauth_user;
-	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
 	
@@ -430,12 +431,12 @@ function handleIPAddress() {
 /**
  * Sets each Non-free API call counter to zero
  */
-function setAllNotFreeCountsToZero() {
+function setAllNotFreeCountsToZero($user) {
 	$NotFreeCalls = array("POST_book_pings_count", "GET_book_pings_count", "GET_book_pings_count_count",
 			"GET_book_pings_specific_count");
 	
 	foreach($NotFreeCalls as $count) {
-		setToZeroNotFreeHelper($count);
+		setToZeroNotFreeHelper($count, $user);
 	}
 }
 
@@ -477,12 +478,10 @@ function setToZeroFreeHelper($column) {
 /**
  * Helper method to  set a column to zero
  */
-function setToZeroNotFreeHelper($column) {
+function setToZeroNotFreeHelper($column, $user) {
 	$query = "UPDATE users " .
 			"SET " . $column . " = 0 " .
 			"WHERE user_id = ?";
-	global $oauth_user;
-	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
 	
@@ -497,13 +496,11 @@ function setToZeroNotFreeHelper($column) {
  * Sets the last reset field to the current time in the
  * users table
  */
-function setNotFreeLastReset() {
+function setNotFreeLastReset($user) {
 	$query = "UPDATE users " .
 			"SET last_reset = ? ".
 			"WHERE user_id = ?";
 	$time = date("Y-m-d H:i:s", strtotime("now"));
-	global $oauth_user;
-	$user = $oauth_user['user_id'];
 	$params = array($time, $user);
 	$type = "ss";
 	
@@ -540,12 +537,10 @@ function setFreeLastReset() {
  * @param unknown_type $column  The count column for the intended call
  * @return unknown $numCalls    The number of calls for that API (within 15 min window)
  */
- function getCountNotFreeCall($column) {
+ function getCountNotFreeCall($column, $user) {
 	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	global $oauth_user;
-	$user = $oauth_user['user_id'];
 	$paramsNumCalls = array($user);
 	$typeNumCalls = "s";
 	
@@ -584,12 +579,10 @@ function getCountFreeCall($column) {
  * table (where the paid API calls are kept track of)
  * @param unknown_type $column  Name of the column to be incremented
  */
-function updateCountNotFreeCall ($column, $count) {
+function updateCountNotFreeCall ($column, $count, $user) {
 	$query = "UPDATE users " .
 			"SET " . $column . " = (" . $column . " + " . $count . ") " .
 			"WHERE user_id = ?";
-	global $oauth_user;
-	$user = $oauth_user['user_id'];
 	$params = array($user);
 	$type = "s";
 	
@@ -632,197 +625,5 @@ function grabLimit($call) {
 	
 	return 0;
 }
-
-/*  
- * -- Original incrementing function --
- * 
- * function increment_api_count($apiCall, $httpMethod) {
-	checkLastReset();
-	
-	switch ($apiCall) {
-		case "/book_pings/":
-			if ($httpMethod = "GET") {
-				// Get the number of calls made from the database
-				$numCalls = getCountNotFreeCall("GET_book_pings_count");
-				$limit = grabLimit("GET book_pings");
-				
-				if ($numCalls < $limit)
-					updateCountNotFreeCall("GET_book_pings_count");
-			}
-			else {
-				$numCalls = getCountNotFreeCall("POST_book_pings_count");
-				$limit = grabLimit("POST book_pings");
-				
-				if ($numCalls < $limit)
-					updateCountNotFreeCall("POST_book_pings_count");
-			}
-			break;
-		case "/book_pings/count":
-			$numCalls = getCountNotFreeCall("GET_book_pings_count_count");
-			$limit = grabLimit("GET book_pings_count");
-			
-			if ($numCalls < $limit)
-				updateCountNotFreeCall("GET_book_pings_count_count");
-			break;
-		case "/book_pings/{book_ping_id}.json":
-			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
-			$limit = grabLimit("GET book_pings_specific");
-				
-			if ($numCalls < $limit)
-				updateCountNotFreeCall("GET_book_pings_specific_count");
-			break;
-		case "/book_tags/{book_tag}.json":
-			$numCalls = getCountFreeCall("GET_book_tags_count");
-			$limit = grabLimit("GET book_tags");
-			
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_book_tags_count");
-			break;
-		case "/lc_numbers/{call_number}.json":
-			$numCalls = getCountFreeCall("GET_lc_numbers_count");
-			$limit = grabLimit("GET lc_numbers");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_lc_numbers_count");
-			break;
-		case "/institutions/":
-			if ($httpMethod = "GET") {
-				$numCalls = getCountFreeCall("GET_insitutions_count");
-				$limit = grabLimit("GET institutions");
-					
-				if ($numCalls < $limit)
-					updateCountFreeCall("GET_insitutions_count");
-			}
-			else {
-				$numCalls = getCountFreeCall("POST_institutions_count");
-				$limit = grabLimit("POST institutions");
-					
-				if ($numCalls < $limit)
-					updateCountFreeCall("POST_institutions_count");
-			}
-			break;
-		case "/institutions/edit":
-			$numCalls = getCountFreeCall("POST_institutions_edit_count");
-			$limit = grabLimit("POST institutions_edit");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("POST_institutions_edit_count");
-			break;
-		case "/institutions/{inst_id}.json":
-			$numCalls = getCountFreeCall("GET_institutions_specific_count");
-			$limit = grabLimit("GET institutions_specific");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_institutions_specific_count");
-			break;
-		case "/institutions/available/{inst_id}.json":
-			$numCalls = getCountFreeCall("GET_institutions_available_count");
-			$limit = grabLimit("GET institutions_available");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_institutions_available_count");
-			break;
-		case "/users":
-			if ($httpMethod = "GET") {
-				$numCalls = getCountFreeCall("GET_users_count");
-				$limit = grabLimit("GET users");
-					
-				if ($numCalls < $limit)
-					updateCountFreeCall("GET_users_count");
-			}
-			else {
-				$numCalls = getCountFreeCall("POST_users_count");
-				$limit = grabLimit("POST users");
-					
-				if ($numCalls < $limit)
-					updateCountFreeCall("POST_users_count");
-			}
-			break;
-		case "/users/edit":
-			$numCalls = getCountFreeCall("POST_users_edit_count");
-			$limit = grabLimit("POST users_edit");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("POST_users_edit_count");
-			break;
-		case "/users/{user_id}/permissions":
-			if ($httpMethod = "GET") {
-				$numCalls = getCountFreeCall("GET_users_permissions_count");
-				$limit = grabLimit("GET users_permissions");
-					
-				if ($numCalls < $limit)
-					updateCountFreeCall("GET_users_permissions_count");
-			}
-			else {
-				$numCalls = getCountFreeCall("POST_users_persmissions_count");
-				$limit = grabLimit("POST users_permissions");
-					
-				if ($numCalls < $limit)
-					updateCountFreeCall("POST_users_persmissions_count");
-			}
-			break;
-		case "/users/{user_id}.json":
-			$numCalls = getCountFreeCall("GET_users_specific_count");
-			$limit = grabLimit("GET users_specific");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_users_specific_count");
-			break;
-		case "/users/available/{user_id}.json":
-			$numCalls = getCountFreeCall("GET_users_available_count");
-			$limit = grabLimit("GET users_available");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_users_available_count");
-			break;
-		case "/make_tags/{paper_type}.pdf":
-			$numCalls = getCountFreeCall("GET_make_tags_count");
-			$limit = grabLimit("GET make_tags");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_make_tags_count");
-			break;
-		case " /make_tags/paper_formats":
-			$numCalls = getCountFreeCall("GET_paper_formats_count");
-			$limit = grabLimit("GET paper_formats");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_paper_formats_count");
-			break;
-		case "/oauth/get_request_token":
-			$numCalls = getCountFreeCall("GET_oauth_request_token_count");
-			$limit = grabLimit("GET oauth_request_token");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_oauth_request_token_count");
-			break;
-		case "/oauth/login":
-			$numCalls = getCountFreeCall("GET_oauth_login_count");
-			$limit = grabLimit("GET oauth_login");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_oauth_login_count");
-			break;
-		case "/oauth/get_access_token":
-			$numCalls = getCountFreeCall("GET_oauth_access_token_count");
-			$limit = grabLimit("GET oauth_access_token");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_oauth_access_token_count");
-			break;
-		case "/oauth/whoami":
-			$numCalls = getCountFreeCall("GET_oauth_whoami_count");
-			$limit = grabLimit("GET oauth_whoami");
-				
-			if ($numCalls < $limit)
-				updateCountFreeCall("GET_oauth_whoami_count");
-			break;
-			
-	}
-}
-
-*/
-
-
 
 ?>
