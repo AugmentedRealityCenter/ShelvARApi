@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 				$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear $name, <br/>"."<br/>Your password to log into ShelvAR has been temporarily changed and here is your login information:"."<br/>"." "."<br/>"
 																									."Username - ".$user_id."<br/>"
 																									."Password - ".$p."<br/>".
-																									"<br/>Please log in using this password and your username. At that time you may change your password to something more familiar. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.'". "<br/>".
+																									"<br/>Please log in using this password and your username. At that time you may change your password to something more familiar. Once you have logged in with this password, you may change it by clicking on the “Accounts and then User” link.". "<br/>".
 																									"<br/>Sincerely,".
 																									"<br/>The ShelvAR Team"."<br/>";
 				
