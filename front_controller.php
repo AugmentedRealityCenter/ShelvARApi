@@ -320,30 +320,20 @@ function handle_oauth($path_arr) {
 
     if (count($path_arr) === 2) { // valid request
         if ($method === "GET") { // GET oauth/something_here
-            switch($path_arr[1]) { // determine the path and dispatch
-            case "get_request_token": // necessary file
-                include "oauth/request_token.php"; break;
-            case "login":
-                include "oauth/login.php"; break;
-            case "get_access_token":
-                include "oauth/access_token.php";
-                break;
-            case "whoami": include "api/oauth/whoami.php"; break;
-            case "post_login":
-                include "oauth/post-login.php";
-                break;
-            case 'reset_password.php':
-                include 'oauth/reset_password.php';
-                break;
+            // determine and dispatch necessary file
+            switch($path_arr[1]) {
+            case "get_request_token":   include $root.$get_req_token; break;
+            case "login":               include $root.$get_login; break;
+            case "get_access_token":    include $root.$get_acc_token; break;
+            case "whoami":              include $root.$get_whoami; break;
+            case "post_login":          include $root.$get_post_login; break;
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
             if ($path_arr[1] === "login") {
-                include "oauth/login.php";
+                include $root.$get_login;
             } else if ($path_arr[1] === 'post_login') {
-                include 'oauth/post-login.php';
-            } else if ($path_arr[1] === 'reset_password.php') {
-                include 'oauth/reset_password.php';
+                include $root.$get_post_login;
             }
         } else {
             throw_error(405, "405 - method not allowed");

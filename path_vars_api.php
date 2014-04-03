@@ -23,8 +23,6 @@
     $get_login          = "oauth/login.php";
     $get_notif          = "api/notifications/get_inst_notification.php";
     $get_post_login     = "oauth/post-login.php";
-    $get_reg_user       = "oauth/register_user.php";
-    $get_reg_user_test  = "oauth_test/register.html";
 
     // post path constants
     $post_bp            = "api/book_pings/book_ping.php";
@@ -33,5 +31,4 @@
     $post_users         = "api/users/register_user.php";
     $post_inst_edit     = "api/institutions/edit_institution.php";
     $post_inst_reg      = "api/institutions/register_institution.php";
-    $post_login         = "oauth/login.php";
 ?>

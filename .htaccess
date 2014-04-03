@@ -1,26 +1,28 @@
 Header set Access-Control-Allow-Origin *
 
-#This htaccess file implements site-based
+# This htaccess file implements site-based
 # licensing for ShelvAR. Each supported site needs
 # a rule that sets their institution code.
 
 RewriteEngine On
 
+# Rules for files we explicitly want to allow access to.
+# Any request not caught by these rules will go to the
+# front controller.
+
 RewriteRule ^$ http://devapi.shelvar.com/doc [R=301,L]
 RewriteRule ^doc - [L]
 RewriteRule ^error_log - [L]
-RewriteRule ^oauth/bootstrap.css$ - [L]
 RewriteRule ^deploy - [L]
 RewriteRule ^ShelvARLogo_Big.png - [L]
-
-###########
-### API ###
-###########
+RewriteRule ^oauth/bootstrap.css$ - [L]
+RewriteRule ^oauth/reset_password.php$ - [L]
 
 # Rule for requests that are API calls.
 # The following line makes a call to the front controller.
+# Specifies the request path as an environment variable.
 # An errant URI specification
 # results in a 404 being thrown by the front controller.
 
-RewriteRule ^(.*+)$ front_controller.php [L,QSA,E=path:$1]
+RewriteRule ^(.*+)$ front_controller.php [QSA,E=path:$1]
 
