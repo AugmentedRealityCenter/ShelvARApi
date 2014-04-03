@@ -119,6 +119,10 @@ function handle_bp($path_arr) {
         if ($method === "GET") {  
             // GET book_pings/count
             if ($path_arr[1] === "count") { 
+                include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+                include $_SERVER['DOCUMENT_ROOT'].'/api_count.php';
+                is_incrementable($_SERVER['REDIRECT_path'], $method, $oauth_user);
+                increment_count($_SERVER['REDIRECT_path'], $oauth_user, 47, $oauth_user);
                 include $root.$get_bp_count;
             // GET book_pings/{id}
             } else if ($path_arr[1] !== "") { 
