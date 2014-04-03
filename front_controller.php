@@ -318,6 +318,8 @@ function handle_oauth($path_arr) {
     $root = $_SERVER['DOCUMENT_ROOT']."/";
     $method = $_SERVER['REQUEST_METHOD'];
 
+    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+
     if (count($path_arr) === 2) { // valid request
         if ($method === "GET") { // GET oauth/something_here
             // determine and dispatch necessary file
