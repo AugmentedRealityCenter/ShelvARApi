@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 		$db->type = 's';
 		
 		$result = $db->fetch();
-		error_log(print_r($result,1));
+		//error_log(print_r($result,1));
 		$name = $result[0]['name'];
 		
 		//If there is a username that matches
