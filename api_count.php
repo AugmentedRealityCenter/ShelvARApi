@@ -294,7 +294,7 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 		case "institutions/available/{inst_id}.json":
 			updateCountFreeCall("GET_institutions_available_count", $count);
 			break;
-		case "users":
+		case "/users":
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_users_count", $count);
 			}
