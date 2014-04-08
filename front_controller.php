@@ -70,13 +70,11 @@ function api_count($inc_num) {
 	include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/api_count.php';
 
-    error_log(print_r($oauth_user,1));
-	
 	$method = $_SERVER['REQUEST_METHOD'];
 	
-	if ( is_incrementable($_SERVER['REDIRECT_path'], $method, $oauth_user) ) {
+	if (is_incrementable($_SERVER['REDIRECT_path'], $method, $oauth_user) ) {
 		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num, $oauth_user);
-		return true;
+		return $oauth_user;
 	}
 	else {
 		throw_error(429, "429 - too many requests");
@@ -154,7 +152,7 @@ function handle_bp($path_arr) {
         if ($method === "GET") {  
             // GET book_pings/count
             if ($path_arr[1] === "count") { 
-				if (api_count(1)) {
+				if (is_array($oauth_user = api_count(1))) {
 					include $root.$get_bp_count;
 				}
             // GET book_pings/{id}
