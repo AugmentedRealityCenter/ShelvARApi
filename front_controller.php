@@ -67,7 +67,7 @@ function redir($uri_path) {
 }
 
 function api_count($inc_num) {
-	include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
     include_once $_SERVER['DOCUMENT_ROOT'].'/api_count.php';
 
 	$method = $_SERVER['REQUEST_METHOD'];
