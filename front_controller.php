@@ -153,6 +153,7 @@ function handle_bp($path_arr) {
             // GET book_pings/count
             if ($path_arr[1] === "count") { 
 				if (is_array($oauth_user = api_count(1))) {
+                    error_log(print_r($oauth_user,1));
 					include $root.$get_bp_count;
 				}
             // GET book_pings/{id}
