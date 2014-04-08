@@ -6,8 +6,6 @@ include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 include_once $root."api_count.php";
 
-error_log(print_r($oauth_user,1));
-
 if($oauth_user['inst_activated'] != 1){
   exit(json_encode(array('result'=>'ERROR', 'message'=>'Your institution\'s account has not yet been activated.')));
  }
