@@ -39,7 +39,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 					return false;
 			}
 			break;
-		case "/book_pings/count":
+		case "book_pings/count":
 			$numCalls = getCountNotFreeCall("GET_book_pings_count_count", $user);
 			$limit = grabLimit("GET book_pings_count");
 
