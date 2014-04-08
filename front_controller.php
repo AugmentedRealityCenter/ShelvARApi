@@ -64,6 +64,19 @@ function redir($uri_path) {
     header('Location: '.$server.$uri_path);
 }
 
+function api_count($inc_num) {
+	$method = $_SERVER['REQUEST_METHOD'];
+	
+	if ( is_incrementable($_SERVER['REDIRECT_path'], $method, $oauth_user) ) {
+		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num, $oauth_user);
+		return true;
+	}
+	else {
+		throw_error(429, "429 - too many requests");
+		return false;
+	}
+}
+
 /*
  * ----------
  * book_tags/
@@ -80,7 +93,9 @@ function handle_bt($path_arr) {
         // GET book_tags/{id}
         if ($method === "GET") { 
             $_GET['B64'] = strip_ext($path_arr[1], ".json");
-            include $root.$get_book_tags;
+			if (api_count(1)) {
+				include $root.$get_book_tags;
+			}
         } else {
             throw_error(405, "405 - method not allowed");
         }
@@ -105,7 +120,9 @@ function handle_lc($path_arr) {
         // GET lc_numbers/{call_number}
         if ($method === "GET") { 
             $_GET['call_number'] = strip_ext($path_arr[1], ".json");
-            include $root.$get_lc_numbers;
+			if (api_count(1)) {
+				include $root.$get_lc_numbers;
+			}
         } else {                    // some method that's not a GET
             throw_error(405, "405 - method not allowed");
         }
@@ -132,23 +149,29 @@ function handle_bp($path_arr) {
             if ($path_arr[1] === "count") { 
                 include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
                 include $_SERVER['DOCUMENT_ROOT'].'/api_count.php';
-                is_incrementable($_SERVER['REDIRECT_path'], $method, $oauth_user);
-                increment_count($_SERVER['REDIRECT_path'], $method, 47, $oauth_user);
-                include $root.$get_bp_count;
+				if (api_count(1)) {
+					include $root.$get_bp_count;
+				}
             // GET book_pings/{id}
             } else if ($path_arr[1] !== "") { 
                 $_GET['book_ping_id'] = strip_ext($path_arr[1], ".json");
-                include $root.$get_bp_id;
+				if (api_count(1)) {
+					include $root.$get_bp_id;
+				}
             // GET book_pings/
-            } else if ($path_arr[1] === "") { 
-                include $root.$get_bp;
+            } else if ($path_arr[1] === "") {
+				if (api_count(1)) {
+					include $root.$get_bp;
+				}
             } else {                            // some other path, so throw error
                 throw_error(404, "404 - not found");
             }
         } else if ($method === "POST") {
             // POST book_pings/
             if ($path_arr[1] === "") { 
-                include $root.$post_bp;
+				if (api_count(1)) {
+					include $root.$post_bp;
+				}
             } else {
                 throw_error(404, "404 - not found");
             }
@@ -175,9 +198,13 @@ function handle_users($path_arr) {
 
     if ($cnt === 1) { // URI paths with a count of 1,2,3 are valid
         if ($method === 'GET') { // GET users
-            include $root.$get_user_mult;
+			if (api_count(1)) {
+				include $root.$get_user_mult;
+			}
         } else if ($method === 'POST') { // POST users
-            include $root.$post_users;
+			if (api_count(1)) {
+				include $root.$post_users;
+			}
         } else {
             throw_error(405, '405 - method not allowed');
         }
@@ -186,17 +213,23 @@ function handle_users($path_arr) {
         if ($method === 'GET') { 
             // GET users/activate_email
             if ($path_arr[1] === 'activate_email') { 
-                include $root.$get_act_email;
+				if (api_count(1)) {
+					include $root.$get_act_email;
+				}
             // GET users/some_user.json
             } else {
                 $_GET['user_id'] = strip_ext($path_arr[1], '.json');
-                include $root.$get_user;
+				if (api_count(1)) {
+					include $root.$get_user;
+				}
             }
         // POST users/something_here
         } else if ($method === 'POST') { 
             // POST users/edit
             if ($path_arr[1] === 'edit') { 
-                include $root.$post_users_edit;
+				if (api_count(1)) {
+					include $root.$post_users_edit;
+				}
             } else {
                 throw_error(404, '404 - not found');
             }
@@ -209,15 +242,21 @@ function handle_users($path_arr) {
             // GET users/{id}/permissions
             if ($path_arr[2] === 'permissions') { 
                 $_GET['user_id'] = $path_arr[1];
-                include $root.$get_user_perm;
+				if (api_count(1)) {
+					include $root.$get_user_perm;
+				}
             // GET users/available/{id}.json
             } else if ($path_arr[1] === 'available') {
                 $_GET['user_id'] = strip_ext($path_arr[2], '.json');
-                include $root.$get_users_avail;
+				if (api_count(1)) {
+					include $root.$get_users_avail;
+				}
             // GET users/email_registered/{id}
             } else if ($path_arr[1] === 'email_registered') {
                 $_GET['email'] = strip_ext($path_arr[2], '.json');
-                include $root.$get_email_reg;
+				if (api_count(1)) {
+					include $root.$get_email_reg;
+				}
             } else {
                 throw_error(404, '404 - not found');
             }
@@ -225,7 +264,9 @@ function handle_users($path_arr) {
             // POST users/{id}/permissions
             if ($path_arr[2] === 'permissions') { 
                 $_POST['user_id'] = $path_arr[1];
-                include $root.$post_users_perm;
+				if (api_count(1)) {
+					include $root.$post_users_perm;
+				}
             } else {
                 throw_error(404, '404 - not found');
             }
@@ -255,22 +296,32 @@ function handle_inst($path_arr) {
         if ($method === 'GET') {
             // GET institutions/
             if ($path_arr[1] === '') {
-                include $root.$get_inst_mult;
+				if (api_count(1)) {
+					include $root.$get_inst_mult;
+				}
             // GET institutions/activate_inst
             } else if ($path_arr[1] === 'activate_inst') {
-                include $root.$get_act_inst;
+				if (api_count(1)) {
+					include $root.$get_act_inst;
+				}
             // GET institutions/{id}
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
-                include $root.$get_inst;
+				if (api_count(1)) {
+					include $root.$get_inst;
+				}
             }
         } else if ($method === 'POST') {
             // POST institutions/
             if ($path_arr[1] === '') {
-                include $root.$post_inst_reg;
+				if (api_count(1)) {
+					include $root.$post_inst_reg;
+				}
             // POST institutions/edit
             } else if ($path_arr[1] === 'edit') {
-                include $root.$post_inst_edit;
+				if (api_count(1)) {
+					include $root.$post_inst_edit;
+				}
             } else {
                 throw_error(404, '404 - not found');
             }
@@ -281,7 +332,9 @@ function handle_inst($path_arr) {
             // GET institutions/available/{id}
             if ($path_arr[1] === 'available') {
                 $_GET['inst_id'] = strip_ext($path_arr[2], '.json');
-                include $root.$get_inst_avail;
+				if (api_count(1)) {
+					include $root.$get_inst_avail;
+				}
             } else {
                 throw_error(404, '404 - not found');
             }
@@ -310,11 +363,15 @@ function handle_mt($path_arr) {
         if ($method === "GET") { 
             // GET make_tags/paper_formats
             if ($path_arr[1] === "paper_formats") {
-                include $root.$get_formats;
+				if (api_count(1)) {
+					include $root.$get_formats;
+				}
             // GET make_tags/something_else
             } else {
                 $_GET['type'] = strip_ext($path_arr[1], ".pdf");
-                include $root.$get_tags;
+				if (api_count(1)) {
+					include $root.$get_tags;
+				}
             }
         } else {
             throw_error(405, "405 - method not allowed");
@@ -339,18 +396,42 @@ function handle_oauth($path_arr) {
         if ($method === "GET") { // GET oauth/something_here
             // determine and dispatch necessary file
             switch($path_arr[1]) {
-            case "get_request_token":   include $root.$get_req_token; break;
-            case "login":               include $root.$get_login; break;
-            case "get_access_token":    include $root.$get_acc_token; break;
-            case "whoami":              include $root.$get_whoami; break;
-            case "post_login":          include $root.$get_post_login; break;
+            case "get_request_token":  
+				if (api_count(1)) {
+					include $root.$get_req_token;
+				}				
+				break;
+            case "login":            
+				if (api_count(1)) {
+					include $root.$get_login; 
+				}	
+				break;
+            case "get_access_token":    
+				if (api_count(1)) {
+					include $root.$get_acc_token; 
+				}
+				break;
+            case "whoami":              
+				if (api_count(1)) {
+					include $root.$get_whoami;
+				}
+				break;
+            case "post_login":          
+				if (api_count(1)) {
+					include $root.$get_post_login; 
+				}
+				break;
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
             if ($path_arr[1] === "login") {
-                include $root.$get_login;
+				if (api_count(1)) {
+					include $root.$get_login;
+				}
             } else if ($path_arr[1] === 'post_login') {
-                include $root.$get_post_login;
+				if (api_count(1)) {
+					include $root.$get_post_login;
+				}
             }
         } else {
             throw_error(405, "405 - method not allowed");
@@ -376,7 +457,9 @@ function handle_notif($path_arr) {
         // GET notifications/{inst_id}
         if ($method === "GET") { 
             $_GET['inst_id'] = $path_arr[1];
-            include $root.$get_notif;
+			if (api_count(1)) {
+				include $root.$get_notif;
+			}
         } else {                    // some method that's not a GET
             throw_error(405, "405 - method not allowed");
         }
