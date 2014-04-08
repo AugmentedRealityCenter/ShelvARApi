@@ -331,7 +331,7 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 		case "oauth/get_access_token":
 			updateCountFreeCall("GET_oauth_access_token_count", $count);
 			break;
-		case "oauth/whoami":
+		case "/oauth/whoami":
 			updateCountFreeCall("GET_oauth_whoami_count", $count);
 			break;
 	}
