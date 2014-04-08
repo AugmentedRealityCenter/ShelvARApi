@@ -18,7 +18,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 	checkLastReset($user);
 
 	switch ($apiCall) {
-		case "/book_pings/":
+		case "book_pings/":
 			if ($httpMethod = "GET") {
 				// Get the number of calls made from the database
 				$numCalls = getCountNotFreeCall("GET_book_pings_count", $user);
@@ -48,7 +48,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/book_pings/{book_ping_id}.json":
+		case "book_pings/{book_ping_id}.json":
 			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count", $user);
 			$limit = grabLimit("GET book_pings_specific");
 
@@ -57,7 +57,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/book_tags/{book_tag}.json":
+		case "book_tags/{book_tag}.json":
 			$numCalls = getCountFreeCall("GET_book_tags_count");
 			$limit = grabLimit("GET book_tags");
 
@@ -66,7 +66,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/lc_numbers/{call_number}.json":
+		case "lc_numbers/{call_number}.json":
 			$numCalls = getCountFreeCall("GET_lc_numbers_count");
 			$limit = grabLimit("GET lc_numbers");
 
@@ -75,7 +75,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/institutions/":
+		case "institutions/":
 			if ($httpMethod = "GET") {
 				$numCalls = getCountFreeCall("GET_insitutions_count");
 				$limit = grabLimit("GET institutions");
@@ -95,7 +95,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 					return false;
 			}
 			break;
-		case "/institutions/edit":
+		case "institutions/edit":
 			$numCalls = getCountFreeCall("POST_institutions_edit_count");
 			$limit = grabLimit("POST institutions_edit");
 
@@ -104,7 +104,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/institutions/{inst_id}.json":
+		case "institutions/{inst_id}.json":
 			$numCalls = getCountFreeCall("GET_institutions_specific_count");
 			$limit = grabLimit("GET institutions_specific");
 
@@ -113,7 +113,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/institutions/available/{inst_id}.json":
+		case "institutions/available/{inst_id}.json":
 			$numCalls = getCountFreeCall("GET_institutions_available_count");
 			$limit = grabLimit("GET institutions_available");
 
@@ -122,7 +122,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/users":
+		case "users":
 			if ($httpMethod = "GET") {
 				$numCalls = getCountFreeCall("GET_users_count");
 				$limit = grabLimit("GET users");
@@ -142,7 +142,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 					return false;
 			}
 			break;
-		case "/users/edit":
+		case "users/edit":
 			$numCalls = getCountFreeCall("POST_users_edit_count");
 			$limit = grabLimit("POST users_edit");
 
@@ -151,7 +151,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/users/{user_id}/permissions":
+		case "users/{user_id}/permissions":
 			if ($httpMethod = "GET") {
 				$numCalls = getCountFreeCall("GET_users_permissions_count");
 				$limit = grabLimit("GET users_permissions");
@@ -171,7 +171,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 					return false;
 			}
 			break;
-		case "/users/{user_id}.json":
+		case "users/{user_id}.json":
 			$numCalls = getCountFreeCall("GET_users_specific_count");
 			$limit = grabLimit("GET users_specific");
 
@@ -180,7 +180,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/users/available/{user_id}.json":
+		case "users/available/{user_id}.json":
 			$numCalls = getCountFreeCall("GET_users_available_count");
 			$limit = grabLimit("GET users_available");
 
@@ -189,7 +189,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/make_tags/{paper_type}.pdf":
+		case "make_tags/{paper_type}.pdf":
 			$numCalls = getCountFreeCall("GET_make_tags_count");
 			$limit = grabLimit("GET make_tags");
 
@@ -198,7 +198,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case " /make_tags/paper_formats":
+		case "make_tags/paper_formats":
 			$numCalls = getCountFreeCall("GET_paper_formats_count");
 			$limit = grabLimit("GET paper_formats");
 
@@ -207,7 +207,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/oauth/get_request_token":
+		case "oauth/get_request_token":
 			$numCalls = getCountFreeCall("GET_oauth_request_token_count");
 			$limit = grabLimit("GET oauth_request_token");
 
@@ -216,7 +216,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/oauth/login":
+		case "oauth/login":
 			$numCalls = getCountFreeCall("GET_oauth_login_count");
 			$limit = grabLimit("GET oauth_login");
 
@@ -225,7 +225,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/oauth/get_access_token":
+		case "oauth/get_access_token":
 			$numCalls = getCountFreeCall("GET_oauth_access_token_count");
 			$limit = grabLimit("GET oauth_access_token");
 
@@ -254,7 +254,7 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 	$user = $oauth['user_id'];
 	
 	switch ($apiCall) {
-		case "/book_pings/":
+		case "book_pings/":
 			if ($httpMethod = "GET") {
 				updateCountNotFreeCall("GET_book_pings_count", $count, $user);
 			}
@@ -262,19 +262,19 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 				updateCountNotFreeCall("POST_book_pings_count", $count, $user);
 			}
 			break;
-		case "/book_pings/count":
+		case "book_pings/count":
 			updateCountNotFreeCall("GET_book_pings_count_count", $count, $user);
 			break;
-		case "/book_pings/{book_ping_id}.json":
+		case "book_pings/{book_ping_id}.json":
 			updateCountNotFreeCall("GET_book_pings_specific_count", $count, $user);
 			break;
-		case "/book_tags/{book_tag}.json":
+		case "book_tags/{book_tag}.json":
 			updateCountFreeCall("GET_book_tags_count", $count);
 			break;
-		case "/lc_numbers/{call_number}.json":
+		case "lc_numbers/{call_number}.json":
 			updateCountFreeCall("GET_lc_numbers_count", $count);
 			break;
-		case "/institutions/":
+		case "institutions/":
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_insitutions_count", $count);
 			}
@@ -282,16 +282,16 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 				updateCountFreeCall("POST_institutions_count", $count);
 			}
 			break;
-		case "/institutions/edit":
+		case "institutions/edit":
 			updateCountFreeCall("POST_institutions_edit_count", $count);
 			break;
-		case "/institutions/{inst_id}.json":
+		case "institutions/{inst_id}.json":
 			updateCountFreeCall("GET_institutions_specific_count", $count);
 			break;
-		case "/institutions/available/{inst_id}.json":
+		case "institutions/available/{inst_id}.json":
 			updateCountFreeCall("GET_institutions_available_count", $count);
 			break;
-		case "/users":
+		case "users":
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_users_count", $count);
 			}
@@ -299,10 +299,10 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 				updateCountFreeCall("POST_users_count", $count);
 			}
 			break;
-		case "/users/edit":
+		case "users/edit":
 			updateCountFreeCall("POST_users_edit_count", $count);
 			break;
-		case "/users/{user_id}/permissions":
+		case "users/{user_id}/permissions":
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_users_permissions_count", $count);
 			}
@@ -310,28 +310,28 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 				updateCountFreeCall("POST_users_persmissions_count", $count);
 			}
 			break;
-		case "/users/{user_id}.json":
+		case "users/{user_id}.json":
 			updateCountFreeCall("GET_users_specific_count", $count);
 			break;
-		case "/users/available/{user_id}.json":
+		case "users/available/{user_id}.json":
 			updateCountFreeCall("GET_users_available_count", $count);
 			break;
-		case "/make_tags/{paper_type}.pdf":
+		case "make_tags/{paper_type}.pdf":
 			updateCountFreeCall("GET_make_tags_count", $count);
 			break;
-		case " /make_tags/paper_formats":
+		case "make_tags/paper_formats":
 			updateCountFreeCall("GET_paper_formats_count", $count);
 			break;
-		case "/oauth/get_request_token":
+		case "oauth/get_request_token":
 			updateCountFreeCall("GET_oauth_request_token_count", $count);
 			break;
-		case "/oauth/login":
+		case "oauth/login":
 			updateCountFreeCall("GET_oauth_login_count", $count);
 			break;
-		case "/oauth/get_access_token":
+		case "oauth/get_access_token":
 			updateCountFreeCall("GET_oauth_access_token_count", $count);
 			break;
-		case "/oauth/whoami":
+		case "oauth/whoami":
 			updateCountFreeCall("GET_oauth_whoami_count", $count);
 			break;
 	}
