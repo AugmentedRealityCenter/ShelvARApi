@@ -243,6 +243,9 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
+		default :
+			error_log("Invalid path through api_count is_incrementable function");
+			break;
 				
 	}
 }
@@ -334,6 +337,10 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 		case "/oauth/whoami":
 			updateCountFreeCall("GET_oauth_whoami_count", $count);
 			break;
+		default :
+			error_log("Invalid path through api_count increment_count function");
+			break;
+			
 	}
 }
 
