@@ -67,6 +67,9 @@ function redir($uri_path) {
 }
 
 function api_count($inc_num) {
+	include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/api_count.php';
+	
 	$method = $_SERVER['REQUEST_METHOD'];
 	
 	if ( is_incrementable($_SERVER['REDIRECT_path'], $method, $oauth_user) ) {
@@ -149,8 +152,6 @@ function handle_bp($path_arr) {
         if ($method === "GET") {  
             // GET book_pings/count
             if ($path_arr[1] === "count") { 
-                include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
-                include $_SERVER['DOCUMENT_ROOT'].'/api_count.php';
 				if (api_count(1)) {
 					include $root.$get_bp_count;
 				}
