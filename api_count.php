@@ -234,7 +234,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 			else
 				return false;
 			break;
-		case "/oauth/whoami":
+		case "oauth/whoami":
 			$numCalls = getCountFreeCall("GET_oauth_whoami_count");
 			$limit = grabLimit("GET oauth_whoami");
 
