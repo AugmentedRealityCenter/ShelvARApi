@@ -12,6 +12,7 @@ switch ($path_arr[0]) {
     case "make_tags":       handle_mt($path_arr); break;
     case "oauth":           handle_oauth($path_arr); break;
     case "notifications":   handle_notif($path_arr); break;
+    case 'worker_data':     handle_work($path_arr); break;
     default:                throw_error(404, "404 - not found"); break;
 }
 
@@ -29,6 +30,16 @@ function strip_ext($id, $ext) {
     if (!strrpos($id, $ext)) return $id;
     // return stripped string
     return substr($id, 0, strrpos($id, $ext));
+}
+
+/*
+ * Throws a json formatted error
+ */
+function throw_error($code, $out_string) {
+    http_response_code($code);
+
+    $result = array('result' => "ERROR ".$out_string);
+    echo json_encode($result);
 }
 
 function get_domain() {
@@ -375,12 +386,26 @@ function handle_notif($path_arr) {
 }
 
 /*
- * Throws a json formatted error
+ * -----------
+ * worker_data
+ * -----------
  */
-function throw_error($code, $out_string) {
-    http_response_code($code);
+function handle_work($path_arr) {
+    $cnt    = count($path_arr);
+    $method = $_SERVER['REQUEST_METHOD'];
+    $root   = $_SERVER['DOCUMENT_ROOT'].'/';
 
-    $result = array('result' => "ERROR ".$out_string);
-    echo json_encode($result);
+    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+
+    if ($cnt === 2 && $path_arr[1] === '') { // valid request
+        // GET worker_data/
+        if ($method === 'GET') {
+            include $root.$get_worker_data;
+        } else {
+            throw_error(405, '405 - method not allowed');
+        }
+    } else {
+        throw_error(404, '404 - not found');
+    } 
 }
 

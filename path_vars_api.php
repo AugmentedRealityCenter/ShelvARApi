@@ -23,6 +23,7 @@
     $get_login          = "oauth/login.php";
     $get_notif          = "api/notifications/get_inst_notification.php";
     $get_post_login     = "oauth/post-login.php";
+    $get_worker_data    = 'api/worker_data/get_worker_data.php';
 
     // post path constants
     $post_bp            = "api/book_pings/book_ping.php";
