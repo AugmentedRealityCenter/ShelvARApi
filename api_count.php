@@ -294,7 +294,7 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 		case "institutions/available/{inst_id}.json":
 			updateCountFreeCall("GET_institutions_available_count", $count);
 			break;
-		case "/users":
+		case "users":
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_users_count", $count);
 			}
@@ -334,7 +334,7 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
 		case "oauth/get_access_token":
 			updateCountFreeCall("GET_oauth_access_token_count", $count);
 			break;
-		case "/oauth/whoami":
+		case "oauth/whoami":
 			updateCountFreeCall("GET_oauth_whoami_count", $count);
 			break;
 		default :
