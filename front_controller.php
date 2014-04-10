@@ -12,7 +12,7 @@ switch ($path_arr[0]) {
     case "users":           handle_users($path_arr); break;
     case "institutions":    handle_inst($path_arr); break;
     case "make_tags":       handle_mt($path_arr); break;
-    case "oauth":           error_log("Made it to api_count block"); handle_oauth($path_arr); break;
+    case "oauth":           handle_oauth($path_arr); break;
     case "notifications":   handle_notif($path_arr); break;
     case 'worker_data':     handle_work($path_arr); break;
     default:                throw_error(404, "404 - not found"); break;
@@ -396,6 +396,7 @@ function handle_mt($path_arr) {
 * ------
 */
 function handle_oauth($path_arr) {
+	error_log("Made it to oauth handler"); 
     $root = $_SERVER['DOCUMENT_ROOT']."/";
     $method = $_SERVER['REQUEST_METHOD'];
 
