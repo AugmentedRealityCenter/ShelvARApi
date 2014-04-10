@@ -408,6 +408,7 @@ function handle_oauth($path_arr) {
             switch($path_arr[1]) {
             case "get_request_token":  
 				if (api_count(1)) {
+					error_log("Made it to request_token block");
 					include $root.$get_req_token;
 				}				
 				break;
