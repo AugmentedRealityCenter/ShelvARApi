@@ -402,7 +402,7 @@ function handle_oauth($path_arr) {
 
     include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
-	
+	error_log("Made it past includes"); 
 
     if (count($path_arr) === 2) { // valid request
         if ($method === "GET") { // GET oauth/something_here
