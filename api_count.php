@@ -601,7 +601,7 @@ function updateCountNotFreeCall ($column, $count, $user) {
 }
 
 function updateCountFreeCall($column, $count) {
-	$query = "UPDATE unkown_users " .
+	$query = "UPDATE unknown_users " .
 			"SET " . $column . " = " . $column . " + " . $count . " " .
 			"WHERE ip_address = ?";
 	$ip_address = $_SERVER["REMOTE_ADDR"];
