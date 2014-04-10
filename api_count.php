@@ -351,8 +351,10 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
  * the counts are set to zero.
  */
 function checkLastReset($user) {
+	error_log("in checkLastReset");
 	$lastResetNotFree = grabLastResetNotFree($user);
 	$lastResetFree = grabLastResetFree();
+	error_log("past last resets");
 	
 	$currTime = time();  // http://www.php.net/manual/en/function.time.php
 	$fifteenMins = 900;
