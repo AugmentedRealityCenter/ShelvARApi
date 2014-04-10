@@ -208,6 +208,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 				return false;
 			break;
 		case "oauth/get_request_token":
+			error_log("Inside api_count oauth get_request_token case");
 			$numCalls = getCountFreeCall("GET_oauth_request_token_count");
 			$limit = grabLimit("GET oauth_request_token");
 
