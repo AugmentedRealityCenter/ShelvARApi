@@ -374,6 +374,7 @@ function checkLastReset($user) {
  */
 function grabLastResetNotFree($user) {
 	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	error_log("made it past include in grabLastResetNotFree");
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
