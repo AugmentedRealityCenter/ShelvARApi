@@ -72,9 +72,9 @@ function api_count($inc_num) {
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	
-	if (is_incrementable($_SERVER['REDIRECT_path'], $method, $oauth_user) ) {
+	if (is_incrementable($_SERVER['REDIRECT_path'], $method, "temp") ) {
 		error_log("inside is_incrementable if statement");
-		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num, $oauth_user);
+		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num, "temp");
 		return true;
 	}
 	else {
@@ -402,7 +402,6 @@ function handle_oauth($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
-	include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 	error_log("Made it past includes"); 
 
     if (count($path_arr) === 2) { // valid request
