@@ -14,7 +14,6 @@ include_once $root."header_include.php";
  * returns false if it is over the limit
  */
 function is_incrementable($apiCall, $httpMethod, $oauth) {
-	$user = $oauth['user_id'];
 	checkLastReset($user);
 
 	switch ($apiCall) {
