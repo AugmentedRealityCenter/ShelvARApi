@@ -208,7 +208,6 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
 				return false;
 			break;
 		case "oauth/get_request_token":
-			error_log("Inside api_count oauth get_request_token case");
 			$numCalls = getCountFreeCall("GET_oauth_request_token_count");
 			$limit = grabLimit("GET oauth_request_token");
 
@@ -373,9 +372,8 @@ function checkLastReset($user) {
  * Grabs the last reset field from the users table
  */
 function grabLastResetNotFree($user) {
-	error_log("Found it");
+	// THE PROBLEM IS THIS INCLUDE
 	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
-	error_log("made it past include in grabLastResetNotFree");
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
