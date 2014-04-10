@@ -68,10 +68,7 @@ function redir($uri_path) {
 
 function api_count($inc_num) {
 	error_log("Made it to a solid reason TO blame John"); 
-	//include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
-	error_log("Made it to where it isn't Stevens fault - middle version ");
-    include_once $_SERVER['DOCUMENT_ROOT'].'/api_count.php';
-	error_log("Made it to where it isn't Stevens fault "); 
+    include_once $_SERVER['DOCUMENT_ROOT'].'/api_count.php'; 
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	
@@ -404,7 +401,7 @@ function handle_oauth($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
 
     include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
-	//include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 	error_log("Made it past includes"); 
 
     if (count($path_arr) === 2) { // valid request
