@@ -393,7 +393,9 @@ function grabLastResetNotFree($user) {
  * Grabs the last reset field from the unknown users table
  */
 function grabLastResetFree() {
+	error_log("in grabLastResetFree");
 	handleIPAddress();
+	error_log("not in handleIPAddress");
 	$query = "SELECT last_reset " .
 			"FROM unknown_users ".
 			"WHERE ip_address = ?";
