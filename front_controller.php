@@ -69,7 +69,7 @@ function redir($uri_path) {
 
 function api_count($inc_num) {
 	error_log("Made it to a solid reason TO blame John"); 
-    include_once $_SERVER['DOCUMENT_ROOT'].'/api_count.php'; 
+    include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_count.php'; 
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	
