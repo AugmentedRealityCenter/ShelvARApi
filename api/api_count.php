@@ -3,7 +3,7 @@ $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."db_info.php";
 include_once $root."database.php";
 include_once $root."header_include.php";
-//include_once $root."api/api_ref_call.php";
+include_once $root."api/api_ref_call.php";
 
 
 // Wrapper class to increment the count for a specified API call
@@ -488,7 +488,7 @@ function setToZeroFreeHelper($column) {
  * Helper method to  set a column to zero
  */
 function setToZeroNotFreeHelper($column, $user) {
-	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	//include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 	$query = "UPDATE users " .
 			"SET " . $column . " = 0 " .
 			"WHERE user_id = ?";
