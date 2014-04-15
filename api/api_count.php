@@ -3,7 +3,7 @@ $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."db_info.php";
 include_once $root."database.php";
 include_once $root."header_include.php";
-//include_once $root."api/api_ref_call.php";
+include_once $root."api/api_ref_call.php";
 
 
 // Wrapper class to increment the count for a specified API call
@@ -495,6 +495,7 @@ function setToZeroNotFreeHelper($column, $user) {
 	$params = array($oauth_user['user_id']);
 	$type = "s";
 	
+	
 	$db = new database();
 	$db->query = $query;
 	$db->params = $params;
@@ -549,7 +550,7 @@ function setFreeLastReset() {
  * @return unknown $numCalls    The number of calls for that API (within 15 min window)
  */
  function getCountNotFreeCall($column, $user) {
-	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	//include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
 			"WHERE user_id = ?";
