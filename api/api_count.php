@@ -495,6 +495,8 @@ function setToZeroNotFreeHelper($column, $user) {
 	$params = array($oauth_user['user_id']);
 	$type = "s";
 	
+	error_log("Holy shit Oauth is in scope now!!");
+	
 	$db = new database();
 	$db->query = $query;
 	$db->params = $params;
