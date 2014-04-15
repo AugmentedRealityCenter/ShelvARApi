@@ -419,6 +419,7 @@ function handle_oauth($path_arr) {
 				break;
             case "whoami":   
 				if (api_count(1)) {
+					include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 					include $root.$get_whoami;
 				}
 				break;
