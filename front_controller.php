@@ -15,6 +15,7 @@ switch ($path_arr[0]) {
     case "oauth":           handle_oauth($path_arr); break;
     case "notifications":   handle_notif($path_arr); break;
     case 'worker_data':     handle_work($path_arr); break;
+	case 'inventory_data':	handle_inventory($path_arr); break;
     default:                throw_error(404, "404 - not found"); break;
 }
 
@@ -507,3 +508,27 @@ function handle_work($path_arr) {
     } 
 }
 
+/*
+ * -----------
+ * inventory_data
+ * -----------
+ */
+function handle_inventory($path_arr) {
+    $cnt    = count($path_arr);
+    $method = $_SERVER['REQUEST_METHOD'];
+    $root   = $_SERVER['DOCUMENT_ROOT'].'/';
+
+    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+
+    if ($cnt === 2 && $path_arr[1] === '') { // valid request
+        // GET inventory_data/
+        if ($method === 'GET') {
+            include $root.$get_inventory_data;
+        } else {
+            throw_error(405, '405 - method not allowed');
+        }
+    } else {
+        throw_error(404, '404 - not found');
+    } 
+}
