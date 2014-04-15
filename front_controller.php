@@ -409,9 +409,7 @@ function handle_oauth($path_arr) {
             switch($path_arr[1]) {
             case "get_request_token":  
 				error_log("Made it to a solid reason to not blame John"); 
-				if (api_count(1)) {
-					include $root.$get_req_token;	
-				}
+				include $root.$get_req_token;			
 				break;
             case "login":            
 				include $root.$get_login; 	
