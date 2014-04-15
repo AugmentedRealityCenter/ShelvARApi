@@ -488,14 +488,13 @@ function setToZeroFreeHelper($column) {
  * Helper method to  set a column to zero
  */
 function setToZeroNotFreeHelper($column, $user) {
-	//include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 	$query = "UPDATE users " .
 			"SET " . $column . " = 0 " .
 			"WHERE user_id = ?";
 	$params = array($oauth_user['user_id']);
 	$type = "s";
 	
-	error_log("Holy shit Oauth is in scope now!!");
 	
 	$db = new database();
 	$db->query = $query;
@@ -551,7 +550,7 @@ function setFreeLastReset() {
  * @return unknown $numCalls    The number of calls for that API (within 15 min window)
  */
  function getCountNotFreeCall($column, $user) {
-	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	//include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
 			"WHERE user_id = ?";
