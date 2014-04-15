@@ -254,7 +254,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
  * Increments a given API call by a provided count
  */
 function increment_count($apiCall, $httpMethod, $count, $oauth) {
-	$user = $oauth['user_id'];
+	$user = $oauth;
 	
 	switch ($apiCall) {
 		case "book_pings/":
@@ -350,10 +350,8 @@ function increment_count($apiCall, $httpMethod, $count, $oauth) {
  * the counts are set to zero.
  */
 function checkLastReset($user) {
-	error_log("in checkLastReset");
 	$lastResetNotFree = grabLastResetNotFree($user);
 	$lastResetFree = grabLastResetFree();
-	error_log("past last resets");
 	
 	$currTime = time();  // http://www.php.net/manual/en/function.time.php
 	$fifteenMins = 900;
@@ -393,9 +391,7 @@ function grabLastResetNotFree($user) {
  * Grabs the last reset field from the unknown users table
  */
 function grabLastResetFree() {
-	error_log("in grabLastResetFree");
 	handleIPAddress();
-	error_log("not in handleIPAddress");
 	$query = "SELECT last_reset " .
 			"FROM unknown_users ".
 			"WHERE ip_address = ?";
