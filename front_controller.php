@@ -398,13 +398,10 @@ function handle_mt($path_arr) {
 * ------
 */
 function handle_oauth($path_arr) {
-	error_log("Made it to oauth handler"); 
     $root = $_SERVER['DOCUMENT_ROOT']."/";
     $method = $_SERVER['REQUEST_METHOD'];
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
-	include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
-	error_log("Made it past includes"); 
+    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php'; 
 
     if (count($path_arr) === 2) { // valid request
         if ($method === "GET") { // GET oauth/something_here
