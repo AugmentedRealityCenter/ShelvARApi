@@ -254,7 +254,7 @@ function is_incrementable($apiCall, $httpMethod, $oauth) {
  * Increments a given API call by a provided count
  */
 function increment_count($apiCall, $httpMethod, $count, $oauth) {
-	$user = $oauth['user_id'];
+	$user = $oauth;
 	
 	switch ($apiCall) {
 		case "book_pings/":
