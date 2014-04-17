@@ -15,7 +15,7 @@
                     "nickname": "get_worker_report",
 					"parameters": [
 						{
-							"name": "user_id}",
+							"name": "user_id",
 							"description": "The user id.",
 							"paramType": "path",
 							"required": true,
