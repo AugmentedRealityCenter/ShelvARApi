@@ -77,7 +77,7 @@ function do_book_ping($jsoninput,$inst_id,$user_id){
 		die('JSON error stopped script');
 	}
 
-	include "../../db_info.php";
+	include $_SERVER['DOCUMENT_ROOT'].'/db_info.php';
 	/* Create a new mysqli object with database connection parameters */
 	$con = new mysqli($sql_server, $sql_user, $sql_password, $sql_database);
 
