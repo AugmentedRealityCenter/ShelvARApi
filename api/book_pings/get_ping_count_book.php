@@ -27,6 +27,7 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
 }
 
+error_log('count: '.print_r($oauth_user));
 $cond = false;
 $query = "SELECT * FROM book_pings";
 $qArray = array();
