@@ -72,8 +72,8 @@ function api_count($inc_num) {
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	
-	if (is_incrementable($_SERVER['REDIRECT_path'], $method, "temp") ) {
-		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num, "temp");
+	if (is_incrementable($_SERVER['REDIRECT_path'], $method) ) {
+		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num);
 		return true;
 	}
 	else {
