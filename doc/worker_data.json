@@ -1,0 +1,52 @@
+{
+    "apiVersion": "0.2",
+    "swaggerVersion": "1.1",
+    "resourcePath": "/worker_data",
+    "apis": [
+		{
+			"path": "/worker_data/{user_id}",
+            "description": "--- Temp description: Get worker work hours info, ya heard ---",
+            "operations": [
+				{
+					"httpMethod": "GET",
+                    "summary": "Get worker hours info",
+                    "notes": "Retrieves the number of book pings made by a particular worker within two weeks or a specified time window.",
+                    "responseClass": "string",
+                    "nickname": "get_worker_report",
+					"parameters": [
+						{
+							"name": "user_id}",
+							"description": "The user id.",
+							"paramType": "path",
+							"required": true,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "fake_param",
+							"description": "Testing swag it out",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						}
+					],
+					"errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+				}
+			]
+		}				
+	]
+}
