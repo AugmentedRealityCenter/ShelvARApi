@@ -77,7 +77,6 @@ if (!$cond) {
 	$db->query = $query;
 	$db->params = $paramsList;
 	$db->type = "";
-    error_log($query);
 }
 else {
 	$query = $query . " WHERE ";
@@ -88,7 +87,6 @@ else {
 	$db->query = $query;
 	$db->params = $paramsList;
 	$db->type = $types[$numParams];
-    error_log($query);
 }
 
 $result = $db->fetch();
