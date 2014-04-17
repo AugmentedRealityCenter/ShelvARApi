@@ -68,13 +68,11 @@ function redir($uri_path) {
 }
 
 function api_count($inc_num) {
-	error_log("Made it to a solid reason TO blame John"); 
     include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_count.php'; 
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	
 	if (is_incrementable($_SERVER['REDIRECT_path'], $method, "temp") ) {
-		error_log("inside is_incrementable if statement");
 		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num, "temp");
 		return true;
 	}
@@ -402,7 +400,6 @@ function handle_oauth($path_arr) {
             // determine and dispatch necessary file
             switch($path_arr[1]) {
             case "get_request_token":  
-				error_log("Made it to a solid reason to not blame John"); 
 				include $root.$get_req_token;			
 				break;
             case "login":            
