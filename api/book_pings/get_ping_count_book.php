@@ -5,6 +5,8 @@ include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
+$oauth_user = get_oauth();
+
 if($oauth_user['inst_activated'] != 1){
   exit(json_encode(array('result'=>'ERROR', 'message'=>'Your institution\'s account has not yet been activated.')));
  }
