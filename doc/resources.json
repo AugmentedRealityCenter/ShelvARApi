@@ -33,6 +33,10 @@
 		{
                     	"path":"notifications.{format}",
 			"description":"Operations on notifications for users and institutions"
+		},
+		{
+						"path": "worker_data.{format}",
+			"description":"Information about worker productivity"
 		}
 		]
 }
