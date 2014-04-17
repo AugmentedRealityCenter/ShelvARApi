@@ -27,7 +27,6 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
 }
 
-error_log('count: '.print_r($oauth_user));
 $cond = false;
 $query = "SELECT * FROM book_pings";
 $qArray = array();
@@ -76,6 +75,7 @@ if (!$cond) {
 	$db->query = $query;
 	$db->params = $paramsList;
 	$db->type = "";
+    error_log($query);
 }
 else {
 	$query = $query . " WHERE ";
@@ -86,6 +86,7 @@ else {
 	$db->query = $query;
 	$db->params = $paramsList;
 	$db->type = $types[$numParams];
+    error_log($query);
 }
 
 $result = $db->fetch();
