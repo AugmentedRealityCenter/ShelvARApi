@@ -4,6 +4,10 @@
 	include_once $root."header_include.php";
 	include_once $root."api/api_ref_call.php";
 	
+    $oauth_user = get_oauth();
+    $inst_id = $oauth_user['inst_id'];
+    $user_id = $oauth_user['user_id'];
+
 	$err = array();
 	
 	if(stripos($oauth_user['scope'],"acctmod") === false) {
