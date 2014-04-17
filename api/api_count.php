@@ -3,7 +3,7 @@ $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."db_info.php";
 include_once $root."database.php";
 include_once $root."header_include.php";
-//include_once $root."api/api_ref_call.php";
+include_once $root."api/api_ref_call.php";
 
 
 // Wrapper class to increment the count for a specified API call
@@ -371,11 +371,12 @@ function checkLastReset($user) {
  */
 function grabLastResetNotFree($user) {
 	// THE PROBLEM IS THIS INCLUDE
-	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	// include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	$oauth = get_oauth();
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	$params = array($oauth_user['user_id']);
+	$params = array($oauth['user_id']);
 	$type = "s";
 	
 	$db = new database();
@@ -488,14 +489,13 @@ function setToZeroFreeHelper($column) {
  * Helper method to  set a column to zero
  */
 function setToZeroNotFreeHelper($column, $user) {
-	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	$oauth = get_oauth();
 	$query = "UPDATE users " .
 			"SET " . $column . " = 0 " .
 			"WHERE user_id = ?";
-	$params = array($oauth_user['user_id']);
+	$params = array($oauth['user_id']);
 	$type = "s";
 	
-	error_log("Holy shit Oauth is in scope now!!");
 	
 	$db = new database();
 	$db->query = $query;
@@ -509,12 +509,13 @@ function setToZeroNotFreeHelper($column, $user) {
  * users table
  */
 function setNotFreeLastReset($user) {
-	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	//include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	$oauth = get_oauth();
 	$query = "UPDATE users " .
 			"SET last_reset = ? ".
 			"WHERE user_id = ?";
 	$time = date("Y-m-d H:i:s", strtotime("now"));
-	$params = array($time, $oauth_user['user_id']);
+	$params = array($time, $oauth['user_id']);
 	$type = "ss";
 	
 	$db = new database();
@@ -551,11 +552,12 @@ function setFreeLastReset() {
  * @return unknown $numCalls    The number of calls for that API (within 15 min window)
  */
  function getCountNotFreeCall($column, $user) {
-	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	//include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	$oauth = get_oauth();
 	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
 			"WHERE user_id = ?";
-	$paramsNumCalls = array($oauth_user['user_id']);
+	$paramsNumCalls = array($oauth['user_id']);
 	$typeNumCalls = "s";
 	
 	$db = new database();
@@ -594,11 +596,12 @@ function getCountFreeCall($column) {
  * @param unknown_type $column  Name of the column to be incremented
  */
 function updateCountNotFreeCall ($column, $count, $user) {
-	include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	//include $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
+	$oauth = get_oauth();
 	$query = "UPDATE users " .
 			"SET " . $column . " = (" . $column . " + " . $count . ") " .
 			"WHERE user_id = ?";
-	$params = array($oauth_user['user_id']);
+	$params = array($oauth['user_id']);
 	$type = "s";
 	
 	$db = new database();
