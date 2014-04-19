@@ -7,7 +7,6 @@ function get_oauth() {
     new AutoLoader();
 
     unset($oauth_user);
-    $oauth_user = array();
 
     $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_VERIFY);
     $response 	= $Provider->checkOAuthRequest();
