@@ -27,6 +27,7 @@ function get_oauth() {
                 $email = $the_rec[0]['email'];
                 unset($the_rec[0]['email']);
                 $oauth_user = $the_rec[0];
+                error_log('oauth_user in api_ref: '.print_r($oauth_user,1));
                 $oauth_user['scope'] = "invread_invsubmit_contactread_acctmod";
                 $user_id = $oauth_user['user_id'];
                 $inst_id = $oauth_user['inst_id'];
