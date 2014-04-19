@@ -352,10 +352,8 @@ function handle_oauth($path_arr) {
     if (count($path_arr) === 2) { // valid request
         if ($method === "GET") { // GET oauth/something_here
             // determine and dispatch necessary file
-            error_log('path_arr[1]: '.$path_arr[1]);
             switch($path_arr[1]) {
             case "get_request_token":  
-                error_log('before request token include');
 				include $root.$get_req_token;			
 				break;
             case "login":            
