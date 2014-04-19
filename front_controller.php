@@ -352,6 +352,7 @@ function handle_oauth($path_arr) {
     if (count($path_arr) === 2) { // valid request
         if ($method === "GET") { // GET oauth/something_here
             // determine and dispatch necessary file
+            error_log('path_arr[1]: '.$path_arr[1]);
             switch($path_arr[1]) {
             case "get_request_token":  
                 error_log('before request token include');
@@ -372,6 +373,7 @@ function handle_oauth($path_arr) {
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
+            error_log('post to: '.$path_arr[1]);
             if ($path_arr[1] === "login") {
 				include $root.$get_login;
             } else if ($path_arr[1] === 'post_login') {
