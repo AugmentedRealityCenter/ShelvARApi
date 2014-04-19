@@ -78,7 +78,6 @@ function get_oauth() {
     }
 
     if(isset($oauth_user)){
-                error_log('oauth_user in api_ref: '.print_r($oauth_user,1));
         $db2 = new database();
         $db2->query = "SELECT exp_date, has_inv, is_activated, name, admin_contact, email_verified FROM institutions WHERE inst_id = ?";
         $inst_id2 = $oauth_user['inst_id'];
