@@ -14,6 +14,7 @@ if ($response !== true) {
 }
 
 try {
+    error_log('output request token');
 	$Provider->outputRequestToken();
 } catch (ProviderException $Exception) {
 	echo $Exception->getMessage();
