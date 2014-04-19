@@ -409,9 +409,7 @@ function handle_oauth($path_arr) {
 				include $root.$get_acc_token; 
 				break;
             case "whoami":   
-				if (api_count(1)) {
 					include $root.$get_whoami;
-				}
 				break;
             case "post_login":          
 				include $root.$get_post_login; 
