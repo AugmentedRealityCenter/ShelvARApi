@@ -3,8 +3,6 @@
  * @Author	Freek Lijten
  */
 
-error_log('request token: ' . print_r($_GET,1));
-
 require_once($_SERVER['DOCUMENT_ROOT'] . '/oauth/AutoLoader.php');
 new AutoLoader();
 
