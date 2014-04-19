@@ -9,6 +9,7 @@ new AutoLoader();
 $Provider 	= new OAuthProviderWrapper(OAuthProviderWrapper::TOKEN_REQUEST);
 $response 	= $Provider->checkOAuthRequest();
 if ($response !== true) {
+    error_log('response was not true');
 	echo $response;
 	exit;
 }
