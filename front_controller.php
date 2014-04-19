@@ -310,9 +310,7 @@ function handle_inst($path_arr) {
             // GET institutions/{id}
             } else {
                 $_GET['inst_id'] = strip_ext($path_arr[1], '.json');
-				if (api_count(1)) {
 					include $root.$get_inst;
-				}
             }
         } else if ($method === 'POST') {
             // POST institutions/
