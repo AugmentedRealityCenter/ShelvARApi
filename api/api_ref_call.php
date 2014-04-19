@@ -27,7 +27,6 @@ function get_oauth() {
                 $email = $the_rec[0]['email'];
                 unset($the_rec[0]['email']);
                 $oauth_user = $the_rec[0];
-                error_log('oauth_user in api_ref: '.print_r($oauth_user,1));
                 $oauth_user['scope'] = "invread_invsubmit_contactread_acctmod";
                 $user_id = $oauth_user['user_id'];
                 $inst_id = $oauth_user['inst_id'];
@@ -80,6 +79,7 @@ function get_oauth() {
     }
 
     if(isset($oauth_user)){
+                error_log('oauth_user in api_ref: '.print_r($oauth_user,1));
         $db2 = new database();
         $db2->query = "SELECT exp_date, has_inv, is_activated, name, admin_contact, email_verified FROM institutions WHERE inst_id = ?";
         $inst_id2 = $oauth_user['inst_id'];
