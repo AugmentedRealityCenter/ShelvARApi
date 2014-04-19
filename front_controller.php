@@ -373,11 +373,12 @@ function handle_oauth($path_arr) {
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
-            error_log('post to: '.$path_arr[1]);
             if ($path_arr[1] === "login") {
 				include $root.$get_login;
             } else if ($path_arr[1] === 'post_login') {
 				include $root.$get_post_login;
+            } else if ($path_arr[1] === 'get_request_token') {
+                include $root.$get_request_token;
             }
         } else {
             throw_error(405, "405 - method not allowed");
