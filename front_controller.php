@@ -376,7 +376,7 @@ function handle_oauth($path_arr) {
             } else if ($path_arr[1] === 'post_login') {
 				include $root.$get_post_login;
             } else if ($path_arr[1] === 'get_request_token') {
-                include $root.$get_request_token;
+                include $root.$get_req_token;
             }
         } else {
             throw_error(405, "405 - method not allowed");
