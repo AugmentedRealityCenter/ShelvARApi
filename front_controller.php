@@ -360,6 +360,7 @@ function handle_oauth($path_arr) {
 				include $root.$get_login; 	
 				break;
             case "get_access_token":    
+                error_log('including access token');
 				include $root.$get_acc_token; 
 				break;
             case "whoami":   
