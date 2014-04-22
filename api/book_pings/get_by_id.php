@@ -9,7 +9,7 @@
    * The id entered, according to the db format, should be an 11 character integer
    */
 $root = $_SERVER['DOCUMENT_ROOT']."/";
-include $root."database.php";
+include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
