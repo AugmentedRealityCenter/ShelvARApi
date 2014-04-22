@@ -269,7 +269,9 @@ function handle_inst($path_arr) {
         if ($method === 'GET') {
             // GET institutions/
             if ($path_arr[1] === '') {
+				if (api_count(1)) {
 					include $root.$get_inst_mult;
+				}
             // GET institutions/activate_inst
             } else if ($path_arr[1] === 'activate_inst') {
 					include $root.$get_act_inst;
