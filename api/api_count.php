@@ -46,7 +46,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-	} else if ($path[0] == "book_pings" && $path[1] != null) {
+	} else if ($path[0] == "book_pings" && $path[1] != "") {
 			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
 			$limit = grabLimit("GET book_pings_specific");
 
@@ -269,7 +269,7 @@ function increment_count($apiCall, $httpMethod, $count) {
 	}	else if ($path[0] == "book_pings" && $path[1] == "count") {
 			updateCountNotFreeCall("GET_book_pings_count_count", $count);
 			return;
-	}	else if ($path[0] == "book_pings" && $path[1] != null) {
+	}	else if ($path[0] == "book_pings" && $path[1] != "") {
 			updateCountNotFreeCall("GET_book_pings_specific_count", $count);
 			return;
 	}
