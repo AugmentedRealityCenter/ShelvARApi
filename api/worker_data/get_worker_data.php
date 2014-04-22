@@ -26,7 +26,7 @@ if(stripos($oauth_user['scope'],"invread") === false) {
     exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
 }*/
 
-$startDate = "";
+// set the start date
 if (isset($_GET['start_date'])) {
     $startDate = urldecode($_GET['start_date']);
 } else {
@@ -34,6 +34,7 @@ if (isset($_GET['start_date'])) {
     $startDate = date("Y-m-d H:i:s", strtotime("-1 week"));
 }
 
+// set the end date
 if (isset($_GET['end_date'])) {
     $endDate = urldecode($_GET['end_date']);
 } else {
@@ -44,6 +45,9 @@ if (isset($_GET['end_date'])) {
 // max time between shelf reads in seconds
 // default is 60 seconds
 $maxTime = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
+// format is json by default
+$format = isset($_GET['format']) ? $_GET['format'] : 'json';
+
 $query = "SELECT DISTINCT user_id FROM book_pings WHERE inst_id = ?"
         ." AND ping_time >= ? AND ping_time < ?";
 $paramsList = array($inst_id, $startDate, $endDate);
@@ -56,8 +60,10 @@ $db->type = 'sss';
 $result = $db->fetch();
 
 if (!empty($result)) {
+    // set header so it outputs as a .json file
+    header('Content-Type: application/json');
     echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
 } else {
-    echo json_encode(array("workers"=>"None found in this time period","result"=>"SUCCESS"));
+    echo json_encode(array("workers"=>"No worker data found in specified time period","result"=>"SUCCESS"));
 }
 ?>
