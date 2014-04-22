@@ -70,6 +70,8 @@ function api_count($inc_num) {
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	
+	error_log($_SERVER['REDIRECT_path']);
+	
 	if (is_incrementable($_SERVER['REDIRECT_path'], $method) ) {
 		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num);
 		return true;
