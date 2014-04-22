@@ -29,8 +29,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return true;
 				else
 					return false;
-			}
-			else {
+			} else {
 				$numCalls = getCountNotFreeCall("POST_book_pings_count");
 				$limit = grabLimit("POST book_pings");
 
@@ -47,7 +46,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-	} else if ($path[0] == "book_pings" && $path[1] != "") {
+	} else if ($path[0] == "book_pings" && $path[1] != null) {
 			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
 			$limit = grabLimit("GET book_pings_specific");
 
@@ -255,22 +254,23 @@ function is_incrementable($apiCall, $httpMethod) {
  * Increments a given API call by a provided count
  */
 function increment_count($apiCall, $httpMethod, $count) {
-	
-	switch ($apiCall) {
-		case "book_pings/":
+
+	$path = split("/", $apiCall);
+
+	if ($path[0] == "book_pings" && count($path) == 1) {
 			if ($httpMethod = "GET") {
 				updateCountNotFreeCall("GET_book_pings_count", $count);
 			}
 			else {
 				updateCountNotFreeCall("POST_book_pings_count", $count);
 			}
-			break;
-		case "book_pings/count":
+	}	else if ($path[0] == "book_pings" && $path[1] == "count") {
 			updateCountNotFreeCall("GET_book_pings_count_count", $count);
-			break;
-		case "book_pings/{book_ping_id}.json":
+	}	else if ($path[0] == "book_pings" && $path[1] != null) {
 			updateCountNotFreeCall("GET_book_pings_specific_count", $count);
-			break;
+	}
+	
+	switch ($apiCall) {
 		case "book_tags/{book_tag}.json":
 			updateCountFreeCall("GET_book_tags_count", $count);
 			break;
