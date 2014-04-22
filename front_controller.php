@@ -160,7 +160,7 @@ function handle_bp($path_arr) {
 					include $root.$get_bp_id;
 				}
             // GET book_pings/
-            } else if ($path_arr[1] === "") 
+            } else if ($path_arr[1] === "") {
 				if (api_count(1)) {
 					include $root.$get_bp;
 				}
