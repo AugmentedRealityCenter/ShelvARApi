@@ -92,7 +92,7 @@ function handle_bt($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2) { // valid request
         // GET book_tags/{id}
@@ -119,7 +119,7 @@ function handle_lc($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2) { // valid request
         // GET lc_numbers/{call_number}
@@ -146,7 +146,7 @@ function handle_bp($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2) { // valid request 
         if ($method === "GET") {  
@@ -197,7 +197,7 @@ function handle_users($path_arr) {
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
     $server = get_domain();
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 1) { // URI paths with a count of 1,2,3 are valid
         if ($method === 'GET') { // GET users
@@ -292,7 +292,7 @@ function handle_inst($path_arr) {
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
     $server = get_domain();
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2) {
         // GET institutions/'something here maybe'
@@ -359,7 +359,7 @@ function handle_mt($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2) { // valid request
         // GET make_tags/something_here
@@ -393,7 +393,7 @@ function handle_oauth($path_arr) {
     $root = $_SERVER['DOCUMENT_ROOT']."/";
     $method = $_SERVER['REQUEST_METHOD'];
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php'; 
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php'; 
 
     if (count($path_arr) === 2) { // valid request
         if ($method === "GET") { // GET oauth/something_here
@@ -444,7 +444,7 @@ function handle_notif($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2) { // valid request
         // GET notifications/{inst_id}
@@ -469,7 +469,7 @@ function handle_work($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2 && $path_arr[1] === '') { // valid request
         // GET worker_data/
@@ -493,7 +493,7 @@ function handle_inventory($path_arr) {
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
 
-    include $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
+    include_once $_SERVER['DOCUMENT_ROOT'].'/path_vars_api.php';
 
     if ($cnt === 2 && $path_arr[1] === '') { // valid request
         // GET inventory_data/
