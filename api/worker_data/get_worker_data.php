@@ -49,7 +49,7 @@ $maxTime = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
 $format = isset($_GET['format']) ? $_GET['format'] : 'json';
 
 $query = "SELECT DISTINCT user_id FROM book_pings WHERE inst_id = ?"
-        ." AND ping_time >= ? AND ping_time < ?";
+    ." AND ping_time >= ? AND ping_time < ?";
 $paramsList = array($inst_id, $startDate, $endDate);
 
 $db = new database();
@@ -60,10 +60,18 @@ $db->type = 'sss';
 $result = $db->fetch();
 
 if (!empty($result)) {
-    // set header so it outputs as a .json file
-    header('Content-Type: application/json');
-    echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
+    if ($format === 'json') {
+        // set header so it outputs as a .json file
+        header('Content-Type: application/json');
+        echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
+    } else {
+        echo "Feature not implemented yet";
+    }
 } else {
-    echo json_encode(array("workers"=>"No worker data found in specified time period","result"=>"SUCCESS"));
+    if ($format === 'json') {
+        echo json_encode(array("workers"=>"No worker data found in specified time period","result"=>"SUCCESS"));
+    } else {
+        echo "Feature not implemented yet";
+    }
 }
 ?>
