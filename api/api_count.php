@@ -15,6 +15,7 @@ include_once $root."api/api_ref_call.php";
  */
 function is_incrementable($apiCall, $httpMethod) {
 	checkLastReset();
+	$path = split("/", $apiCall);
 
 	switch ($apiCall) {
 		case "book_pings/":
