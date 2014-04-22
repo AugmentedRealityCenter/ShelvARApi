@@ -2,6 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/database.php';
 
+$inst_id    = 'forward';
 /*$oauth_user = get_oauth();
 $inst_id    = $oauth_user['inst_id'];
 $user_id    = $oauth_user['user_id'];
@@ -25,5 +26,38 @@ if(stripos($oauth_user['scope'],"invread") === false) {
     exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
 }*/
 
-$query = "SELECT DISTINCT user_id";
+$startDate = "";
+if (isset($_GET['start_date'])) {
+    $startDate = urldecode($_GET['start_date']);
+} else {
+    // set start date to one week before today by default
+    $startDate = date("Y-m-d H:i:s", strtotime("-1 week"));
+}
+
+if (isset($_GET['end_date'])) {
+    $endDate = urldecode($_GET['end_date']);
+} else {
+    // set end date to one week after start date
+    $endDate = date("Y-m-d H:i:s", strtotime($startDate."+1 week"));
+}
+
+// max time between shelf reads in seconds
+// default is 60 seconds
+$maxTime = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
+$query = "SELECT DISTINCT user_id FROM book_pings WHERE inst_id = ?"
+        ." AND ping_time >= ? AND ping_time < ?";
+$paramsList = array($inst_id, $startDate, $endDate);
+
+$db = new database();
+$db->query = $query;
+$db->params = $paramsList;
+$db->type = 'sss';
+
+$result = $db->fetch();
+
+if (!empty($result)) {
+    echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
+} else {
+    echo json_encode(array("workers"=>"None found in this time period","result"=>"SUCCESS"));
+}
 ?>
