@@ -260,14 +260,18 @@ function increment_count($apiCall, $httpMethod, $count) {
 	if ($path[0] == "book_pings" && count($path) == 1) {
 			if ($httpMethod = "GET") {
 				updateCountNotFreeCall("GET_book_pings_count", $count);
+				return;
 			}
 			else {
 				updateCountNotFreeCall("POST_book_pings_count", $count);
+				return;
 			}
 	}	else if ($path[0] == "book_pings" && $path[1] == "count") {
 			updateCountNotFreeCall("GET_book_pings_count_count", $count);
+			return;
 	}	else if ($path[0] == "book_pings" && $path[1] != null) {
 			updateCountNotFreeCall("GET_book_pings_specific_count", $count);
+			return;
 	}
 	
 	switch ($apiCall) {
