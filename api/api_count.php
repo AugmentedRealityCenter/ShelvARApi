@@ -19,7 +19,7 @@ function is_incrementable($apiCall, $httpMethod) {
 	
 	error_log(print_r($path,1));
 	
-	if ($path[0] == "book_pings" && count($path) == 1) {
+	if ($path[0] == "book_pings" && $path[1] == "") {
 			if ($httpMethod = "GET") {
 				// Get the number of calls made from the database
 				$numCalls = getCountNotFreeCall("GET_book_pings_count");
@@ -257,7 +257,7 @@ function increment_count($apiCall, $httpMethod, $count) {
 
 	$path = split("/", $apiCall);
 
-	if ($path[0] == "book_pings" && count($path) == 1) {
+	if ($path[0] == "book_pings" && $path[1] == "") {
 			if ($httpMethod = "GET") {
 				updateCountNotFreeCall("GET_book_pings_count", $count);
 				return;
