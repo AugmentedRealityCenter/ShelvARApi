@@ -189,7 +189,9 @@ function handle_users($path_arr) {
 
     if ($cnt === 1) { // URI paths with a count of 1,2,3 are valid
         if ($method === 'GET') { // GET users
+			if (api_count(1)) {
 				include $root.$get_user_mult;
+			}
         } else if ($method === 'POST') { // POST users
 				include $root.$post_users;
         } else {
