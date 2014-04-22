@@ -48,9 +48,10 @@ $maxTime = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
 // format is json by default
 $format = isset($_GET['format']) ? $_GET['format'] : 'json';
 
-$query = "SELECT DISTINCT user_id, DISTINCT count(book_call)".
+$query = "SELECT DISTINCT user_id, count(DISTINCT book_call)".
          " FROM book_pings WHERE inst_id = ?".
-         " AND ping_time >= ? AND ping_time < ?";
+         " AND ping_time >= ? AND ping_time < ?".
+         " GROUP BY user_id";
 $paramsList = array($inst_id, $startDate, $endDate);
 
 $db = new database();
