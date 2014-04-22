@@ -3,8 +3,6 @@
 $path       = $_SERVER['REDIRECT_path'];
 $path_arr   = explode('/', $path);
 
-error_log('front_controller path: ' . $path);
-
 switch ($path_arr[0]) {
     case "book_tags":       handle_bt($path_arr); break;
     case "lc_numbers":      handle_lc($path_arr); break;
