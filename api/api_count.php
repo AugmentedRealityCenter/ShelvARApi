@@ -47,7 +47,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-	} else if ($path[0] == "book_pings" && $path[1] != null) {
+	} else if ($path[0] == "book_pings" && $path[1] != "") {
 			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
 			$limit = grabLimit("GET book_pings_specific");
 
@@ -55,7 +55,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-		}
+	}
 
 	switch ($apiCall) {
 		case "book_tags/{book_tag}.json":
