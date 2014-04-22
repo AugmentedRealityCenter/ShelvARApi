@@ -17,6 +17,8 @@ function is_incrementable($apiCall, $httpMethod) {
 	checkLastReset();
 	$path = split("/", $apiCall);
 	
+	error_log(print_r($path,1));
+	
 	if ($path[0] == "book_pings" && count($path) == 1) {
 			if ($httpMethod = "GET") {
 				// Get the number of calls made from the database
