@@ -16,9 +16,8 @@ include_once $root."api/api_ref_call.php";
 function is_incrementable($apiCall, $httpMethod) {
 	checkLastReset();
 	$path = split("/", $apiCall);
-
-	switch ($apiCall) {
-		case "book_pings/":
+	
+	if ($path[0] == "book_pings" && count($path) == 1) {
 			if ($httpMethod = "GET") {
 				// Get the number of calls made from the database
 				$numCalls = getCountNotFreeCall("GET_book_pings_count");
@@ -38,8 +37,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				else
 					return false;
 			}
-			break;
-		case "book_pings/count":
+		} else if ($path[0] == "book_pings" && $path[1] == "count") {
 			$numCalls = getCountNotFreeCall("GET_book_pings_count_count");
 			$limit = grabLimit("GET book_pings_count");
 
@@ -47,8 +45,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "book_pings/{book_ping_id}.json":
+		} else if ($path[0] == "book_pings" && $path[1] != null) {
 			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
 			$limit = grabLimit("GET book_pings_specific");
 
@@ -56,7 +53,9 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
+		}
+
+	switch ($apiCall) {
 		case "book_tags/{book_tag}.json":
 			$numCalls = getCountFreeCall("GET_book_tags_count");
 			$limit = grabLimit("GET book_tags");
