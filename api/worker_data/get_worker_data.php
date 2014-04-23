@@ -68,7 +68,6 @@ if (!empty($result)) {
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
     } else if ($format === 'csv') {
         setFileHeaders('csv');
-        print_r($result);
         // use first result set keys as csv headings
         $keys = array_keys($result[0]);
         // echo csv headings
