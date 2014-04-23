@@ -42,9 +42,6 @@ if (isset($_GET['end_date'])) {
     $endDate = date("Y-m-d H:i:s", strtotime($startDate."+1 week"));
 }
 
-// max time between shelf reads in seconds
-// default is 60 seconds
-$maxTime    = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
 // format is json by default
 $format     = isset($_GET['format']) ? $_GET['format'] : 'json';
 // type is raw output by default, user must specify if they want a file
@@ -68,9 +65,11 @@ if (!empty($result)) {
     if ($format === 'json') {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json');
+        else header('Content-Type: application/json');
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv');
+        else header('Content-Type: application/csv');
         // use first result set keys as csv headings
         $keys = array_keys($result[0]);
         // echo csv headings
