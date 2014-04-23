@@ -1,6 +1,7 @@
 <?php
 // request handler variables
 $path       = $_SERVER['REDIRECT_path'];
+error_log('path: '.$path);
 $path_arr   = explode('/', $path);
 
 switch ($path_arr[0]) {
