@@ -122,9 +122,9 @@ function handle_lc($path_arr) {
         // GET lc_numbers/{call_number}
         if ($method === "GET") { 
             $_GET['call_number'] = strip_ext($path_arr[1], ".json");
-            if (api_count(1)) {
+            //if (api_count(1)) {
                 include $root.$get_lc_numbers;
-            }
+            //}
         } else {                    // some method that's not a GET
             throw_error(405, "405 - method not allowed");
         }
@@ -363,15 +363,15 @@ function handle_mt($path_arr) {
         if ($method === "GET") { 
             // GET make_tags/paper_formats
             if ($path_arr[1] === "paper_formats") {
-                if (api_count(1)) {
+                // if (api_count(1)) {
                     include $root.$get_formats;
-                }
+                // }
                 // GET make_tags/something_else
             } else {
                 $_GET['type'] = strip_ext($path_arr[1], ".pdf");
-                if (api_count(1)) {
+                // if (api_count(1)) {
                     include $root.$get_tags;
-                }
+                // }
             }
         } else {
             throw_error(405, "405 - method not allowed");
