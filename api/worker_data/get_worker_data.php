@@ -65,7 +65,10 @@ $result = $db->fetch();
 if (!empty($result)) {
     if ($format === 'json') {
         // set header so it outputs as a .json file
-        header('Content-Type: application/json');
+			header('Content-Type: application/x-download');
+			header('Content-Disposition: attachment; filename="worker_data.json"');
+			header('Cache-Control: private, max-age=0, must-revalidate');
+			header('Pragma: public');
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
     } else if ($format === 'csv') {
         // use first result set keys as csv headers
