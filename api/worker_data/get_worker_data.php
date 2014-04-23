@@ -75,14 +75,14 @@ if (!empty($result)) {
             echo '"'.$keys[$i].'"';
             echo ($i <= (count($keys) - 1)) ? ',' : '';
         }
-        echo '\n';
+        echo '<br/>';
         // echo data
         for ($i = 0; ($i < count($result)); $i++) {
             for ($j = 0; ($j < count($result[$i])); $j++) {
                 echo $result[$i][$j];
                 echo ($j <= (count($result[$i]) - 1)) ? ',' : '';
             }
-            echo '\n';
+            echo '<br/>';
         }
     } else {
         // invalid format specification, so throw error
@@ -96,13 +96,14 @@ if (!empty($result)) {
 }
 
 function setFileHeaders($fileType) {
-    header('Content-Type: application/x-download');
-    header('Cache-Control: private, max-age=0, must-revalidate');
-    header('Pragma: public');
     if ($fileType === 'json') {
+        header('Content-Type: application/json');
         header('Content-Disposition: attachment; filename="worker_data.json"');
     } else if ($fileType === 'csv') {
+        header('Content-Type: application/csv');
         header('Content-Disposition: attachment; filename="worker_data.csv"');
     }
+    header('Cache-Control: private, max-age=0, must-revalidate');
+    header('Pragma: public');
 }
 ?>
