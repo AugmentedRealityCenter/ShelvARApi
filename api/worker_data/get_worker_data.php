@@ -44,9 +44,11 @@ if (isset($_GET['end_date'])) {
 
 // max time between shelf reads in seconds
 // default is 60 seconds
-$maxTime = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
+$maxTime    = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
 // format is json by default
-$format = isset($_GET['format']) ? $_GET['format'] : 'json';
+$format     = isset($_GET['format']) ? $_GET['format'] : 'json';
+// type is raw output by default, user must specify if they want a file
+$type       = isset($_GET['type']) ? $_GET['type'] : 'raw';
 
 $query = "SELECT DISTINCT user_id as worker,".
     " count(DISTINCT book_call) as books_scanned".
@@ -64,10 +66,11 @@ $result = $db->fetch();
 
 if (!empty($result)) {
     if ($format === 'json') {
-        setFileHeaders('json');
+        // user requests a file download
+        if ($type === 'file') setFileHeaders('json');
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
     } else if ($format === 'csv') {
-        setFileHeaders('csv');
+        if ($type === 'file') setFileHeaders('csv');
         // use first result set keys as csv headings
         $keys = array_keys($result[0]);
         // echo csv headings
