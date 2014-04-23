@@ -1,7 +1,6 @@
 <?php 
 	// returns every inst_id and name from the institutions table
 	
-    error_log('in institutions file');
 	include_once $_SERVER['DOCUMENT_ROOT'] . "/database.php";
 	include_once $_SERVER['DOCUMENT_ROOT'] . "/header_include.php";
 

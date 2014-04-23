@@ -1,7 +1,6 @@
 <?php
 // request handler variables
 $path       = $_SERVER['REDIRECT_path'];
-error_log('path: '.$path);
 $path_arr   = explode('/', $path);
 
 switch ($path_arr[0]) {
@@ -71,7 +70,6 @@ function api_count($inc_num) {
 
 	$method = $_SERVER['REQUEST_METHOD'];
 	
-    error_log('count function path: ' . $_SERVER['REDIRECT_path']);
 	if (is_incrementable($_SERVER['REDIRECT_path'], $method) ) {
 		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num);
 		return true;
@@ -297,7 +295,6 @@ function handle_inst($path_arr) {
             // GET institutions/
             if ($path_arr[1] === '') {
                 if (api_count(1)) {
-                    error_log('made it to include');
                     include $root.$get_inst_mult;
                 }
                 // GET institutions/activate_inst
