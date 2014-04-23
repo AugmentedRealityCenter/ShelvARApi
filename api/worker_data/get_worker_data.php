@@ -72,15 +72,15 @@ if (!empty($result)) {
         $keys = array_keys($result[0]);
         // echo csv headings
         for ($i = 0; ($i < count($keys)); $i++) {
-            echo '\"'.$keys[$i].'\"';
-            echo ($i === (count($keys) - 1)) ? ',' : '';
+            echo '"'.$keys[$i].'"';
+            echo ($i <= (count($keys) - 1)) ? ',' : '';
         }
         echo '\n';
         // echo data
         for ($i = 0; ($i < count($result)); $i++) {
             for ($j = 0; ($j < count($result[$i])); $j++) {
                 echo $result[$i][$j];
-                echo ($j === (count($result[$i]) - 1)) ? ',' : '';
+                echo ($j <= (count($result[$i]) - 1)) ? ',' : '';
             }
             echo '\n';
         }
