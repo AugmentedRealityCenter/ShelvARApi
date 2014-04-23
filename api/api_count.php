@@ -378,8 +378,8 @@ function checkLastReset() {
  * Grabs the last reset field from the users table
  */
 function grabLastResetNotFree() {
+    error_log('reset not free preoauth');
 	$oauth = get_oauth();
-    error_log('reset not free oauth: '.print_r($oauth,1));
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
@@ -496,6 +496,7 @@ function setToZeroFreeHelper($column) {
  * Helper method to  set a column to zero
  */
 function setToZeroNotFreeHelper($column) {
+    error_log('set to zero not free preoauth');
 	$oauth = get_oauth();
 	$query = "UPDATE users " .
 			"SET " . $column . " = 0 " .
@@ -516,6 +517,7 @@ function setToZeroNotFreeHelper($column) {
  * users table
  */
 function setNotFreeLastReset() {
+    error_log('set not free last reset preoauth');
 	$oauth = get_oauth();
 	$query = "UPDATE users " .
 			"SET last_reset = ? ".
@@ -558,6 +560,7 @@ function setFreeLastReset() {
  * @return unknown $numCalls    The number of calls for that API (within 15 min window)
  */
  function getCountNotFreeCall($column) {
+    error_log('get count not free call preoauth');
 	$oauth = get_oauth();
 	$queryNumCalls = "SELECT " . $column . " " .
 			"FROM users ".
@@ -601,6 +604,7 @@ function getCountFreeCall($column) {
  * @param unknown_type $column  Name of the column to be incremented
  */
 function updateCountNotFreeCall ($column, $count) {
+    error_log('update count not free preoauth');
 	$oauth = get_oauth();
 	$query = "UPDATE users " .
 			"SET " . $column . " = (" . $column . " + " . $count . ") " .
