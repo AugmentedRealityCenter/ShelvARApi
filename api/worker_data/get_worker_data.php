@@ -68,6 +68,7 @@ if (!empty($result)) {
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
     } else if ($format === 'csv') {
         setFileHeaders('csv');
+        print_r($result);
         // use first result set keys as csv headings
         $keys = array_keys($result[0]);
         // echo csv headings
@@ -75,14 +76,14 @@ if (!empty($result)) {
             echo '"'.$keys[$i].'"';
             echo ($i <= (count($keys) - 1)) ? ',' : '';
         }
-        echo '<br/>';
+        echo "\n";
         // echo data
         for ($i = 0; ($i < count($result)); $i++) {
             for ($j = 0; ($j < count($result[$i])); $j++) {
                 echo $result[$i][$j];
                 echo ($j <= (count($result[$i]) - 1)) ? ',' : '';
             }
-            echo '<br/>';
+            echo "\n";
         }
     } else {
         // invalid format specification, so throw error
