@@ -122,7 +122,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return false;
 		}
 	} else if ($path[0] == "users") {
-		if ($path[1] == "") {
+		if (count($path) == 1) {
 			if ($httpMethod = "GET") {
 				$numCalls = getCountFreeCall("GET_users_count");
 				$limit = grabLimit("GET users");
@@ -296,7 +296,7 @@ function increment_count($apiCall, $httpMethod, $count) {
 			return;
 		}
 	} else if ($path[0] == "users") {
-		if ($path[1] == "") {
+		if (count($path) == 1) {
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_users_count", $count);
 				return;
