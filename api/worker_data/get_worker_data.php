@@ -79,9 +79,8 @@ if (!empty($result)) {
         echo "\n";
         // echo data
         for ($i = 0; ($i < count($result)); $i++) {
-            for ($j = 0; ($j < count($result[$i])); $j++) {
-                echo $result[$i][$j];
-                echo ($j <= (count($result[$i]) - 1)) ? ',' : '';
+            foreach ($result[$i] as $key => $value) {
+                echo $value . ",";
             }
             echo "\n";
         }
