@@ -48,7 +48,8 @@ $maxTime = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
 // format is json by default
 $format = isset($_GET['format']) ? $_GET['format'] : 'json';
 
-$query = "SELECT DISTINCT user_id, count(DISTINCT book_call)".
+$query = "SELECT DISTINCT user_id as worker,".
+         " count(DISTINCT book_call) as books_scanned".
          " FROM book_pings WHERE inst_id = ?".
          " AND ping_time >= ? AND ping_time < ?".
          " GROUP BY user_id";
@@ -67,6 +68,7 @@ if (!empty($result)) {
         header('Content-Type: application/json');
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
     } else {
+        echo print_r($result,1);
         echo "Feature not implemented yet";
     }
 } else {
