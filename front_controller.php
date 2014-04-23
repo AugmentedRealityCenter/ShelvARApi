@@ -367,6 +367,7 @@ function handle_mt($path_arr) {
                     include $root.$get_formats;
                 // GET make_tags/something_else
             } else {
+                error_log('make tags');
                 $_GET['type'] = strip_ext($path_arr[1], ".pdf");
                     include $root.$get_tags;
             }
