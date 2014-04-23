@@ -64,16 +64,26 @@ $result = $db->fetch();
 
 if (!empty($result)) {
     if ($format === 'json') {
-        // set header so it outputs as a .json file
-			header('Content-Type: application/x-download');
-			header('Content-Disposition: attachment; filename="worker_data.json"');
-			header('Cache-Control: private, max-age=0, must-revalidate');
-			header('Pragma: public');
+        setFileHeaders('json');
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
     } else if ($format === 'csv') {
-        // use first result set keys as csv headers
+        setFileHeaders('csv');
+        // use first result set keys as csv headings
         $keys = array_keys($result[0]);
-        print_r($keys);
+        // echo csv headings
+        for ($i = 0; ($i < count($keys)); $i++) {
+            echo '\"'.$keys[$i].'\"';
+            echo ($i === (count($keys) - 1)) ? ',' : '';
+        }
+        echo '\n';
+        // echo data
+        for ($i = 0; ($i < count($result)); $i++) {
+            for ($j = 0; ($j < count($result[$i])); $j++) {
+                echo $result[$i][$j];
+                echo ($j === (count($result[$i]) - 1)) ? ',' : '';
+            }
+            echo '\n';
+        }
     } else {
         // invalid format specification, so throw error
         header('Content-Type: application/json');
@@ -83,5 +93,16 @@ if (!empty($result)) {
     header('Content-Type: application/json');
     echo json_encode(array("workers"=>"No worker data found in specified".
         " time period","result"=>"SUCCESS"));
+}
+
+function setFileHeaders($fileType) {
+    header('Content-Type: application/x-download');
+    header('Cache-Control: private, max-age=0, must-revalidate');
+    header('Pragma: public');
+    if ($fileType === 'json') {
+        header('Content-Disposition: attachment; filename="worker_data.json"');
+    } else if ($fileType === 'csv') {
+        header('Content-Disposition: attachment; filename="worker_data.csv"');
+    }
 }
 ?>
