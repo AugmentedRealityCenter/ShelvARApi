@@ -49,10 +49,10 @@ $maxTime = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
 $format = isset($_GET['format']) ? $_GET['format'] : 'json';
 
 $query = "SELECT DISTINCT user_id as worker,".
-         " count(DISTINCT book_call) as books_scanned".
-         " FROM book_pings WHERE inst_id = ?".
-         " AND ping_time >= ? AND ping_time < ?".
-         " GROUP BY user_id";
+    " count(DISTINCT book_call) as books_scanned".
+    " FROM book_pings WHERE inst_id = ?".
+    " AND ping_time >= ? AND ping_time < ?".
+    " GROUP BY user_id";
 $paramsList = array($inst_id, $startDate, $endDate);
 
 $db = new database();
@@ -67,18 +67,18 @@ if (!empty($result)) {
         // set header so it outputs as a .json file
         header('Content-Type: application/json');
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
+    } else if ($format === 'csv') {
+        // use first result set keys as csv headers
+        $keys = array_keys($result[0]);
+        print_r($keys);
     } else {
-        echo print_r($result,1);
-        echo "Feature not implemented yet";
+        // invalid format specification, so throw error
+        header('Content-Type: application/json');
+        echo json_encode(array("ERROR invalid format specification"));
     }
 } else {
-    if ($format === 'json') {
-        // set header so it outputs as a .json file
-        header('Content-Type: application/json');
-        echo json_encode(array("workers"=>"No worker data found in specified".
-                               "time period","result"=>"SUCCESS"));
-    } else {
-        echo "Feature not implemented yet";
-    }
+    header('Content-Type: application/json');
+    echo json_encode(array("workers"=>"No worker data found in specified".
+        " time period","result"=>"SUCCESS"));
 }
 ?>
