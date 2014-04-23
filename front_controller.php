@@ -68,18 +68,16 @@ function redir($uri_path) {
 function api_count($inc_num) {
     include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_count.php'; 
 
-    $method = $_SERVER['REQUEST_METHOD'];
-
-    error_log($_SERVER['REDIRECT_path']);
-
-    if (is_incrementable($_SERVER['REDIRECT_path'], $method) ) {
-        increment_count($_SERVER['REDIRECT_path'], $method, $inc_num);
-        return true;
-    }
-    else {
-        throw_error(429, "429 - too many requests");
-        return false;
-    }
+	$method = $_SERVER['REQUEST_METHOD'];
+	
+	if (is_incrementable($_SERVER['REDIRECT_path'], $method) ) {
+		increment_count($_SERVER['REDIRECT_path'], $method, $inc_num);
+		return true;
+	}
+	else {
+		throw_error(429, "429 - too many requests");
+		return false;
+	}
 }
 
 /*

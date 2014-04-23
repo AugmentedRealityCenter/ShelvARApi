@@ -19,7 +19,8 @@ function is_incrementable($apiCall, $httpMethod) {
 	
 	error_log(print_r($path,1));
 	
-	if ($path[0] == "book_pings" && $path[1] == "") {
+	if ($path[0] == "book_pings") {
+		if ($path[1] == "") {
 			if ($httpMethod = "GET") {
 				// Get the number of calls made from the database
 				$numCalls = getCountNotFreeCall("GET_book_pings_count");
@@ -38,7 +39,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				else
 					return false;
 			}
-	} else if ($path[0] == "book_pings" && $path[1] == "count") {
+		} else if ($path[1] == "count") {
 			$numCalls = getCountNotFreeCall("GET_book_pings_count_count");
 			$limit = grabLimit("GET book_pings_count");
 
@@ -46,7 +47,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-	} else if ($path[0] == "book_pings" && $path[1] != "") {
+		} else if ($path[1] != "") {
 			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
 			$limit = grabLimit("GET book_pings_specific");
 
@@ -54,10 +55,9 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-	}
-
-	switch ($apiCall) {
-		case "book_tags/{book_tag}.json":
+		}	
+	} else if ($path[0] == "book_tags") {
+		if ($path[1] != "") {
 			$numCalls = getCountFreeCall("GET_book_tags_count");
 			$limit = grabLimit("GET book_tags");
 
@@ -65,8 +65,9 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "lc_numbers/{call_number}.json":
+		}
+	} else if ($path[0] == "lc_numbers") {
+		if ($path[1] != "") {
 			$numCalls = getCountFreeCall("GET_lc_numbers_count");
 			$limit = grabLimit("GET lc_numbers");
 
@@ -74,8 +75,9 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "institutions/":
+		}
+	} else if ($path[0] == "institutions") {
+		if ($path[1] == "") {
 			if ($httpMethod = "GET") {
 				$numCalls = getCountFreeCall("GET_insitutions_count");
 				$limit = grabLimit("GET institutions");
@@ -94,8 +96,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				else
 					return false;
 			}
-			break;
-		case "institutions/edit":
+		} else if ($path[1] == "edit") {
 			$numCalls = getCountFreeCall("POST_institutions_edit_count");
 			$limit = grabLimit("POST institutions_edit");
 
@@ -103,17 +104,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "institutions/{inst_id}.json":
-			$numCalls = getCountFreeCall("GET_institutions_specific_count");
-			$limit = grabLimit("GET institutions_specific");
-
-			if ($numCalls < $limit)
-				return true;
-			else
-				return false;
-			break;
-		case "institutions/available/{inst_id}.json":
+		} else if ($path[1] == "available" && $path[2] != "") {
 			$numCalls = getCountFreeCall("GET_institutions_available_count");
 			$limit = grabLimit("GET institutions_available");
 
@@ -121,8 +112,17 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "users":
+		} else if ($path[1] != "") {
+			$numCalls = getCountFreeCall("GET_institutions_specific_count");
+			$limit = grabLimit("GET institutions_specific");
+
+			if ($numCalls < $limit)
+				return true;
+			else
+				return false;
+		}
+	} else if ($path[0] == "users") {
+		if (count($path) == 1) {
 			if ($httpMethod = "GET") {
 				$numCalls = getCountFreeCall("GET_users_count");
 				$limit = grabLimit("GET users");
@@ -141,8 +141,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				else
 					return false;
 			}
-			break;
-		case "users/edit":
+		} else if ($path[1] == "edit") {	
 			$numCalls = getCountFreeCall("POST_users_edit_count");
 			$limit = grabLimit("POST users_edit");
 
@@ -150,8 +149,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "users/{user_id}/permissions":
+		} else if ($path[1] != "" && $path[2] == "permissions") {
 			if ($httpMethod = "GET") {
 				$numCalls = getCountFreeCall("GET_users_permissions_count");
 				$limit = grabLimit("GET users_permissions");
@@ -170,17 +168,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				else
 					return false;
 			}
-			break;
-		case "users/{user_id}.json":
-			$numCalls = getCountFreeCall("GET_users_specific_count");
-			$limit = grabLimit("GET users_specific");
-
-			if ($numCalls < $limit)
-				return true;
-			else
-				return false;
-			break;
-		case "users/available/{user_id}.json":
+		} else if ($path[1] == "available" && $path[2] != "") {
 			$numCalls = getCountFreeCall("GET_users_available_count");
 			$limit = grabLimit("GET users_available");
 
@@ -188,17 +176,17 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "make_tags/{paper_type}.pdf":
-			$numCalls = getCountFreeCall("GET_make_tags_count");
-			$limit = grabLimit("GET make_tags");
+		} else if ($path[1] != "") {
+			$numCalls = getCountFreeCall("GET_users_specific_count");
+			$limit = grabLimit("GET users_specific");
 
 			if ($numCalls < $limit)
 				return true;
 			else
 				return false;
-			break;
-		case "make_tags/paper_formats":
+		}
+	} else if ($path[0] == "make_tags") {
+		if ($path[1] == "paper_formats") {
 			$numCalls = getCountFreeCall("GET_paper_formats_count");
 			$limit = grabLimit("GET paper_formats");
 
@@ -206,8 +194,17 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "oauth/get_request_token":
+		} else if ($path[1] != "") {
+			$numCalls = getCountFreeCall("GET_make_tags_count");
+			$limit = grabLimit("GET make_tags");
+
+			if ($numCalls < $limit)
+				return true;
+			else
+				return false;
+		}
+	} else if ($path[0] == "oauth") {
+		if ($path[1] == "get_request_token") {
 			$numCalls = getCountFreeCall("GET_oauth_request_token_count");
 			$limit = grabLimit("GET oauth_request_token");
 
@@ -215,8 +212,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "oauth/login":
+		} else if ($path[1] == "login") {
 			$numCalls = getCountFreeCall("GET_oauth_login_count");
 			$limit = grabLimit("GET oauth_login");
 
@@ -224,8 +220,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "oauth/get_access_token":
+		} else if ($path[1] == "get_access_token") {
 			$numCalls = getCountFreeCall("GET_oauth_access_token_count");
 			$limit = grabLimit("GET oauth_access_token");
 
@@ -233,8 +228,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		case "oauth/whoami":
+		} else if ($path[1] == "whoami") {
 			$numCalls = getCountFreeCall("GET_oauth_whoami_count");
 			$limit = grabLimit("GET oauth_whoami");
 
@@ -242,11 +236,10 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-			break;
-		default :
-			error_log("Invalid path through api_count is_incrementable function");
-			break;
-				
+		}
+	} else {
+		error_log("Invalid path through api_count is_incrementable function");
+		return false;
 	}
 }
 
@@ -254,97 +247,108 @@ function is_incrementable($apiCall, $httpMethod) {
  * Increments a given API call by a provided count
  */
 function increment_count($apiCall, $httpMethod, $count) {
-
 	$path = split("/", $apiCall);
-
-	if ($path[0] == "book_pings" && $path[1] == "") {
+	
+	if ($path[0] == "book_pings") {
+		if ($path[1] == "") {
 			if ($httpMethod = "GET") {
 				updateCountNotFreeCall("GET_book_pings_count", $count);
 				return;
-			}
-			else {
+			} else {
 				updateCountNotFreeCall("POST_book_pings_count", $count);
 				return;
 			}
-	}	else if ($path[0] == "book_pings" && $path[1] == "count") {
+		} else if ($path[1] == "count") {
 			updateCountNotFreeCall("GET_book_pings_count_count", $count);
 			return;
-	}	else if ($path[0] == "book_pings" && $path[1] != "") {
+		} else if ($path[1] != "") {
 			updateCountNotFreeCall("GET_book_pings_specific_count", $count);
 			return;
-	}
-	
-	switch ($apiCall) {
-		case "book_tags/{book_tag}.json":
+		}	
+	} else if ($path[0] == "book_tags") {
+		if ($path[1] != "") {
 			updateCountFreeCall("GET_book_tags_count", $count);
-			break;
-		case "lc_numbers/{call_number}.json":
+			return;
+		}
+	} else if ($path[0] == "lc_numbers") {
+		if ($path[1] != "") {
 			updateCountFreeCall("GET_lc_numbers_count", $count);
-			break;
-		case "institutions/":
+			return;
+		}
+	} else if ($path[0] == "institutions") {
+		if ($path[1] == "") {
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_insitutions_count", $count);
+				return;
 			}
 			else {
 				updateCountFreeCall("POST_institutions_count", $count);
+				return;
 			}
-			break;
-		case "institutions/edit":
+		} else if ($path[1] == "edit") {
 			updateCountFreeCall("POST_institutions_edit_count", $count);
-			break;
-		case "institutions/{inst_id}.json":
-			updateCountFreeCall("GET_institutions_specific_count", $count);
-			break;
-		case "institutions/available/{inst_id}.json":
+			return;
+		} else if ($path[1] == "available" && $path[2] != "") {
 			updateCountFreeCall("GET_institutions_available_count", $count);
-			break;
-		case "users":
+			return;
+		} else if ($path[1] != "") {
+			updateCountFreeCall("GET_institutions_specific_count", $count);
+			return;
+		}
+	} else if ($path[0] == "users") {
+		if (count($path) == 1) {
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_users_count", $count);
+				return;
 			}
 			else {
 				updateCountFreeCall("POST_users_count", $count);
+				return;
 			}
-			break;
-		case "users/edit":
+		} else if ($path[1] == "edit") {	
 			updateCountFreeCall("POST_users_edit_count", $count);
-			break;
-		case "users/{user_id}/permissions":
+			return;
+		} else if ($path[1] != "" && $path[2] == "permissions") {
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_users_permissions_count", $count);
+				return;
 			}
 			else {
 				updateCountFreeCall("POST_users_persmissions_count", $count);
+				return;
 			}
-			break;
-		case "users/{user_id}.json":
-			updateCountFreeCall("GET_users_specific_count", $count);
-			break;
-		case "users/available/{user_id}.json":
+		} else if ($path[1] == "available" && $path[2] != "") {
 			updateCountFreeCall("GET_users_available_count", $count);
-			break;
-		case "make_tags/{paper_type}.pdf":
-			updateCountFreeCall("GET_make_tags_count", $count);
-			break;
-		case "make_tags/paper_formats":
+			return;
+		} else if ($path[1] != "") {
+			updateCountFreeCall("GET_users_specific_count", $count);
+			return;
+		}
+	} else if ($path[0] == "make_tags") {
+		if ($path[1] == "paper_formats") {
 			updateCountFreeCall("GET_paper_formats_count", $count);
-			break;
-		case "oauth/get_request_token":
+			return;
+		} else if ($path[1] != "") {
+			updateCountFreeCall("GET_make_tags_count", $count);
+			return;
+		}
+	} else if ($path[0] == "oauth") {
+		if ($path[1] == "get_request_token") {
 			updateCountFreeCall("GET_oauth_request_token_count", $count);
-			break;
-		case "oauth/login":
+			return;
+		} else if ($path[1] == "login") {
 			updateCountFreeCall("GET_oauth_login_count", $count);
-			break;
-		case "oauth/get_access_token":
+			return;
+		} else if ($path[1] == "get_access_token") {
 			updateCountFreeCall("GET_oauth_access_token_count", $count);
-			break;
-		case "oauth/whoami":
+			return;
+		} else if ($path[1] == "whoami") {
 			updateCountFreeCall("GET_oauth_whoami_count", $count);
-			break;
-		default :
-			error_log("Invalid path through api_count increment_count function");
-			break;
-			
+			return;
+		}
+	} else {
+		error_log("Invalid path through api_count is_incrementable function");
+		return;
 	}
 }
 
