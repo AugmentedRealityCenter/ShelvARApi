@@ -1,9 +1,14 @@
 <?php
+/*
+ * This php file returns a high level view of worker data.
+ * It returns all those who have shelf read within the time
+ * period along with the number of unique books they have
+ * shelf read in either JSON or CSV format.
+ */
 include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/database.php';
 
-$inst_id    = 'forward';
-/*$oauth_user = get_oauth();
+$oauth_user = get_oauth();
 $inst_id    = $oauth_user['inst_id'];
 $user_id    = $oauth_user['user_id'];
 
@@ -24,7 +29,7 @@ if($oauth_user['can_read_inv'] != 1){
 }
 if(stripos($oauth_user['scope'],"invread") === false) {
     exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
-}*/
+}
 
 // set the start date
 if (isset($_GET['start_date'])) {
@@ -44,7 +49,7 @@ if (isset($_GET['end_date'])) {
 
 // format is json by default
 $format     = isset($_GET['format']) ? $_GET['format'] : 'json';
-// type is raw output by default, user must specify if they want a file
+// type is raw output by default, user must specify if they want a file dl
 $type       = isset($_GET['type']) ? $_GET['type'] : 'raw';
 
 $query = "SELECT DISTINCT user_id as worker,".
@@ -62,11 +67,13 @@ $db->type = 'sss';
 $result = $db->fetch();
 
 if (!empty($result)) {
+    // format as JSON
     if ($format === 'json') {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json');
         else header('Content-Type: application/json');
         echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
+    // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv');
         // use first result set keys as csv headings
@@ -95,6 +102,11 @@ if (!empty($result)) {
         " time period","result"=>"SUCCESS"));
 }
 
+/**
+ * Set the headers such that the user is prompted
+ * to download the file, rather than see the contents
+ * in the page.
+ */
 function setFileHeaders($fileType) {
     if ($fileType === 'json') {
         header('Content-Type: application/json');
