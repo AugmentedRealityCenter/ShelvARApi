@@ -379,6 +379,7 @@ function checkLastReset() {
  */
 function grabLastResetNotFree() {
 	$oauth = get_oauth();
+    error_log('reset not free oauth: '.print_r($oauth,1));
 	$query = "SELECT last_reset " .
 			"FROM users ".
 			"WHERE user_id = ?";
