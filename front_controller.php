@@ -476,6 +476,7 @@ function handle_work($path_arr) {
     } else if ($cnt === 2 && $path_arr[1] !== '') {
         // GET worker_data/{id}
         if ($method === 'GET') {
+            $_GET['user_id'] = $path_arr[1];
             include $root.$get_worker_id;
         } else {
             throw_error(405, '405 - method not allowed');
@@ -508,3 +509,4 @@ function handle_inventory($path_arr) {
         throw_error(404, '404 - not found');
     } 
 }
+
