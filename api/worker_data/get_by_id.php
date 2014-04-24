@@ -52,7 +52,7 @@ $maxTime    = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
 // user id for which to grab shelf reading activity data
 $user       = $_GET['user_id'];
 
-$query = "SELECT user_id AS worker, DISTINCT book_call AS book, ".
+$query = "SELECT user_id AS worker, book_call AS book, ".
     "ping_time AS time FROM book_pings WHERE inst_id = ? AND ".
     "user_id = ? AND ping_time >= ? AND ping_time < ? ".
     "GROUP BY user_id ORDER BY ping_time";
