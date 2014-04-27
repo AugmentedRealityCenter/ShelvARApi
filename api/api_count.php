@@ -358,19 +358,29 @@ function increment_count($apiCall, $httpMethod, $count) {
  * the counts are set to zero.
  */
 function checkLastReset() {
-	$lastResetNotFree = grabLastResetNotFree();
-	$lastResetFree = grabLastResetFree();
-	
 	$currTime = time();  // http://www.php.net/manual/en/function.time.php
 	$fifteenMins = 900;
 	
-	if (($currTime - $lastResetNotFree) > $fifteenMins) {
-		setAllNotFreeCountsToZero();
-		setNotFreeLastReset();
+	$oauth = get_oauth();
+	if ($oauth == null) {
+		error_log("Free Call");
+		// Free call (uses IP Address)
+		$lastResetFree = grabLastResetFree();
+	
+		if (($currTime - $lastResetFree) > $fifteenMins) {
+			setAllFreeCountsToZero();
+			setFreeLastReset();
+		}
 	}
-	if (($currTime - $lastResetFree) > $fifteenMins) {
-		setAllFreeCountsToZero();
-		setFreeLastReset();
+	else {
+		error_log("Non-free Call");
+		// Not free call (uses user_id)
+		$lastResetNotFree = grabLastResetNotFree();
+		
+		if (($currTime - $lastResetNotFree) > $fifteenMins) {
+			setAllNotFreeCountsToZero();
+			setNotFreeLastReset();
+		}
 	}
 }
 
