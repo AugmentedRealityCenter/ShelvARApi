@@ -361,9 +361,10 @@ function checkLastReset() {
 	$currTime = time();  // http://www.php.net/manual/en/function.time.php
 	$fifteenMins = 900;
 	
+	/*
 	$oauth = get_oauth();
 	error_log(print_r($oauth,1));
-	/*
+	
 	if ($oauth != null) {
 		error_log("Non-free Call");
 		// Not free call (uses user_id)
