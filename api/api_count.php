@@ -14,7 +14,7 @@ include_once $root."api/api_ref_call.php";
  * returns false if it is over the limit
  */
 function is_incrementable($apiCall, $httpMethod) {
-	//checkLastReset();
+	checkLastReset();
 	$path = split("/", $apiCall);
 	
 	error_log(print_r($path,1));
@@ -363,6 +363,7 @@ function checkLastReset() {
 	
 	$oauth = get_oauth();
 	error_log(print_r($oauth,1));
+	/*
 	if ($oauth != null) {
 		error_log("Non-free Call");
 		// Not free call (uses user_id)
@@ -372,7 +373,7 @@ function checkLastReset() {
 			setAllNotFreeCountsToZero();
 			setNotFreeLastReset();
 		}
-	}
+	} */
 	
 	error_log("Free Call");
 	// Free call (uses IP Address)
