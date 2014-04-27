@@ -362,6 +362,7 @@ function checkLastReset() {
 	$fifteenMins = 900;
 	
 	$oauth = get_oauth();
+	error_log(print_r($oauth,1));
 	if ($oauth == null) {
 		error_log("Free Call");
 		// Free call (uses IP Address)
