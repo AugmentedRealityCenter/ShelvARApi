@@ -122,9 +122,9 @@ function handle_lc($path_arr) {
         // GET lc_numbers/{call_number}
         if ($method === "GET") { 
             $_GET['call_number'] = strip_ext($path_arr[1], ".json");
-            if (api_count(1)) {
+            //if (api_count(1)) {
                 include $root.$get_lc_numbers;
-            }
+            //}
         } else {                    // some method that's not a GET
             throw_error(405, "405 - method not allowed");
         }
