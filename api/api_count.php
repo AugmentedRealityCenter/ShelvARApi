@@ -363,17 +363,7 @@ function checkLastReset() {
 	
 	$oauth = get_oauth();
 	error_log(print_r($oauth,1));
-	if ($oauth == null) {
-		error_log("Free Call");
-		// Free call (uses IP Address)
-		$lastResetFree = grabLastResetFree();
-	
-		if (($currTime - $lastResetFree) > $fifteenMins) {
-			setAllFreeCountsToZero();
-			setFreeLastReset();
-		}
-	}
-	else {
+	if ($oauth != null) {
 		error_log("Non-free Call");
 		// Not free call (uses user_id)
 		$lastResetNotFree = grabLastResetNotFree();
@@ -382,6 +372,15 @@ function checkLastReset() {
 			setAllNotFreeCountsToZero();
 			setNotFreeLastReset();
 		}
+	}
+	
+	error_log("Free Call");
+	// Free call (uses IP Address)
+	$lastResetFree = grabLastResetFree();
+	
+	if (($currTime - $lastResetFree) > $fifteenMins) {
+		setAllFreeCountsToZero();
+		setFreeLastReset();
 	}
 }
 
