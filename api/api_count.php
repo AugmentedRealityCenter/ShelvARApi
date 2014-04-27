@@ -14,7 +14,7 @@ include_once $root."api/api_ref_call.php";
  * returns false if it is over the limit
  */
 function is_incrementable($apiCall, $httpMethod) {
-	checkLastReset();
+	//checkLastReset();
 	$path = split("/", $apiCall);
 	
 	error_log(print_r($path,1));
