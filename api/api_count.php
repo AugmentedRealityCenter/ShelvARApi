@@ -14,7 +14,6 @@ include_once $root."api/api_ref_call.php";
  * returns false if it is over the limit
  */
 function is_incrementable($apiCall, $httpMethod) {
-	checkLastReset();
 	$path = split("/", $apiCall);
 	
 	error_log(print_r($path,1));
@@ -22,6 +21,7 @@ function is_incrementable($apiCall, $httpMethod) {
 	if ($path[0] == "book_pings") {
 		if ($path[1] == "") {
 			if ($httpMethod = "GET") {
+				checkLastReset("NOTFREE");
 				// Get the number of calls made from the database
 				$numCalls = getCountNotFreeCall("GET_book_pings_count");
 				$limit = grabLimit("GET book_pings");
@@ -31,6 +31,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				else
 					return false;
 			} else {
+				checkLastReset("NOTFREE");
 				$numCalls = getCountNotFreeCall("POST_book_pings_count");
 				$limit = grabLimit("POST book_pings");
 
@@ -40,6 +41,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return false;
 			}
 		} else if ($path[1] == "count") {
+			checkLastReset("NOTFREE");
 			$numCalls = getCountNotFreeCall("GET_book_pings_count_count");
 			$limit = grabLimit("GET book_pings_count");
 
@@ -48,6 +50,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] != "") {
+			checkLastReset("NOTFREE");
 			$numCalls = getCountNotFreeCall("GET_book_pings_specific_count");
 			$limit = grabLimit("GET book_pings_specific");
 
@@ -58,6 +61,7 @@ function is_incrementable($apiCall, $httpMethod) {
 		}	
 	} else if ($path[0] == "book_tags") {
 		if ($path[1] != "") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_book_tags_count");
 			$limit = grabLimit("GET book_tags");
 
@@ -68,6 +72,7 @@ function is_incrementable($apiCall, $httpMethod) {
 		}
 	} else if ($path[0] == "lc_numbers") {
 		if ($path[1] != "") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_lc_numbers_count");
 			$limit = grabLimit("GET lc_numbers");
 
@@ -79,6 +84,7 @@ function is_incrementable($apiCall, $httpMethod) {
 	} else if ($path[0] == "institutions") {
 		if ($path[1] == "") {
 			if ($httpMethod = "GET") {
+				checkLastReset("FREE");
 				$numCalls = getCountFreeCall("GET_insitutions_count");
 				$limit = grabLimit("GET institutions");
 					
@@ -88,6 +94,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return false;
 			}
 			else {
+				checkLastReset("FREE");
 				$numCalls = getCountFreeCall("POST_institutions_count");
 				$limit = grabLimit("POST institutions");
 					
@@ -97,6 +104,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return false;
 			}
 		} else if ($path[1] == "edit") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("POST_institutions_edit_count");
 			$limit = grabLimit("POST institutions_edit");
 
@@ -105,6 +113,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] == "available" && $path[2] != "") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_institutions_available_count");
 			$limit = grabLimit("GET institutions_available");
 
@@ -113,6 +122,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] != "") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_institutions_specific_count");
 			$limit = grabLimit("GET institutions_specific");
 
@@ -124,6 +134,7 @@ function is_incrementable($apiCall, $httpMethod) {
 	} else if ($path[0] == "users") {
 		if (count($path) == 1) {
 			if ($httpMethod = "GET") {
+				checkLastReset("FREE");
 				$numCalls = getCountFreeCall("GET_users_count");
 				$limit = grabLimit("GET users");
 					
@@ -133,6 +144,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return false;
 			}
 			else {
+				checkLastReset("FREE");
 				$numCalls = getCountFreeCall("POST_users_count");
 				$limit = grabLimit("POST users");
 					
@@ -142,6 +154,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return false;
 			}
 		} else if ($path[1] == "edit") {	
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("POST_users_edit_count");
 			$limit = grabLimit("POST users_edit");
 
@@ -151,6 +164,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return false;
 		} else if ($path[1] != "" && $path[2] == "permissions") {
 			if ($httpMethod = "GET") {
+				checkLastReset("FREE");
 				$numCalls = getCountFreeCall("GET_users_permissions_count");
 				$limit = grabLimit("GET users_permissions");
 					
@@ -160,6 +174,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return false;
 			}
 			else {
+				checkLastReset("FREE");
 				$numCalls = getCountFreeCall("POST_users_persmissions_count");
 				$limit = grabLimit("POST users_permissions");
 					
@@ -169,6 +184,7 @@ function is_incrementable($apiCall, $httpMethod) {
 					return false;
 			}
 		} else if ($path[1] == "available" && $path[2] != "") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_users_available_count");
 			$limit = grabLimit("GET users_available");
 
@@ -177,6 +193,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] != "") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_users_specific_count");
 			$limit = grabLimit("GET users_specific");
 
@@ -187,6 +204,7 @@ function is_incrementable($apiCall, $httpMethod) {
 		}
 	} else if ($path[0] == "make_tags") {
 		if ($path[1] == "paper_formats") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_paper_formats_count");
 			$limit = grabLimit("GET paper_formats");
 
@@ -195,6 +213,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] != "") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_make_tags_count");
 			$limit = grabLimit("GET make_tags");
 
@@ -205,6 +224,7 @@ function is_incrementable($apiCall, $httpMethod) {
 		}
 	} else if ($path[0] == "oauth") {
 		if ($path[1] == "get_request_token") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_request_token_count");
 			$limit = grabLimit("GET oauth_request_token");
 
@@ -213,6 +233,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] == "login") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_login_count");
 			$limit = grabLimit("GET oauth_login");
 
@@ -221,6 +242,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] == "get_access_token") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_access_token_count");
 			$limit = grabLimit("GET oauth_access_token");
 
@@ -229,6 +251,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] == "whoami") {
+			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_whoami_count");
 			$limit = grabLimit("GET oauth_whoami");
 
@@ -357,32 +380,32 @@ function increment_count($apiCall, $httpMethod, $count) {
  * and the unknown user table. If there hasn't been a reset in over 15 mins
  * the counts are set to zero.
  */
-function checkLastReset() {
+function checkLastReset($type) {
 	$currTime = time();  // http://www.php.net/manual/en/function.time.php
 	$fifteenMins = 900;
 	
-	/*
-	$oauth = get_oauth();
-	error_log(print_r($oauth,1));
+	if ($type == "FREE") {
+		$lastResetFree = grabLastResetFree();
 	
-	if ($oauth != null) {
-		error_log("Non-free Call");
-		// Not free call (uses user_id)
-		$lastResetNotFree = grabLastResetNotFree();
-		
-		if (($currTime - $lastResetNotFree) > $fifteenMins) {
-			setAllNotFreeCountsToZero();
-			setNotFreeLastReset();
+		if (($currTime - $lastResetFree) > $fifteenMins) {
+			setAllFreeCountsToZero();
+			setFreeLastReset();
 		}
-	} */
-	
-	error_log("Free Call");
-	// Free call (uses IP Address)
-	$lastResetFree = grabLastResetFree();
-	
-	if (($currTime - $lastResetFree) > $fifteenMins) {
-		setAllFreeCountsToZero();
-		setFreeLastReset();
+	}
+	else if ($type == "NOTFREE") {
+		$oauth = get_oauth();
+		error_log(print_r($oauth,1));
+		
+		if ($oauth != null) {
+			error_log("Non-free Call");
+			// Not free call (uses user_id)
+			$lastResetNotFree = grabLastResetNotFree();
+			
+			if (($currTime - $lastResetNotFree) > $fifteenMins) {
+				setAllNotFreeCountsToZero();
+				setNotFreeLastReset();
+			}
+		}
 	}
 }
 
