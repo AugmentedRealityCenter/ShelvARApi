@@ -55,13 +55,13 @@ $user       = $_GET['user_id'];
 $query = "SELECT user_id AS worker, book_call AS book, ".
     "ping_time AS time FROM book_pings WHERE inst_id = ? AND ".
     "user_id = ? AND ping_time >= ? AND ping_time < ? ".
-    "GROUP BY user_id ORDER BY ping_time";
+    "ORDER BY ping_time";
 $paramsList = array($inst_id, $user, $startDate, $endDate);
 
 $db = new database();
 $db->query = $query;
 $db->params = $paramsList;
-$db->type = 'sss';
+$db->type = 'ssss';
 
 $result = $db->fetch();
 
