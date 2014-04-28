@@ -52,7 +52,7 @@ $maxTime    = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
 // user id for which to grab shelf reading activity data
 $user       = $_GET['user_id'];
 
-$query = "SELECT user_id AS worker, book_call AS book, ".
+$query = "SELECT book_call AS book, ".
     "ping_time AS time FROM book_pings WHERE inst_id = ? AND ".
     "user_id = ? AND ping_time >= ? AND ping_time < ? ".
     "ORDER BY ping_time";
@@ -71,7 +71,7 @@ if (!empty($result)) {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json');
         else header('Content-Type: application/json');
-        echo json_encode(array("workers"=>$result,"result"=>"SUCCESS"));
+        echo json_encode(array($user=>$result,"result"=>"SUCCESS"));
     // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv');
