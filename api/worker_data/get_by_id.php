@@ -72,17 +72,22 @@ if (!empty($result)) {
     $lastActivityEnd    = 0;
     for ($i = 1; ($i < count($result)); $i++) {
         $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
-        error_log($diff);
-        if ($diff > $timeDiff) {
-            error_log("woo");
+        if ($diff >= $timeDiff || ($i === count($result) - 1)) { 
+            $actString = "Activity " . $activityCount;
+            for ($j = $lastActivityEnd; ($j < $i); $j++) {
+                $newResult[$actString][] = $result[$j];
+            }
+            $activityCount++;
+            $lastActivityEnd = $i;
         }
+        $lastDate = $result[$i]["time"];
     }
     // format as JSON
     if ($format === 'json') {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json');
         else header('Content-Type: application/json');
-        echo json_encode(array($user=>$result,"result"=>"SUCCESS"));
+        echo json_encode(array($user=>$newResult,"result"=>"SUCCESS"));
     // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv');
