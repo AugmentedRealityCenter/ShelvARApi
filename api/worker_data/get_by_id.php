@@ -66,16 +66,16 @@ $db->type = 'ssss';
 $result = $db->fetch();
 
 if (!empty($result)) {
-    $newResult          = array(array());
+    $newResult          = array();
     $activityCount      = 1;
     $lastDate           = $result[0]["time"];
     $lastActivityEnd    = 0;
     for ($i = 1; ($i < count($result)); $i++) {
         $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
-        if ($diff >= $timeDiff) { 
+        if ($diff >= $timeDiff || ($i === count($result) - 1)) { 
             $actString = "Activity " . $activityCount;
             for ($j = $lastActivityEnd; ($j < $i); $j++) {
-                $newResult[$actString][] = $result[$j];
+                $newResult[$actString] = $result[$j];
             }
             $activityCount++;
             $lastActivityEnd = $i;
