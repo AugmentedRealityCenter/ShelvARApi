@@ -60,7 +60,7 @@ if (isset($_GET['end_date'])) {
     $endDate = date("Y-m-d H:i:s", strtotime($startDate."+1 year"));
 }
 
-$pattern = '/^[A-Z]+[0-9]+$/'
+$pattern = '/^[A-Z]+[0-9]+$/';
 if(preg_match($pattern, $book_call)){
 	$book_call .= ' ';
 }
