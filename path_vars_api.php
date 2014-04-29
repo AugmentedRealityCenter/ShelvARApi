@@ -25,7 +25,9 @@ $get_notif          = "api/notifications/get_inst_notification.php";
 $get_post_login     = "oauth/post-login.php";
 $get_worker_data    = 'api/worker_data/get_worker_data.php';
 $get_worker_id      = "api/worker_data/get_by_id.php";
-$get_inventory_data = 'api/inventory_data/get_inventory_data.php';
+$get_class_count = 'api/inventory_data/get_class_count.php';
+$get_class_count_by_range = 'api/inventory_data/get_class_count_by_range.php';
+$get_subclass_count = 'api/inventory_data/get_subclass_count.php';
 
 // post path constants
 $post_bp            = "api/book_pings/book_ping.php";
