@@ -72,8 +72,9 @@ if (!empty($result)) {
     $lastActivityEnd    = 0;
     for ($i = 1; ($i < count($result)); $i++) {
         $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
+        error_log($diff);
         if ($diff > $timeDiff) {
-            error_log(print_r($lastDate - $result[$i]["time"],1));
+            error_log("woo");
         }
     }
     // format as JSON
