@@ -38,12 +38,20 @@ if (isset($_GET['inst_id'])) {
 	$inst_id = 'sandbox';
 }
 
-$book_call = "";
-if (isset($_GET['book_call'])) {
-    $book_call = urldecode($_GET['book_call']);
+$book_call_start = "";
+if (isset($_GET['book_call_start'])) {
+    $book_call_start = urldecode($_GET['book_call_start']);
 } else {
     // test default for now, TODO get rid later
-    $book_call = "BH";
+    $book_call_start = "BA";
+}
+
+$book_call_end = ""
+if (isset($_GET['book_call_end'])) {
+    $book_call_end = urldecode($_GET['book_call_end']);
+} else {
+    // test default for now, TODO get rid later
+    $book_call_end = "BZ";
 }
 
 $startDate = "";
