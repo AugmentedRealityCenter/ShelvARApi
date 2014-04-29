@@ -48,7 +48,7 @@ $format     = isset($_GET['format']) ? $_GET['format'] : 'json';
 // type is raw output by default, user must specify if they want a file dl
 $type       = isset($_GET['type']) ? $_GET['type'] : 'raw';
 // max time between shelf read activity is 60 seconds by default
-$maxTime    = isset($_GET['max_time']) ? $_GET['max_time'] : 60;
+$timeDiff   = isset($_GET['time_diff']) ? $_GET['time_diff'] : 60;
 // user id for which to grab shelf reading activity data
 $user       = $_GET['user_id'];
 
@@ -71,7 +71,10 @@ if (!empty($result)) {
     $lastDate           = $result[0]["time"];
     $lastActivityEnd    = 0;
     for ($i = 1; ($i < count($result)); $i++) {
-        error_log(print_r($lastDate - $result[$i]["time"],1));
+        $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
+        if ($diff > $timeDiff) {
+            error_log(print_r($lastDate - $result[$i]["time"],1));
+        }
     }
     // format as JSON
     if ($format === 'json') {
