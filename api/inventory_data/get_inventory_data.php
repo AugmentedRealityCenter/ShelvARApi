@@ -5,7 +5,7 @@ include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
-$inst_id = 'miami';
+$inst_id = 'sandbox';
 
 /*
 $oauth_user = get_oauth();
