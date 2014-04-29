@@ -5,7 +5,7 @@ include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
-$inst_id = 'miami';
+$inst_id = 'sandbox';
 
 /*
 $oauth_user = get_oauth();
@@ -37,19 +37,24 @@ if (isset($_GET['start_date'])) {
     $startDate = urldecode($_GET['start_date']);
 } else {
     // set start date to one week before today by default
-    $startDate = date("Y-m-d H:i:s", strtotime("-1 week"));
+    $startDate = date("Y-m-d H:i:s", strtotime("-1 year"));
 }
 
 if (isset($_GET['end_date'])) {
     $endDate = urldecode($_GET['end_date']);
 } else {
     // set end date to one week after start date
-    $endDate = date("Y-m-d H:i:s", strtotime($startDate."+1 week"));
+    $endDate = date("Y-m-d H:i:s", strtotime($startDate."+1 year"));
 }
 
-$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
-        ." AND ping_time >= ? AND ping_time < ?";
-$book_count = array($inst_id, $startDate, $endDate);
+$book_call = 'BH';
+$book_call .= '%';
+
+$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call LIKE ?"
+		  ." AND ping_time >= ? AND ping_time < ? ";
+//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
+//        ." AND ping_time >= ? AND ping_time < ?";
+$book_count = array($inst_id, $book_call, $startDate, $endDate);
 
 $db = new database();
 $db->query = $query;
