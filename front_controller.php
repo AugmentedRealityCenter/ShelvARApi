@@ -505,9 +505,6 @@ function handle_inventory($path_arr) {
         } else {
             throw_error(405, '405 - method not allowed');
         }
-		else {
-			throw_error(404, '404 - not found');
-		} 
 	} else if ($cnt === 2 && $path_arr[1] === '') {
         // GET subclass_count/
         if ($method === 'GET') {
