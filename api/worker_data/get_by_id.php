@@ -65,6 +65,8 @@ $db->type = 'ssss';
 
 $result = $db->fetch();
 
+error_log(print_r($result,1));
+
 if (!empty($result)) {
     // format as JSON
     if ($format === 'json') {
