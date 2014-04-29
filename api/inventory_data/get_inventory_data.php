@@ -60,10 +60,16 @@ if (isset($_GET['end_date'])) {
     $endDate = date("Y-m-d H:i:s", strtotime($startDate."+1 year"));
 }
 
-$book_call .= '%';
+$pattern = '/^[A-Z]+[0-9]+$/'
+if(preg_match($pattern, $book_call)){
+	$book_call .= ' ';
+}
 
 $query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call LIKE ?"
 		  ." AND ping_time >= ? AND ping_time < ? ";
+$book_call .= '%';
+
+
 //$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 //        ." AND ping_time >= ? AND ping_time < ?";
 $book_count = array($inst_id, $book_call, $startDate, $endDate);
@@ -75,12 +81,6 @@ $db->type = 'ssss';
 
 $result = $db->fetch();
 
-//if (!empty($result)) {
 echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
-//} else {
-//    echo json_encode(array("Call Numbers"=>"No results found","result"=>"SUCCESS"));
-//}
-
-
 
 ?>
