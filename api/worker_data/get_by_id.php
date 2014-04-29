@@ -95,7 +95,7 @@ if (!empty($result)) {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json');
         else header('Content-Type: application/json');
-        echo json_encode(array($user=>$newResult[],"result"=>"SUCCESS"));
+        echo json_encode(array($user=>$newResult,"result"=>"SUCCESS"));
     // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv');
