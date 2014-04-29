@@ -72,13 +72,19 @@ if (!empty($result)) {
     $lastActivityEnd    = 0;
     for ($i = 1; ($i < count($result)); $i++) {
         $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
-        if ($diff >= $timeDiff || ($i === count($result) - 1)) { 
+        if ($diff >= $timeDiff) { 
             $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j <= $i); $j++) {
-                $newResult[$actString][] = $result[$j];
+            if ($i !== (count($result)-1)) {
+                for ($j = $lastActivityEnd; ($j < $i); $j++) {
+                    $newResult[$actString][] = $result[$j];
+                }
+                $activityCount++;
+                $lastActivityEnd = $i;
+            } else {
+                for ($j = $lastActivityEnd; ($j <= $i); $j++) {
+                    $newResult[$actString][] = $result[$j];
+                }
             }
-            $activityCount++;
-            $lastActivityEnd = $i;
         }
         $lastDate = $result[$i]["time"];
     }
@@ -87,7 +93,7 @@ if (!empty($result)) {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json');
         else header('Content-Type: application/json');
-        echo json_encode(array($user=>$newResult,"result"=>"SUCCESS"));
+        echo json_encode(array($user=>$newResult[0],"result"=>"SUCCESS"));
     // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv');
