@@ -65,9 +65,14 @@ $db->type = 'ssss';
 
 $result = $db->fetch();
 
-error_log(print_r($result,1));
-
 if (!empty($result)) {
+    $newResult          = array(array());
+    $activityCount      = 1;
+    $lastDate           = $result[0]["time"];
+    $lastActivityEnd    = 0;
+    for ($i = 1; ($i < count($result)); $i++) {
+        error_log(print_r($lastDate - $result[$i]["time"],1));
+    }
     // format as JSON
     if ($format === 'json') {
         // user requests a file download
