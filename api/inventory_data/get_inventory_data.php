@@ -59,7 +59,7 @@ $book_count = array($inst_id, $book_call, $startDate, $endDate);
 $db = new database();
 $db->query = $query;
 $db->params = $book_count;
-$db->type = 'sss';
+$db->type = 'ssss';
 
 $result = $db->fetch();
 
