@@ -66,7 +66,7 @@ $db->type = 'ssss';
 $result = $db->fetch();
 
 if (!empty($result)) {
-    $newResult          = array(array());
+    $newResult          = array();
     error_log(print_r($newResult,1));
     $activityCount      = 1;
     $lastDate           = $result[0]["time"];
@@ -75,17 +75,11 @@ if (!empty($result)) {
         $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
         if ($diff >= $timeDiff) { 
             $actString = "Activity " . $activityCount;
-            if ($i !== (count($result)-1)) {
-                for ($j = $lastActivityEnd; ($j < $i); $j++) {
-                    $newResult[$actString][] = $result[$j];
-                }
-                $activityCount++;
-                $lastActivityEnd = $i;
-            } else {
-                for ($j = $lastActivityEnd; ($j <= $i); $j++) {
-                    $newResult[$actString][] = $result[$j];
-                }
+            for ($j = $lastActivityEnd; ($j < $i); $j++) {
+                $newResult[$actString][] = $result[$j];
             }
+            $activityCount++;
+            $lastActivityEnd = $i;
         }
         $lastDate = $result[$i]["time"];
     }
