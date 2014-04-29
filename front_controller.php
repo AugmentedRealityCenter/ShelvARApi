@@ -13,7 +13,7 @@ case "make_tags":       	handle_mt($path_arr); break;
 case "oauth":           	handle_oauth($path_arr); break;
 case "notifications":   	handle_notif($path_arr); break;
 case 'worker_data':     	handle_work($path_arr); break;
-case 'inventory_data':		handle_inventory($path_arr); break;
+case 'class_count':			handle_class_count($path_arr); break;
 default:                	throw_error(404, "404 - not found"); break;
 }
 
@@ -491,7 +491,7 @@ function handle_work($path_arr) {
  * inventory_data
  * -----------
  */
-function handle_inventory($path_arr) {
+function handle_class_count($path_arr) {
     $cnt    = count($path_arr);
     $method = $_SERVER['REQUEST_METHOD'];
     $root   = $_SERVER['DOCUMENT_ROOT'].'/';
@@ -502,20 +502,6 @@ function handle_inventory($path_arr) {
         // GET class_count/
         if ($method === 'GET') {
             include $root.$get_class_count;
-        } else {
-            throw_error(405, '405 - method not allowed');
-        }
-	} else if ($cnt === 2 && $path_arr[1] === '') {
-        // GET subclass_count/
-        if ($method === 'GET') {
-            include $root.$get_subclass_count;
-        } else {
-            throw_error(405, '405 - method not allowed');
-        }
-	} else if ($cnt === 2 && $path_arr[1] === '') { // valid request
-        // GET class_count_by_range/
-        if ($method === 'GET') {
-            include $root.$get_class_count_by_range;
         } else {
             throw_error(405, '405 - method not allowed');
         }
