@@ -74,7 +74,7 @@ if (!empty($result)) {
         $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
         if ($diff >= $timeDiff || ($i === count($result) - 1)) { 
             $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j < $i); $j++) {
+            for ($j = $lastActivityEnd; ($j <= $i); $j++) {
                 $newResult[$actString][] = $result[$j];
             }
             $activityCount++;
