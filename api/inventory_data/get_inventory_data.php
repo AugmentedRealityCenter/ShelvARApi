@@ -5,8 +5,6 @@ include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
-$inst_id = 'sandbox';
-
 /*
 $oauth_user = get_oauth();
 $inst_id = $oauth_user['inst_id'];
@@ -32,6 +30,21 @@ if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
 }*/
 
+$inst_id = '';
+if (isset($_GET['inst_id'])) {
+	$inst_id = urldecode($_GET['inst_id']);
+} else {
+	$inst_id = 'sandbox';
+}
+
+$book_call = "";
+if (isset($_GET['book_call'])) {
+    $book_call = urldecode($_GET['book_call']);
+} else {
+    // test default for now, TODO get rid later
+    $book_call = "BH";
+}
+
 $startDate = "";
 if (isset($_GET['start_date'])) {
     $startDate = urldecode($_GET['start_date']);
@@ -47,7 +60,6 @@ if (isset($_GET['end_date'])) {
     $endDate = date("Y-m-d H:i:s", strtotime($startDate."+1 year"));
 }
 
-$book_call = 'BH';
 $book_call .= '%';
 
 $query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call LIKE ?"
@@ -63,11 +75,11 @@ $db->type = 'ssss';
 
 $result = $db->fetch();
 
-if (!empty($result)) {
-    echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
-} else {
-    echo json_encode(array("Call Numbers"=>"None found in this time period","result"=>"SUCCESS"));
-}
+//if (!empty($result)) {
+echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
+//} else {
+//    echo json_encode(array("Call Numbers"=>"No results found","result"=>"SUCCESS"));
+//}
 
 
 
