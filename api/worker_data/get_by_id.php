@@ -67,6 +67,7 @@ $result = $db->fetch();
 
 if (!empty($result)) {
     $newResult          = array(array());
+    error_log(print_r($newResult,1));
     $activityCount      = 1;
     $lastDate           = $result[0]["time"];
     $lastActivityEnd    = 0;
@@ -88,12 +89,13 @@ if (!empty($result)) {
         }
         $lastDate = $result[$i]["time"];
     }
+    error_log(print_r($newResult,1));
     // format as JSON
     if ($format === 'json') {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json');
         else header('Content-Type: application/json');
-        echo json_encode(array($user=>$newResult[0],"result"=>"SUCCESS"));
+        echo json_encode(array($user=>$newResult[],"result"=>"SUCCESS"));
     // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv');
