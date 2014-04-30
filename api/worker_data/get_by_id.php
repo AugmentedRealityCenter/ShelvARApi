@@ -110,7 +110,7 @@ if (!empty($result)) {
             // print subheadings under activity
             for ($i = 0; ($i < count($subKeys)); $i++) {
                 echo "\"".$subKeys[$i]."\"";
-                echo ($i <= count($subKeys) - 1) ? ',' : '';
+                echo ($i < count($subKeys) - 1) ? ',' : '';
             }
             echo "\n";
             for ($i = 0; ($i < count($value)); $i++) {
