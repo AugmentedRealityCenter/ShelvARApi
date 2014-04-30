@@ -121,6 +121,7 @@ if (!empty($result)) {
         foreach ($newResult as $key => $value) {
             for ($i = 0; ($i < count($value)); $i++) {
                 foreach ($value[$i] as $key1 => $value1) {
+                    error_log('$value[$i]: '.print_r($key1,1));
                     echo $value1.",";
                 }
             }
