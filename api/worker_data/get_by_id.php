@@ -67,7 +67,6 @@ $result = $db->fetch();
 
 if (!empty($result)) {
     $newResult          = array();
-    error_log(print_r($newResult,1));
     $activityCount      = 1;
     $lastDate           = $result[0]["time"];
     $lastActivityEnd    = 0;
@@ -91,18 +90,17 @@ if (!empty($result)) {
         }
         $lastDate = $result[$i]["time"];
     }
-    error_log(print_r($newResult,1));
     // format as JSON
     if ($format === 'json') {
         // user requests a file download
-        if ($type === 'file') setFileHeaders('json');
+        if ($type === 'file') setFileHeaders('json', $user);
         else header('Content-Type: application/json');
         echo json_encode(array($user=>$newResult,"result"=>"SUCCESS"));
     // format as CSV
     } else if ($format === 'csv') {
-        if ($type === 'file') setFileHeaders('csv');
+        if ($type === 'file') setFileHeaders('csv', $user);
         // use first result set keys as csv headings
-        $keys = array_keys($result[0]);
+        $keys = array_keys($newResult);
         // echo csv headings
         for ($i = 0; ($i < count($keys)); $i++) {
             echo '"'.$keys[$i].'"';
@@ -111,7 +109,7 @@ if (!empty($result)) {
         echo "\n";
         // echo data
         for ($i = 0; ($i < count($result)); $i++) {
-            foreach ($result[$i] as $key => $value) {
+            foreach ($newResult[$i] as $key => $value) {
                 echo $value . ",";
             }
             echo "\n";
@@ -132,13 +130,13 @@ if (!empty($result)) {
  * to download the file, rather than see the contents
  * in the page.
  */
-function setFileHeaders($fileType) {
+function setFileHeaders($fileType, $fileName) {
     if ($fileType === 'json') {
         header('Content-Type: application/json');
-        header('Content-Disposition: attachment; filename="worker_data.json"');
+        header('Content-Disposition: attachment; filename="'.$fileName.'".json"');
     } else if ($fileType === 'csv') {
         header('Content-Type: application/csv');
-        header('Content-Disposition: attachment; filename="worker_data.csv"');
+        header('Content-Disposition: attachment; filename="'.$fileName.'".csv"');
     }
     header('Cache-Control: private, max-age=0, must-revalidate');
     header('Pragma: public');
