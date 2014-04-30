@@ -83,7 +83,7 @@ if (!empty($result)) {
         }
         if (($i === count($result) - 1) && $lastActivityEnd !== $i) {
             $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j < $i); $j++) {
+            for ($j = $lastActivityEnd; ($j <= $i); $j++) {
                 $newResult[$actString][] = $result[$j];
             }
             $activityCount++;
