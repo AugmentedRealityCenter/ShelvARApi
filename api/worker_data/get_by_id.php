@@ -99,31 +99,21 @@ if (!empty($result)) {
     // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv', $user);
-        // use first result set keys as csv headings
-        $keys       = array_keys($newResult);
-        // use the headings of each result as subheadings
         $subKeys    = array_keys($newResult[$keys[0]][0]);
-        // echo csv headings
-        for ($i = 0; ($i < count($keys)); $i++) {
-            echo '"'.$keys[$i].'"';
-            if ($i !== (count($keys) - 1)) {
-                for ($j = 0; ($j < count($subKeys) - 1); $j++) {
-                    echo ",";
-                }
-            }
-        }
-        echo "\n";
-        for ($i = 0; ($i < count($subKeys)); $i++) {
-            echo '"'.$subKeys[$i].'"';
-            echo ($i <= (count($subKeys) - 1)) ? ',' : '';
-        }
         // echo data
         foreach ($newResult as $key => $value) {
+            // print activity heading
+            echo "\"".$key."\"\n";
+            // print subheadings under activity
+            for ($i = 0; ($i < count($subKeys)); $i++) {
+                echo "\"".$subKeys[$i]."\"";
+            }
+            echo "\n";
             for ($i = 0; ($i < count($value)); $i++) {
                 foreach ($value[$i] as $key1 => $value1) {
-                    error_log('$value[$i]: '.print_r($key1,1));
                     echo $value1.",";
                 }
+                echo "\n";
             }
         }
     } else {
