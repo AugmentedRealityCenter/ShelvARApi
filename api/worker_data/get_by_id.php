@@ -100,20 +100,30 @@ if (!empty($result)) {
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv', $user);
         // use first result set keys as csv headings
-        $keys = array_keys($newResult);
+        $keys       = array_keys($newResult);
+        // use the headings of each result as subheadings
+        $subKeys    = array_keys($newResult[$keys[0]][0]);
         // echo csv headings
         for ($i = 0; ($i < count($keys)); $i++) {
             echo '"'.$keys[$i].'"';
-            echo ($i <= (count($keys) - 1)) ? ',' : '';
+            if ($i !== (count($keys) - 1)) {
+                for ($j = 0; ($j < count($subKeys) - 1); $j++) {
+                    echo ",";
+                }
+            }
         }
         echo "\n";
+        for ($i = 0; ($i < count($subKeys)); $i++) {
+            echo '"'.$subKeys[$i].'"';
+            echo ($i <= (count($subKeys) - 1)) ? ',' : '';
+        }
         // echo data
-        error_log(print_r($newResult,1));
-        for ($i = 0; ($i < count($result)); $i++) {
-            foreach ($newResult as $key => $value) {
-                echo $value . ",";
+        foreach ($newResult as $key => $value) {
+            for ($i = 0; ($i < count($value)); $i++) {
+                foreach ($value[$i] as $key1 => $value1) {
+                    echo $value1.",";
+                }
             }
-            echo "\n";
         }
     } else {
         // invalid format specification, so throw error
