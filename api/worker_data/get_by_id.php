@@ -99,6 +99,9 @@ if (!empty($result)) {
     // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv', $user);
+        // get the keys to the associative array
+        // they define the csv file headings
+        $keys       = array_keys($newResult);
         $subKeys    = array_keys($newResult[$keys[0]][0]);
         // echo data
         foreach ($newResult as $key => $value) {
