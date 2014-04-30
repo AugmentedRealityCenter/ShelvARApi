@@ -108,6 +108,7 @@ if (!empty($result)) {
         }
         echo "\n";
         // echo data
+        error_log(print_r($newResult,1));
         for ($i = 0; ($i < count($result)); $i++) {
             foreach ($newResult as $key => $value) {
                 echo $value . ",";
