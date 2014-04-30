@@ -109,7 +109,7 @@ if (!empty($result)) {
         echo "\n";
         // echo data
         for ($i = 0; ($i < count($result)); $i++) {
-            foreach ($newResult[$i] as $key => $value) {
+            foreach ($newResult as $key => $value) {
                 echo $value . ",";
             }
             echo "\n";
@@ -133,10 +133,10 @@ if (!empty($result)) {
 function setFileHeaders($fileType, $fileName) {
     if ($fileType === 'json') {
         header('Content-Type: application/json');
-        header('Content-Disposition: attachment; filename="'.$fileName.'".json"');
+        header('Content-Disposition: attachment; filename="'.$fileName.'.json"');
     } else if ($fileType === 'csv') {
         header('Content-Type: application/csv');
-        header('Content-Disposition: attachment; filename="'.$fileName.'".csv"');
+        header('Content-Disposition: attachment; filename="'.$fileName.'.csv"');
     }
     header('Cache-Control: private, max-age=0, must-revalidate');
     header('Pragma: public');
