@@ -46,44 +46,82 @@ if (isset($_GET['book_call'])) {
     $book_call = "BH";
 }
 
-$startDate = "";
+$start_date = "";
 if (isset($_GET['start_date'])) {
-    $startDate = urldecode($_GET['start_date']);
+    $start_date = urldecode($_GET['start_date']);
 } else {
 	// test default for now, TODO get rid later
     // set start date to one week before today by default
-    $startDate = date("Y-m-d H:i:s", strtotime("-1 year"));
+    $start_date = date("Y-m-d H:i:s", strtotime("-1 year"));
 }
 
 if (isset($_GET['end_date'])) {
-    $endDate = urldecode($_GET['end_date']);
+    $end_date = urldecode($_GET['end_date']);
 } else {
 	// test default for now, TODO get rid later
     // set end date to one week after start date
-    $endDate = date("Y-m-d H:i:s", strtotime($startDate."+1 year"));
+    $end_date = date("Y-m-d H:i:s", strtotime($start_date."+1 year"));
 }
 
-$pattern = '/^[A-Z]+[0-9]+$/';
-if(preg_match($pattern, $book_call)){
-	$book_call .= ' ';
+$isSubclass = false;
+if (isset($_GET['subclass'])) {
+	$isSubclass = urldecode($_GET['subclass']);
 }
 
-$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call LIKE ?"
-		  ." AND ping_time >= ? AND ping_time < ? ";
-$book_call .= '%';
+if (isSubclass) {
+	getSubclass($book_call);
+} else {
+	getClass($book_call);
+}
+
+/************Functions below****************/
+
+function getClass($p_book_call){
+	$pattern = '/^[A-Z]+[0-9]+$/';
+	if(preg_match($pattern, $p_book_call)){
+		$p_book_call .= ' ';
+	}
+
+	$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call LIKE ?"
+			  ." AND ping_time >= ? AND ping_time < ? ";
+	$p_book_call .= '%';
 
 
-//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
-//        ." AND ping_time >= ? AND ping_time < ?";
-$book_count = array($inst_id, $book_call, $startDate, $endDate);
+	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
+	//        ." AND ping_time >= ? AND ping_time < ?";
+	$book_count = array($inst_id, $p_book_call, $start_date, $end_date);
+	fetchFromDB($query, $book_count, 'ssss');
+}
 
-$db = new database();
-$db->query = $query;
-$db->params = $book_count;
-$db->type = 'ssss';
+function getSubclass($p_book_call){
+	$book_call_reg = '';
+	$pattern = '/^[A-Z]+[0-9]+$/';
+	if(preg_match($pattern, $p_book_call)){
+		book_call_reg = '/^' . $p_book_call . ' /';
+	} else {
+		book_call_reg = '/^' . $p_book_call . '[0-9]+ /'; 
+	}
 
-$result = $db->fetch();
+	//Could replace REGEX with an RLIKE. Not sure if performance boost or not
+	$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call REGEX ?"
+			  ." AND ping_time >= ? AND ping_time < ? ";
 
-echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
+
+	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
+	//        ." AND ping_time >= ? AND ping_time < ?";
+	$book_count = array($inst_id, $book_call_reg, $start_date, $end_date);
+	fetchFromDB($query, $book_count, 'ssss');
+}
+
+function fetchFromDB($query, $book_count, $type){
+	$db = new database();
+	$db->query = $query;
+	$db->params = $book_count;
+	$db->type = $type;
+
+	$result = $db->fetch();
+
+	echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
+}
 
 ?>

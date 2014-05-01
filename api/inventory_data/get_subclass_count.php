@@ -71,6 +71,7 @@ if(preg_match($pattern, $book_call)){
 	book_call_reg = '/^' . $book_call . '[0-9]+ /'; 
 }
 
+//Could replace REGEX with an RLIKE. Not sure if performance boost or not
 $query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call REGEX ?"
 		  ." AND ping_time >= ? AND ping_time < ? ";
 
