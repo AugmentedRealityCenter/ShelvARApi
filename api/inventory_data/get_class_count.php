@@ -113,9 +113,9 @@ function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$book_call_reg = '';
 	$pattern = '/^[A-Z]+[0-9]+$/';
 	if(preg_match($pattern, $p_book_call)){
-		$book_call_reg = '^' . $p_book_call . ' ';
+		$book_call_reg = '\'^' . $p_book_call . ' \'';
 	} else {
-		$book_call_reg = '^' . $p_book_call . '[0-9]+ '; 
+		$book_call_reg = '\'^' . $p_book_call . '[0-9]+ \''; 
 	}
 
 	echo $book_call_reg;
