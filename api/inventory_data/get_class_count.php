@@ -75,7 +75,7 @@ if (isset($_GET['subclass'])) {
 	$isSubclass = urldecode($_GET['subclass']);
 }
 
-if (isSubclass) {
+if ($isSubclass) {
 	getSubclass($inst_id, $book_call, $start_date, $end_date);
 } else {
 	getClass($inst_id, $book_call, $start_date, $end_date);
