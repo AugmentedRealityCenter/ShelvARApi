@@ -1,7 +1,7 @@
 {
     "apiVersion": "0.2",
     "swaggerVersion": "1.1",
-    "resourcePath": "/worker_data",
+    "resourcePath": "/worker_activity",
     "apis": [
 		{
 			"path": "/worker_activity/{user_id}",
