@@ -75,11 +75,11 @@ if (isset($_GET['subclass'])) {
 	$isSubclass = urldecode($_GET['subclass']);
 }
 
-//if ($isSubclass) {
-//	getSubclass($inst_id, $book_call, $start_date, $end_date);
-//} else {
+if ($isSubclass) {
+	getSubclass($inst_id, $book_call, $start_date, $end_date);
+} else {
 	getClass($inst_id, $book_call, $start_date, $end_date);
-//}
+}
 
 /************Functions below****************/
 
@@ -106,8 +106,6 @@ function getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	//        ." AND ping_time >= ? AND ping_time < ?";
 	$book_count = array($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
-	
-	echo json_encode($book_count);
 	fetchFromDB($query, $book_count, 'ssss');
 }
 
