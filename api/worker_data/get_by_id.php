@@ -27,6 +27,62 @@ if(stripos($oauth_user['scope'],"invread") === false) {
     exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
 }*/
 
+/**
+ * Set the headers such that the user is prompted
+ * to download the file, rather than see the contents
+ * in the page.
+ */
+function setFileHeaders($fileType, $fileName) {
+    if ($fileType === 'json') {
+        header('Content-Type: application/json');
+        header('Content-Disposition: attachment; filename="'.$fileName.'.json"');
+    } else if ($fileType === 'csv') {
+        header('Content-Type: application/csv');
+        header('Content-Disposition: attachment; filename="'.$fileName.'.csv"');
+    }
+    header('Cache-Control: private, max-age=0, must-revalidate');
+    header('Pragma: public');
+}
+
+/*
+ * Takes a result set of book_calls and ping_times
+ * and returns a new array that has partitioned
+ * each into an activity.
+ */
+function computeActivities($result) {
+    $newResult          = array();
+    $activityCount      = 1;
+    $lastDate           = $result[0]["time"];
+    $lastActivityEnd    = 0;
+    for ($i = 1; ($i < count($result)); $i++) {
+        // time difference between last ping and this ping
+        $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
+        // create a new activity
+        if ($diff >= $timeDiff) { 
+            $actString = "Activity " . $activityCount;
+            // add all the pings from this activity
+            // to the new result
+            for ($j = $lastActivityEnd; ($j < $i); $j++) {
+                $newResult[$actString][] = $result[$j];
+            }
+            $activityCount++;
+            $lastActivityEnd = $i;
+        }
+        // if we're on the item and we haven't created an
+        // activity that encapsulates it
+        if (($i === count($result) - 1) && $lastActivityEnd !== $i) {
+            $actString = "Activity " . $activityCount;
+            for ($j = $lastActivityEnd; ($j <= $i); $j++) {
+                $newResult[$actString][] = $result[$j];
+            }
+            $activityCount++;
+            $lastActivityEnd = $i;
+        }
+        $lastDate = $result[$i]["time"];
+    }
+    return $newResult;
+}
+
 // set the start date
 if (isset($_GET['start_date'])) {
     $startDate = urldecode($_GET['start_date']);
@@ -66,30 +122,7 @@ $db->type = 'ssss';
 $result = $db->fetch();
 
 if (!empty($result)) {
-    $newResult          = array();
-    $activityCount      = 1;
-    $lastDate           = $result[0]["time"];
-    $lastActivityEnd    = 0;
-    for ($i = 1; ($i < count($result)); $i++) {
-        $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
-        if ($diff >= $timeDiff) { 
-            $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j < $i); $j++) {
-                $newResult[$actString][] = $result[$j];
-            }
-            $activityCount++;
-            $lastActivityEnd = $i;
-        }
-        if (($i === count($result) - 1) && $lastActivityEnd !== $i) {
-            $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j <= $i); $j++) {
-                $newResult[$actString][] = $result[$j];
-            }
-            $activityCount++;
-            $lastActivityEnd = $i;
-        }
-        $lastDate = $result[$i]["time"];
-    }
+    $newResult = computeActivities($result);
     // format as JSON
     if ($format === 'json') {
         // user requests a file download
@@ -131,20 +164,5 @@ if (!empty($result)) {
         " time period","result"=>"SUCCESS"));
 }
 
-/**
- * Set the headers such that the user is prompted
- * to download the file, rather than see the contents
- * in the page.
- */
-function setFileHeaders($fileType, $fileName) {
-    if ($fileType === 'json') {
-        header('Content-Type: application/json');
-        header('Content-Disposition: attachment; filename="'.$fileName.'.json"');
-    } else if ($fileType === 'csv') {
-        header('Content-Type: application/csv');
-        header('Content-Disposition: attachment; filename="'.$fileName.'.csv"');
-    }
-    header('Cache-Control: private, max-age=0, must-revalidate');
-    header('Pragma: public');
-}
 ?>
+
