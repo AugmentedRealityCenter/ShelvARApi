@@ -1,10 +1,10 @@
 {
     "apiVersion": "0.2",
     "swaggerVersion": "1.1",
-    "resourcePath": "/worker_activity",
+    "resourcePath": "/work_activity",
     "apis": [
 		{
-			"path": "/worker_activity/",
+			"path": "/work_activity/",
             "description": "--- Temp description: Get worker work hours info, ya heard ---",
             "operations": [
 				{
@@ -41,7 +41,7 @@
 			]
 		},
 		{
-			"path": "/worker_activity/{user_id}",
+			"path": "/work_activity/{user_id}",
             "description": "--- Temp description: Get worker work hours info, ya heard ---",
             "operations": [
 				{

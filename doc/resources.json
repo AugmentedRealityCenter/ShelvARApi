@@ -35,7 +35,7 @@
 			"description":"Operations on notifications for users and institutions"
 		},
 		{
-						"path": "worker_activity.{format}",
+						"path": "work_activity.{format}",
 			"description":"Information about worker activity"
 		}
 		]
