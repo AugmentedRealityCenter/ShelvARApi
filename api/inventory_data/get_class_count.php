@@ -107,7 +107,7 @@ function getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	//        ." AND ping_time >= ? AND ping_time < ?";
 	$book_count = array($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
 	
-	echo $book_count;
+	echo json_encode($book_count);
 	fetchFromDB($query, $book_count, 'ssss');
 }
 
