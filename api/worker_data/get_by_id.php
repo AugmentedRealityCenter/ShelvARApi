@@ -27,6 +27,34 @@ if(stripos($oauth_user['scope'],"invread") === false) {
     exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
 }*/
 
+function computeActivities($result) {
+    $activities         = array();
+    $activityCount      = 1;
+    $lastDate           = $result[0]["time"];
+    $lastActivityEnd    = 0;
+    for ($i = 1; ($i < count($result)); $i++) {
+        $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
+        if ($diff >= $timeDiff) { 
+            $actString = "Activity " . $activityCount;
+            for ($j = $lastActivityEnd; ($j < $i); $j++) {
+                $activities[$actString][] = $result[$j];
+            }
+            $activityCount++;
+            $lastActivityEnd = $i;
+        }
+        if (($i === count($result) - 1) && $lastActivityEnd !== $i) {
+            $actString = "Activity " . $activityCount;
+            for ($j = $lastActivityEnd; ($j <= $i); $j++) {
+                $activities[$actString][] = $result[$j];
+            }
+            $activityCount++;
+            $lastActivityEnd = $i;
+        }
+        $lastDate = $result[$i]["time"];
+    }
+    return $activities;
+}
+
 // set the start date
 if (isset($_GET['start_date'])) {
     $startDate = urldecode($_GET['start_date']);
@@ -66,37 +94,14 @@ $db->type = 'ssss';
 $result = $db->fetch();
 
 if (!empty($result)) {
-    $newResult          = array();
-    $activityCount      = 1;
-    $lastDate           = $result[0]["time"];
-    $lastActivityEnd    = 0;
-    for ($i = 1; ($i < count($result)); $i++) {
-        $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
-        if ($diff >= $timeDiff) { 
-            $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j < $i); $j++) {
-                $newResult[$actString][] = $result[$j];
-            }
-            $activityCount++;
-            $lastActivityEnd = $i;
-        }
-        if (($i === count($result) - 1) && $lastActivityEnd !== $i) {
-            $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j <= $i); $j++) {
-                $newResult[$actString][] = $result[$j];
-            }
-            $activityCount++;
-            $lastActivityEnd = $i;
-        }
-        $lastDate = $result[$i]["time"];
-    }
+    $newResult = computeActivities($result);
     // format as JSON
     if ($format === 'json') {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json', $user);
         else header('Content-Type: application/json');
         echo json_encode(array($user=>$newResult,"result"=>"SUCCESS"));
-    // format as CSV
+        // format as CSV
     } else if ($format === 'csv') {
         if ($type === 'file') setFileHeaders('csv', $user);
         // get the keys to the associative array
