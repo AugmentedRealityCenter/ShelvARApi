@@ -118,14 +118,15 @@ function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 		$book_call_reg = '^' . $p_book_call . '[0-9]+ '; 
 	}
 
+	echo $book_call_reg;
 	//Could replace REGEX with an RLIKE. Not sure if performance boost or not
-	$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call REGEX ?"
-			  ." AND ping_time >= ? AND ping_time < ? ";
+	$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ?"
+			  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEX ?";
 
 
 	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	//        ." AND ping_time >= ? AND ping_time < ?";
-	$book_count = array($p_inst_id, $book_call_reg, $p_start_date, $p_end_date);
+	$book_count = array($p_inst_id, $p_start_date, $p_end_date, $book_call_reg);
 	fetchFromDB($query, $book_count, 'ssss');
 }
 
