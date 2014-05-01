@@ -75,11 +75,11 @@ if (isset($_GET['subclass'])) {
 	$isSubclass = urldecode($_GET['subclass']);
 }
 
-if ($isSubclass) {
-	getSubclass($inst_id, $book_call, $start_date, $end_date);
-} else {
+//if ($isSubclass) {
+//	getSubclass($inst_id, $book_call, $start_date, $end_date);
+//} else {
 	getClass($inst_id, $book_call, $start_date, $end_date);
-}
+//}
 
 /************Functions below****************/
 
@@ -106,15 +106,7 @@ function getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	//        ." AND ping_time >= ? AND ping_time < ?";
 	$book_count = array($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
-	//fetchFromDB($query, $book_count, 'ssss');
-	$db = new database();
-	$db->query = $query;
-	$db->params = $book_count;
-	$db->type = $type;
-
-	$result = $db->fetch();
-
-	echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
+	fetchFromDB($query, $book_count, 'ssss');
 }
 
 function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
@@ -134,15 +126,7 @@ function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	//        ." AND ping_time >= ? AND ping_time < ?";
 	$book_count = array($p_inst_id, $book_call_reg, $p_start_date, $p_end_date);
-	//fetchFromDB($query, $book_count, 'ssss');
-	$db = new database();
-	$db->query = $query;
-	$db->params = $book_count;
-	$db->type = $type;
-
-	$result = $db->fetch();
-
-	echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
+	fetchFromDB($query, $book_count, 'ssss');
 }
 
 function fetchFromDB($query, $book_count, $type){
