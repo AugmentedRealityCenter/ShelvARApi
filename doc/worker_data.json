@@ -4,7 +4,7 @@
     "resourcePath": "/worker_data",
     "apis": [
 		{
-			"path": "/worker_data/{user_id}",
+			"path": "/worker_activity/{user_id}",
             "description": "--- Temp description: Get worker work hours info, ya heard ---",
             "operations": [
 				{
