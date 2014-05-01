@@ -63,20 +63,36 @@ if (isset($_GET['end_date'])) {
     $end_date = date("Y-m-d H:i:s", strtotime($start_date."+1 year"));
 }
 
+/**Begin debug code**/
+if ( isset($_GET['test'])) {
+	test($inst_id, $start_date, $end_date);
+}
+
+/**End debug code**/
+
 $isSubclass = false;
 if (isset($_GET['subclass'])) {
 	$isSubclass = urldecode($_GET['subclass']);
 }
 
 if (isSubclass) {
-	getSubclass($book_call);
+	getSubclass($inst_id, $book_call, $start_date, $end_date);
 } else {
-	getClass($book_call);
+	getClass($inst_id, $book_call, $start_date, $end_date);
 }
 
 /************Functions below****************/
 
-function getClass($p_book_call){
+/****Begin debug code****/
+function test($p_inst_id, $p_start_date, $p_end_date){
+	$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
+	         ." AND ping_time >= ? AND ping_time < ?";
+	$book_count = array($p_inst_id, $p_start_date, $p_end_date);
+	fetchFromDB($query, $book_count, 'sss');
+}
+/****End debug code****/
+
+function getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$pattern = '/^[A-Z]+[0-9]+$/';
 	if(preg_match($pattern, $p_book_call)){
 		$p_book_call .= ' ';
@@ -89,11 +105,11 @@ function getClass($p_book_call){
 
 	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	//        ." AND ping_time >= ? AND ping_time < ?";
-	$book_count = array($inst_id, $p_book_call, $start_date, $end_date);
+	$book_count = array($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
 	fetchFromDB($query, $book_count, 'ssss');
 }
 
-function getSubclass($p_book_call){
+function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$book_call_reg = '';
 	$pattern = '/^[A-Z]+[0-9]+$/';
 	if(preg_match($pattern, $p_book_call)){
@@ -109,7 +125,7 @@ function getSubclass($p_book_call){
 
 	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	//        ." AND ping_time >= ? AND ping_time < ?";
-	$book_count = array($inst_id, $book_call_reg, $start_date, $end_date);
+	$book_count = array($p_inst_id, $book_call_reg, $p_start_date, $p_end_date);
 	fetchFromDB($query, $book_count, 'ssss');
 }
 
