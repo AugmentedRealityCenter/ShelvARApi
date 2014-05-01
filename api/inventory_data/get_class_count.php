@@ -97,9 +97,9 @@ function getSubclass($p_book_call){
 	$book_call_reg = '';
 	$pattern = '/^[A-Z]+[0-9]+$/';
 	if(preg_match($pattern, $p_book_call)){
-		book_call_reg = '/^' . $p_book_call . ' /';
+		$book_call_reg = '/^' . $p_book_call . ' /';
 	} else {
-		book_call_reg = '/^' . $p_book_call . '[0-9]+ /'; 
+		$book_call_reg = '/^' . $p_book_call . '[0-9]+ /'; 
 	}
 
 	//Could replace REGEX with an RLIKE. Not sure if performance boost or not
