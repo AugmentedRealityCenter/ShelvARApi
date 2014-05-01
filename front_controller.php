@@ -385,6 +385,7 @@ function handle_mt($path_arr) {
  * ------
  */
 function handle_oauth($path_arr) {
+// TODO: add api_count to oauth
     $root = $_SERVER['DOCUMENT_ROOT']."/";
     $method = $_SERVER['REQUEST_METHOD'];
 
