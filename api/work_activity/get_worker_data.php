@@ -52,7 +52,7 @@ $format     = isset($_GET['format']) ? strtolower($_GET['format']) : 'json';
 // type is raw output by default, user must specify if they want a file dl
 $type       = isset($_GET['type']) ? strtolower($_GET['type']) : 'raw';
 
-$query = "SELECT DISTINCT user_id as worker,".
+$query = "SELECT user_id as worker,".
     " count(DISTINCT book_call) as books_scanned".
     " FROM book_pings WHERE inst_id = ?".
     " AND ping_time >= ? AND ping_time < ?".
