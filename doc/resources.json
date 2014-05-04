@@ -1,41 +1,42 @@
 {
 	"apiVersion":"0.2",
 	"swaggerVersion":"1.1",
+    "basePath": "http://devapi.shelvar.com/doc"
 	"apis":[
 		{
-			"path":"book_pings.{format}",
+			"path":"/book_pings.{format}",
 			"description":"Operations on call numbers and database records of them"
 		},
 		{
-			"path":"book_tags.{format}",
+			"path":"/book_tags.{format}",
 			"description":"Operations on book tags"
 		},
 		{
-			"path":"lc_numbers.{format}",
+			"path":"/lc_numbers.{format}",
 			"description":"Operations on call numbers"
 		},
                 {
-                    	"path":"institutions.{format}",
+                    	"path":"/institutions.{format}",
 			"description":"Institution administration"
                 },
 		{
-                    	"path":"users.{format}",
+                    	"path":"/users.{format}",
 			"description":"Information about users"
 		},
 		{
-                    	"path":"make_tags.{format}",
+                    	"path":"/make_tags.{format}",
 			"description":"Utility for printing tags to PDF files"
 		},
 		{
-                    	"path":"oauth.{format}",
+                    	"path":"/oauth.{format}",
 			"description":"OAuth 1.0a utilities for app developers"
 		},
 		{
-                    	"path":"notifications.{format}",
+                    	"path":"/notifications.{format}",
 			"description":"Operations on notifications for users and institutions"
 		},
 		{
-						"path": "work_activity.{format}",
+						"path": "/work_activity.{format}",
 			"description":"Information about worker activity"
 		}
 		]
