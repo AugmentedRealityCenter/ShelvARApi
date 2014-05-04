@@ -52,7 +52,7 @@
                             "paramType": "query",
                             "required": false,
                             "allowMultiple": false,
-                            "dataType": 
+                            "dataType": "string"
                         }
 					],
 					"errorResponses": [
@@ -129,7 +129,7 @@
                             "paramType": "query",
                             "required": false,
                             "allowMultiple": false,
-                            "dataType": 
+                            "dataType": "string"
                         }
 					],
 					"errorResponses": [
