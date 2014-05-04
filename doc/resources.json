@@ -1,7 +1,7 @@
 {
 	"apiVersion":"0.2",
 	"swaggerVersion":"1.1",
-    "basePath": "http://devapi.shelvar.com/doc/",
+    "basePath": "http://devapi.shelvar.com/doc",
 	"apis":[
 		{
 			"path":"book_pings.{format}",
