@@ -69,7 +69,7 @@ if (!empty($result)) {
     $newResult          = array();
     $activityCount      = 1;
     $lastDate           = $result[0]["time"];
-    $lastActivityEnd    = 0;
+    $lastActivityEnd    = -1;
     for ($i = 1; ($i < count($result)); $i++) {
         $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
         if ($diff >= $timeDiff) { 
