@@ -44,9 +44,9 @@ if (isset($_GET['end_date'])) {
 }
 
 // format is json by default
-$format     = isset($_GET['format']) ? $_GET['format'] : 'json';
+$format     = isset($_GET['format']) ? strtolower($_GET['format']) : 'json';
 // type is raw output by default, user must specify if they want a file dl
-$type       = isset($_GET['type']) ? $_GET['type'] : 'raw';
+$type       = isset($_GET['type']) ? strtolower($_GET['type']) : 'raw';
 // min time between shelf read activity is 60 seconds by default
 $timeDiff   = isset($_GET['time_diff']) ? $_GET['time_diff'] : 60;
 // user id for which to grab shelf reading activity data

@@ -45,15 +45,7 @@
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
-						},
-                        {
-                            "name": "time_diff",
-                            "description": "The minimum time difference, in seconds, between two book_pings to define a new activity. Defaults to 60 seconds.",
-                            "paramType": "query",
-                            "required": false,
-                            "allowMultiple": false,
-                            "dataType": "string"
-                        }
+						}
 					],
 					"errorResponses": [
                         {
@@ -101,7 +93,7 @@
 						},
 						{
 							"name": "format",
-							"description": "Specify whether to return data in CSV or JSON. Options are either CSV or JSON. Defaults to JSON.",
+							"description": "Specify whether to return data in CSV or JSON. Options are either csv or json. Defaults to JSON.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,

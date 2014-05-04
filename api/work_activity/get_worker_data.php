@@ -48,9 +48,9 @@ if (isset($_GET['end_date'])) {
 }
 
 // format is json by default
-$format     = isset($_GET['format']) ? $_GET['format'] : 'json';
+$format     = isset($_GET['format']) ? strtolower($_GET['format']) : 'json';
 // type is raw output by default, user must specify if they want a file dl
-$type       = isset($_GET['type']) ? $_GET['type'] : 'raw';
+$type       = isset($_GET['type']) ? strtolower($_GET['type']) : 'raw';
 
 $query = "SELECT DISTINCT user_id as worker,".
     " count(DISTINCT book_call) as books_scanned".
