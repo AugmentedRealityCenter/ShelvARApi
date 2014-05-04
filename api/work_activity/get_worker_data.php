@@ -53,7 +53,7 @@ $format     = isset($_GET['format']) ? strtolower($_GET['format']) : 'json';
 $type       = isset($_GET['type']) ? strtolower($_GET['type']) : 'raw';
 
 $query = "SELECT user_id as worker,".
-    " count(DISTINCT book_call) as books_scanned".
+    " count(*) as books_scanned".
     " FROM book_pings WHERE inst_id = ?".
     " AND ping_time >= ? AND ping_time < ?".
     " GROUP BY user_id";
