@@ -80,7 +80,8 @@ if (!empty($result)) {
             $activityCount++;
             $lastActivityEnd = $i;
         }
-        if (($i === count($result) - 1) && $lastActivityEnd !== $i) {
+        if (($i === count($result) - 1) && $lastActivityEnd === $i) {
+            error_log("conditional");
             $actString = "Activity " . $activityCount;
             for ($j = $lastActivityEnd; ($j <= $i); $j++) {
                 $newResult[$actString][] = $result[$j];
