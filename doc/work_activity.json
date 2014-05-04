@@ -15,13 +15,45 @@
                     "nickname": "get_worker_report",
 					"parameters": [
 						{
-							"name": "fake_param",
-							"description": "Testing swag it out",
+							"name": "type",
+							"description": "Specify whether to return a file or echo output to page. Options are either raw or file. Defaults to raw.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
-						}
+						},
+						{
+							"name": "format",
+							"description": "Specify whether to return data in CSV or JSON. Options are either CSV or JSON. Defaults to JSON.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "start_date",
+							"description": "Inclusive start date to query work activity with format YYYY-MM-DD HH:MM:SS. Defaults to one week ago from current date.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "end_date",
+							"description": "Exclusive start date with format YYYY-MM-DD HH:MM:SS. Defaults to one week from start_date.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+                        {
+                            "name": "time_diff",
+                            "description": "The minimum time difference, in seconds, between two book_pings to define a new activity. Defaults to 60 seconds.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": 
+                        }
 					],
 					"errorResponses": [
                         {
@@ -46,27 +78,59 @@
             "operations": [
 				{
 					"httpMethod": "GET",
-                    "summary": "Get worker hours info 2",
-                    "notes": "Retrieves the number of book pings made by a particular worker within two weeks or a specified time window.",
+                    "summary": "Get work activity for specific worker",
+                    "notes": "Retrieves the book call numbers and time stamps made by a particular worker in a specified time window. Separates the calls and time stamps into activities based on the minimum time difference parameter.",
                     "responseClass": "string",
                     "nickname": "get_worker_report_param",
 					"parameters": [
 						{
 							"name": "user_id",
-							"description": "The user id.",
+							"description": "The user id for which to get work activity data.",
 							"paramType": "path",
 							"required": true,
 							"allowMultiple": false,
 							"dataType": "string"
 						},
 						{
-							"name": "fake_param",
-							"description": "Testing swag it out",
+							"name": "type",
+							"description": "Specify whether to return a file or echo output to page. Options are either raw or file. Defaults to raw.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
-						}
+						},
+						{
+							"name": "format",
+							"description": "Specify whether to return data in CSV or JSON. Options are either CSV or JSON. Defaults to JSON.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "start_date",
+							"description": "Inclusive start date to query work activity. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one week ago from current date.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "end_date",
+							"description": "Exclusive end date to query work activity. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one week from start_date.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+                        {
+                            "name": "time_diff",
+                            "description": "The minimum time difference, in seconds, between two book_pings to define a new activity. Defaults to 60 seconds.",
+                            "paramType": "query",
+                            "required": false,
+                            "allowMultiple": false,
+                            "dataType": 
+                        }
 					],
 					"errorResponses": [
                         {
