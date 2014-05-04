@@ -10,7 +10,7 @@
 				{
 					"httpMethod": "GET",
                     "summary": "Get worker hours info",
-                    "notes": "Retrieves the number of book pings made by a particular worker within two weeks or a specified time window.",
+                    "notes": "Retrieves the number of book pings made by all workers within the specified time window.",
                     "responseClass": "string",
                     "nickname": "get_worker_report",
 					"parameters": [
