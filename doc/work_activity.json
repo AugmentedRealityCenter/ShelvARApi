@@ -9,7 +9,7 @@
             "operations": [
 				{
 					"httpMethod": "GET",
-                    "summary": "Get worker hours info",
+                    "summary": "Get info for all workers",
                     "notes": "Retrieves the number of book pings made by all workers within the specified time window.",
                     "responseClass": "string",
                     "nickname": "get_worker_report",
