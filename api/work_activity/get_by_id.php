@@ -89,6 +89,7 @@ if (!empty($result)) {
             $lastActivityEnd = $i;
         }
         $lastDate = $result[$i]["time"];
+        error_log("i: " . $i . " count result: " . (count($result) - 1) . " lastActEnd: " . $lastActivityEnd);
     }
     // format as JSON
     if ($format === 'json') {
