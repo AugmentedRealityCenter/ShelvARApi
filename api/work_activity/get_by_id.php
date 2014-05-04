@@ -74,20 +74,17 @@ if (!empty($result)) {
         $diff = abs(strtotime($lastDate) - strtotime($result[$i]["time"]));
         if ($diff >= $timeDiff) { 
             $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j < $i); $j++) {
+            for ($j = $lastActivityEnd+1; ($j < $i); $j++) {
                 $newResult[$actString][] = $result[$j];
             }
             $activityCount++;
-            $lastActivityEnd = $i;
+            $lastActivityEnd = $i - 1;
         }
-        if (($i === count($result) - 1) && $lastActivityEnd === $i) {
-            error_log("conditional");
+        if (($i === count($result) - 1) && $lastActivityEnd < $i) {
             $actString = "Activity " . $activityCount;
-            for ($j = $lastActivityEnd; ($j <= $i); $j++) {
+            for ($j = $lastActivityEnd+1; ($j <= $i); $j++) {
                 $newResult[$actString][] = $result[$j];
             }
-            $activityCount++;
-            $lastActivityEnd = $i;
         }
         $lastDate = $result[$i]["time"];
         error_log("i: " . $i . " count result: " . (count($result) - 1) . " lastActEnd: " . $lastActivityEnd);
