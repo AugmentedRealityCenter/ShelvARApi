@@ -55,6 +55,10 @@ if (isset($_GET['end_date'])) {
     $end_date = date("Y-m-d H:i:s", strtotime($start_date."+1 year"));
 }
 
+// format is json by default
+$format     = isset($_GET['format']) ? strtolower($_GET['format']) : 'json';
+// type is raw output by default, user must specify if they want a file dl
+$type       = isset($_GET['type']) ? strtolower($_GET['type']) : 'raw';
 
 	$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	         ." AND ping_time >= ? AND ping_time < ?";
@@ -68,6 +72,56 @@ if (isset($_GET['end_date'])) {
 
 	$result = $db->fetch();
 
-	echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
+	if (!empty($result)) {
+    // format as JSON
+    if ($format === 'json') {
+        // user requests a file download
+        if ($type === 'file') setFileHeaders('json');
+        else header('Content-Type: application/json');
+        echo json_encode(array("inventory"=>$result,"result"=>"SUCCESS"));
+    // format as CSV
+    } else if ($format === 'csv') {
+        if ($type === 'file') setFileHeaders('csv');
+        // use first result set keys as csv headings
+        $keys = array_keys($result[0]);
+        // echo csv headings
+        for ($i = 0; ($i < count($keys)); $i++) {
+            echo '"'.$keys[$i].'"';
+            echo ($i <= (count($keys) - 1)) ? ',' : '';
+        }
+        echo "\n";
+        // echo data
+        for ($i = 0; ($i < count($result)); $i++) {
+            foreach ($result[$i] as $key => $value) {
+                echo $value . ",";
+            }
+            echo "\n";
+        }
+    } else {
+        // invalid format specification, so throw error
+        header('Content-Type: application/json');
+        echo json_encode(array("ERROR invalid format specification"));
+    }
+	} else {
+		header('Content-Type: application/json');
+		echo json_encode(array("inventory"=>"No inventory data found in specified"." time period","result"=>"SUCCESS"));
+	}
+
+/**
+ * Set the headers such that the user is prompted
+ * to download the file, rather than see the contents
+ * in the page.
+ */
+function setFileHeaders($fileType) {
+    if ($fileType === 'json') {
+        header('Content-Type: application/json');
+        header('Content-Disposition: attachment; filename="inventory.json"');
+    } else if ($fileType === 'csv') {
+        header('Content-Type: application/csv');
+        header('Content-Disposition: attachment; filename="inventory.csv"');
+    }
+    header('Cache-Control: private, max-age=0, must-revalidate');
+    header('Pragma: public');
+}
 
 ?>
