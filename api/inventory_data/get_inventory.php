@@ -69,6 +69,5 @@ if (isset($_GET['end_date'])) {
 	$result = $db->fetch();
 
 	echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
-}
 
 ?>
