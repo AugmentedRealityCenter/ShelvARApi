@@ -59,7 +59,7 @@ if (isset($_GET['end_date'])) {
 	$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	         ." AND ping_time >= ? AND ping_time < ?";
 	
-	$book_call = array($inst_id,$startDate, $endDate);
+	$book_call = array($inst_id, $start_date, $end_date);
 
 	$db = new database();
 	$db->query = $query;
