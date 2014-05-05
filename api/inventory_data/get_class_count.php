@@ -94,7 +94,7 @@ function countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	if(preg_match($pattern, $p_book_call)){
 		//make sure that we don't grab extra numbers
 		//eg) calling BH102 and not getting back BH1023 in the results
-		$book_call_reg = '^' . $p_book_call . '( |.)';
+		$book_call_reg = '^' . $p_book_call . '[ .]';
 	} else {
 		//Normal
 		$book_call_reg = '^' . $p_book_call;
