@@ -56,18 +56,15 @@ if (isset($_GET['end_date'])) {
 }
 
 
-function test($p_inst_id, $p_start_date, $p_end_date){
 	$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	         ." AND ping_time >= ? AND ping_time < ?";
-	$book_count = array($p_inst_id, $p_start_date, $p_end_date);
-	fetchFromDB($query, $book_call, 'sss');
-}
+	
+	$book_call = array($inst_id,$startDate, $endDate);
 
-function fetchFromDB($query, $book_call, $type){
 	$db = new database();
 	$db->query = $query;
 	$db->params = $book_call;
-	$db->type = $type;
+	$db->type = 'sss';
 
 	$result = $db->fetch();
 
