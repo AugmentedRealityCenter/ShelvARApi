@@ -118,7 +118,7 @@ function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	//See if we're just have letters (class/subclass)
 	if(preg_match($pattern, $p_book_call)){
 		//Make sure we have no letters following (options are spaces, dots and numbers)
-		$book_call_reg = '^' . $p_book_call . '( |.|[0-9]+)';
+		$book_call_reg = '^' . $p_book_call . '[ .0-9]';
 		
 		$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ?"
 				  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
