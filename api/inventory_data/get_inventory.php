@@ -60,13 +60,13 @@ function test($p_inst_id, $p_start_date, $p_end_date){
 	$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
 	         ." AND ping_time >= ? AND ping_time < ?";
 	$book_count = array($p_inst_id, $p_start_date, $p_end_date);
-	fetchFromDB($query, $book_count, 'sss');
+	fetchFromDB($query, $book_call, 'sss');
 }
 
-function fetchFromDB($query, $book_count, $type){
+function fetchFromDB($query, $book_call, $type){
 	$db = new database();
 	$db->query = $query;
-	$db->params = $book_count;
+	$db->params = $book_call;
 	$db->type = $type;
 
 	$result = $db->fetch();
