@@ -117,6 +117,7 @@ function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$pattern = '/^[A-Z]+$/';
 	//See if we're just have letters (class/subclass)
 	if(preg_match($pattern, $p_book_call)){
+		echo 'It is the regex if this works!';
 		//Make sure we have no letters following (options are spaces, dots and numbers)
 		$book_call_reg = '^' . $p_book_call . '( |.|[0-9]+)';
 		
