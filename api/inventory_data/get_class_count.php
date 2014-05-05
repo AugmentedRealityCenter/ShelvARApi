@@ -94,39 +94,41 @@ function test($p_inst_id, $p_start_date, $p_end_date){
 
 function getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$pattern = '/^[A-Z]+[0-9]+$/';
+	$book_call_reg = '';
+	//if p_book_call is exactly letters followed by numbers
 	if(preg_match($pattern, $p_book_call)){
-		$p_book_call .= ' ';
+		//make sure that we don't grab extra numbers
+		//eg) calling BH102 and not getting back BH1023 in the results
+		$book_call_reg = '^' . $p_book_call . '( |.)';
+	} else {
+		//Normal
+		$book_call_reg = '^' . $p_book_call;
 	}
 
-	$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call LIKE ?"
+	$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ? AND book_call REGEXP ?"
 			  ." AND ping_time >= ? AND ping_time < ? ";
-	$p_book_call .= '%';
 
-
-	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
-	//        ." AND ping_time >= ? AND ping_time < ?";
-	$book_count = array($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+	$book_count = array($p_inst_id, $book_call_reg, $p_start_date, $p_end_date);
 	fetchFromDB($query, $book_count, 'ssss');
 }
 
 function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$book_call_reg = '';
-	$pattern = '/^[A-Z]+[0-9]+$/';
+	$pattern = '/^[A-Z]+$/';
+	//See if we're just have letters (class/subclass)
 	if(preg_match($pattern, $p_book_call)){
-		$book_call_reg = '^' . $p_book_call . ' ';
+		//Make sure we have no letters following (options are spaces, dots and numbers)
+		$book_call_reg = '^' . $p_book_call . '( |.|[0-9]+)';
+		
+		$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ?"
+				  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
+
+		$book_count = array($p_inst_id, $p_start_date, $p_end_date, $book_call_reg);
+		fetchFromDB($query, $book_count, 'ssss');
 	} else {
-		$book_call_reg = '^' . $p_book_call . '[0-9]+ '; 
+		//Otherwise performs the same as getClass
+		getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
 	}
-
-	//Could replace REGEX with an RLIKE. Not sure if performance boost or not
-	$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ?"
-			  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
-
-
-	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
-	//        ." AND ping_time >= ? AND ping_time < ?";
-	$book_count = array($p_inst_id, $p_start_date, $p_end_date, $book_call_reg);
-	fetchFromDB($query, $book_count, 'ssss');
 }
 
 function fetchFromDB($query, $book_count, $type){
