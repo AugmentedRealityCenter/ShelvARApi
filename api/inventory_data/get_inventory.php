@@ -72,8 +72,8 @@ $type       = isset($_GET['type']) ? strtolower($_GET['type']) : 'raw';
 
 	$result = $db->fetch();
 
-	if (!empty($result)) {
-    // format as JSON
+if (!empty($result)) {
+// format as JSON
     if ($format === 'json') {
         // user requests a file download
         if ($type === 'file') setFileHeaders('json');
@@ -102,10 +102,10 @@ $type       = isset($_GET['type']) ? strtolower($_GET['type']) : 'raw';
         header('Content-Type: application/json');
         echo json_encode(array("ERROR invalid format specification"));
     }
-	} else {
-		header('Content-Type: application/json');
-		echo json_encode(array("inventory"=>"No inventory data found in specified"." time period","result"=>"SUCCESS"));
-	}
+} else {
+	header('Content-Type: application/json');
+	echo json_encode(array("inventory"=>"No inventory data found in specified"." time period","result"=>"SUCCESS"));
+}
 
 /**
  * Set the headers such that the user is prompted
