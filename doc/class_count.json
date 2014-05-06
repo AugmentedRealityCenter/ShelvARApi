@@ -1,10 +1,10 @@
 {
     "apiVersion": "0.2",
     "swaggerVersion": "1.1",
-    "resourcePath": "/inventory",
+    "resourcePath": "/class_count",
     "apis": [
 		{
-			"path": "/class_count/{count}",
+			"path": "/class_count/",
             "description": "Get inventory data for the institution and also the count for each library of congress class",
             "operations": [
 				{
