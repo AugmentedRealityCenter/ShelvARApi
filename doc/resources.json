@@ -37,6 +37,10 @@
 		{
 						"path": "work_activity.{format}",
 			"description":"Information about worker activity"
+		},
+		{
+						"path": "inventory.{format}",
+			"description":"Information about book inventory"
 		}
 		]
 }
