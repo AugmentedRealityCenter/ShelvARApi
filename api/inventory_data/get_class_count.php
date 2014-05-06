@@ -116,7 +116,8 @@ function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	} else {
 		//Otherwise we know we want all subclasses
 		$count_data = countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
-		$count_data[] = findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+		$val = findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+		array_push($cound_data, "subclasses", $val);
 		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 	}
 }
@@ -127,9 +128,6 @@ function hasSubclassOnlyChar($p_book_call){
 }
 
 function findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
-	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ? AND "
-	//			. " ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
-	//$query_params = array($p_inst_id, $p_start_date, $p_end_date, $book_reg);
 	$book_search = "";
 	$resultArr = array();
 	foreach (range('A', 'Z') as $letter) {
