@@ -5,7 +5,7 @@ if(!isset($_GET['oauth_token'])) {
 	error_log("Hello Friend");
 }
 
-error_log("server ".print_r($_SERVER,1));
+error_log("server req method ".print_r($_SERVER['REQUEST_METHOD'],1));
 error_log("get ".print_r($_GET,1));
 error_log("post ".print_r($_POST,1));
 
