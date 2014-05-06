@@ -397,31 +397,35 @@ function handle_oauth($path_arr) {
             // determine and dispatch necessary file
             switch($path_arr[1]) {
             case "get_request_token":  
-                include $root.$get_req_token;	
+				if (api_count(1)) {
+					include $root.$get_req_token;	
+				}
                 break;
-            case "login":    
-                include $root.$get_login; 	
+            case "login":   
+				if (api_count(1)) {
+					include $root.$get_login; 	
+				}
                 break;
             case "get_access_token":  
-                include $root.$get_acc_token; 
+				include $root.$get_acc_token; 
                 break;
             case "whoami":   
-                include $root.$get_whoami;
+				include $root.$get_whoami;
                 break;
             case "post_login": 
-                include $root.$get_post_login; 
+				include $root.$get_post_login; 
                 break;
             default: throw_error(404, "404 - not found"); break;
             }
         } else if ($method === "POST") {
             if ($path_arr[1] === "login") {
-                include $root.$get_login;
+					include $root.$get_login;
             } else if ($path_arr[1] === 'post_login') {
-                include $root.$get_post_login;
+					include $root.$get_post_login;
             } else if ($path_arr[1] === 'get_request_token') {
-                include $root.$get_req_token;
+					include $root.$get_req_token;
             } else if ($path_arr[1] === 'get_access_token') {
-                include $root.$get_acc_token;
+					include $root.$get_acc_token;
             }
         } else {
             throw_error(405, "405 - method not allowed");
