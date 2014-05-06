@@ -40,7 +40,7 @@ if (isset($_GET['inst_id'])) {
 
 $book_call = "";
 if (isset($_GET['book_call'])) {
-    $book_call = urldecode($_GET['book_call']);
+    $book_call = strtoupper(urldecode($_GET['book_call']));
 } else {
 	//Empty on purpose
     $book_call = "";
@@ -64,14 +64,14 @@ if (isset($_GET['end_date'])) {
 }
 
 if (isset($_GET['book_call_end'])) {
-	$book_call_end = urldecode($_GET['book_call_end']);
-	getClassRange($inst_id, $book_call, $book_call_end, $start_date, $end_date);
+	$book_call_end = strtoupper(urldecode($_GET['book_call_end']));
+	getSubclassRange($inst_id, $book_call, $book_call_end, $start_date, $end_date);
 } else {
 	getClassCount($inst_id, $book_call, $start_date, $end_date);
 }
 /************Functions below****************/
 
-function getClassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_start_date, $p_end_date){
+function getSubclassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_start_date, $p_end_date){
 	//Return an error if the call start and call end are not the same length
 	if(strlen($p_book_call_start) !== strlen($p_book_call_end)){
 		echo json_encode(array("result"=>"ERROR", "message"=>"book_call and book_call_end must be the same length"));
@@ -80,6 +80,12 @@ function getClassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_star
 
 	$start_arr = str_split($p_book_call_start);
 	$end_arr = str_split($p_book_call_end);	
+	
+	if($start_arr[0] !== $end_arr[0]){
+		echo json_encode(array("result"=>"ERROR", "message"=>"book_call and book_call_end must be in the same LCC class"));
+		return;
+	}
+	
 	$i=0;
 	while($i<count($start_arr) && $i<count($end_arr) && $start_arr[$i] === $end_arr[$i]) {
 		$i++;
