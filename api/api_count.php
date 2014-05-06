@@ -2,7 +2,6 @@
 $root = $_SERVER['DOCUMENT_ROOT']."/";
 include_once $root."db_info.php";
 include_once $root."database.php";
-include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
 

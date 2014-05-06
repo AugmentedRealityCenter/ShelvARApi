@@ -2,21 +2,13 @@
 $err = array();	
 if(!isset($_GET['oauth_token'])) {
     $err[] = "Application is broken: No token supplied";
-	error_log("Hello Friend");
 }
 
-error_log("server req method ".print_r($_SERVER['REQUEST_METHOD'],1));
-error_log("get ".print_r($_GET,1));
-error_log("post ".print_r($_POST,1));
-
 if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
-	error_log("How Have you been?");
     if(!isset($_POST['user_id'])) {
         $err[] = 'No username supplied';
-		error_log("I've been bad...");
     }
     if(!count($err)) {
-		error_log("You'll have to punish me ;}");
         $user_id = $_POST['user_id'];
         $user_id = strtolower($user_id);
         $password = $_POST['password'];
