@@ -7,7 +7,7 @@ if(!isset($_GET['oauth_token'])) {
 
 error_log("server ".print_r($_SERVER,1));
 error_log("get ".print_r($_GET,1));
-error_log("post ".print_r($_POST,1)):
+error_log("post ".print_r($_POST,1));
 
 if (!count($err) && $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['login'])) {
 	error_log("How Have you been?");
