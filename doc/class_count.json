@@ -61,7 +61,7 @@
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
-						},
+						}
                     ],
 					"errorResponses": [
                         {
