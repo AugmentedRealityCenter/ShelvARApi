@@ -63,43 +63,38 @@ if (isset($_GET['end_date'])) {
     $end_date = date("Y-m-d H:i:s", strtotime($start_date."+1 year"));
 }
 
-/**Begin debug code**/
-if ( isset($_GET['test'])) {
-	test($inst_id, $start_date, $end_date);
-}
-
-/**End debug code**/
-
-$isSubclass = false;
-if (isset($_GET['subclass'])) {
-	$isSubclass = urldecode($_GET['subclass']);
-}
-
-if ($isSubclass) {
-	getSubclass($inst_id, $book_call, $start_date, $end_date);
-} else {
-	getClass($inst_id, $book_call, $start_date, $end_date);
-}
+getClassCount($inst_id, $book_call, $start_date, $end_date);
 
 /************Functions below****************/
 
-/****Begin debug code****/
-function test($p_inst_id, $p_start_date, $p_end_date){
-	$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ?"
-	         ." AND ping_time >= ? AND ping_time < ?";
-	$book_count = array($p_inst_id, $p_start_date, $p_end_date);
-	fetchFromDB($query, $book_count, 'sss');
-}
-/****End debug code****/
+function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
+	$book_call_reg = '';
+	$pattern = '/^[A-Z]+_$/';
+	//See if we're just have letters (class/subclass)
+	if(preg_match($pattern, $p_book_call)){
+		//Make sure we have no letters following (options are spaces, dots and numbers)
+		//substr function used to get rid of '_' character
+		$book_call_reg = '^' . substr($p_book_call,0,strlen($p_book_call-1)) . '[ .0-9]';
+		
+		$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ?"
+				  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
 
-function getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
+		$book_count = array($p_inst_id, $p_start_date, $p_end_date, $book_call_reg);
+		fetchFromDB($query, $book_count, 'ssss');
+	} else {
+		//Otherwise we know we want all subclasses
+		countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+	}
+}
+
+function countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$pattern = '/^[A-Z]+[0-9]+$/';
 	$book_call_reg = '';
 	//if p_book_call is exactly letters followed by numbers
 	if(preg_match($pattern, $p_book_call)){
 		//make sure that we don't grab extra numbers
 		//eg) calling BH102 and not getting back BH1023 in the results
-		$book_call_reg = '^' . $p_book_call . '( |.)';
+		$book_call_reg = '^' . $p_book_call . '[ .]';
 	} else {
 		//Normal
 		$book_call_reg = '^' . $p_book_call;
@@ -112,25 +107,6 @@ function getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	fetchFromDB($query, $book_count, 'ssss');
 }
 
-function getSubclass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
-	$book_call_reg = '';
-	$pattern = '/^[A-Z]+$/';
-	//See if we're just have letters (class/subclass)
-	if(preg_match($pattern, $p_book_call)){
-		//Make sure we have no letters following (options are spaces, dots and numbers)
-		$book_call_reg = '^' . $p_book_call . '[ .0-9]';
-		
-		$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ?"
-				  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
-
-		$book_count = array($p_inst_id, $p_start_date, $p_end_date, $book_call_reg);
-		fetchFromDB($query, $book_count, 'ssss');
-	} else {
-		//Otherwise performs the same as getClass
-		getClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
-	}
-}
-
 function fetchFromDB($query, $book_count, $type){
 	$db = new database();
 	$db->query = $query;
@@ -138,8 +114,9 @@ function fetchFromDB($query, $book_count, $type){
 	$db->type = $type;
 
 	$result = $db->fetch();
-
-	echo json_encode(array("Call Numbers"=>$result,"result"=>"SUCCESS"));
+	echo $result[0][0];
+	// $result[0][1];
+	echo json_encode(array("Count"=>$result[0],"result"=>"SUCCESS"));
 }
 
 ?>
