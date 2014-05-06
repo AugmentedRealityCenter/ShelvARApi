@@ -5,7 +5,7 @@ include_once $root."database.php";
 include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
-/*
+//Begin comment out for debugging
 $oauth_user = get_oauth();
 $inst_id = $oauth_user['inst_id'];
 $user_id = $oauth_user['user_id'];
@@ -28,15 +28,17 @@ if($oauth_user['can_read_inv'] != 1){
  
 if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
-}*/
+}
+//end comment out for debugging
 
-$inst_id = '';
+//Uncomment below for easy debugging
+/*$inst_id = '';
 if (isset($_GET['inst_id'])) {
 	$inst_id = urldecode($_GET['inst_id']);
 } else {
 	// test default for now, TODO get rid later
 	$inst_id = 'sandbox';
-}
+}*/
 
 $book_call = "";
 if (isset($_GET['book_call'])) {
@@ -71,6 +73,11 @@ if (isset($_GET['book_call_end'])) {
 }
 /************Functions below****************/
 
+/**
+* Sends a json encoded message back containing all subclasses in the given range.
+* @throws error if book_call and book_call_end not the same length or
+*				if book_call and book_call_end do not start with the same letter
+*/
 function getSubclassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_start_date, $p_end_date){
 	//Return an error if the call start and call end are not the same length
 	if(strlen($p_book_call_start) !== strlen($p_book_call_end)){
@@ -108,6 +115,15 @@ function getSubclassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_s
 	}
 }
 
+/**
+*	Returns a json encoded message for the given call number prefix.
+*
+*	If p_book_call ends in the character '_' then it is treated as a special
+*	character that only returns the count for that LCC subclass.
+*
+*	Otherwise p_book_call is treated as an LCC class and a breakdown is given
+*	for the counts of all subclasses below it.
+*/
 function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	//See if we're just have letters (class/subclass)
 	if(hasSubclassOnlyChar($p_book_call)){
@@ -121,11 +137,18 @@ function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	}
 }
 
+/**
+*	Returns true if specifying the subclass only char: '_'
+*/
 function hasSubclassOnlyChar($p_book_call){
 	$pattern = '/^[A-Z]+_$/';
 	return preg_match($pattern, $p_book_call);
 }
 
+/**
+*	Returns a list of all subclasses for the given call number prefix that
+*	have a count > 0 within that time window.
+*/
 function findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$book_search = "";
 	$resultArr = array();
@@ -153,7 +176,8 @@ function findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 }
 
 /**
-* @precondition: $p_book_call ends in the appended character '_'. 
+*	Counts the number of book_pings seen for a given LCC class in the given time window.
+* 	@precondition: $p_book_call ends in the appended character '_'. 
 */
 function countClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	//Make sure we have no letters following (options are spaces, dots and numbers)
@@ -168,6 +192,9 @@ function countClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	return $count_data;
 }
 
+/**
+*	Counts the number of book_pings seen for an LCC subclass in a given time window
+*/
 function countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$pattern = '/^[A-Z]+[0-9]+$/';
 	$book_call_reg = '';
@@ -189,6 +216,9 @@ function countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	return $count_data;
 }
 
+/**
+*	Returns an array containing the call number prefix and the count seen
+*/
 function fetchFromDB($call_num, $query, $book_count, $type){
 	$db = new database();
 	$db->query = $query;
