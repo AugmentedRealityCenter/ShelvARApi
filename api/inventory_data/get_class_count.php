@@ -75,8 +75,9 @@ function getClassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_star
 	$start_arr = str_split($p_book_call_start);
 	$end_arr = str_split($p_book_call_end);
 	$i=0;
-	while($i<strlen($start_arr) && $i<strlen($end_arr) && 
-				$start_arr[$i] === $end_arr[$i]){
+	while($i<strlen($start_arr) && $i<strlen($end_arr)){// && 
+		echo $start_arr[$i] . ' ';
+		echo $end_arr[$i] . ' ';
 		$i++;
 	}
 	
