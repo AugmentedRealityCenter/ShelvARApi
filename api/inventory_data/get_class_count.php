@@ -72,8 +72,14 @@ if (isset($_GET['book_call_end'])) {
 /************Functions below****************/
 
 function getClassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_start_date, $p_end_date){
+	//Return an error if the call start and call end are not the same length
+	if(strlen($p_book_call_start) !== strlen($p_book_call_end)){
+		echo json_encode(array("result"=>"ERROR", "message"=>"book_call and book_call_end must be the same length"));
+		return;
+	}
+
 	$start_arr = str_split($p_book_call_start);
-	$end_arr = str_split($p_book_call_end);
+	$end_arr = str_split($p_book_call_end);	
 	$i=0;
 	while($i<count($start_arr) && $i<count($end_arr) && $start_arr[$i] === $end_arr[$i]) {
 		$i++;
