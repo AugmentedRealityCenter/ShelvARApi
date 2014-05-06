@@ -402,9 +402,9 @@ function handle_oauth($path_arr) {
 				}
                 break;
             case "login":   
-				//if (api_count(1)) {
+				if (api_count(1)) {
 					include $root.$get_login; 	
-				//}
+				}
                 break;
             case "get_access_token":  
 				if (api_count(1)) {
@@ -417,9 +417,7 @@ function handle_oauth($path_arr) {
 				}
                 break;
             case "post_login": 
-				if (api_count(1)) {
 					include $root.$get_post_login; 
-				}
                 break;
             default: throw_error(404, "404 - not found"); break;
             }
@@ -429,9 +427,7 @@ function handle_oauth($path_arr) {
 						include $root.$get_login;
 					}
             } else if ($path_arr[1] === 'post_login') {
-					if (api_count(1)) {
 						include $root.$get_post_login;
-					}
             } else if ($path_arr[1] === 'get_request_token') {
 					if (api_count(1)) {
 						include $root.$get_req_token;
