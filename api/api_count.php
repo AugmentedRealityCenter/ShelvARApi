@@ -6,7 +6,13 @@ include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
 
+
+
 // Wrapper class to increment the count for a specified API call
+
+// To see the database changes that make this possible 									--> ShelvARApi/API_count_database_changes
+// To see the ,json file that holds the rate limits 									--> ShelvARApi/ratelimits
+// To see additional information about the various calls and how they should be counted --> ShelvARApi/API_count info
 
 /**
  * This method determines if a given API call is under the count limit and can be used
