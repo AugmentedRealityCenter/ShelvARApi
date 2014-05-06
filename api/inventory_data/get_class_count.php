@@ -42,8 +42,8 @@ $book_call = "";
 if (isset($_GET['book_call'])) {
     $book_call = urldecode($_GET['book_call']);
 } else {
-    // test default for now, TODO get rid later
-    $book_call = "BH";
+	//Empty on purpose
+    $book_call = "";
 }
 
 $start_date = "";
