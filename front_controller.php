@@ -397,7 +397,9 @@ function handle_oauth($path_arr) {
             // determine and dispatch necessary file
             switch($path_arr[1]) {
             case "get_request_token":  
-				include $root.$get_req_token;	
+				if (api_count(1)) {
+					include $root.$get_req_token;	
+				}
                 break;
             case "login":   
 				include $root.$get_login; 	
