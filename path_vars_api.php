@@ -26,8 +26,6 @@ $get_post_login     		= "oauth/post-login.php";
 $get_worker_data    		= 'api/work_activity/get_worker_data.php';
 $get_worker_id      		= "api/work_activity/get_by_id.php";
 $get_class_count 			= 'api/inventory_data/get_class_count.php';
-$get_class_count_by_range 	= 'api/inventory_data/get_class_count_by_range.php';
-$get_subclass_count 		= 'api/inventory_data/get_subclass_count.php';
 $get_inventory 				= 'api/inventory_data/get_inventory.php';
 
 // post path constants
