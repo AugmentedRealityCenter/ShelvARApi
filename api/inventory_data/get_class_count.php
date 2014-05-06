@@ -68,10 +68,8 @@ getClassCount($inst_id, $book_call, $start_date, $end_date);
 /************Functions below****************/
 
 function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
-	$book_call_reg = '';
-	$pattern = '/^[A-Z]+_$/';
 	//See if we're just have letters (class/subclass)
-	if(preg_match($pattern, $p_book_call)){
+	if(hasSubclassOnlyChar($p_book_call)){
 		$count_data = countClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
 		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 	} else {
@@ -80,6 +78,11 @@ function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 		$count_data[] = findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
 		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 	}
+}
+
+function hasSubclassOnlyChar($p_book_call){
+	$pattern = '/^[A-Z]+_$/';
+	return preg_match($pattern, $p_book_call);
 }
 
 function findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
