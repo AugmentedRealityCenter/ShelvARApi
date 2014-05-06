@@ -233,6 +233,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			$numCalls = getCountFreeCall("GET_oauth_request_token_count");
 			$limit = grabLimit("GET oauth_request_token");
 
+			error_log("grt numcalls, limit " . print_r($numCalls,1) . " " . print_r($limit,1));
 			if ($numCalls < $limit)
 				return true;
 			else
@@ -241,7 +242,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_login_count");
 			$limit = grabLimit("GET oauth_login");
-
+error_log("l numcalls, limit " . print_r($numCalls,1) . " " . print_r($limit,1));
 			if ($numCalls < $limit)
 				return true;
 			else
@@ -250,7 +251,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_access_token_count");
 			$limit = grabLimit("GET oauth_access_token");
-
+error_log("gat numcalls, limit " . print_r($numCalls,1) . " " . print_r($limit,1));
 			if ($numCalls < $limit)
 				return true;
 			else
