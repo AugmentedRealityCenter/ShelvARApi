@@ -239,6 +239,7 @@ function is_incrementable($apiCall, $httpMethod) {
 			else
 				return false;
 		} else if ($path[1] == "login") {
+			error_log("api_count post for login: " . print_r($_POST,1));
 			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_login_count");
 			$limit = grabLimit("GET oauth_login");
