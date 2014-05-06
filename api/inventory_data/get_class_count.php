@@ -117,7 +117,6 @@ function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 		//Otherwise we know we want all subclasses
 		$count_data = countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
 		$count_data["subclasses"] = findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
-		//array_push($cound_data, "subclasses", $val);
 		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 	}
 }
@@ -188,7 +187,6 @@ function countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$book_count = array($p_inst_id, $book_call_reg, $p_start_date, $p_end_date);
 	$count_data = fetchFromDB($p_book_call, $query, $book_count, 'ssss');
 	return $count_data;
-	//echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 }
 
 function fetchFromDB($call_num, $query, $book_count, $type){
@@ -199,8 +197,7 @@ function fetchFromDB($call_num, $query, $book_count, $type){
 
 	$resultArr = $db->fetch();
 	$result = $resultArr[0];
-	return array("call_number"=>$call_num, "count"=>$result["COUNT(*)"]);
-	//echo json_encode(array("result"=>"SUCCESS", "call_number"=>$call_num, "count"=>$result["COUNT(*)"]));
+	return array("call_prefix"=>$call_num, "count"=>$result["COUNT(*)"]);
 }
 
 ?>
