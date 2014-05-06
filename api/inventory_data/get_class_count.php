@@ -6,6 +6,7 @@ include_once $root."header_include.php";
 include_once $root."api/api_ref_call.php";
 
 //Begin comment out for debugging
+/*
 $oauth_user = get_oauth();
 $inst_id = $oauth_user['inst_id'];
 $user_id = $oauth_user['user_id'];
@@ -29,16 +30,17 @@ if($oauth_user['can_read_inv'] != 1){
 if(stripos($oauth_user['scope'],"invread") === false) {
 	exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
 }
+*/
 //end comment out for debugging
 
 //Uncomment below for easy debugging
-/*$inst_id = '';
+$inst_id = '';
 if (isset($_GET['inst_id'])) {
 	$inst_id = urldecode($_GET['inst_id']);
 } else {
 	// test default for now, TODO get rid later
 	$inst_id = 'sandbox';
-}*/
+}
 
 $book_call = "";
 if (isset($_GET['book_call'])) {
