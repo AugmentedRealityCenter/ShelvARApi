@@ -248,6 +248,7 @@ error_log("l numcalls, limit " . print_r($numCalls,1) . " " . print_r($limit,1))
 			else
 				return false;
 		} else if ($path[1] == "get_access_token") {
+			error_log("Made it to gat");
 			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_access_token_count");
 			$limit = grabLimit("GET oauth_access_token");
