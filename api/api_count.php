@@ -13,6 +13,7 @@ include_once $root."api/api_ref_call.php";
 // To see the database changes that make this possible 									--> ShelvARApi/API_count_database_changes
 // To see the ,json file that holds the rate limits 									--> ShelvARApi/ratelimits
 // To see additional information about the various calls and how they should be counted --> ShelvARApi/API_count info
+// Sections currently without counts : notifications, work_activity, inventory
 
 /**
  * This method determines if a given API call is under the count limit and can be used
