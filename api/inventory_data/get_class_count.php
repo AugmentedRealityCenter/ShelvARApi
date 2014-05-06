@@ -90,7 +90,10 @@ function findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$resultArr = array();
 	foreach (range('A', 'Z') as $letter) {
 		$book_search = $p_book_call . $letter;
-		$resultArr[] = countSubclasses($p_inst_id, $book_search, $p_start_date, $p_end_date);
+		$result = countSubclasses($p_inst_id, $book_search, $p_start_date, $p_end_date);
+		if($result['count'] !== 0){
+			$resultArr[] = $result;
+		}
 	}
 	//Include . after
 	$book_search = $p_book_call . '.';
