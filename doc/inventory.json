@@ -65,7 +65,7 @@
 			]
 		},
 		{
-			"path": "/inventory/{count}",
+			"path": "/class_count/{count}",
             "description": "Get inventory data for the institution and also the count for each library of congress class",
             "operations": [
 				{
