@@ -116,8 +116,8 @@ function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	} else {
 		//Otherwise we know we want all subclasses
 		$count_data = countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
-		$val = findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
-		array_push($cound_data, "subclasses", $val);
+		$count_data["subclasses"] = findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+		//array_push($cound_data, "subclasses", $val);
 		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 	}
 }
