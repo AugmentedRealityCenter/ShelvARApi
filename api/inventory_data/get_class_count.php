@@ -113,10 +113,9 @@ function fetchFromDB($query, $book_count, $type){
 	$db->params = $book_count;
 	$db->type = $type;
 
-	$result = $db->fetch();
-	echo $result[0][0];
-	// $result[0][1];
-	echo json_encode(array("Count"=>$result[0],"result"=>"SUCCESS"));
+	$resultArr = $db->fetch();
+	$result = $resultArr[0];
+	echo json_encode(array("Count"=>$result["COUNT(*)"],"result"=>"SUCCESS"));
 }
 
 ?>
