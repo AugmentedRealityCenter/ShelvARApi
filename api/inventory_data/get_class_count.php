@@ -117,7 +117,7 @@ function fetchFromDB($call_num, $query, $book_count, $type){
 
 	$resultArr = $db->fetch();
 	$result = $resultArr[0];
-	return array("call_number"=>$call_num, "count"=>$result["COUNT(*)"]));
+	return array("call_number"=>$call_num, "count"=>$result["COUNT(*)"]);
 	//echo json_encode(array("result"=>"SUCCESS", "call_number"=>$call_num, "count"=>$result["COUNT(*)"]));
 }
 
