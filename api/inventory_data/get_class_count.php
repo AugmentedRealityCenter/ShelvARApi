@@ -92,7 +92,7 @@ function getClassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_star
 		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$data_arr));
 	} else {
 		//Else the characters are all the same
-		getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+		getClassCount($p_inst_id, $p_book_call_start . '_', $p_start_date, $p_end_date);
 	}
 }
 
