@@ -63,9 +63,39 @@ if (isset($_GET['end_date'])) {
     $end_date = date("Y-m-d H:i:s", strtotime($start_date."+1 year"));
 }
 
-getClassCount($inst_id, $book_call, $start_date, $end_date);
-
+if (isset($_GET['book_call_end'])) {
+	$book_call_end = urldecode($_GET['book_call_end']);
+	getClassRange($inst_id, $book_call, $book_call_end, $start_date, $end_date);
+} else {
+	getClassCount($inst_id, $book_call, $start_date, $end_date);
+}
 /************Functions below****************/
+
+function getClassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_start_date, $p_end_date){
+	$start_arr = str_split($p_book_call_start);
+	$end_arr = str_split($p_book_call_end);
+	$i=0;
+	while($i<strlen($start_arr) && $i<strlen($end_arr) && 
+				$start_arr[$i] === $end_arr[$i]){
+		$i++;
+	}
+	
+	//If the while loop broke from the last condition, use the range.
+	if($i<strlen($start_arr) && $i<strlen($end_arr)){
+		$data_arr = array();
+		foreach(range($start_arr[$i], $end_arr[$i]) as $letter){
+			$call = substr($p_book_call_start, 0, $i) . $letter . '_';
+			$result = countClass($p_inst_id, $call, $p_start_date, $p_end_date);
+			if($result['count'] !== 0){
+				$data_arr[] = $result;
+			}
+		}
+		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$data_arr));
+	} else {
+		//Else the characters are all the same
+		getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+	}
+}
 
 function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	//See if we're just have letters (class/subclass)
