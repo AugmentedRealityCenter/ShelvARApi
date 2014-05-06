@@ -411,9 +411,7 @@ function handle_oauth($path_arr) {
 				}
                 break;
             case "post_login": 
-				if (api_count(1)) {
 					include $root.$get_post_login; 
-				}
                 break;
             default: throw_error(404, "404 - not found"); break;
             }
