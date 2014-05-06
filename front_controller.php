@@ -402,7 +402,9 @@ function handle_oauth($path_arr) {
 				}
                 break;
             case "login":   
-				include $root.$get_login; 	
+				if (api_count(1)) {
+					include $root.$get_login; 	
+				}
                 break;
             case "get_access_token":  
 				include $root.$get_acc_token; 
