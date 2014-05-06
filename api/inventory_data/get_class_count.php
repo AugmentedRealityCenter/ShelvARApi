@@ -96,12 +96,18 @@ function findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 		}
 	}
 	//Include . after
-	$book_search = $p_book_call . '.';
-	$resultArr[] = countSubclasses($p_inst_id, $book_search, $p_start_date, $p_end_date);
-	
+	$book_search = $p_book_call . '[.]';
+	$result = countSubclasses($p_inst_id, $book_search, $p_start_date, $p_end_date);
+	if($result['count'] !== 0){
+		$resultArr[] = $result;
+	}
+		
 	//Include just the subclass
 	$book_search = $p_book_call . '_';
-	$resultArr[] = countClass($p_inst_id, $book_search, $p_start_date, $p_end_date);
+	$result = countSubclasses($p_inst_id, $book_search, $p_start_date, $p_end_date);
+	if($result['count'] !== 0){
+		$resultArr[] = $result;
+	}
 	return $resultArr;
 }
 
