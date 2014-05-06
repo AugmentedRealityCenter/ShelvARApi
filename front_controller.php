@@ -402,8 +402,8 @@ function handle_oauth($path_arr) {
 				}
                 break;
             case "login":   
+			error_log("post in fc: " . print_r($_POST,1));
 				if (api_count(1)) {
-					error_log("post in fc: " . print_r($_POST,1));
 					include $root.$get_login; 	
 				}
                 break;
