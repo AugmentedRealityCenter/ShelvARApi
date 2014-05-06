@@ -72,20 +72,50 @@ function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 	$pattern = '/^[A-Z]+_$/';
 	//See if we're just have letters (class/subclass)
 	if(preg_match($pattern, $p_book_call)){
-		//Make sure we have no letters following (options are spaces, dots and numbers)
-		//substr function used to get rid of '_' character
-		$book_call_reg = '^' . substr($p_book_call,0,strlen($p_book_call-1)) . '[ .0-9]';
-		
-		$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ?"
-				  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
-
-		$book_count = array($p_inst_id, $p_start_date, $p_end_date, $book_call_reg);
-		$count_data = fetchFromDB($p_book_call, $query, $book_count, 'ssss');
+		$count_data = countClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
 		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 	} else {
 		//Otherwise we know we want all subclasses
-		countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+		$count_data = countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+		$count_data[] = findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
+		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 	}
+}
+
+function findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
+	//$query = "SELECT DISTINCT book_call FROM book_pings WHERE inst_id = ? AND "
+	//			. " ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
+	//$query_params = array($p_inst_id, $p_start_date, $p_end_date, $book_reg);
+	$book_search = "";
+	$resultArr = array();
+	foreach (range('A', 'Z') as $letter) {
+		$book_search = $p_book_call . $letter;
+		$resultArr[] = countSubclasses($p_inst_id, $book_search, $p_start_date, $p_end_date);
+	}
+	//Include . after
+	$book_search = $p_book_call . '.';
+	$resultArr[] = countSubclasses($p_inst_id, $book_search, $p_start_date, $p_end_date);
+	
+	//Include just the subclass
+	$book_search = $p_book_call . '_';
+	$resultArr[] = countClass($p_inst_id, $book_search, $p_start_date, $p_end_date);
+	return $resultArr;
+}
+
+/**
+* @precondition: $p_book_call ends in the appended character '_'. 
+*/
+function countClass($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
+	//Make sure we have no letters following (options are spaces, dots and numbers)
+	//substr function used to get rid of '_' character
+	$book_call_reg = '^' . substr($p_book_call,0,strlen($p_book_call-1)) . '[ .0-9]';
+	
+	$query = "SELECT COUNT(*) FROM book_pings WHERE inst_id = ?"
+			  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
+
+	$book_count = array($p_inst_id, $p_start_date, $p_end_date, $book_call_reg);
+	$count_data = fetchFromDB($p_book_call, $query, $book_count, 'ssss');
+	return $count_data;
 }
 
 function countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
@@ -106,7 +136,8 @@ function countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 
 	$book_count = array($p_inst_id, $book_call_reg, $p_start_date, $p_end_date);
 	$count_data = fetchFromDB($p_book_call, $query, $book_count, 'ssss');
-	echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
+	return $count_data;
+	//echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 }
 
 function fetchFromDB($call_num, $query, $book_count, $type){
