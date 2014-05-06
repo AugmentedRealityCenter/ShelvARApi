@@ -80,11 +80,15 @@ function getClassRange($p_inst_id, $p_book_call_start, $p_book_call_end, $p_star
 		$i++;
 	}
 	
+	echo $i . '</br>';
+	
 	//If the while loop broke from the last condition, use the range.
 	if($i<strlen($start_arr) && $i<strlen($end_arr)){
 		$data_arr = array();
 		foreach(range($start_arr[$i], $end_arr[$i]) as $letter){
+			echo $letter . '</br>';
 			$call = substr($p_book_call_start, 0, $i) . $letter . '_';
+			echo $call . '</br>';
 			$result = countClass($p_inst_id, $call, $p_start_date, $p_end_date);
 			if($result['count'] !== 0){
 				$data_arr[] = $result;
