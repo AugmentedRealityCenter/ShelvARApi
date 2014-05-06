@@ -80,7 +80,8 @@ function getClassCount($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 				  ." AND ping_time >= ? AND ping_time < ? AND book_call REGEXP ?";
 
 		$book_count = array($p_inst_id, $p_start_date, $p_end_date, $book_call_reg);
-		fetchFromDB($query, $book_count, 'ssss');
+		$count_data = fetchFromDB($p_book_call, $query, $book_count, 'ssss');
+		echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 	} else {
 		//Otherwise we know we want all subclasses
 		countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date);
@@ -104,10 +105,11 @@ function countSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 			  ." AND ping_time >= ? AND ping_time < ? ";
 
 	$book_count = array($p_inst_id, $book_call_reg, $p_start_date, $p_end_date);
-	fetchFromDB($query, $book_count, 'ssss');
+	$count_data = fetchFromDB($p_book_call, $query, $book_count, 'ssss');
+	echo json_encode(array("result"=>"SUCCESS", "count_data"=>$count_data));
 }
 
-function fetchFromDB($query, $book_count, $type){
+function fetchFromDB($call_num, $query, $book_count, $type){
 	$db = new database();
 	$db->query = $query;
 	$db->params = $book_count;
@@ -115,7 +117,8 @@ function fetchFromDB($query, $book_count, $type){
 
 	$resultArr = $db->fetch();
 	$result = $resultArr[0];
-	echo json_encode(array("Count"=>$result["COUNT(*)"],"result"=>"SUCCESS"));
+	return array("call_number"=>$call_num, "count"=>$result["COUNT(*)"]));
+	//echo json_encode(array("result"=>"SUCCESS", "call_number"=>$call_num, "count"=>$result["COUNT(*)"]));
 }
 
 ?>
