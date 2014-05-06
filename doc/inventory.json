@@ -1,0 +1,68 @@
+{
+    "apiVersion": "0.2",
+    "swaggerVersion": "1.1",
+    "resourcePath": "/inventory",
+    "apis": [
+		{
+            "path": "/inventory/",
+			"description": "Get inventory data",
+			"operations": [
+				{
+					"httpMethod": "GET",
+                    "summary": "Get inventory data for the institution",
+                    "notes": "Retrieves the inventory data within the specified time window.",
+                    "responseClass": "string",
+                    "nickname": "get_inventory_data",
+					"parameters": [
+						{
+							"name": "type",
+							"description": "Specify whether to return a file or echo output to page. Options are either raw or file. Defaults to raw.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "format",
+							"description": "Specify whether to return data in CSV or JSON. Options are either CSV or JSON. Defaults to JSON.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "start_date",
+							"description": "Inclusive start date to query inventory with format YYYY-MM-DD HH:MM:SS. Defaults to one week ago from current date.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "end_date",
+							"description": "Exclusive start date with format YYYY-MM-DD HH:MM:SS. Defaults to one week from start_date.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						}
+					],
+					"errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+				}
+			]
+		}
+	]
+}
