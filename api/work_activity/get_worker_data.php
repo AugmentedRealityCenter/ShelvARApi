@@ -8,7 +8,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'].'/api/api_ref_call.php';
 include_once $_SERVER['DOCUMENT_ROOT'].'/database.php';
 
-/*$oauth_user = get_oauth();
+$oauth_user = get_oauth();
 $inst_id    = $oauth_user['inst_id'];
 $user_id    = $oauth_user['user_id'];
 
@@ -29,8 +29,7 @@ if($oauth_user['can_read_inv'] != 1){
 }
 if(stripos($oauth_user['scope'],"invread") === false) {
     exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to read data.')));
-}*/
-$inst_id = "forward";
+}
 
 // set the start date
 if (isset($_GET['start_date'])) {
