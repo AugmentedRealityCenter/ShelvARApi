@@ -86,8 +86,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['user_id']))
 					$err[] = "Error sending confirmation email";
 				}
 				
-				echo "<script type='text/javascript'>alert('Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.')</script>";
-			
+				//echo "<script type='text/javascript'>alert('Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.')</script>";
+				echo '<div id="Popup" style="position: absolute; top: 102px; left: 255.00000000000003px; display: block;">
+						<a id="popupClose">x</a>
+						<h1>Your password has been changed. You will receive the new, temporary password at the email address with which you registered. Once you have logged in with this password, you may change it by clicking on the \“Accounts and then User\” link.</h1>
+					 </div>';
 				
 			}
 			else 		//Failed the Validation test
