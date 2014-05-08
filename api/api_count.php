@@ -233,7 +233,6 @@ function is_incrementable($apiCall, $httpMethod) {
 			$numCalls = getCountFreeCall("GET_oauth_request_token_count");
 			$limit = grabLimit("GET oauth_request_token");
 
-			error_log("grt numcalls, limit " . print_r($numCalls,1) . " " . print_r($limit,1));
 			if ($numCalls < $limit)
 				return true;
 			else
@@ -242,17 +241,14 @@ function is_incrementable($apiCall, $httpMethod) {
 			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_login_count");
 			$limit = grabLimit("GET oauth_login");
-error_log("l numcalls, limit " . print_r($numCalls,1) . " " . print_r($limit,1));
 			if ($numCalls < $limit)
 				return true;
 			else
 				return false;
 		} else if ($path[1] == "get_access_token") {
-			error_log("Made it to gat");
 			checkLastReset("FREE");
 			$numCalls = getCountFreeCall("GET_oauth_access_token_count");
 			$limit = grabLimit("GET oauth_access_token");
-error_log("gat numcalls, limit " . print_r($numCalls,1) . " " . print_r($limit,1));
 			if ($numCalls < $limit)
 				return true;
 			else
@@ -611,8 +607,6 @@ function setFreeLastReset() {
 	$db->type = $typeNumCalls;
 	
 	$results = $db->fetch();
-	error_log("Non-Free");
-	error_log(print_r($results, 1));
 	$numCalls = intval( $results[0][$column] );
 	
 	return $numCalls;
@@ -632,7 +626,6 @@ function getCountFreeCall($column) {
 	$db->type = $typeNumCalls;
 	
 	$results = $db->fetch();
-	error_log(print_r($results, 1));
 	$numCalls = intval( $results[0][$column] );
 	
 	return $numCalls;
