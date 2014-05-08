@@ -5,18 +5,18 @@
     "apis": [
 		{
 			"path": "/class_count/",
-            "description": "Get inventory data for the institution and also the count for each library of congress class",
+            "description": "Counts the number of book pings seen within a given time window.",
             "operations": [
 				{
 					"httpMethod": "GET",
-                    "summary": "Get book call number count for the institution and also the count for each library of congress class",
-                    "notes": "Retrieves the book call numbers count for a specific institution within the specified time window.",
+                    "summary": "Counts the number of book pings seen within a given time window.",
+                    "notes": "Counts the number of book pings seen for an institution in a given time window. As a default, returns the count of all book pings seen in the past year for the institution. A breakdown is then given as \"subclasses\" which shows the positive counts found for each class or subclass. Requires authentication via OAuth to an account that has admin permissions. ",
                     "responseClass": "string",
                     "nickname": "get_class_count",
 					"parameters": [
 						{
 							"name": "book_call",
-							"description": "Specify which book call number to look up for the institution. If not specified returns the list of counts for each library of congress class.",
+							"description": "When specified, returns a list of call numbers that has that prefix. When only specifying a prefix of a class/subclass, a breakdown is also given for the subclasses under it. If the book_call ends in the character \'_\' then it treats the book_call as a subclass. For example, B can be a class and subclass, specifying B_ only returns the count for the B subclass.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
@@ -24,7 +24,7 @@
 						},
 						{
 							"name": "book_call_end",
-							"description": "Specify which book call number to end for the institution. If not specified returns the list of counts for each library of congress class.",
+							"description": "When specified, returns the count of book pings seen that have a call number falling within the range of book_call to book_call_end. Current implementation requires the range only be for subclasses within the same LCC class.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
@@ -32,7 +32,7 @@
 						},
 						{
 							"name": "type",
-							"description": "Specify whether to return a file or echo output to page. Options are either raw or file. Defaults to raw.",
+							"description": "When specified, returns a file or echo output to page. Options are either raw or file. Defaults to raw.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
@@ -40,7 +40,7 @@
 						},
 						{
 							"name": "format",
-							"description": "Specify whether to return data in CSV or JSON. Options are either csv or json. Defaults to JSON.",
+							"description": "When specified, returns the data in either CSV or JSON format. Options are either csv or json. Defaults to JSON.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
@@ -48,7 +48,7 @@
 						},
 						{
 							"name": "start_date",
-							"description": "Inclusive start date to query work activity. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one week ago from current date.",
+							"description": "Specifies the inclusive start date for the time window. Book pings will only be included in the count if they fall within the time window. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one week ago from current date.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
@@ -56,7 +56,7 @@
 						},
 						{
 							"name": "end_date",
-							"description": "Exclusive end date to query work activity. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one week from start_date.",
+							"description": "Specifies the exclusive end date for the time window. Book pings will only be included in the count if they fall within the time window. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one week from start_date.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
