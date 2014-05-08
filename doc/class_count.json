@@ -10,13 +10,13 @@
 				{
 					"httpMethod": "GET",
                     "summary": "Counts the number of book pings seen within a given time window.",
-                    "notes": "Counts the number of book pings seen for an institution in a given time window. As a default, returns the count of all book pings seen in the past year for the institution. A breakdown is then given as \"subclasses\" which shows the positive counts found for each class or subclass. Requires authentication via OAuth to an account that has admin permissions. ",
+                    "notes": "Counts the number of book pings seen for an institution in a given time window. As a default, returns the count of all book pings seen in the past year for the institution. A breakdown is then given as subclasses which shows the positive counts found for each class or subclass. Requires authentication via OAuth to an account that has admin permissions. ",
                     "responseClass": "string",
                     "nickname": "get_class_count",
 					"parameters": [
 						{
 							"name": "book_call",
-							"description": "When specified, returns a list of call numbers that has that prefix. When only specifying a prefix of a class/subclass, a breakdown is also given for the subclasses under it. If the book_call ends in the character \'_\' then it treats the book_call as a subclass. For example, B can be a class and subclass, specifying B_ only returns the count for the B subclass.",
+							"description": "When specified, returns a list of call numbers that has that prefix. When only specifying a prefix of a class/subclass, a breakdown is also given for the subclasses under it. If the book_call ends in the character _ then it treats the book_call as a subclass. For example, B can be a class and subclass, specifying B_ only returns the count for the B subclass.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
