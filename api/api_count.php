@@ -472,7 +472,10 @@ function handleIPAddress() {
 	
 	//I believe it is adding a new IP every time
 	
+	
+	
 	if ($results == NULL || count($results) == 0) {
+		error_log("New IP address added to database");
 		$query = "INSERT INTO unknown_users(ip_address) " .
 			"VALUES (?)" ;
 		$params = array($ip_address);
