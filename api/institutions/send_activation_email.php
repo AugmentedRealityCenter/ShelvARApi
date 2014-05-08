@@ -31,13 +31,16 @@
 		$db->params = array($inst_id);
 		$db->type = 's';	
 		$result = $db->fetch();
-			
+		
+		$username = getUsername($inst_id, $previous_admin);	
 		$subject = "ShelvAR.com Admin Change";
-		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear " . $name . ",<br/><br/>This email is to confirm that you are no longer the administrator of the ShelvAR account for ".$result[0]['name'].".<br/><br/>If you did not intend to change the admin of this institution, please contact support@shelvar.com.";
+		$message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear " . $username . ",<br/><br/>This email is to confirm that you are no longer the administrator of the ShelvAR account for ".$result[0]['name'].".<br/><br/>If you did not intend to change the admin of this institution, please contact support@shelvar.com.";
 		if(!mail($previous_admin, $subject, $message, $headers)) {
 			$err[] = "Error sending confirmation email";
 		}
-        $message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear " . $name . ",<br/><br/>This email is to confirm that you are the new admin of this institution. You can confirm this email address by clicking the following link:<br/><br/>".$api."institutions/activate_inst?inst_key=$activation_key&edit=1<br/><br/>If this message was sent as a mistake you can safely ignore it.";
+		
+		$username = getUsername($inst_id, $to);	
+        $message = "<img src='".$api."ShelvARLogo_Big.png' /><br/><br/>Dear " . $username . ",<br/><br/>This email is to confirm that you are the new admin of this institution. You can confirm this email address by clicking the following link:<br/><br/>".$api."institutions/activate_inst?inst_key=$activation_key&edit=1<br/><br/>If this message was sent as a mistake you can safely ignore it.";
 	}
 	else {
 					
@@ -49,4 +52,15 @@
 		$err[] = "Error sending confirmation email";
 	}
 
+	/******Functions defined below******/
+	
+	function getUsername($p_inst_id, $p_email_to){
+		$db = new database();
+		$db->query = "SELECT name FROM users WHERE inst_id = ? AND email = ?";
+		$db->params = array($p_inst_id, $p_email_to);
+		$db->type = 'ss';
+		$username = $db->fetch();
+		
+		return $username[0]['name'];
+	}
 ?>
