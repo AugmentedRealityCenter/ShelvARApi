@@ -20,7 +20,7 @@
 	
 	if(isset($editAdmin)) 
 	{
-		$inst_name = '';
+		//$inst_name = '';
 		
 		$root = $_SERVER['DOCUMENT_ROOT']."/";
 		include_once($root."db_info.php");
@@ -28,7 +28,7 @@
 			
 		$db = new database();
 		$db->query = "SELECT name FROM institutions WHERE inst_id = ?";
-		$db->params = array($inst_name);
+		$db->params = array($inst_id);
 		$db->type = 's';	
 		$result = $db->fetch();
 			
