@@ -635,7 +635,7 @@ function getCountFreeCall($column) {
 	
 	$results = $db->fetch();
 	error_log(print_r($results, 1));
-	$numCalls = intval( $results[0] );
+	$numCalls = intval( $results[0][0] );
 	
 	return $numCalls;
 }
