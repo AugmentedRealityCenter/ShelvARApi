@@ -617,7 +617,7 @@ function setFreeLastReset() {
 	$results = $db->fetch();
 	error_log("Non-Free");
 	error_log(print_r($results, 1));
-	$numCalls = intval( $results[0] );
+	$numCalls = intval( $results[0][$column] );
 	
 	return $numCalls;
 }
