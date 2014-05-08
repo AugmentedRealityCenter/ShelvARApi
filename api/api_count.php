@@ -168,7 +168,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return true;
 			else
 				return false;
-		} else if ($path[1] != "" && $path[2] == "permissions") {
+		} else if ($path[1] != "" && $path[2] != null && $path[2] == "permissions") {
 			if ($httpMethod = "GET") {
 				error_log("Made it to Users->Permissions");
 				checkLastReset("FREE");
@@ -336,7 +336,7 @@ function increment_count($apiCall, $httpMethod, $count) {
 		} else if ($path[1] == "edit") {	
 			updateCountFreeCall("POST_users_edit_count", $count);
 			return;
-		} else if ($path[1] != "" && $path[2] == "permissions") {
+		} else if ($path[1] != "" && $path[2] != null && $path[2] == "permissions") {
 			if ($httpMethod = "GET") {
 				updateCountFreeCall("GET_users_permissions_count", $count);
 				return;
