@@ -170,6 +170,7 @@ function is_incrementable($apiCall, $httpMethod) {
 				return false;
 		} else if ($path[1] != "" && $path[2] == "permissions") {
 			if ($httpMethod = "GET") {
+				error_log("Made it to Users->Permissions");
 				checkLastReset("FREE");
 				$numCalls = getCountFreeCall("GET_users_permissions_count");
 				$limit = grabLimit("GET users_permissions");
