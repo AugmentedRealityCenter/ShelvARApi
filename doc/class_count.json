@@ -10,7 +10,7 @@
 				{
 					"httpMethod": "GET",
                     "summary": "Counts the number of book pings seen within a given time window.",
-                    "notes": "Counts the number of book pings seen for an institution in a given time window. As a default, returns the count of all book pings seen in the past year for the institution. A breakdown is then given as subclasses which shows the positive counts found for each class or subclass. Requires authentication via OAuth to an account that has admin permissions. ",
+                    "notes": "Counts the number of book pings seen for an institution in a given time window. As a default, returns the count of all book pings seen in the past year for the institution. A breakdown is then given showing what classes (or subclasses) add to that. Requires authentication via OAuth to an account that has admin permissions. ",
                     "responseClass": "string",
                     "nickname": "get_class_count",
 					"parameters": [
@@ -48,7 +48,7 @@
 						},
 						{
 							"name": "start_date",
-							"description": "Specifies the inclusive start date for the time window. Book pings will only be included in the count if they fall within the time window. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one week ago from current date.",
+							"description": "Specifies the inclusive start date for the time window. Book pings will only be included in the count if they fall within the time window. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one year ago from current date.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
@@ -56,7 +56,7 @@
 						},
 						{
 							"name": "end_date",
-							"description": "Specifies the exclusive end date for the time window. Book pings will only be included in the count if they fall within the time window. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one week from start_date.",
+							"description": "Specifies the exclusive end date for the time window. Book pings will only be included in the count if they fall within the time window. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one year from start_date.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
