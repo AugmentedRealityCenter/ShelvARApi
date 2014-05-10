@@ -1,8 +1,13 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
-	include_once "../api_ref_call.php";
+    $root = $_SERVER['DOCUMENT_ROOT']."/";
+	include_once $root."database.php";
+	include_once $root."header_include.php";
+	include_once $root."api/api_ref_call.php";
 	
+    $oauth_user = get_oauth();
+    $inst_id = $oauth_user['inst_id'];
+    $user_id = $oauth_user['user_id'];
+
 	$err = array();
 	
 	if(stripos($oauth_user['scope'],"acctmod") === false) {
@@ -10,8 +15,8 @@
 	}
 	
 	$inst_id = "";
-	if(!$_POST['inst_id']) {
-		if(!$_GET['inst_id']) {
+	if(!isset($_POST['inst_id'])) {
+		if(!isset($_GET['inst_id'])) {
 			$err[] = "No inst_id supplied";
 		}
 		else $inst_id = $_GET['inst_id'];
@@ -75,9 +80,9 @@
 		
 		if (!empty($result)) 
 			echo json_encode(array("notifications"=>$result,"result"=>"SUCCESS"));
-		else echo json_encode(array("result"=>"no notifications found"));
+		else echo json_encode(array("result"=>"ERROR", "message"=>"No notifications found"));
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
 ?>

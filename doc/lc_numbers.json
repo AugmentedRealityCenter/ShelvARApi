@@ -4,7 +4,7 @@
     "resourcePath": "/lc_numbers", 
     "apis": [
         {
-            "path": "/lc_numbers/{call_number}.json", 
+            "path": "/lc_numbers/{call_number}", 
             "description": "LC Number information", 
             "operations": [
                 {

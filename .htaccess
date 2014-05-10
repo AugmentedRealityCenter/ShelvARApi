@@ -1,132 +1,28 @@
 Header set Access-Control-Allow-Origin *
 
-#This htaccess file implements site-based
+# This htaccess file implements site-based
 # licensing for ShelvAR. Each supported site needs
 # a rule that sets their institution code.
 
 RewriteEngine On
-
 RewriteRule ^$ https://api.shelvar.com/doc [R=301,L]
+
+# Rules for files we explicitly want to allow access to.
+# Any request not caught by these rules will go to the
+# front controller.
+
 RewriteRule ^doc - [L]
 RewriteRule ^error_log - [L]
-
 RewriteRule ^deploy - [L]
 RewriteRule ^ShelvARLogo_Big.png - [L]
-###########
-### API ###
-###########
+RewriteRule ^oauth/bootstrap.css$ - [L]
+RewriteRule ^oauth/reset_password.php$ - [L]
 
-#TODO: Update the regular expression to only accept valid base64 characters
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_tags/([^/]+)\.json$ api/lc2bin/book_tags.php [L,E=B64:$1]
+# Rule for requests that are API calls.
+# The following line makes a call to the front controller.
+# Specifies the request path as an environment variable.
+# An errant URI specification
+# results in a 404 being thrown by the front controller.
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^lc_numbers/(.+)\.json$ api/lc2bin/lc_numbers.php [L,E=call_number:$1]
+RewriteRule ^(.*+)$ front_controller.php [QSA,E=path:$1]
 
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_pings/count$ api/book_pings/get_ping_count_book.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_pings/([0-9]+)\.json$ api/book_pings/get_by_id.php [L,E=book_ping_id:$1]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^book_pings api/book_pings/book_ping.php [L]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^users/edit$ api/users/edit_user.php [L]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^users/([^/]+)/permissions$ api/users/edit_permissions.php [L,E=user_id:$1]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^users api/users/register_user.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/([^/]+)/permissions$ api/users/get_permissions.php [L,E=user_id:$1]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/activate_email$ api/users/activate_email.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/available/([^/]+)\.json$ api/users/user_available.php?user_id=$1 [L,QSA]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/email_registered/([^/]+)\.json$ api/users/email_registered.php [L,E=email:$1]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users/([^/]+)\.json$ api/users/get_user.php [L,E=user_id:$1]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^users api/users/get_users.php [L]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^institutions/edit$ api/institutions/edit_institution.php [L]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^institutions$ api/institutions/register_institution.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^institutions/activate_inst$ api/institutions/activate_inst.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^institutions/available/([^/]+)\.json$ api/institutions/inst_available.php?inst_id=$1 [L,QSA]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^institutions/([^/]+)\.json$ api/institutions/get_institution.php [L,E=inst_id:$1]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^institutions api/institutions/get_institutions.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^book_pings api/book_pings/book_pings_get.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^make_tags/([^/]+)\.pdf$ api/tagmaker/pdfPrint2.php [L,E=type:$1]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^make_tags/paper_formats$ api/tagmaker/tagformats.json [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/whoami$ api/oauth/whoami.php [L]
-
-#RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/get_access_token$ oauth/access_token.php [L]
-
-#RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/get_request_token$ oauth/request_token.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^oauth/login$ oauth/login.php [L]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^oauth/login$ oauth/login.php [L]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/get_inst_notification.php [L,E=inst_id:$1]
-
-RewriteCond %{THE_REQUEST} GET
-RewriteRule ^notifications/users/([^/]+)$ api/notifications/get_user_notification.php [L,E=user_id:$1]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^notifications/institutions/([^/]+)$ api/notifications/reg_inst_notification.php [L,E=inst_id:$1]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^notifications/users/([^/]+)$ api/notifications/reg_user_notification.php [L,E=user_id:$1]
-
-RewriteCond %{THE_REQUEST} POST
-RewriteRule ^notifications/([^/]+)/edit$ api/notifications/edit_notification.php [L,E=notif_id:$1]
-
-RewriteRule ^oauth/post_login$ oauth/post-login.php [L]
-
-RewriteRule ^oauth/register_user$ oauth/register_user.php [L]
-RewriteRule ^oauth_test/register$ oauth_test/register.html [L]
-
-RewriteRule ^oauth/bootstrap.css$ oauth/bootstrap.css [L]
-
-#Catch-all error message when someone tries to use non-existing API
-#Note that there are TWO ways to get here!
-#If you don't use L, then we will get here.
-#Also, if you do any substitution, then it will get here
-# via a re-direct...
-RewriteCond %{ENV:REDIRECT_STATUS} !=200
-RewriteRule ^(.*) sorry-api.php?api_info=/$1 [NS,QSA]

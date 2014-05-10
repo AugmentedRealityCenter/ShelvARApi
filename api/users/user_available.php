@@ -1,6 +1,6 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
 	                                  
 	if(isset($_GET['user_id'])) {                                                               
 		$user_id = $_GET['user_id'];                                  
@@ -11,9 +11,9 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"TAKEN", 'message'=>"Username already in use", 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"TAKEN"));
 		}
-		else echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"AVAILABLE", 'message'=>"", 'errors'=>""));
+		else echo json_encode(array('result'=>"SUCCESS", 'user_id'=>"AVAILABLE"));
 	}
-	else echo json_encode(array('result'=>"ERROR", 'errors'=>"No user ID supplied"));
+	else echo json_encode(array('result'=>"ERROR", 'message'=>"No user ID supplied"));
 ?>

@@ -1,0 +1,84 @@
+{
+    "apiVersion": "0.2",
+    "swaggerVersion": "1.1",
+    "resourcePath": "/class_count",
+    "apis": [
+		{
+			"path": "/class_count/",
+            "description": "Counts the number of book pings seen within a given time window.",
+            "operations": [
+				{
+					"httpMethod": "GET",
+                    "summary": "Counts the number of book pings seen within a given time window.",
+                    "notes": "Counts the number of book pings seen for an institution in a given time window. As a default, returns the count of all book pings seen in the past year for the institution. A breakdown is then given showing what classes (or subclasses) add to that. Requires authentication via OAuth to an account that has admin permissions. ",
+                    "responseClass": "string",
+                    "nickname": "get_class_count",
+					"parameters": [
+						{
+							"name": "book_call",
+							"description": "When specified, returns a list of call numbers that has that prefix. When only specifying a prefix of a class/subclass, a breakdown is also given for the subclasses under it. If the book_call ends in the character _ then it treats the book_call as a subclass. For example, B can be a class and subclass, specifying B_ only returns the count for the B subclass.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "book_call_end",
+							"description": "When specified, returns the count of book pings seen that have a call number falling within the range of book_call to book_call_end. Current implementation requires the range only be for subclasses within the same LCC class.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "type",
+							"description": "When specified, returns a file or echo output to page. Options are either raw or file. Defaults to raw.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "format",
+							"description": "When specified, returns the data in either CSV or JSON format. Options are either csv or json. Defaults to JSON.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "start_date",
+							"description": "Specifies the inclusive start date for the time window. Book pings will only be included in the count if they fall within the time window. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one year ago from current date.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "end_date",
+							"description": "Specifies the exclusive end date for the time window. Book pings will only be included in the count if they fall within the time window. Specify with format YYYY-MM-DD HH:MM:SS. Defaults to one year from start_date.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						}
+                    ],
+					"errorResponses": [
+                        {
+                            "code": 400,
+                            "reason": "Invalid ID supplied"
+                        },
+                        { 
+                            "code": 404,
+                            "reason": "Data not found"
+                        },
+                        {
+                            "code": 403,
+                            "reason": "Access denied. Authorization not provided."
+                        }
+                    ]
+				}
+			]
+		}
+	]
+}

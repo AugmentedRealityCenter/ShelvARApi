@@ -1,14 +1,18 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
-	include_once "../api_ref_call.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
 	
+    $oauth_user = get_oauth();
+    $inst_id = $oauth_user['inst_id'];
+    $user_id = $oauth_user['user_id'];
+
 	$err = array();
 	$contactread = true;
-	if(!$_GET['inst_id']) {
+	if(!isset($_GET['inst_id'])) {
 		$err[] = "No inst_id supplied";
 	}
-	if($_GET['inst_id'] != $oauth_user['inst_id']) {
+	if(!count($err) && $_GET['inst_id'] != $oauth_user['inst_id']) {
 		$err[] = "Invalid access to institution information";
 	}
 	if(stripos($oauth_user['scope'],"contactread") === false) {
@@ -27,11 +31,11 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'institution'=>$result, 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'institution'=>$result));//'errors'=>""));
 		}
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'institution'=>"", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
 ?>

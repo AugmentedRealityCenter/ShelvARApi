@@ -1,14 +1,18 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
-	include_once "../api_ref_call.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
+
+    $oauth_user = get_oauth();
+    $inst_id    = $oauth_user['inst_id'];
+    $user_id    = $oauth_user['user_id'];
 	
 	$err = array();
 	
-	if(!$_GET['user_id']) {
+	if(!isset($_GET['user_id'])) {
 		$err[] = "No user_id supplied";
 	}
-	if($_GET['user_id'] != $oauth_user['user_id']) {
+	if(!count($err) && ($_GET['user_id'] != $oauth_user['user_id'])) {
 		if($oauth_user['is_admin'] == 0) {
 			if($oauth_user['is_superadmin'] == 0) {
 				$err[] = "Invalid access to user account";
@@ -25,11 +29,11 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'user'=>$user_id, 'permissions'=>$result, 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'user'=>$user_id, 'permissions'=>$result));
 		}
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'user'=>"", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
 ?>

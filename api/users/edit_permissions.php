@@ -1,13 +1,17 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
-	include_once "../api_ref_call.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
+
+    $oauth_user = get_oauth();
+    $inst_id    = $oauth_user['inst_id'];
+    $user_id    = $oauth_user['user_id'];
 	
 	$err = array();
 	
 	$user_id = "";
-	if(!$_POST['user_id']) {
-		if(!$_GET['user_id']) {
+	if(!isset($_POST['user_id'])) {
+		if(!isset($_GET['user_id'])) {
 			$err[] = "No user_id supplied";
 		}
 		else $user_id = htmlspecialchars($_GET['user_id'], ENT_HTML401);
@@ -84,6 +88,6 @@
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR $err", 'user_id'=>"")); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
 ?>

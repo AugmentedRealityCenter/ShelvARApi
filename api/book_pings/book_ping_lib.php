@@ -77,7 +77,7 @@ function do_book_ping($jsoninput,$inst_id,$user_id){
 		die('JSON error stopped script');
 	}
 
-	include "../../db_info.php";
+	include $_SERVER['DOCUMENT_ROOT'].'/db_info.php';
 	/* Create a new mysqli object with database connection parameters */
 	$con = new mysqli($sql_server, $sql_user, $sql_password, $sql_database);
 
@@ -155,16 +155,15 @@ function do_book_ping($jsoninput,$inst_id,$user_id){
 			$success = false;
 		}
 	}
+	//Close connection to database
+	$con -> close();
   
-  if($success){
-    return 'SUCCESS Added '.count($decoded).' book_pings';
-  } 
-  else {
-    return 'ERROR';
-  }
-  
-  /* Close connection */
-  $con -> close();
+	if($success){
+		return array('result'=>'SUCCESS', 'countAdded'=>'Added '.count($decoded).' book_pings');
+	} 
+	else {
+		return array('result'=>'ERROR', 'message'=>'See error log.');
+	}
 }
 
 ?>

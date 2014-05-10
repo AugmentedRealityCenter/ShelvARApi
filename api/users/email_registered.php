@@ -1,8 +1,12 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
-	include_once "../api_ref_call.php";
-	
+	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
+
+    $oauth_user = get_oauth();
+    $inst_id    = $oauth_user['inst_id'];
+    $user_id    = $oauth_user['user_id'];
+
 	$err = array();
 	
 	if($oauth_user['is_admin'] == 0) {
@@ -22,9 +26,9 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'email'=>"REGISTERED", 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'email'=>"REGISTERED"));
 		}
-		else echo json_encode(array('result'=>"SUCCESS", 'email'=>"NOT REGISTERED", 'errors'=>""));
+		else echo json_encode(array('result'=>"SUCCESS", 'email'=>"NOT REGISTERED"));
 	}
-	else echo json_encode(array('result'=>"ERROR", 'email'=>"", 'errors'=>$err));
+	else echo json_encode(array('result'=>"ERROR", 'message'=>$err));
 ?>

@@ -4,7 +4,7 @@
     "resourcePath": "/make_tags", 
     "apis": [
         {
-            "path": "/make_tags/{paper_type}.pdf", 
+            "path": "/make_tags/{paper_type}", 
             "description": "Print tags to PDF", 
             "operations": [
                 {

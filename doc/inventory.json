@@ -1,30 +1,38 @@
 {
     "apiVersion": "0.2",
     "swaggerVersion": "1.1",
-    "resourcePath": "/notifications",
+    "resourcePath": "/inventory",
     "apis": [
 		{
-			"path": "/notifications/{inst_id}",
-            "description": "Gets or registers notifications for an institution",
-            "operations": [
+            "path": "/inventory/",
+			"description": "Get inventory data",
+			"operations": [
 				{
 					"httpMethod": "GET",
-                    "summary": "Get recent institution notifications",
-                    "notes": "Retrieves the most recent notifications for your institution. By default, will return the 20 most recent notifications. Notifications can be specified using the optional parameters. Requires authentication via OAuth, to an account that has \"admin\" permission.",
+                    "summary": "Get inventory data for the institution",
+                    "notes": "Retrieves the inventory data within the specified time window.",
                     "responseClass": "string",
-                    "nickname": "get_institution_notification",
+                    "nickname": "get_inventory_data",
 					"parameters": [
 						{
-							"name": "inst_id",
-							"description": "The institution id.",
-							"paramType": "path",
-							"required": true,
+							"name": "type",
+							"description": "Specify whether to return a file or echo output to page. Options are either raw or file. Defaults to raw.",
+							"paramType": "query",
+							"required": false,
+							"allowMultiple": false,
+							"dataType": "string"
+						},
+						{
+							"name": "format",
+							"description": "Specify whether to return data in CSV or JSON. Options are either CSV or JSON. Defaults to JSON.",
+							"paramType": "query",
+							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
 						},
 						{
 							"name": "start_date",
-							"description": "Return notifications that come on or after this date. \"YYYY-MM-DD HH:MM:SS\" format.",
+							"description": "Inclusive start date to query inventory with format YYYY-MM-DD HH:MM:SS. Defaults to one week ago from current date.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
@@ -32,19 +40,11 @@
 						},
 						{
 							"name": "end_date",
-							"description": "Return notifications that before this date. \"YYYY-MM-DD HH:MM:SS\" format.",
+							"description": "Exclusive start date with format YYYY-MM-DD HH:MM:SS. Defaults to one week from start_date.",
 							"paramType": "query",
 							"required": false,
 							"allowMultiple": false,
 							"dataType": "string"
-						},
-						{
-							"name": "num_limit",
-							"description": "Number of items to return, between 1 and 250. Default is 20.",
-							"paramType": "query",
-							"required": false,
-							"allowMultiple": false,
-							"dataType": "int"
 						}
 					],
 					"errorResponses": [
@@ -63,6 +63,6 @@
                     ]
 				}
 			]
-		}				
+		}
 	]
 }

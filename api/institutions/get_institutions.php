@@ -18,7 +18,7 @@
 	}
 	
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'institutions'=>"", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
-	else echo json_encode(array('result'=>"SUCCESS", 'institutions'=>$result, 'errors'=>"")); 
+	else echo json_encode(array('result'=>"SUCCESS", 'institutions'=>$result)); 
 ?>

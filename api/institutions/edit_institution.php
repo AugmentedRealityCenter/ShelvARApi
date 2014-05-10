@@ -1,17 +1,21 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
-	include_once "../api_ref_call.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/api/api_ref_call.php";
 	
+    $oauth_user = get_oauth();
+    $inst_id = $oauth_user['inst_id'];
+    $user_id = $oauth_user['user_id'];
+
 	$err = array();
 	
 	if(stripos($oauth_user['scope'],"acctmod") === false) {
-		exit(json_encode(array('result'=>'ERROR No permission to modify account.')));
+		exit(json_encode(array('result'=>'ERROR', 'message'=>'No permission to modify account.')));
 	}
 	
 	$inst_id = "";
-	if(!$_POST['inst_id']) {
-		if(!$_GET['inst_id']) {
+	if(!isset($_POST['inst_id'])) {
+		if(!isset($_GET['inst_id'])) {
 			$err[] = "No inst_id supplied";
 		}
 		else $inst_id = $_GET['inst_id'];
@@ -126,12 +130,12 @@
 				include_once($_SERVER['DOCUMENT_ROOT'] . "/api/institutions/send_activation_email.php");
 			}
 			if(!$err) {
-				echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'errors'=>"")); 
+				echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id)); 
 			}
 		}
 		else $err[] = "SQL Error";
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'inst_id'=>"", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
 ?>

@@ -4,7 +4,7 @@
 	
 	$err = array();
 	
-	if(!$_GET['inst_key']) {
+	if(!isset($_GET['inst_key'])) {
 		$err[] = 'No activation key supplied';
 	}
 	
@@ -32,7 +32,7 @@
 			$email_verified = 1;
 			$pending_email = "";
 
-            // activation flags
+            // activation flags            
             $is_activated = 1;
             $has_inv = 1;
 
@@ -55,7 +55,7 @@
 				}
 				
 				if(count($result) < 1) {  
-					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'user_id'=>"", 'errors'=>"", 'warnings'=>'No admin registered for this institution'));
+					echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>$inst_id, 'user_id'=>"")); //'warnings'=>'No admin registered for this institution'));
 					header('Location: '.$frontend.'register-user.php');
 				}
 				else {
@@ -79,6 +79,6 @@
 		}
 	}
 	if($err) {
-		echo json_encode(array('result'=>"ERROR", 'errors'=>$err)); 
+		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
 	}
 ?>

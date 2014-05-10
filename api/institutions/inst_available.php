@@ -1,6 +1,6 @@
 <?php
-	include_once "../../database.php";
-	include_once "../../header_include.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/database.php";
+	include_once $_SERVER['DOCUMENT_ROOT']."/header_include.php";
 	                                  
 	if(isset($_GET['inst_id'])) {                                                               
 		$inst_id = $_GET['inst_id'];                                  
@@ -11,9 +11,9 @@
 		
 		$result = $db->fetch();
 		if(!empty($result)) {
-			echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>"TAKEN", 'message'=>"Institution ID already in use", 'errors'=>""));
+			echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>"TAKEN"));
 		}
-		else echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>"AVAILABLE", 'message'=>"", 'errors'=>""));
+		else echo json_encode(array('result'=>"SUCCESS", 'inst_id'=>"AVAILABLE"));
 	}
-	else echo json_encode(array('result'=>"ERROR", 'errors'=>"No institution ID supplied"));
+	else echo json_encode(array('result'=>"ERROR", 'message'=>"No institution ID supplied"));
 ?>

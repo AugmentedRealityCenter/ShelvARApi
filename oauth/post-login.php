@@ -57,7 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST['allow'])) {
      exit;
    }
  }
- 
+
+$scope = '';
+
 if(stripos($RequestToken->getTokenScope(),"invread") !== false) {
 	$scope .= '<dd><p>&#149; Read inventory on your behalf</p>';
 }
