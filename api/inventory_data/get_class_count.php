@@ -170,7 +170,7 @@ function findSubclasses($p_inst_id, $p_book_call, $p_start_date, $p_end_date){
 		
 	//Include just the subclass
 	$book_search = $p_book_call . '_';
-	$result = countSubclasses($p_inst_id, $book_search, $p_start_date, $p_end_date);
+	$result = countClass($p_inst_id, $book_search, $p_start_date, $p_end_date);
 	if($result['count'] !== 0){
 		$resultArr[] = $result;
 	}
