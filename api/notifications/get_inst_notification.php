@@ -11,6 +11,7 @@
 	$err = array();
 	
 	if(stripos($oauth_user['scope'],"acctmod") === false) {
+        http_response_code(403);
 		exit(json_encode(array('result'=>'ERROR No permission to access account.')));
 	}
 	
@@ -24,6 +25,7 @@
 	else $inst_id = $_POST['inst_id'];
 	
 	if($inst_id != $oauth_user['inst_id'] || $oauth_user['is_superadmin'] == 0) {
+        http_response_code(403);
 		$err[] = "Invalid access to institution account";
 	}
 
