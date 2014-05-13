@@ -13,6 +13,7 @@
 		$err[] = "No inst_id supplied";
 	}
 	if(!count($err) && $_GET['inst_id'] != $oauth_user['inst_id']) {
+        http_response_code(403);
 		$err[] = "Invalid access to institution information";
 	}
 	if(stripos($oauth_user['scope'],"contactread") === false) {

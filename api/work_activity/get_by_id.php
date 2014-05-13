@@ -123,8 +123,7 @@ if (!empty($result)) {
     }
 } else {
     header('Content-Type: application/json');
-    echo json_encode(array("workers"=>"No worker data found in specified".
-        " time period","result"=>"SUCCESS"));
+    echo json_encode(array("workers"=>array(),"result"=>"SUCCESS"));
 }
 
 /**
