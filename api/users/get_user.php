@@ -15,6 +15,7 @@
 	if(!count($err) && ($_GET['user_id'] != $oauth_user['user_id'])) {
 		if($oauth_user['is_admin'] == 0) {
 			if($oauth_user['is_superadmin'] == 0) {
+                http_response_code(403);
 				$err[] = "Invalid access to user account";
 			}
 		}
@@ -37,7 +38,7 @@
 		if(!empty($result)) {
 			echo json_encode(array('result'=>"SUCCESS", 'user'=>$result));
 		}
-		else $err[] = "SQL Error";
+		else $err[] = "User ID not found";
 	}
 	if($err) {
 		echo json_encode(array('result'=>"ERROR", 'message'=>$err)); 
